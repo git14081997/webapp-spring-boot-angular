@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -57,6 +58,10 @@ public class Usuario implements Serializable {
 
 	@Column( name = "CUMPLEANOS", updatable = false, nullable = false)
 	private Date cumpleanos;
+
+	@CreationTimestamp
+	@Column( name = "CREADO", updatable = false, nullable = false)
+	private Date creado;
 
 	@Column( name = "ALTURA_METROS")
 	private Double alturaMetros;

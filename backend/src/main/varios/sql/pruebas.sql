@@ -33,7 +33,7 @@ grant select, insert, delete, update on dbdev.* to 'userapi'@'%';
 
 
 -- Relación uno a muchos 1-M entre 1Artista tiene Muchas canciones
-alter table cancion drop foreign key FKkoeqsbikkwgjhfa5mv9ybfq5a
+alter table cancion drop foreign key FK_CANCION_ARTISTA;
 drop table if exists artista;
 drop table if exists cancion;
 
@@ -69,47 +69,65 @@ alter table cancion
 
 
 -- relacion Muchos a Muchos M-M entre Libro-Escritor
-    alter table libro_escritor
-       drop foreign key FKnd82f6r1exglb0bbpjwm0ond6
+alter table libro_escritor
+   drop foreign key FKnd82f6r1exglb0bbpjwm0ond6
 
-    alter table libro_escritor
-       drop foreign key FKesq51snm36vikdx5caqqgwxcu
+alter table libro_escritor
+   drop foreign key FKesq51snm36vikdx5caqqgwxcu
 
 drop table if exists libro;
 drop table if exists escritor;
 drop table if exists libro_escritor;
 
-    create table libro (
-        id integer not null auto_increment,
-        titulo varchar(255),
-        primary key (id)
-    ) engine=InnoDB
+create table libro (
+    id integer not null auto_increment,
+    titulo varchar(255),
+    primary key (id)
+) engine=InnoDB
 
-    create table escritor (
-        id integer not null auto_increment,
-        nombre varchar(255),
-        primary key (id)
-    ) engine=InnoDB
+create table escritor (
+    id integer not null auto_increment,
+    nombre varchar(255),
+    primary key (id)
+) engine=InnoDB
 
-    create table libro_escritor (
-        escritor_id integer not null,
-        libro_id integer not null
-    ) engine=InnoDB
+create table libro_escritor (
+    escritor_id integer not null,
+    libro_id integer not null
+) engine=InnoDB
 
-    alter table libro_escritor
-       add constraint FKnd82f6r1exglb0bbpjwm0ond6
-       foreign key (escritor_id)
-       references escritor (id)
+alter table libro_escritor
+   add constraint FK_LE_ESCRITOR
+   foreign key (escritor_id)
+   references escritor (id)
 
-    alter table libro_escritor
-       add constraint FKesq51snm36vikdx5caqqgwxcu
-       foreign key (libro_id)
-       references libro (id)
+alter table libro_escritor
+   add constraint FK_LE_LIBRO
+   foreign key (libro_id)
+   references libro (id)
 
 -- relacion Muchos a Muchos M-M entre Libro-Escritor
 
 
 
+-- AGREGAR UN CAMPO MANUALMENTE
+ALTER TABLE USUARIOS_X ADD COLUMN CREADO DATE;
+
+-- QUITAR UN CAMPO
+ALTER TABLE USUARIOS_X DROP COLUMN CREADO;
+
+
+
+
+
+
+-- campos diferentes
+drop table if exists usuarios_x;
+create table usuarios_x (
+    id integer not null auto_increment,
+    primary key (id),
+    nombre varchar(255),
+) engine=InnoDB;
 
 
 
