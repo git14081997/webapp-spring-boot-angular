@@ -49,7 +49,7 @@ public class 	Artista implements Serializable {
 	private Integer id;
 
 
-    @Column( name = "NOMBRE", length = 255 )
+    @Column( name = "NOMBRE", length = 255, unique = true )
     private String nombre;
 
 	public Artista(String nombre) {

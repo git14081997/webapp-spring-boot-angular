@@ -1,7 +1,74 @@
+<!-- componente-1 -->
+<div class="container mt-5">
 
-<div class="container mt-5" style="width: 540px !important;">
+	<div class="row">
+		<div class="col mt-1">
+			<div class="mb-3">
+			</div>
+		</div>
+	</div>
 
-<!--
+</div>
+
+
+<!-- componente-2 -->
+<div class="container mt-5">
+
+	<div class="row">
+		<div class="col mt-1">
+			<div class="mb-3">
+				Registros encontrados: {{datosDBArray.length}}
+				<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+
+					<ng-template pTemplate="header">
+						<tr>
+
+							<th class="tableHeaderBlack">
+								ID
+							</th>
+
+							<th class="tableHeaderBlack">
+								NOMBRE
+							</th>
+						
+							<th class="tableHeaderBlack">
+								Opciones
+							</th>
+							
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-objetoN>
+						<tr>
+							
+							<td>{{ objetoN.id }}</td>
+
+							<td>{{ objetoN.nombre }}</td>
+							
+							<td>
+								<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
+									<i class="bi bi-pencil-fill"></i>
+								</button>
+								&nbsp;
+								<button class="btn btn-danger btn-lg" (click)="eliminarArtistaByID(objetoN.id)">
+									<i class="bi bi-trash-fill"></i>
+								</button>
+							</td>
+
+						</tr>
+					</ng-template>
+
+				</p-table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- componente-1 -->
+<div class="container mt-5">
+
 	<div class="row">
 		<div class="col mt-1">
 			<div class="form-floating mb-3">
@@ -10,13 +77,11 @@
 			</div>
 		</div>
 	</div>
--->
 
 	<div class="row">
 		<div class="col mt-1">
 			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="parametro-nombre" placeholder=""
-					[(ngModel)]="parametros.nombre">
+				<input type="text" class="form-control" id="parametro-nombre" placeholder="" [(ngModel)]="parametros.nombre">
 				<label for="parametro-nombre" class="form-label">Nombre:</label>
 
 			</div>
@@ -39,7 +104,7 @@
 			<div class="mb-3">
 				<button class="btn btn-warning btn-lg" (click)="agregarArtista()">
 					<i class="bi bi-plus-circle"></i>
-					Agregar
+					Agregar/Modificar
 				</button>
 				&nbsp;
 				<button class="btn btn-primary btn-lg" (click)="buscarArtista()">

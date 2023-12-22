@@ -64,6 +64,7 @@ public class ArtistaController {
 		return artista.getId();
 	}
 
+
 	@ResponseBody
 	@GetMapping(
 		consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -74,6 +75,7 @@ public class ArtistaController {
 		return resultado.orElse(null);
 	}
 
+
 /*
 @ResponseBody
 @GetMapping(
@@ -83,6 +85,7 @@ produces = MediaType.APPLICATION_JSON_VALUE
 return artistaService.findAll();
 }
 */
+
 
 /**
  * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
@@ -100,7 +103,7 @@ value = "{pagina}/{cantidad}"
 	@PathVariable Integer pagina,
 	@PathVariable Integer cantidad){
 
-	Sort sort = Sort.by(Sort.Direction.ASC,"ID");
+	Sort sort = Sort.by(Sort.Direction.ASC,"id");
 	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 	return artistaRepository.findAll(pageable);
 }
@@ -114,5 +117,6 @@ value = "{pagina}/{cantidad}"
 ) public void delete(@PathVariable Integer id){
 	artistaRepository.deleteById(id);
 }
+
 
 }

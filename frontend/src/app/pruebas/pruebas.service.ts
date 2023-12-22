@@ -42,4 +42,11 @@ export class PruebasService {
 		);
 	}
 
+	getPaginado(pagina: number, cantidad: number): Observable<any> {
+		return this.http.get<any>(
+			this.URL_ARTISTA + "/" + pagina + "/" + cantidad,
+			this.httpOptions
+		);
+	}
+
 }

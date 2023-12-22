@@ -2,3 +2,8 @@
 button {
 	font-weight: bold;
 }
+
+.tableHeaderBlack {
+	background-color: #000000 !important;
+	color: #ffffff !important;
+}
