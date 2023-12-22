@@ -1,7 +1,8 @@
+
 <div class="container mt-5">
 
 	<div class="row">
-		<div class="col-md">
+		<div class="col mt-1">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" id="parametro-id" placeholder="" [(ngModel)]="parametros.id">
 				<label for="parametro-id" class="form-label">ID:</label>
@@ -10,7 +11,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm">
+		<div class="col mt-1">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" id="parametro-nombre" placeholder=""
 					[(ngModel)]="parametros.nombre">
@@ -21,7 +22,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-4">
+		<div class="col mt-1">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" id="parametro-contrasena" placeholder=""
 					[(ngModel)]="parametros.contrasena">
@@ -32,13 +33,22 @@
 	</div>
 
 	<div class="row">
-		<div class="col-4">
+		<div class="col mt-1">
 			<div class="mb-3">
-				<button class="btn btn-warning" (click)="agregarArtista()">Agregar</button>
+				<button class="btn btn-warning" (click)="agregarArtista()">
+					<i class="bi bi-plus-circle"></i>
+					Agregar
+				</button>
 				&nbsp;
-				<button class="btn btn-primary" (click)="buscarArtista()">Buscar</button>
+				<button class="btn btn-primary" (click)="buscarArtista()">
+					<i class="bi bi-search"></i>
+					Buscar
+				</button>
 				&nbsp;
-				<button class="btn btn-danger" (click)="eliminarArtista()">Borrar</button>
+				<button class="btn btn-danger" (click)="eliminarArtista()">
+					<i class="bi bi-trash-fill"></i>
+					Borrar
+				</button>
 				&nbsp;
 			</div>
 		</div>
