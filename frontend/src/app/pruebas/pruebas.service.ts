@@ -1,59 +1,45 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PruebasService {
 
-	url: string = "http://localhost:8001/api/artista";
-
-	/*
-	http: HttpClient;
+	URL_ARTISTA: string = "http://localhost:8001/api/artista";
+	
+	http = inject(HttpClient);
 
 	httpOptions = {
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
-			'Accept': 'application/json'
+			'Accept': 'application/json',
+			'Authorization': 'Bearer '
 		})
 	};
 
-	constructor() {
-		this.http = new HttpClient();
-	}
-
 	getById(objetoId: any): Observable<any> {
-		return this.http.get<any>(this.endpoint);
+		return this.http.get<any>(
+			this.URL_ARTISTA + "/" + objetoId,
+			this.httpOptions
+		);
 	}
 
 	post(unObjeto: any): Observable<any> {
-		return this.http.post(this.endpoint, unObjeto, this.httpOptions)
-			.pipe(
-				catchError(this.handleError<any>('updateHero'))
-			);
+		return this.http.post(this.URL_ARTISTA, unObjeto, this.httpOptions);
 	}
 
 	put(unObjeto: any): Observable<any> {
-		return this.http.put(this.endpoint, unObjeto, this.httpOptions);
+		return this.http.put(this.URL_ARTISTA, unObjeto, this.httpOptions);
 	}
 
-	delete(objetoId: any): void {
-		this.http.put(this.endpoint, objetoId, this.httpOptions);
+	deleteById(objetoId: any): Observable<any> {
+		return this.http.delete(
+			this.URL_ARTISTA + "/" + objetoId,
+			this.httpOptions
+		);
 	}
-
-	private handleError<T>(operation = 'operation', result?: T) {
-		return (error: any): Observable<T> => {
-			console.error(error);
-			return of(result as T);
-		};
-	}
-	*/
-
-	async getArtistaById(id: number): Promise<any | undefined> {
-    const data = await fetch(this.url + "/" + id);
-    return (await data.json()) ?? {};
-  }
 
 }

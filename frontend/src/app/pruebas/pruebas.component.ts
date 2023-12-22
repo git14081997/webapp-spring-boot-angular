@@ -1,14 +1,15 @@
 
-import {Component, Input,inject} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule} from '@angular/common';
 import { PruebasService } from './pruebas.service';
 import { FormsModule } from '@angular/forms';
+import {  HttpClientModule } from '@angular/common/http';
 
 @Component({
 selector: 'app-pruebas',
 standalone: true,
 imports: [
-CommonModule,FormsModule
+CommonModule,FormsModule,HttpClientModule
 ],
 templateUrl: './pruebas.component.html',
 styleUrl: './pruebas.component.css'
@@ -23,20 +24,29 @@ export class PruebasComponent {
 		this.service = new PruebasService;
 	}
 
-	agregar() {
-		alert("hola " + this.parametros.nombre );
-		/*
-		this.service.getById(this.unObjeto).subscribe( (ansPost) => {
-			console.log(ansPost);
+	agregarArtista() {
+		this.service.post(this.parametros).subscribe( (ans29) => {
+			console.log(ans29);
 		});
-		*/	
 	}
 
-	buscar() {
-		this.datosDB = 
-		this.service.getArtistaById(this.parametros.id);
+	actualizarArtista() {
+		this.service.put(this.parametros).subscribe( (ans35) => {
+			console.log(ans35);
+		});
+	}
 
-		console.log(this.datosDB);
+	buscarArtista() {
+		this.service.getById(this.parametros.id).subscribe((ans41:any) => {
+			console.log(ans41);
+			this.datosDB = ans41;
+		});
+	}
+
+	eliminarArtista() {
+		this.service.deleteById(this.parametros.id).subscribe((ans47) => {
+			console.log(ans47);
+		});
 	}
 
 }
