@@ -38,7 +38,7 @@ public class UsuarioDto implements Serializable {
 	private String bloqueado;
 	private String codigoArea;
 	private String telefono;
-	private UsuarioDto usuarioModifico;
 	private Double dinero;
+	private UsuarioDto usuarioModifico;
 
 }

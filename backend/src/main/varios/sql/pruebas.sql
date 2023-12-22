@@ -113,6 +113,36 @@ alter table libro_escritor
 
 
 
+
+
+-- VALOR UNICO
+alter table usuario add constraint UK_CORREO unique (correo);
+alter table usuario add constraint UK_TELEFONO unique (telefono);
+
+
+-- relacion 1 apunta a otro 1
+create table usuario (
+id integer not null auto_increment,
+correo varchar(255),
+contrasena varchar(255),
+nombre varchar(255),
+apellido varchar(255),
+usuario_modifico integer,
+primary key (id)
+) engine=InnoDB;
+
+alter table usuario
+   add constraint FK_USUARIO_USUARIO
+   foreign key (usuario_modifico)
+   references usuario (id)
+-- relacion 1 apunta a otro 1
+
+
+
+
+
+
+
 -- AGREGAR UN CAMPO MANUALMENTE
 ALTER TABLE USUARIOS_X ADD COLUMN CREADO DATE;
 

@@ -14,8 +14,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -78,11 +80,15 @@ public class Usuario implements Serializable {
 	@Column( name = "BLOQUEADO", length = 1)
 	private String bloqueado;
 
-	@Column( name = "DINERO")
-	private Double dinero;
+	@Column( name = "DINERO", scale = 2)
+	private BigDecimal dinero;
 
 	@OneToOne
-	@JoinColumn(name = "USUARIO_ID")
+	@JoinColumn(name="USUARIO_MODIFICO")
 	private Usuario usuarioModifico;
+
+	@OneToOne
+	@JoinColumn(name="USUARIO_CREO")
+	private Usuario usuarioCreo;
 
 }
