@@ -36,6 +36,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
+//@NoArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/api/cancion")
 public class CancionController {
 

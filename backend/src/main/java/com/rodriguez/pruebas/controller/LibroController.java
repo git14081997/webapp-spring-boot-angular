@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -35,6 +36,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
+//@NoArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/api/libro")
 public class LibroController {
 

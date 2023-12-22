@@ -6,11 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -33,54 +36,53 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-	@Column( name = "ID", unique = true )
+	@Column( name = "ID", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-    @Column( name = "NOMBRE", length = 255 )
+    @Column( name = "NOMBRE")
     private String nombre;
 
-	@Column( name = "NOMBRE_DOS", length = 255 )
+	@Column( name = "NOMBRE_DOS")
 	private String nombreDos;
 
-	@Column( name = "APELLIDO", length = 255 )
+	@Column( name = "APELLIDO")
 	private String apellido;
 
-	@Column( name = "APELLIDO_DOS", length = 255 )
+	@Column( name = "APELLIDO_DOS")
 	private String apellidoDos;
 
+	@Column( name = "CODIGO_AREA", length = 3)
+	private String codigoArea;
 
-	@Column( name = "CORREO", length = 255, unique = true,nullable = false)
+	@Column( name = "TELEFONO", length = 8, unique = true)
+	private String telefono;
+
+	@Column( name = "CORREO", unique = true)
 	private String correo;
 
-	@Column( name = "CONTRASENA", length = 255,nullable = false)
+	@Column( name = "CONTRASENA")
 	private String contrasena;
 
-	@Column( name = "CUMPLEANOS", updatable = false, nullable = false)
+	@Column( name = "CUMPLEANOS")
 	private Date cumpleanos;
 
 	@CreationTimestamp
-	@Column( name = "CREADO", updatable = false, nullable = false)
-	private Date creado;
+	@Column( name = "FECHA_CREADO", updatable = false)
+	private Date fechaCreado;
 
-	@Column( name = "ALTURA_METROS")
-	private Double alturaMetros;
-
-	@Column( name = "PESO_KG")
-	private Double pesoKg;
-
-	@Column( name = "TIPO_SANGRE", length = 20)
-	private String tipoSangre;
+	@UpdateTimestamp
+	@Column( name = "FECHA_MODIFICADO")
+	private Date fechaModificado;
 
 	@Column( name = "BLOQUEADO", length = 1)
 	private String bloqueado;
 
-	@Column( name = "TELEFONO", length = 11)
-	private String telefono;
+	@Column( name = "DINERO")
+	private Double dinero;
 
-	public Usuario(String correo, String contrasena) {
-		this.correo = correo;
-		this.contrasena = contrasena;
-	}
+	@OneToOne
+	@JoinColumn(name = "USUARIO_ID")
+	private Usuario usuarioModifico;
 
 }

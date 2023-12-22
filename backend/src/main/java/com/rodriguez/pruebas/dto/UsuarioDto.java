@@ -1,6 +1,13 @@
 
 package com.rodriguez.pruebas.dto;
 
+import com.rodriguez.pruebas.entity.Usuario;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +19,7 @@ import java.util.Date;
  * @Author Franklin Rodriguez
  * @version 0.0.1
  */
+@Data
 public class UsuarioDto implements Serializable {
 
     @Serial
@@ -25,15 +33,12 @@ public class UsuarioDto implements Serializable {
 	private String correo;
 	private String contrasena;
 	private Date cumpleanos;
-	private Double alturaMetros;
-	private Double pesoKg;
-	private String tipoSangre;
+	private Date fechaCreado;
+	private Date fechaModificado;
 	private String bloqueado;
+	private String codigoArea;
 	private String telefono;
-
-	public UsuarioDto(String correo, String contrasena) {
-		this.correo = correo;
-		this.contrasena = contrasena;
-	}
+	private UsuarioDto usuarioModifico;
+	private Double dinero;
 
 }

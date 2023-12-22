@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+
+/* Mis Varibles CSS */
+:root {
+  --darkblue: #001B33;
+  --blue: #1e90ff;
+  --white: #ffffff; 
+}
+
+.frankBlue {
+  color: var(--blue);
+  background-color: var(--darkblue);
+  width: max-content !important;
+  padding: 18px !important;
+  border: 8px solid var(--blue);
+}
+
+
+

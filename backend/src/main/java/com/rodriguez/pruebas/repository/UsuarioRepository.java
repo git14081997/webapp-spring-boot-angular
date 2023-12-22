@@ -36,7 +36,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	List<Usuario> findByCumpleanosBefore(Date cumpleanos);
 
-	List<Usuario> findByAlturaMetrosLessThanEqual(Double alturaMetros);
+	List<Usuario> findByDineroLessThanEqual(Double dinero);
 
 
 	@Query(

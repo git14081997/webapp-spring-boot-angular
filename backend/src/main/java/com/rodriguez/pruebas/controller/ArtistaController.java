@@ -6,6 +6,8 @@ import com.rodriguez.pruebas.entity.manyToOne.Artista;
 import com.rodriguez.pruebas.repository.ArtistaRepository;
 import com.rodriguez.pruebas.service.ArtistaService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
+//@NoArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("api/artista")
 public class ArtistaController {
 
