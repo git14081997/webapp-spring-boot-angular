@@ -4,12 +4,14 @@ import { CommonModule} from '@angular/common';
 import { PruebasService } from './pruebas.service';
 import { FormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
 selector: 'app-pruebas',
 standalone: true,
 imports: [
-CommonModule,FormsModule,HttpClientModule
+CommonModule,FormsModule,HttpClientModule,
+ButtonModule
 ],
 templateUrl: './pruebas.component.html',
 styleUrl: './pruebas.component.css'
