@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.controller.manyToOne;
 
-import com.rodriguez.pruebas.dto.CancionDto;
+import com.rodriguez.pruebas.dto.manyToOne.CancionDto;
 import com.rodriguez.pruebas.entity.manyToOne.Cancion;
 import com.rodriguez.pruebas.repository.manyToOne.CancionRepository;
 import lombok.AllArgsConstructor;

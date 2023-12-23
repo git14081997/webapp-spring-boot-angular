@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.dto;
+package com.rodriguez.pruebas.dto.manyToOne;
 
 import lombok.Data;
 import java.io.Serial;
@@ -13,10 +13,12 @@ import java.io.Serializable;
  * @version 0.0.1
  */
 @Data
-public class CancionDto implements Serializable {
+public class ArtistaDto implements Serializable {
+
     @Serial
-    private static final long serialVersionUID = -8522389366852882686L;
+    private static final long serialVersionUID = 193445286905151910L;
+
     private Long id;
     private String nombre;
-	private ArtistaDto artista;
+
 }

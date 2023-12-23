@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.dto;
+package com.rodriguez.pruebas.dto.oneToMany;
 
 import lombok.Data;
 import java.io.Serial;

@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.controller.oneToMany;
 
-import com.rodriguez.pruebas.dto.CCancionDto;
+import com.rodriguez.pruebas.dto.oneToMany.CCancionDto;
 import com.rodriguez.pruebas.entity.oneToMany.CCancion;
 import com.rodriguez.pruebas.repository.oneToMany.CCancionRepository;
 import lombok.AllArgsConstructor;

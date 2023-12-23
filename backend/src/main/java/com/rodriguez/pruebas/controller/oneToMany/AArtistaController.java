@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.controller.oneToMany;
 
-import com.rodriguez.pruebas.dto.AArtistaDto;
+import com.rodriguez.pruebas.dto.oneToMany.AArtistaDto;
 import com.rodriguez.pruebas.entity.oneToMany.AArtista;
 import com.rodriguez.pruebas.repository.oneToMany.AArtistaRepository;
 import lombok.AllArgsConstructor;

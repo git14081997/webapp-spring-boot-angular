@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.controller.manyToMany;
 
-import com.rodriguez.pruebas.dto.LibroDto;
+import com.rodriguez.pruebas.dto.manyToMany.LibroDto;
 import com.rodriguez.pruebas.entity.manyToMany.Libro;
 import com.rodriguez.pruebas.repository.manyToMany.LibroRepository;
 import lombok.AllArgsConstructor;

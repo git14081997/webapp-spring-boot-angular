@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.dto;
+package com.rodriguez.pruebas.dto.manyToMany;
 
 import com.rodriguez.pruebas.entity.manyToMany.Libro;
 import lombok.Data;

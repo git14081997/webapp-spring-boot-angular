@@ -1,12 +1,10 @@
 
-package com.rodriguez.pruebas.controller.manyToOne;
+package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.manyToOne.ArtistaDto;
-import com.rodriguez.pruebas.entity.manyToOne.Artista;
-import com.rodriguez.pruebas.repository.manyToOne.ArtistaRepository;
-import com.rodriguez.pruebas.service.ArtistaService;
+import com.rodriguez.pruebas.dto.inventarioFacturacion.CategoriaDto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,19 +36,16 @@ import java.util.Optional;
 @CrossOrigin
 @AllArgsConstructor
 //@NoArgsConstructor
-@RequiredArgsConstructor
-@RequestMapping("api/artista")
-public class ArtistaController {
+//@RequiredArgsConstructor
+@RequestMapping("api/categoria")
+public class CategoriaController {
 
-	private static final Logger log = LoggerFactory.getLogger(ArtistaController.class);
+	private static final Logger log = LoggerFactory.getLogger(CategoriaController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
-	private ArtistaService artistaService;
-
-	@Autowired
-	private ArtistaRepository artistaRepository;
+	private CategoriaRepository categoriaRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -61,10 +56,10 @@ public class ArtistaController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public Integer save(@RequestBody ArtistaDto artistaDto ){
-		Artista artista = MODEL_MAPPER.map(artistaDto,Artista.class);
-		artista = artistaRepository.save(artista);
-		return artista.getId();
+	public Integer save(@RequestBody CategoriaDto categoriaDto ){
+		Categoria categoria = MODEL_MAPPER.map(categoriaDto, Categoria.class);
+		categoria = categoriaRepository.save(categoria);
+		return categoria.getId();
 	}
 
 
@@ -73,11 +68,10 @@ public class ArtistaController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
-	) public Artista findById(@PathVariable Integer id){
-		Optional<Artista> resultado = artistaRepository.findById(id);
+	) public Categoria findById(@PathVariable Integer id){
+		Optional<Categoria> resultado = categoriaRepository.findById(id);
 		return resultado.orElse(null);
 	}
-
 
 /*
 @ResponseBody
@@ -89,26 +83,25 @@ return artistaService.findAll();
 }
 */
 
-
 /**
  * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
  *
  * @param pagina consultada.
  * @param cantidad maxima por pagina.
- * @return Page<Artista> resultados encontrados.
+ * @return Page<Categoria> resultados encontrados.
  */
 @ResponseBody
 @GetMapping(
 consumes = MediaType.APPLICATION_JSON_VALUE,
 produces = MediaType.APPLICATION_JSON_VALUE,
 value = "{pagina}/{cantidad}"
-) public Page<Artista> findAll(
+) public Page<Categoria> findAll(
 	@PathVariable Integer pagina,
 	@PathVariable Integer cantidad){
 
-	Sort sort = Sort.by(Sort.Direction.ASC,"id");
+	Sort sort = Sort.by(Sort.Direction.ASC,"ID");
 	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-	return artistaRepository.findAll(pageable);
+	return categoriaRepository.findAll(pageable);
 }
 
 
@@ -118,8 +111,7 @@ value = "{pagina}/{cantidad}"
 	produces = MediaType.APPLICATION_JSON_VALUE,
 	value = "{id}"
 ) public void delete(@PathVariable Integer id){
-	artistaRepository.deleteById(id);
+	categoriaRepository.deleteById(id);
 }
-
 
 }

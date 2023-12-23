@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.UsuarioDto;
+import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
