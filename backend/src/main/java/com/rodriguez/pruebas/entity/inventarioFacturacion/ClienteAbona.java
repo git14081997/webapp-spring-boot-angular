@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Esta clase es una abstracción de la entidad Factura,
+ * Esta clase es una abstracción de la entidad ClienteAbona,
  * y almacenará la información que se desee.
  *
  * @Author Franklin Rodriguez
@@ -28,8 +28,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "FACTURA", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
-public class Factura implements Serializable {
+@Table( name = "CLIENTE_ABONA", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+public class ClienteAbona implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -40,29 +40,13 @@ public class Factura implements Serializable {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO_ID")
-	private Usuario cliente;
+	@JoinColumn(name = "FACTURA_ID")
+	private Factura factura;
 
-	@Column( name = "TOTAL", scale = 2)
-	private BigDecimal total;
+	@Column( name = "VALOR", scale = 2)
+	private BigDecimal valor;
 
-	@Column( name = "FECHA_EMISION")
-	private Date fechaEmision;
-
-	@ManyToOne
-	@JoinColumn(name = "TIPO_PAGO_ID")
-	private TipoPago tipoPago;
-
-	@Column( name = "ABONADO_POR_CLIENTE", scale = 2)
-	private BigDecimal abonadoPorCliente;
-
-	@Column( name = "IVA", scale = 2)
-	private BigDecimal iva;
-
-	@Column( name = "GANANCIA", scale = 2)
-	private BigDecimal ganancia;
-
-	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
-	private BigDecimal pendienteDePago;
+	@Column( name = "FECHA")
+	private Date fecha;
 
 }
