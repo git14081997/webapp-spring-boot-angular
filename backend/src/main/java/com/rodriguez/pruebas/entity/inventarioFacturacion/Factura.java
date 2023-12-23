@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -43,18 +44,15 @@ public class Factura implements Serializable {
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario cliente;
 
-	@Column( name = "TOTAL", scale = 2)
-	private BigDecimal total;
-
-	@Column( name = "FECHA_EMISION")
-	private Date fechaEmision;
-
 	@ManyToOne
 	@JoinColumn(name = "TIPO_PAGO_ID")
 	private TipoPago tipoPago;
 
-	@Column( name = "ABONADO_POR_CLIENTE", scale = 2)
-	private BigDecimal abonadoPorCliente;
+	@Column( name = "FECHA_EMISION")
+	private Date fechaEmision;
+
+	@Column( name = "TOTAL", scale = 2)
+	private BigDecimal total;
 
 	@Column( name = "IVA", scale = 2)
 	private BigDecimal iva;

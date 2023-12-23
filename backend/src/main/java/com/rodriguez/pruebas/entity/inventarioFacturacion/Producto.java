@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -44,6 +43,24 @@ public class Producto implements Serializable {
 
     @Column( name = "NOMBRE")
     private String nombre;
+
+	@Column( name = "GENERO",length = 1)
+	private String genero;
+
+	@Column( name = "EDAD",length = 1)
+	private String edad;
+
+	@Column( name = "TALLA")
+	private String talla;
+
+	@Column( name = "LARGO", scale = 2)
+	private BigDecimal largo;
+
+	@Column( name = "ANCHO", scale = 2)
+	private BigDecimal ancho;
+
+	@Column( name = "COLOR")
+	private String color;
 
 	@CreationTimestamp
 	@Column( name = "FECHA_CREADO", updatable = false)
@@ -75,8 +92,8 @@ public class Producto implements Serializable {
 	@Column( name = "GANANCIA_PORCENTAJE", scale = 2)
 	private BigDecimal gananciaPorcentaje;
 
-	@Column( name = "GANANCIA_MONTO", scale = 2)
-	private BigDecimal gananciaMonto;
+	@Column( name = "GANANCIA", scale = 2)
+	private BigDecimal ganancia;
 
 	@Column( name = "IVA", scale = 2)
 	private BigDecimal iva;
