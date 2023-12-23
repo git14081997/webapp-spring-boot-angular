@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Esta clase es una abstracción de la entidad Usuario,
+ * Esta clase es una abstracción de la entidad Producto,
  * y almacenará la información que se desee.
  *
  * @Author Franklin Rodriguez
@@ -31,8 +31,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "USUARIO", schema = "DBDEV")
-public class Usuario implements Serializable {
+@Table( name = "PRODUCTO", schema = "DBDEV")
+public class Producto implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -45,30 +45,6 @@ public class Usuario implements Serializable {
     @Column( name = "NOMBRE")
     private String nombre;
 
-	@Column( name = "NOMBRE_DOS")
-	private String nombreDos;
-
-	@Column( name = "APELLIDO")
-	private String apellido;
-
-	@Column( name = "APELLIDO_DOS")
-	private String apellidoDos;
-
-	@Column( name = "CODIGO_AREA", length = 3)
-	private String codigoArea;
-
-	@Column( name = "TELEFONO", length = 8, unique = true)
-	private String telefono;
-
-	@Column( name = "CORREO", unique = true)
-	private String correo;
-
-	@Column( name = "CONTRASENA")
-	private String contrasena;
-
-	@Column( name = "CUMPLEANOS")
-	private Date cumpleanos;
-
 	@CreationTimestamp
 	@Column( name = "FECHA_CREADO", updatable = false)
 	private Date fechaCreado;
@@ -77,18 +53,42 @@ public class Usuario implements Serializable {
 	@Column( name = "FECHA_MODIFICADO")
 	private Date fechaModificado;
 
-	@Column( name = "BLOQUEADO", length = 1)
-	private String bloqueado;
+	@Column( name = "FECHA_ADQUISICION")
+	private Date fechaAdquisicion;
 
-	@OneToOne
-	@JoinColumn(name="USUARIO_MODIFICO")
+	@ManyToOne
+	@JoinColumn(name = "USUARIO_MODIFICO")
 	private Usuario usuarioModifico;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="USUARIO_CREO")
 	private Usuario usuarioCreo;
 
-	@Column( name = "DINERO", scale = 2)
-	private BigDecimal dinero;
+	@Column( name = "ESTADO", length = 1)
+	private String estado; // A Activo I Inactivo
+	// A activo, es no ha sido "borrado"
+	// I Inactivo, es no ya fue "borrado".
+
+	@Column( name = "COSTO_UNIDAD", scale = 2)
+	private BigDecimal costoUnidad;
+
+	@Column( name = "GANANCIA_PORCENTAJE", scale = 2)
+	private BigDecimal gananciaPorcentaje;
+
+	@Column( name = "GANANCIA_MONTO", scale = 2)
+	private BigDecimal gananciaMonto;
+
+	@Column( name = "IVA", scale = 2)
+	private BigDecimal iva;
+
+	@Column( name = "PRECIO_VENTA", scale = 2)
+	private BigDecimal precioVenta;
+
+	@Column( name = "EXISTENCIAS")
+	private Integer existencias;
+
+	@ManyToOne
+	@JoinColumn(name = "CATEGORIA_ID")
+	private Categoria categoria;
 
 }
