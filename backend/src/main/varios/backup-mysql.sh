@@ -14,13 +14,7 @@ DESTINO="$HOME/$DBNAME"
 mkdir -p $DESTINO
 chmod 700 $DESTINO;
 
-NOMBRE_ARCHIVO="${FECHA}.db"
-
-mysqldump -h$HOST -p$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt $DBNAME > ${DESTINO}/${NOMBRE_ARCHIVO};
-
-# backup completo de todas las bases de datos.
-mysqldump -h$HOST -p$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt –all-databases > ${DESTINO}/alldb-${NOMBRE_ARCHIVO};
-
-chmod 400 $DESTINO/*;
+mysqldump -h$HOST -P$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt INVENTARIO_FACTURACION > ${DESTINO}/${FECHA}-INVENTARIO_FACTURACION;
+mysqldump -h$HOST -P$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt DBDEV                  > ${DESTINO}/${FECHA}-DBDEV;
 
 exit 0;
