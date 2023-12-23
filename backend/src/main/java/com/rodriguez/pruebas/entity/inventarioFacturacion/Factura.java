@@ -53,4 +53,7 @@ public class Factura implements Serializable {
 	@JoinColumn(name = "TIPO_PAGO_ID")
 	private TipoPago tipoPago;
 
+	@Column( name = "ABONADO_POR_CLIENTE", scale = 2)
+	private BigDecimal abonadoPorCliente;
+
 }

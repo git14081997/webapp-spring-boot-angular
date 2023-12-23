@@ -27,10 +27,6 @@
 							FECHA EMISION
 						</th>
 
-						<th class="tableHeaderBlack">
-							OPCIONES
-						</th>
-
 					</tr>
 				</ng-template>
 
@@ -44,16 +40,6 @@
 						<td>{{ objetoN.total }}</td>
 
 						<td>{{ objetoN.fechaEmision }}</td>
-
-						<td>
-							<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
-								<i class="bi bi-pencil-fill"></i>
-							</button>
-							&nbsp;
-							<button class="btn btn-danger btn-lg" (click)="eliminarArtistaByID(objetoN.id)">
-								<i class="bi bi-trash-fill"></i>
-							</button>
-						</td>
 
 					</tr>
 				</ng-template>
@@ -91,10 +77,6 @@
 								SUBTOTAL
 							</th>
 
-							<th class="tableHeaderBlack">
-								OPCIONES
-							</th>
-
 						</tr>
 					</ng-template>
 
@@ -108,16 +90,6 @@
 							<td>{{ objetoN.precio }}</td>
 
 							<td>{{ objetoN.subtotal }}</td>
-
-							<td>
-								<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
-									<i class="bi bi-pencil-fill"></i>
-								</button>
-								&nbsp;
-								<button class="btn btn-danger btn-lg" (click)="eliminarArtistaByID(objetoN.id)">
-									<i class="bi bi-trash-fill"></i>
-								</button>
-							</td>
 
 						</tr>
 					</ng-template>
