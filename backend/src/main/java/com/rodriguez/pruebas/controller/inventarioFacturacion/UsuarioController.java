@@ -99,7 +99,7 @@ value = "{pagina}/{cantidad}"
 	@PathVariable Integer pagina,
 	@PathVariable Integer cantidad){
 
-	Sort sort = Sort.by(Sort.Direction.ASC,"ID");
+	Sort sort = Sort.by(Sort.Direction.ASC,"id");
 	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 	return usuarioRepository.findAll(pageable);
 }
