@@ -11,21 +11,25 @@
 				<ng-template pTemplate="header">
 					<tr>
 
-						<th class="tableHeaderBlack">
-							NUMERO
-						</th>
+						<th class="tableHeaderBlack">NUMERO</th>
 
-						<th class="tableHeaderBlack">
-							CLIENTE
-						</th>
+						<th class="tableHeaderBlack">FECHA EMISION</th>
 
-						<th class="tableHeaderBlack">
-							TOTAL
-						</th>
+						<th class="tableHeaderBlack">CLIENTE</th>
 
-						<th class="tableHeaderBlack">
-							FECHA EMISION
-						</th>
+						<th class="tableHeaderBlack">NIT</th>
+
+						<th class="tableHeaderBlack">TOTAL</th>
+
+						<th class="tableHeaderBlack">IVA</th>
+
+						<th class="tableHeaderBlack">GANANCIA</th>
+
+						<th class="tableHeaderBlack">PENDIENTE DE PAGO</th>
+
+						<th class="tableHeaderBlack">TIPO DE PAGO</th>
+
+						<th class="tableHeaderBlack">DIRECCION</th>
 
 					</tr>
 				</ng-template>
@@ -35,11 +39,23 @@
 
 						<td>{{ objetoN.id }}</td>
 
-						<td>{{ objetoN.cliente.nombre }}</td>
+						<td>{{ objetoN.fechaEmision }}</td>
+
+						<td>{{ objetoN.nombre }} {{ objetoN.apellido }}</td>
+
+						<td>{{ objetoN.nit }}</td>
 
 						<td>{{ objetoN.total }}</td>
 
-						<td>{{ objetoN.fechaEmision }}</td>
+						<td>{{ objetoN.iva }}</td>
+
+						<td>{{ objetoN.ganancia }}</td>
+
+						<td>{{ objetoN.pendienteDePago }}</td>
+
+						<td>{{ objetoN.tipoDePago.descripcion }}</td>
+
+						<td>{{ objetoN.direccion }}</td>
 
 					</tr>
 				</ng-template>
@@ -61,21 +77,21 @@
 					<ng-template pTemplate="header">
 						<tr>
 
-							<th class="tableHeaderBlack">
-								PRODUCTO
-							</th>
+							<th class="tableHeaderBlack">PRODUCTO</th>
 
-							<th class="tableHeaderBlack">
-								CANTIDAD
-							</th>
+							<th class="tableHeaderBlack">CANTIDAD</th>
 
-							<th class="tableHeaderBlack">
-								PRECIO
-							</th>
+							<th class="tableHeaderBlack">PRECIO</th>
 
-							<th class="tableHeaderBlack">
-								SUBTOTAL
-							</th>
+							<th class="tableHeaderBlack">SUBTOTAL</th>
+
+							<th class="tableHeaderBlack">IVA</th>
+
+							<th class="tableHeaderBlack">COSTO UNIDAD</th>
+
+							<th class="tableHeaderBlack">COSTO DEL SUBTOTAL</th>
+
+							<th class="tableHeaderBlack">GANANCIA DEL SUBTOTAL</th>
 
 						</tr>
 					</ng-template>
@@ -85,11 +101,19 @@
 
 							<td>{{ objetoN.producto.nombre }}</td>
 
-							<td>{{ objetoN.cantidad }}</td>
+							<td>{{ objetoN.cantidadProductoVendido }}</td>
 
-							<td>{{ objetoN.precio }}</td>
+							<td>{{ objetoN.precioVentaPorProducto }}</td>
 
-							<td>{{ objetoN.subtotal }}</td>
+							<td>{{ objetoN.subtotalPorProducto }}</td>
+
+							<td>{{ objetoN.ivaDelSubtotalPorProducto }}</td>
+
+							<td>{{ objetoN.costoUnidad }}</td>
+
+							<td>{{ objetoN.costoDelSubtotalPorProducto }}</td>
+
+							<td>{{ objetoN.gananciaDelSubtotalPorProducto }}</td>
 
 						</tr>
 					</ng-template>
