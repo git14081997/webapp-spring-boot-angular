@@ -28,7 +28,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "AARTISTA", schema = "DBDEV")
+@Table( name = "AARTISTA", schema = "DBDEV", catalog = "DBDEV")
 public class AArtista implements Serializable {
 
     @Serial

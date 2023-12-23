@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.manyToOne;
 
 import com.rodriguez.pruebas.entity.manyToOne.Artista;
 import org.springframework.data.jpa.repository.JpaRepository;

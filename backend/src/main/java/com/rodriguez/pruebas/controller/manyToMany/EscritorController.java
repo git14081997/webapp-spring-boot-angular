@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.manyToMany;
 
 import com.rodriguez.pruebas.dto.EscritorDto;
 import com.rodriguez.pruebas.entity.manyToMany.Escritor;
-import com.rodriguez.pruebas.repository.EscritorRepository;
+import com.rodriguez.pruebas.repository.manyToMany.EscritorRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.service;
 
-import com.rodriguez.pruebas.repository.CancionRepository;
+import com.rodriguez.pruebas.repository.manyToOne.CancionRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

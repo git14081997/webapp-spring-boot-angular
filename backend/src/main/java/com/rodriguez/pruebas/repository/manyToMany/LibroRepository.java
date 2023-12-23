@@ -1,7 +1,7 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.manyToMany;
 
-import com.rodriguez.pruebas.entity.manyToOne.Cancion;
+import com.rodriguez.pruebas.entity.manyToMany.Libro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * @Author Franklin Rodriguez
  * @version 0.0.1
  */
-@Repository("cancionRepository")
-public interface CancionRepository extends JpaRepository<Cancion, Integer> {
+@Repository("libroRepository")
+public interface LibroRepository extends JpaRepository<Libro, Integer> {
 }

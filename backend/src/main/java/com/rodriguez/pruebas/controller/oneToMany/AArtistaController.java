@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.oneToMany;
 
 import com.rodriguez.pruebas.dto.AArtistaDto;
 import com.rodriguez.pruebas.entity.oneToMany.AArtista;
-import com.rodriguez.pruebas.repository.AArtistaRepository;
+import com.rodriguez.pruebas.repository.oneToMany.AArtistaRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

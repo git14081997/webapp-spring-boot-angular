@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.manyToOne;
 
 import com.rodriguez.pruebas.dto.CancionDto;
 import com.rodriguez.pruebas.entity.manyToOne.Cancion;
-import com.rodriguez.pruebas.repository.CancionRepository;
+import com.rodriguez.pruebas.repository.manyToOne.CancionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.manyToOne;
 
 import com.rodriguez.pruebas.dto.ArtistaDto;
 import com.rodriguez.pruebas.entity.manyToOne.Artista;
-import com.rodriguez.pruebas.repository.ArtistaRepository;
+import com.rodriguez.pruebas.repository.manyToOne.ArtistaRepository;
 import com.rodriguez.pruebas.service.ArtistaService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

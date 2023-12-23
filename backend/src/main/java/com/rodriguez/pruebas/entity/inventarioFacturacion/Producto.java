@@ -31,7 +31,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "PRODUCTO", schema = "DBDEV")
+@Table( name = "PRODUCTO", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
 public class Producto implements Serializable {
 
     @Serial

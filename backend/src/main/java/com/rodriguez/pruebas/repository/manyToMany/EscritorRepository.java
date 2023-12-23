@@ -1,7 +1,7 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.manyToMany;
 
-import com.rodriguez.pruebas.entity.oneToMany.CCancion;
+import com.rodriguez.pruebas.entity.manyToMany.Escritor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * @Author Franklin Rodriguez
  * @version 0.0.1
  */
-@Repository("ccancionRepository")
-public interface CCancionRepository extends JpaRepository<CCancion, Integer> {
+@Repository("escritorRepository")
+public interface EscritorRepository extends JpaRepository<Escritor, Integer> {
 }

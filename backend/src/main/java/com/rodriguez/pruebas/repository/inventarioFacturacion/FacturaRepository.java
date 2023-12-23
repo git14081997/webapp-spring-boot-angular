@@ -1,7 +1,7 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.inventarioFacturacion;
 
-import com.rodriguez.pruebas.entity.inventarioFacturacion.TipoPago;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * @Author Franklin Rodriguez
  * @version 0.0.1
  */
-@Repository("categoriaRepository")
-public interface TipoPagoRepository extends JpaRepository<TipoPago, Integer> {
+@Repository("facturaRepository")
+public interface FacturaRepository extends JpaRepository<Factura, Integer> {
 }

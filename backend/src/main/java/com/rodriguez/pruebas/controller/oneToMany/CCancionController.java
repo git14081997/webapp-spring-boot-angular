@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.oneToMany;
 
 import com.rodriguez.pruebas.dto.CCancionDto;
 import com.rodriguez.pruebas.entity.oneToMany.CCancion;
-import com.rodriguez.pruebas.repository.CCancionRepository;
+import com.rodriguez.pruebas.repository.oneToMany.CCancionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

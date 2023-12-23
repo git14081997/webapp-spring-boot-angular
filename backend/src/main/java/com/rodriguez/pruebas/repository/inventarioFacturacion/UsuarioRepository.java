@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import org.springframework.data.domain.Page;

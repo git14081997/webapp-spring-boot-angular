@@ -1,7 +1,7 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.inventarioFacturacion;
 
-import com.rodriguez.pruebas.entity.manyToMany.Escritor;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.TipoPago;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * @Author Franklin Rodriguez
  * @version 0.0.1
  */
-@Repository("escritorRepository")
-public interface EscritorRepository extends JpaRepository<Escritor, Integer> {
+@Repository("tipoPagoRepository")
+public interface TipoPagoRepository extends JpaRepository<TipoPago, Integer> {
 }

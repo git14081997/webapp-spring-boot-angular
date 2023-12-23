@@ -1,10 +1,9 @@
 
-package com.rodriguez.pruebas.repository;
+package com.rodriguez.pruebas.repository.oneToMany;
 
-import com.rodriguez.pruebas.entity.oneToMany.AArtista;
+import com.rodriguez.pruebas.entity.oneToMany.CCancion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 /**
  * Esta clase contiene metodos básicos y avanzados
@@ -13,7 +12,6 @@ import java.util.List;
  * @Author Franklin Rodriguez
  * @version 0.0.1
  */
-@Repository("aartistaRepository")
-public interface AArtistaRepository extends JpaRepository<AArtista, Integer> {
-	List<AArtista> findByNombre(String lastName);
+@Repository("ccancionRepository")
+public interface CCancionRepository extends JpaRepository<CCancion, Integer> {
 }

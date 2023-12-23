@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.manyToMany;
 
 import com.rodriguez.pruebas.dto.LibroDto;
 import com.rodriguez.pruebas.entity.manyToMany.Libro;
-import com.rodriguez.pruebas.repository.LibroRepository;
+import com.rodriguez.pruebas.repository.manyToMany.LibroRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
