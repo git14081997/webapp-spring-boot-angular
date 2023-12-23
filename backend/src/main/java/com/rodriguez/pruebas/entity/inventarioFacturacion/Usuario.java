@@ -88,8 +88,8 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="USUARIO_CREO")
 	private Usuario usuarioCreo;
 
-	@Column( name = "DINERO", scale = 2)
-	private BigDecimal dinero;
+	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
+	private BigDecimal pendienteDePago;
 
 	@Column( name = "NIT")
 	private String nit;

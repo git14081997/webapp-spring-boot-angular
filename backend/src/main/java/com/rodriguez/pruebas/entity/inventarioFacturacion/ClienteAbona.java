@@ -49,4 +49,8 @@ public class ClienteAbona implements Serializable {
 	@Column( name = "FECHA")
 	private Date fecha;
 
+	@ManyToOne
+	@JoinColumn(name = "USUARIO_ID")
+	private Usuario cliente;
+
 }

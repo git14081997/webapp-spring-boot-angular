@@ -1,6 +1,143 @@
 <!-- componente-1 -->
 <div class="container mt-5">
 
+<!-- CLIENTE ABONA -->
+<div class="row">
+	<div class="col mt-1">
+		<div class="mb-3">
+			<h1>CLIENTE ABONA</h1>
+			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+
+				<ng-template pTemplate="header">
+					<tr>
+
+						<th class="tableHeaderBlack">VALOR</th>
+
+						<th class="tableHeaderBlack">FECHA</th>
+
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="body" let-objetoN>
+					<tr>
+
+						<td>{{ objetoN.valor }}</td>
+
+						<td>{{ objetoN.fecha }}</td>
+
+					</tr>
+				</ng-template>
+
+			</p-table>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+<!-- TIPO DE PAGO -->
+<div class="row">
+	<div class="col mt-1">
+		<div class="mb-3">
+			<h1>TIPO DE PAGO</h1>
+			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+
+				<ng-template pTemplate="header">
+					<tr>
+
+						<th class="tableHeaderBlack">ID</th>
+
+						<th class="tableHeaderBlack">DESCRIPCION</th>
+
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="body" let-objetoN>
+					<tr>
+
+						<td>{{ objetoN.id }}</td>
+
+						<td>{{ objetoN.descripcion }}</td>
+
+					</tr>
+				</ng-template>
+
+			</p-table>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+
+<!-- CATEGORIA -->
+<div class="row">
+	<div class="col mt-1">
+		<div class="mb-3">
+			<h1>CATEGORIA</h1>
+			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+
+				<ng-template pTemplate="header">
+					<tr>
+
+						<th class="tableHeaderBlack">ID</th>
+
+						<th class="tableHeaderBlack">DESCRIPCION</th>
+
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="body" let-objetoN>
+					<tr>
+
+						<td>{{ objetoN.id }}</td>
+
+						<td>{{ objetoN.descripcion }}</td>
+
+					</tr>
+				</ng-template>
+
+			</p-table>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+
 <!-- FACTURA -->
 <div class="row">
 	<div class="col mt-1">
@@ -125,6 +262,7 @@
 	</div>
 
 
+<hr/>
 
 
 
