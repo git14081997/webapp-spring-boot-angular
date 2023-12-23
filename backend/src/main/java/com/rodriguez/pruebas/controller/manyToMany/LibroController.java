@@ -1,11 +1,10 @@
 
-package com.rodriguez.pruebas.controller;
+package com.rodriguez.pruebas.controller.manyToMany;
 
-import com.rodriguez.pruebas.dto.EscritorDto;
-import com.rodriguez.pruebas.entity.manyToMany.Escritor;
-import com.rodriguez.pruebas.repository.EscritorRepository;
+import com.rodriguez.pruebas.dto.LibroDto;
+import com.rodriguez.pruebas.entity.manyToMany.Libro;
+import com.rodriguez.pruebas.repository.LibroRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -36,16 +36,17 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-@NoArgsConstructor
-@RequestMapping("/api/escritor")
-public class EscritorController {
+//@NoArgsConstructor
+//@RequiredArgsConstructor
+@RequestMapping("/api/libro")
+public class LibroController {
 
-	private static final Logger log = LoggerFactory.getLogger(EscritorController.class);
+	private static final Logger log = LoggerFactory.getLogger(LibroController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
-	private EscritorRepository escritorRepository;
+	private LibroRepository libroRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -56,10 +57,10 @@ public class EscritorController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public Integer save(@RequestBody EscritorDto escritorDto ){
-		Escritor escritor = MODEL_MAPPER.map(escritorDto,Escritor.class);
-		escritor = escritorRepository.save(escritor);
-		return escritor.getId();
+	public Integer save(@RequestBody LibroDto libroDto ){
+		Libro libro = MODEL_MAPPER.map(libroDto,Libro.class);
+		libro = libroRepository.save(libro);
+		return libro.getId();
 	}
 
 	@ResponseBody
@@ -67,8 +68,8 @@ public class EscritorController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
-	) public Escritor findById(@PathVariable Integer id){
-		Optional<Escritor> resultado = escritorRepository.findById(id);
+	) public Libro findById(@PathVariable Integer id){
+		Optional<Libro> resultado = libroRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
@@ -78,7 +79,7 @@ public class EscritorController {
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
 	) public void delete(@PathVariable Integer id){
-		escritorRepository.deleteById(id);
+		libroRepository.deleteById(id);
 	}
 
 	/**
@@ -86,20 +87,21 @@ public class EscritorController {
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.
-	 * @return Page<Escritor> resultados encontrados.
+	 * @return Page<Libro> resultados encontrados.
 	 */
 	@ResponseBody
 	@GetMapping(
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{pagina}/{cantidad}"
-	) public Page<Escritor> findAll(
+	) public Page<Libro> findAll(
 			@PathVariable Integer pagina,
 			@PathVariable Integer cantidad){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"ID");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return escritorRepository.findAll(pageable);
+		return libroRepository.findAll(pageable);
 	}
+
 
 }

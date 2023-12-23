@@ -1,9 +1,9 @@
 
-package com.rodriguez.pruebas.controller;
+package com.rodriguez.pruebas.controller.oneToMany;
 
-import com.rodriguez.pruebas.dto.CCancionDto;
-import com.rodriguez.pruebas.entity.oneToMany.CCancion;
-import com.rodriguez.pruebas.repository.CCancionRepository;
+import com.rodriguez.pruebas.dto.AArtistaDto;
+import com.rodriguez.pruebas.entity.oneToMany.AArtista;
+import com.rodriguez.pruebas.repository.AArtistaRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
@@ -38,29 +37,28 @@ import java.util.Optional;
 @AllArgsConstructor
 //@NoArgsConstructor
 //@RequiredArgsConstructor
-@RequestMapping("/api/ccancion")
-public class CCancionController {
+@RequestMapping("api/aartista")
+public class AArtistaController {
 
-	private static final Logger log = LoggerFactory.getLogger(CCancionController.class);
+	private static final Logger log = LoggerFactory.getLogger(AArtistaController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
-	private CCancionRepository cCancionRepository;
+	private AArtistaRepository aArtistaRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
 
 	@ResponseBody
 	@PostMapping(
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public Integer save(@RequestBody CCancionDto cCancionDto ){
-		CCancion cCancion = MODEL_MAPPER.map(cCancionDto,CCancion.class);
-		cCancion = cCancionRepository.save(cCancion);
-		return cCancion.getId();
+	public Integer save(@RequestBody AArtistaDto aArtistaDto ){
+		AArtista aArtista = MODEL_MAPPER.map(aArtistaDto,AArtista.class);
+		aArtista = aArtistaRepository.save(aArtista);
+		return aArtista.getId();
 	}
 
 	@ResponseBody
@@ -68,8 +66,8 @@ public class CCancionController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
-	) public CCancion findById(@PathVariable Integer id){
-		Optional<CCancion> resultado = cCancionRepository.findById(id);
+	) public AArtista findById(@PathVariable Integer id){
+		Optional<AArtista> resultado = aArtistaRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
@@ -80,7 +78,7 @@ public class CCancionController {
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
 	) public void delete(@PathVariable Integer id){
-		cCancionRepository.deleteById(id);
+		aArtistaRepository.deleteById(id);
 	}
 
 
@@ -89,20 +87,20 @@ public class CCancionController {
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.
-	 * @return Page<CCancion> resultados encontrados.
+	 * @return Page<AArtista> resultados encontrados.
 	 */
 	@ResponseBody
 	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{pagina}/{cantidad}"
-	) public Page<CCancion> findAll(
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			value = "{pagina}/{cantidad}"
+	) public Page<AArtista> findAll(
 			@PathVariable Integer pagina,
 			@PathVariable Integer cantidad){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"ID");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return cCancionRepository.findAll(pageable);
+		return aArtistaRepository.findAll(pageable);
 	}
 
 }

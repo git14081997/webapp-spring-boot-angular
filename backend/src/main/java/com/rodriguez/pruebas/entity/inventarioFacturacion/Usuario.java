@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.entity;
+package com.rodriguez.pruebas.entity.inventarioFacturacion;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

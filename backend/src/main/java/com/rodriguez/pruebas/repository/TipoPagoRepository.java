@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.repository;
 
-import com.rodriguez.pruebas.entity.TipoPago;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.TipoPago;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

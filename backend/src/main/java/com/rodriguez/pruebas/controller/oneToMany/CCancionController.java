@@ -1,9 +1,9 @@
 
-package com.rodriguez.pruebas.controller;
+package com.rodriguez.pruebas.controller.oneToMany;
 
-import com.rodriguez.pruebas.dto.LibroDto;
-import com.rodriguez.pruebas.entity.manyToMany.Libro;
-import com.rodriguez.pruebas.repository.LibroRepository;
+import com.rodriguez.pruebas.dto.CCancionDto;
+import com.rodriguez.pruebas.entity.oneToMany.CCancion;
+import com.rodriguez.pruebas.repository.CCancionRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -38,15 +38,15 @@ import java.util.Optional;
 @AllArgsConstructor
 //@NoArgsConstructor
 //@RequiredArgsConstructor
-@RequestMapping("/api/libro")
-public class LibroController {
+@RequestMapping("/api/ccancion")
+public class CCancionController {
 
-	private static final Logger log = LoggerFactory.getLogger(LibroController.class);
+	private static final Logger log = LoggerFactory.getLogger(CCancionController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
-	private LibroRepository libroRepository;
+	private CCancionRepository cCancionRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -57,10 +57,10 @@ public class LibroController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public Integer save(@RequestBody LibroDto libroDto ){
-		Libro libro = MODEL_MAPPER.map(libroDto,Libro.class);
-		libro = libroRepository.save(libro);
-		return libro.getId();
+	public Integer save(@RequestBody CCancionDto cCancionDto ){
+		CCancion cCancion = MODEL_MAPPER.map(cCancionDto,CCancion.class);
+		cCancion = cCancionRepository.save(cCancion);
+		return cCancion.getId();
 	}
 
 	@ResponseBody
@@ -68,10 +68,11 @@ public class LibroController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
-	) public Libro findById(@PathVariable Integer id){
-		Optional<Libro> resultado = libroRepository.findById(id);
+	) public CCancion findById(@PathVariable Integer id){
+		Optional<CCancion> resultado = cCancionRepository.findById(id);
 		return resultado.orElse(null);
 	}
+
 
 	@ResponseBody
 	@DeleteMapping(
@@ -79,29 +80,29 @@ public class LibroController {
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
 	) public void delete(@PathVariable Integer id){
-		libroRepository.deleteById(id);
+		cCancionRepository.deleteById(id);
 	}
+
 
 	/**
 	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.
-	 * @return Page<Libro> resultados encontrados.
+	 * @return Page<CCancion> resultados encontrados.
 	 */
 	@ResponseBody
 	@GetMapping(
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{pagina}/{cantidad}"
-	) public Page<Libro> findAll(
+	) public Page<CCancion> findAll(
 			@PathVariable Integer pagina,
 			@PathVariable Integer cantidad){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"ID");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return libroRepository.findAll(pageable);
+		return cCancionRepository.findAll(pageable);
 	}
-
 
 }

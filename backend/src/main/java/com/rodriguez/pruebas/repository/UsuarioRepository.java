@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.repository;
 
-import com.rodriguez.pruebas.entity.Usuario;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

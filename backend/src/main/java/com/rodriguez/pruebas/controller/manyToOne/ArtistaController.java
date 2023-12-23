@@ -1,10 +1,12 @@
 
-package com.rodriguez.pruebas.controller;
+package com.rodriguez.pruebas.controller.manyToOne;
 
-import com.rodriguez.pruebas.dto.UsuarioDto;
-import com.rodriguez.pruebas.entity.Usuario;
-import com.rodriguez.pruebas.repository.UsuarioRepository;
+import com.rodriguez.pruebas.dto.ArtistaDto;
+import com.rodriguez.pruebas.entity.manyToOne.Artista;
+import com.rodriguez.pruebas.repository.ArtistaRepository;
+import com.rodriguez.pruebas.service.ArtistaService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
@@ -37,16 +38,19 @@ import java.util.Optional;
 @CrossOrigin
 @AllArgsConstructor
 //@NoArgsConstructor
-//@RequiredArgsConstructor
-@RequestMapping("api/usuario")
-public class UsuarioController {
+@RequiredArgsConstructor
+@RequestMapping("api/artista")
+public class ArtistaController {
 
-	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
+	private static final Logger log = LoggerFactory.getLogger(ArtistaController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private ArtistaService artistaService;
+
+	@Autowired
+	private ArtistaRepository artistaRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -57,10 +61,10 @@ public class UsuarioController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public Integer save(@RequestBody UsuarioDto usuarioDto ){
-		Usuario usuario = MODEL_MAPPER.map(usuarioDto,Usuario.class);
-		usuario = usuarioRepository.save(usuario);
-		return usuario.getId();
+	public Integer save(@RequestBody ArtistaDto artistaDto ){
+		Artista artista = MODEL_MAPPER.map(artistaDto,Artista.class);
+		artista = artistaRepository.save(artista);
+		return artista.getId();
 	}
 
 
@@ -69,10 +73,11 @@ public class UsuarioController {
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
-	) public Usuario findById(@PathVariable Integer id){
-		Optional<Usuario> resultado = usuarioRepository.findById(id);
+	) public Artista findById(@PathVariable Integer id){
+		Optional<Artista> resultado = artistaRepository.findById(id);
 		return resultado.orElse(null);
 	}
+
 
 /*
 @ResponseBody
@@ -84,25 +89,26 @@ return artistaService.findAll();
 }
 */
 
+
 /**
  * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
  *
  * @param pagina consultada.
  * @param cantidad maxima por pagina.
- * @return Page<Usuario> resultados encontrados.
+ * @return Page<Artista> resultados encontrados.
  */
 @ResponseBody
 @GetMapping(
 consumes = MediaType.APPLICATION_JSON_VALUE,
 produces = MediaType.APPLICATION_JSON_VALUE,
 value = "{pagina}/{cantidad}"
-) public Page<Usuario> findAll(
+) public Page<Artista> findAll(
 	@PathVariable Integer pagina,
 	@PathVariable Integer cantidad){
 
-	Sort sort = Sort.by(Sort.Direction.ASC,"ID");
+	Sort sort = Sort.by(Sort.Direction.ASC,"id");
 	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-	return usuarioRepository.findAll(pageable);
+	return artistaRepository.findAll(pageable);
 }
 
 
@@ -112,7 +118,8 @@ value = "{pagina}/{cantidad}"
 	produces = MediaType.APPLICATION_JSON_VALUE,
 	value = "{id}"
 ) public void delete(@PathVariable Integer id){
-	usuarioRepository.deleteById(id);
+	artistaRepository.deleteById(id);
 }
+
 
 }
