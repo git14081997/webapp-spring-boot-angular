@@ -5,6 +5,7 @@ import com.rodriguez.pruebas.dto.inventarioFacturacion.CategoriaDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-//@NoArgsConstructor
-//@RequiredArgsConstructor
+@NoArgsConstructor
 @RequestMapping("api/categoria")
 public class CategoriaController {
 
