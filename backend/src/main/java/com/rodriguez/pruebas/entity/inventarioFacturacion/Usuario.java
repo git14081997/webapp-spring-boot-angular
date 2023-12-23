@@ -91,4 +91,11 @@ public class Usuario implements Serializable {
 	@Column( name = "DINERO", scale = 2)
 	private BigDecimal dinero;
 
+	@Column( name = "NIT")
+	private String nit;
+
+	@Column( name = "DIRECCION")
+	private String direccion;
+
+
 }
