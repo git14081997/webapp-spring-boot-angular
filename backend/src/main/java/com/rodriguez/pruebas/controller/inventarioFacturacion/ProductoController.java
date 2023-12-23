@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -58,6 +59,35 @@ public class ProductoController {
 	)
 	public Integer save(@RequestBody ProductoDto productoDto ){
 		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
+
+		if(producto.getCostoUnidad() == null) {
+			producto.setCostoUnidad(new BigDecimal(0));
+		}
+
+		if(producto.getGananciaMonto() == null) {
+			producto.setGananciaMonto(new BigDecimal(0));
+		}
+
+		if(producto.getGananciaPorcentaje() == null) {
+			producto.setGananciaPorcentaje(new BigDecimal(0));
+		}
+
+		if(producto.getIva() == null) {
+			producto.setIva(new BigDecimal(0));
+		}
+
+		if(producto.getPrecioVenta() == null) {
+			producto.setPrecioVenta(new BigDecimal(0));
+		}
+
+		if(producto.getExistencias() == null) {
+			producto.setExistencias(0);
+		}
+
+		if(producto.getEstado() == null) {
+			producto.setEstado("A");
+		}
+
 		producto = productoRepository.save(producto);
 		return producto.getId();
 	}
