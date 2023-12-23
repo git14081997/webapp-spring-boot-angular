@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -96,6 +95,5 @@ public class Usuario implements Serializable {
 
 	@Column( name = "DIRECCION")
 	private String direccion;
-
 
 }

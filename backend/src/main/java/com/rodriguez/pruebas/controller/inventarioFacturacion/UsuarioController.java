@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -52,15 +54,80 @@ public class UsuarioController {
 
 
 	@ResponseBody
+	@PutMapping(
+		consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	public Integer update(@RequestBody UsuarioDto usuarioDto ){
+
+		Integer usuarioId = usuarioDto.getId();
+
+		if(usuarioId == null){
+			return -1;
+		}
+		else {
+
+			Optional<Usuario> usuarioEnDB = usuarioRepository.findById(usuarioId);
+
+			if( usuarioEnDB.isPresent() ){
+				Usuario usuarioReal = usuarioEnDB.get();
+
+				usuarioReal.setNombre(usuarioDto.getNombre());
+				usuarioReal.setNombreDos(usuarioDto.getNombreDos());
+
+				usuarioReal.setApellido(usuarioDto.getApellido());
+				usuarioReal.setApellidoDos(usuarioDto.getApellidoDos());
+
+				usuarioReal.setCodigoArea(usuarioDto.getCodigoArea());
+				usuarioReal.setTelefono(usuarioDto.getTelefono());
+
+				usuarioReal.setDireccion(usuarioDto.getDireccion());
+
+				usuarioReal.setNit(usuarioDto.getNit());
+
+				usuarioReal.setCumpleanos(usuarioDto.getCumpleanos());
+
+				//usuarioReal.setContrasena(usuarioDto.getContrasena());
+				//usuarioReal.setCorreo(usuarioDto.getCorreo());
+
+				usuarioRepository.save(usuarioReal);
+				return 0;
+			}
+			else {
+				return -2;
+			}
+		}
+	}
+
+	@ResponseBody
 	@PostMapping(
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	public Integer save(@RequestBody UsuarioDto usuarioDto ){
-		Usuario usuario = MODEL_MAPPER.map(usuarioDto,Usuario.class);
-		usuario = usuarioRepository.save(usuario);
-		return usuario.getId();
+
+		Integer usuarioId = usuarioDto.getId();
+
+		if(usuarioId != null){
+			return -1;
+		}
+		else {
+			Usuario usuario = MODEL_MAPPER.map(usuarioDto,Usuario.class);
+
+			if(usuario.getPendienteDePago() == null) {
+				usuario.setPendienteDePago(new BigDecimal(0));
+			}
+
+			if(usuario.getBloqueado() == null) {
+				usuario.setBloqueado("N");
+			}
+
+			usuario = usuarioRepository.save(usuario);
+			return usuario.getId();
+		}
+
 	}
+
 
 
 	@ResponseBody
@@ -113,5 +180,50 @@ value = "{pagina}/{cantidad}"
 ) public void delete(@PathVariable Integer id){
 	usuarioRepository.deleteById(id);
 }
+
+
+	@ResponseBody
+	@PutMapping(
+		consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{opcion}"
+	)
+	public Integer updateCorreoContrasena(
+			@PathVariable Integer opcion,
+			@RequestBody UsuarioDto usuarioDto ){
+
+		Integer usuarioId = usuarioDto.getId();
+
+		if(usuarioId == null){
+			return -1;
+		}
+		else {
+
+			Optional<Usuario> usuarioEnDB = usuarioRepository.findById(usuarioId);
+
+			if( usuarioEnDB.isPresent() ){
+				Usuario usuarioReal = usuarioEnDB.get();
+
+				if( opcion == 0 ){
+					usuarioReal.setContrasena(usuarioDto.getContrasena());
+				}
+
+				if( opcion == 1 ){
+					usuarioReal.setCorreo(usuarioDto.getCorreo());
+				}
+
+				usuarioRepository.save(usuarioReal);
+				return 0;
+			}
+			else {
+				return -2;
+			}
+		}
+	}
+
+
+
+
+
 
 }

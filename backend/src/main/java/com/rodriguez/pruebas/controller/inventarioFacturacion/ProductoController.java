@@ -64,8 +64,8 @@ public class ProductoController {
 			producto.setCostoUnidad(new BigDecimal(0));
 		}
 
-		if(producto.getGananciaMonto() == null) {
-			producto.setGananciaMonto(new BigDecimal(0));
+		if(producto.getGanancia() == null) {
+			producto.setGanancia(new BigDecimal(0));
 		}
 
 		if(producto.getGananciaPorcentaje() == null) {

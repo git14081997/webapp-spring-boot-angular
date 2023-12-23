@@ -4,6 +4,7 @@ package com.rodriguez.pruebas.dto.inventarioFacturacion;
 import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -20,19 +21,39 @@ public class UsuarioDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
 	private String nombre;
+
 	private String nombreDos;
+
 	private String apellido;
+
 	private String apellidoDos;
-	private String correo;
-	private String contrasena;
-	private Date cumpleanos;
-	private Date fechaCreado;
-	private Date fechaModificado;
-	private String bloqueado;
+
 	private String codigoArea;
+
 	private String telefono;
-	private Double dinero;
+
+	private String correo;
+
+	private String contrasena;
+
+	private Date cumpleanos;
+
+	private Date fechaCreado;
+
+	private Date fechaModificado;
+
+	private String bloqueado;
+
 	private UsuarioDto usuarioModifico;
+
+	private UsuarioDto usuarioCreo;
+
+	private BigDecimal pendienteDePago;
+
+	private String nit;
+
+	private String direccion;
 
 }
