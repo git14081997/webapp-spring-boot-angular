@@ -5,6 +5,7 @@ import com.rodriguez.pruebas.dto.EscritorDto;
 import com.rodriguez.pruebas.entity.manyToMany.Escritor;
 import com.rodriguez.pruebas.repository.EscritorRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
@@ -36,8 +36,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-//@NoArgsConstructor
-//@RequiredArgsConstructor
+@NoArgsConstructor
 @RequestMapping("/api/escritor")
 public class EscritorController {
 
