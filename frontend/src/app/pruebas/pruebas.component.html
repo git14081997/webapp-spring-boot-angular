@@ -1,46 +1,98 @@
-
-
-
-
-
 <!-- componente-1 -->
 <div class="container mt-5">
 
-	<div class="row">
-		<div class="col mt-1">
-			<div class="mb-3">
-				<h1 class="frankBlue">
-					Bienvenido !
-				</h1>
-			</div>
-		</div>
-	</div>
+<!-- FACTURA -->
+<div class="row">
+	<div class="col mt-1">
+		<div class="mb-3">
+			<h1>FACTURA</h1>
+			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
 
+				<ng-template pTemplate="header">
+					<tr>
+
+						<th class="tableHeaderBlack">
+							NUMERO
+						</th>
+
+						<th class="tableHeaderBlack">
+							CLIENTE
+						</th>
+
+						<th class="tableHeaderBlack">
+							TOTAL
+						</th>
+
+						<th class="tableHeaderBlack">
+							FECHA EMISION
+						</th>
+
+						<th class="tableHeaderBlack">
+							OPCIONES
+						</th>
+
+					</tr>
+				</ng-template>
+
+				<ng-template pTemplate="body" let-objetoN>
+					<tr>
+
+						<td>{{ objetoN.id }}</td>
+
+						<td>{{ objetoN.cliente.nombre }}</td>
+
+						<td>{{ objetoN.total }}</td>
+
+						<td>{{ objetoN.fechaEmision }}</td>
+
+						<td>
+							<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
+								<i class="bi bi-pencil-fill"></i>
+							</button>
+							&nbsp;
+							<button class="btn btn-danger btn-lg" (click)="eliminarArtistaByID(objetoN.id)">
+								<i class="bi bi-trash-fill"></i>
+							</button>
+						</td>
+
+					</tr>
+				</ng-template>
+
+			</p-table>
+		</div>
+
+	</div>
 </div>
 
 
-<!-- componente-2 -->
-<div class="container mt-5">
-
+<!-- DETALLE FACTURA -->
 	<div class="row">
 		<div class="col mt-1">
 			<div class="mb-3">
-				Registros encontrados: {{datosDBArray.length}}
+				<h1>DETALLE</h1>
 				<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
 
 					<ng-template pTemplate="header">
 						<tr>
 
 							<th class="tableHeaderBlack">
-								ID
+								PRODUCTO
 							</th>
 
 							<th class="tableHeaderBlack">
-								NOMBRE
+								CANTIDAD
 							</th>
-						
+
 							<th class="tableHeaderBlack">
-								Opciones
+								PRECIO
+							</th>
+
+							<th class="tableHeaderBlack">
+								SUBTOTAL
+							</th>
+
+							<th class="tableHeaderBlack">
+								OPCIONES
 							</th>
 
 						</tr>
@@ -48,11 +100,15 @@
 
 					<ng-template pTemplate="body" let-objetoN>
 						<tr>
-							
-							<td>{{ objetoN.id }}</td>
 
-							<td>{{ objetoN.nombre }}</td>
-							
+							<td>{{ objetoN.producto.nombre }}</td>
+
+							<td>{{ objetoN.cantidad }}</td>
+
+							<td>{{ objetoN.precio }}</td>
+
+							<td>{{ objetoN.subtotal }}</td>
+
 							<td>
 								<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
 									<i class="bi bi-pencil-fill"></i>
@@ -68,65 +124,177 @@
 
 				</p-table>
 			</div>
+
 		</div>
 	</div>
 
-</div>
 
 
-<!-- componente-1 -->
-<div class="container mt-5">
 
-	<div class="row">
-		<div class="col mt-1">
-			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="parametro-id" placeholder="" [(ngModel)]="parametros.id">
-				<label for="parametro-id" class="form-label">ID:</label>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- componente-1 -->
+	<div class="container mt-5">
+
+		<div class="row">
+			<div class="col mt-1">
+				<div class="mb-3">
+					<h1 class="frankBlue">
+						Bienvenido !
+					</h1>
+				</div>
 			</div>
 		</div>
+
 	</div>
 
-	<div class="row">
-		<div class="col mt-1">
-			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="parametro-nombre" placeholder="" [(ngModel)]="parametros.nombre">
-				<label for="parametro-nombre" class="form-label">Nombre:</label>
 
+	<!-- componente-2 -->
+	<div class="container mt-5">
+
+		<div class="row">
+			<div class="col mt-1">
+				<div class="mb-3">
+					Registros encontrados: {{datosDBArray.length}}
+					<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+
+						<ng-template pTemplate="header">
+							<tr>
+
+								<th class="tableHeaderBlack">
+									ID
+								</th>
+
+								<th class="tableHeaderBlack">
+									NOMBRE
+								</th>
+
+								<th class="tableHeaderBlack">
+									Opciones
+								</th>
+
+							</tr>
+						</ng-template>
+
+						<ng-template pTemplate="body" let-objetoN>
+							<tr>
+
+								<td>{{ objetoN.id }}</td>
+
+								<td>{{ objetoN.nombre }}</td>
+
+								<td>
+									<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
+										<i class="bi bi-pencil-fill"></i>
+									</button>
+									&nbsp;
+									<button class="btn btn-danger btn-lg" (click)="eliminarArtistaByID(objetoN.id)">
+										<i class="bi bi-trash-fill"></i>
+									</button>
+								</td>
+
+							</tr>
+						</ng-template>
+
+					</p-table>
+				</div>
 			</div>
 		</div>
+
 	</div>
 
-	<div class="row">
-		<div class="col mt-1">
-			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="parametro-contrasena" placeholder=""
-					[(ngModel)]="parametros.contrasena">
-				<label for="parametro-contrasena" class="form-label">Contraseña:</label>
 
+	<!-- componente-1 -->
+	<div class="container mt-5">
+
+		<div class="row">
+			<div class="col mt-1">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="parametro-id" placeholder="" [(ngModel)]="parametros.id">
+					<label for="parametro-id" class="form-label">ID:</label>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="row">
-		<div class="col mt-1">
-			<div class="mb-3">
-				<button class="btn btn-warning btn-lg" (click)="agregarArtista()">
-					<i class="bi bi-plus-circle"></i>
-					Agregar/Modificar
-				</button>
-				&nbsp;
-				<button class="btn btn-primary btn-lg" (click)="buscarArtista()">
-					<i class="bi bi-search"></i>
-					Buscar
-				</button>
-				&nbsp;
-				<button class="btn btn-danger btn-lg" (click)="eliminarArtista()">
-					<i class="bi bi-trash-fill"></i>
-					Borrar
-				</button>
-				&nbsp;
+		<div class="row">
+			<div class="col mt-1">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="parametro-nombre" placeholder="" [(ngModel)]="parametros.nombre">
+					<label for="parametro-nombre" class="form-label">Nombre:</label>
+
+				</div>
 			</div>
 		</div>
-	</div>
 
-</div>
+		<div class="row">
+			<div class="col mt-1">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="parametro-contrasena" placeholder=""
+						[(ngModel)]="parametros.contrasena">
+					<label for="parametro-contrasena" class="form-label">Contraseña:</label>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col mt-1">
+				<div class="mb-3">
+					<button class="btn btn-warning btn-lg" (click)="agregarArtista()">
+						<i class="bi bi-plus-circle"></i>
+						Agregar/Modificar
+					</button>
+					&nbsp;
+					<button class="btn btn-primary btn-lg" (click)="buscarArtista()">
+						<i class="bi bi-search"></i>
+						Buscar
+					</button>
+					&nbsp;
+					<button class="btn btn-danger btn-lg" (click)="eliminarArtista()">
+						<i class="bi bi-trash-fill"></i>
+						Borrar
+					</button>
+					&nbsp;
+				</div>
+			</div>
+		</div>
+
+	</div>
