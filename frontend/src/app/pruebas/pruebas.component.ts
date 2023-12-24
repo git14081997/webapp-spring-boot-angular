@@ -23,8 +23,8 @@ export class PruebasComponent implements OnInit {
 	parametroServicio: ParametroServicio = {
 		url: "http://localhost:8001/api/artista",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
+			'Content-Type': 'application/json;charset=UTF-8',
+			'Accept': 'application/json;charset=UTF-8',
 			'Authorization': 'Bearer '
 		})
 	}
