@@ -1,52 +1,34 @@
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ParametroServicio } from './ParametroServicio';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PruebasService {
-
-	URL_ARTISTA: string = "http://localhost:8001/api/artista";
 	
-	http = inject(HttpClient);
+	private http = inject(HttpClient);
 
-	httpOptions = {
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': 'Bearer '
-		})
-	};
-
-	getById(objetoId: any): Observable<any> {
-		return this.http.get<any>(
-			this.URL_ARTISTA + "/" + objetoId,
-			this.httpOptions
-		);
+	getById(parametro:ParametroServicio,id: number): Observable<any> {
+		return this.http.get<any>(parametro.url + "/" + id, parametro.headers);
 	}
 
-	post(unObjeto: any): Observable<any> {
-		return this.http.post(this.URL_ARTISTA, unObjeto, this.httpOptions);
+	getPaginado(parametro:ParametroServicio, pagina: number, cantidad: number): Observable<any> {
+		return this.http.get<any>(parametro.url + "/" + pagina + "/" + cantidad, parametro.headers);
 	}
 
-	put(unObjeto: any): Observable<any> {
-		return this.http.put(this.URL_ARTISTA, unObjeto, this.httpOptions);
+	post(parametro:ParametroServicio, unObjeto: any): Observable<any> {
+		return this.http.post(parametro.url, unObjeto, parametro.headers);
 	}
 
-	deleteById(objetoId: any): Observable<any> {
-		return this.http.delete(
-			this.URL_ARTISTA + "/" + objetoId,
-			this.httpOptions
-		);
+	put(parametro:ParametroServicio, unObjeto: any): Observable<any> {
+		return this.http.put(parametro.url, unObjeto, parametro.headers);
 	}
 
-	getPaginado(pagina: number, cantidad: number): Observable<any> {
-		return this.http.get<any>(
-			this.URL_ARTISTA + "/" + pagina + "/" + cantidad,
-			this.httpOptions
-		);
+	deleteById(parametro:ParametroServicio, id: number): Observable<any> {
+		return this.http.delete(parametro.url + "/" + id,parametro.headers);
 	}
 
 }

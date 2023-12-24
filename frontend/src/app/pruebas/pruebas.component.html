@@ -6,8 +6,8 @@
 	<div class="row">
 		<div class="col mt-1">
 			<div class="mb-3">
-				<h1>USUARIO</h1>
-				<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+				<h1 class="font21">USUARIO</h1>
+				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 	
 					<ng-template pTemplate="header">
 						<tr>
@@ -82,9 +82,9 @@
 <div class="row">
 	<div class="col mt-1">
 		<div class="mb-3">
-			<h1>CLIENTE ABONA</h1>
+			<h1 class="font21">CLIENTE ABONA</h1>
 			<p>objetoN.cliente.pendienteDePago</p>
-			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 
 				<ng-template pTemplate="header">
 					<tr>
@@ -129,8 +129,8 @@
 <div class="row">
 	<div class="col mt-1">
 		<div class="mb-3">
-			<h1>TIPO DE PAGO</h1>
-			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+			<h1 class="font21">TIPO DE PAGO</h1>
+			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 
 				<ng-template pTemplate="header">
 					<tr>
@@ -174,8 +174,8 @@
 <div class="row">
 	<div class="col mt-1">
 		<div class="mb-3">
-			<h1>CATEGORIA</h1>
-			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+			<h1 class="font21">CATEGORIA</h1>
+			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 
 				<ng-template pTemplate="header">
 					<tr>
@@ -220,8 +220,8 @@
 <div class="row">
 	<div class="col mt-1">
 		<div class="mb-3">
-			<h1>FACTURA</h1>
-			<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+			<h1 class="font21">FACTURA</h1>
+			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 
 				<ng-template pTemplate="header">
 					<tr>
@@ -286,8 +286,8 @@
 	<div class="row">
 		<div class="col mt-1">
 			<div class="mb-3">
-				<h1>DETALLE</h1>
-				<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+				<h1 class="font21">DETALLE</h1>
+				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 
 					<ng-template pTemplate="header">
 						<tr>
@@ -405,8 +405,8 @@
 		<div class="row">
 			<div class="col mt-1">
 				<div class="mb-3">
-					Registros encontrados: {{datosDBArray.length}}
-					<p-table [value]="datosDBArray" [tableStyle]="{ 'min-width': '50rem' }">
+					Registros encontrados: {{objetos.length}}
+					<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
 
 						<ng-template pTemplate="header">
 							<tr>
@@ -438,7 +438,7 @@
 										<i class="bi bi-pencil-fill"></i>
 									</button>
 									&nbsp;
-									<button class="btn btn-danger btn-lg" (click)="eliminarArtistaByID(objetoN.id)">
+									<button class="btn btn-danger btn-lg" (click)="eliminarPorID(objetoN.id)">
 										<i class="bi bi-trash-fill"></i>
 									</button>
 								</td>
@@ -490,19 +490,23 @@
 		<div class="row">
 			<div class="col mt-1">
 				<div class="mb-3">
-					<button class="btn btn-warning btn-lg" (click)="agregarArtista()">
+					<button class="btn btn-warning btn-lg" (click)="agregar(this.parametros)">
 						<i class="bi bi-plus-circle"></i>
-						Agregar/Modificar
+						Agregar()
 					</button>
 					&nbsp;
-					<button class="btn btn-primary btn-lg" (click)="buscarArtista()">
+					<button class="btn btn-warning btn-lg" (click)="actualizar(this.parametros)">
+						Actualizar()
+					</button>
+					&nbsp;
+					<button class="btn btn-primary btn-lg" (click)="getPorId(this.parametros.id)">
 						<i class="bi bi-search"></i>
-						Buscar
+						Buscar()
 					</button>
 					&nbsp;
-					<button class="btn btn-danger btn-lg" (click)="eliminarArtista()">
+					<button class="btn btn-danger btn-lg" (click)="eliminarPorID(this.parametros.id)">
 						<i class="bi bi-trash-fill"></i>
-						Borrar
+						Borrar()
 					</button>
 					&nbsp;
 				</div>
