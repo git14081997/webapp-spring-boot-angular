@@ -20,9 +20,8 @@ import { PruebasService } from '../pruebas/pruebas.service';
 })
 export class UsuariosListComponent implements OnInit {
 
-	parametroServicio: ParametroServicio = {
-		//url: "http://127.0.0.1:8080/api/usuario",
-		url: "/api/usuario",
+	private parametroServicio: ParametroServicio = {
+		url: "api/usuario",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
@@ -51,7 +50,9 @@ export class UsuariosListComponent implements OnInit {
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio,this.pagina, this.cantidad).subscribe((RESPONSE: any) => {
 			console.log(RESPONSE);
-			this.objetos = RESPONSE.content;
+			let ans = RESPONSE;
+			this.objetos = ans.content;
+			console.log(this.objetos);
 		});
 	}
 

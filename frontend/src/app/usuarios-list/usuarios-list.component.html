@@ -13,7 +13,7 @@
   <div class="row" *ngIf="verLista == 'S'" >
 		<div class="col mt-1">
 			<div class="mb-3">
-				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
+				<p-table [value]="objetos" [tableStyle]="{ 'width': 'max-content' }">
 
 					<ng-template pTemplate="header">
 						<tr>
@@ -46,7 +46,7 @@
 
 							<td>{{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
 
-							<td>{{ objetoN.telefono }}</td>
+							<td> +{{ objetoN.codigoArea }} {{ objetoN.telefono }}</td>
 
 							<td>{{ objetoN.cumpleanos }}</td>
 

@@ -25,6 +25,7 @@ button {
 .tableHeaderBlack {
 	background-color: #000000 !important;
 	color: #ffffff !important;
+  width: max-content !important;
 }
 
 .font21{

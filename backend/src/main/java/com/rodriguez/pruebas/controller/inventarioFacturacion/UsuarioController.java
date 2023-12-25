@@ -159,8 +159,8 @@ return artistaService.findAll();
  */
 @ResponseBody
 @GetMapping(
-consumes = MediaType.APPLICATION_JSON_VALUE,
-produces = MediaType.APPLICATION_JSON_VALUE,
+//consumes = MediaType.APPLICATION_JSON_VALUE,
+//produces = MediaType.APPLICATION_JSON_VALUE,
 value = "{pagina}/{cantidad}"
 ) public Page<Usuario> findAll(
 	@PathVariable Integer pagina,
