@@ -30,7 +30,10 @@ export class PruebasComponent implements OnInit {
 	}
 
 	service: PruebasService;
-	parametros: any = {};
+	parametros: any = {
+		"nombre":"Juan",
+		"apellido":"Perez",
+	};
 	objetoSeleccionado: any = {};
 	objetos: any[] = [];
 	pagina: number = 0;

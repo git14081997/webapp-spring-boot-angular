@@ -1,288 +1,211 @@
-<!-- componente-1 -->
+
 <div class="container mt-5">
 
-	<hr/>
-	<!-- USUARIO -->
+	<!-- CLIENTE ABONA -->
 	<div class="row">
 		<div class="col mt-1">
 			<div class="mb-3">
-				<h1 class="font21">USUARIO</h1>
+				<h1 class="font21">CLIENTE ABONA</h1>
+				<p>objetoN.cliente.pendienteDePago</p>
 				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
-	
+
 					<ng-template pTemplate="header">
 						<tr>
-	
-							<th class="tableHeaderBlack">CORREO</th>
-	
-							<th class="tableHeaderBlack">NOMBRES</th>
 
-							<th class="tableHeaderBlack">APELLIDOS</th>
+							<th class="tableHeaderBlack">VALOR</th>
 
-							<th class="tableHeaderBlack">TELEFONO</th>
+							<th class="tableHeaderBlack">FECHA</th>
 
-							<th class="tableHeaderBlack">CUMPLEANOS</th>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-objetoN>
+						<tr>
+
+							<td>{{ objetoN.valor }}</td>
+
+							<td>{{ objetoN.fecha }}</td>
+
+						</tr>
+					</ng-template>
+
+				</p-table>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<hr />
+	<!-- TIPO DE PAGO -->
+	<div class="row">
+		<div class="col mt-1">
+			<div class="mb-3">
+				<h1 class="font21">TIPO DE PAGO</h1>
+				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
+
+					<ng-template pTemplate="header">
+						<tr>
+
+							<th class="tableHeaderBlack">ID</th>
+
+							<th class="tableHeaderBlack">DESCRIPCION</th>
+
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-objetoN>
+						<tr>
+
+							<td>{{ objetoN.id }}</td>
+
+							<td>{{ objetoN.descripcion }}</td>
+
+						</tr>
+					</ng-template>
+
+				</p-table>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	<hr />
+
+	<!-- CATEGORIA -->
+	<div class="row">
+		<div class="col mt-1">
+			<div class="mb-3">
+				<h1 class="font21">CATEGORIA</h1>
+				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
+
+					<ng-template pTemplate="header">
+						<tr>
+
+							<th class="tableHeaderBlack">ID</th>
+
+							<th class="tableHeaderBlack">DESCRIPCION</th>
+
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-objetoN>
+						<tr>
+
+							<td>{{ objetoN.id }}</td>
+
+							<td>{{ objetoN.descripcion }}</td>
+
+						</tr>
+					</ng-template>
+
+				</p-table>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<hr />
+
+	<!-- FACTURA -->
+	<div class="row">
+		<div class="col mt-1">
+			<div class="mb-3">
+				<h1 class="font21">FACTURA</h1>
+				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
+
+					<ng-template pTemplate="header">
+						<tr>
+
+							<th class="tableHeaderBlack">NUMERO</th>
+
+							<th class="tableHeaderBlack">FECHA EMISION</th>
+
+							<th class="tableHeaderBlack">CLIENTE</th>
 
 							<th class="tableHeaderBlack">NIT</th>
 
-							<th class="tableHeaderBlack">DIRECCION</th>
+							<th class="tableHeaderBlack">TOTAL</th>
+
+							<th class="tableHeaderBlack">IVA</th>
+
+							<th class="tableHeaderBlack">GANANCIA</th>
 
 							<th class="tableHeaderBlack">PENDIENTE DE PAGO</th>
 
+							<th class="tableHeaderBlack">TIPO DE PAGO</th>
+
+							<th class="tableHeaderBlack">DIRECCION</th>
+
 						</tr>
 					</ng-template>
-	
+
 					<ng-template pTemplate="body" let-objetoN>
 						<tr>
-	
-							<td>{{ objetoN.correo }}</td>
-	
-							<td>{{ objetoN.nombre }} {{ objetoN.nombreDos }}</td>
 
-							<td>{{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+							<td>{{ objetoN.id }}</td>
 
-							<td>{{ objetoN.telefono }}</td>
+							<td>{{ objetoN.fechaEmision }}</td>
 
-							<td>{{ objetoN.cumpleanos }}</td>
+							<td>{{ objetoN.nombre }} {{ objetoN.apellido }}</td>
 
 							<td>{{ objetoN.nit }}</td>
 
-							<td>{{ objetoN.direccion }}</td>
+							<td>{{ objetoN.total }}</td>
+
+							<td>{{ objetoN.iva }}</td>
+
+							<td>{{ objetoN.ganancia }}</td>
 
 							<td>{{ objetoN.pendienteDePago }}</td>
 
+							<td>{{ objetoN.tipoDePago.descripcion }}</td>
+
+							<td>{{ objetoN.direccion }}</td>
+
 						</tr>
 					</ng-template>
-	
+
 				</p-table>
 			</div>
-	
+
 		</div>
 	</div>
-	
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<hr/>
-<!-- CLIENTE ABONA -->
-<div class="row">
-	<div class="col mt-1">
-		<div class="mb-3">
-			<h1 class="font21">CLIENTE ABONA</h1>
-			<p>objetoN.cliente.pendienteDePago</p>
-			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
-
-				<ng-template pTemplate="header">
-					<tr>
-
-						<th class="tableHeaderBlack">VALOR</th>
-
-						<th class="tableHeaderBlack">FECHA</th>
-
-					</tr>
-				</ng-template>
-
-				<ng-template pTemplate="body" let-objetoN>
-					<tr>
-
-						<td>{{ objetoN.valor }}</td>
-
-						<td>{{ objetoN.fecha }}</td>
-
-					</tr>
-				</ng-template>
-
-			</p-table>
-		</div>
-
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<hr/>
-<!-- TIPO DE PAGO -->
-<div class="row">
-	<div class="col mt-1">
-		<div class="mb-3">
-			<h1 class="font21">TIPO DE PAGO</h1>
-			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
-
-				<ng-template pTemplate="header">
-					<tr>
-
-						<th class="tableHeaderBlack">ID</th>
-
-						<th class="tableHeaderBlack">DESCRIPCION</th>
-
-					</tr>
-				</ng-template>
-
-				<ng-template pTemplate="body" let-objetoN>
-					<tr>
-
-						<td>{{ objetoN.id }}</td>
-
-						<td>{{ objetoN.descripcion }}</td>
-
-					</tr>
-				</ng-template>
-
-			</p-table>
-		</div>
-
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<hr/>
-
-<!-- CATEGORIA -->
-<div class="row">
-	<div class="col mt-1">
-		<div class="mb-3">
-			<h1 class="font21">CATEGORIA</h1>
-			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
-
-				<ng-template pTemplate="header">
-					<tr>
-
-						<th class="tableHeaderBlack">ID</th>
-
-						<th class="tableHeaderBlack">DESCRIPCION</th>
-
-					</tr>
-				</ng-template>
-
-				<ng-template pTemplate="body" let-objetoN>
-					<tr>
-
-						<td>{{ objetoN.id }}</td>
-
-						<td>{{ objetoN.descripcion }}</td>
-
-					</tr>
-				</ng-template>
-
-			</p-table>
-		</div>
-
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-<hr/>
-
-<!-- FACTURA -->
-<div class="row">
-	<div class="col mt-1">
-		<div class="mb-3">
-			<h1 class="font21">FACTURA</h1>
-			<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
-
-				<ng-template pTemplate="header">
-					<tr>
-
-						<th class="tableHeaderBlack">NUMERO</th>
-
-						<th class="tableHeaderBlack">FECHA EMISION</th>
-
-						<th class="tableHeaderBlack">CLIENTE</th>
-
-						<th class="tableHeaderBlack">NIT</th>
-
-						<th class="tableHeaderBlack">TOTAL</th>
-
-						<th class="tableHeaderBlack">IVA</th>
-
-						<th class="tableHeaderBlack">GANANCIA</th>
-
-						<th class="tableHeaderBlack">PENDIENTE DE PAGO</th>
-
-						<th class="tableHeaderBlack">TIPO DE PAGO</th>
-
-						<th class="tableHeaderBlack">DIRECCION</th>
-
-					</tr>
-				</ng-template>
-
-				<ng-template pTemplate="body" let-objetoN>
-					<tr>
-
-						<td>{{ objetoN.id }}</td>
-
-						<td>{{ objetoN.fechaEmision }}</td>
-
-						<td>{{ objetoN.nombre }} {{ objetoN.apellido }}</td>
-
-						<td>{{ objetoN.nit }}</td>
-
-						<td>{{ objetoN.total }}</td>
-
-						<td>{{ objetoN.iva }}</td>
-
-						<td>{{ objetoN.ganancia }}</td>
-
-						<td>{{ objetoN.pendienteDePago }}</td>
-
-						<td>{{ objetoN.tipoDePago.descripcion }}</td>
-
-						<td>{{ objetoN.direccion }}</td>
-
-					</tr>
-				</ng-template>
-
-			</p-table>
-		</div>
-
-	</div>
-</div>
-
-
-<!-- DETALLE FACTURA -->
+	<!-- DETALLE FACTURA -->
 	<div class="row">
 		<div class="col mt-1">
 			<div class="mb-3">
@@ -339,175 +262,33 @@
 		</div>
 	</div>
 
+	<hr />
 
-<hr/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<!-- componente-1 -->
-	<div class="container mt-5">
-
-		<div class="row">
-			<div class="col mt-1">
-				<div class="mb-3">
-					<h1 class="frankBlue">
-						Bienvenido !
-					</h1>
-				</div>
+	<div class="row">
+		<div class="col mt-1">
+			<div class="mb-3">
+				<button class="btn btn-success btn-lg" (click)="agregar(this.parametros)">
+					<i class="bi bi-plus-square-fill"></i>
+					Agregar
+				</button>
+				&nbsp;
+				<button class="btn btn-warning btn-lg" (click)="actualizar(this.parametros)">
+					<i class="bi bi-shuffle"></i>
+					Actualizar
+				</button>
+				&nbsp;
+				<button class="btn btn-primary btn-lg" (click)="getPorId(this.parametros.id)">
+					<i class="bi bi-search"></i>
+					Buscar
+				</button>
+				&nbsp;
+				<button class="btn btn-danger btn-lg" (click)="eliminarPorID(this.parametros.id)">
+					<i class="bi bi-trash-fill"></i>
+					Eliminar
+				</button>
+				&nbsp;
 			</div>
 		</div>
-
 	</div>
 
-
-	<!-- componente-2 -->
-	<div class="container mt-5">
-
-		<div class="row">
-			<div class="col mt-1">
-				<div class="mb-3">
-					Registros encontrados: {{objetos.length}}
-					<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
-
-						<ng-template pTemplate="header">
-							<tr>
-
-								<th class="tableHeaderBlack">
-									ID
-								</th>
-
-								<th class="tableHeaderBlack">
-									NOMBRE
-								</th>
-
-								<th class="tableHeaderBlack">
-									Opciones
-								</th>
-
-							</tr>
-						</ng-template>
-
-						<ng-template pTemplate="body" let-objetoN>
-							<tr>
-
-								<td>{{ objetoN.id }}</td>
-
-								<td>{{ objetoN.nombre }}</td>
-
-								<td>
-									<button class="btn btn-primary btn-lg" (click)="editar(objetoN)">
-										<i class="bi bi-pencil-fill"></i>
-									</button>
-									&nbsp;
-									<button class="btn btn-danger btn-lg" (click)="eliminarPorID(objetoN.id)">
-										<i class="bi bi-trash-fill"></i>
-									</button>
-								</td>
-
-							</tr>
-						</ng-template>
-
-					</p-table>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
-
-	<!-- componente-1 -->
-	<div class="container mt-5">
-
-		<div class="row">
-			<div class="col mt-1">
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="parametro-id" placeholder="" [(ngModel)]="parametros.id">
-					<label for="parametro-id" class="form-label">ID:</label>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col mt-1">
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="parametro-nombre" placeholder="" [(ngModel)]="parametros.nombre">
-					<label for="parametro-nombre" class="form-label">Nombre:</label>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col mt-1">
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="parametro-contrasena" placeholder=""
-						[(ngModel)]="parametros.contrasena">
-					<label for="parametro-contrasena" class="form-label">Contraseña:</label>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col mt-1">
-				<div class="mb-3">
-					<button class="btn btn-warning btn-lg" (click)="agregar(this.parametros)">
-						<i class="bi bi-plus-square-fill"></i>
-					</button>
-					&nbsp;
-					<button class="btn btn-warning btn-lg" (click)="actualizar(this.parametros)">
-						<i class="bi bi-shuffle"></i>
-					</button>
-					&nbsp;
-					<button class="btn btn-primary btn-lg" (click)="getPorId(this.parametros.id)">
-						<i class="bi bi-search"></i>
-					</button>
-					&nbsp;
-					<button class="btn btn-danger btn-lg" (click)="eliminarPorID(this.parametros.id)">
-						<i class="bi bi-trash-fill"></i>
-					</button>
-					&nbsp;
-				</div>
-			</div>
-		</div>
-
-	</div>
+</div>

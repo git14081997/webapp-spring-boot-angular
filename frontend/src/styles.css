@@ -14,5 +14,19 @@
   border: 8px solid var(--blue);
 }
 
+.container-fixed-width {
+  width: 405px !important;
+}
 
+button {
+	font-weight: bold;
+}
 
+.tableHeaderBlack {
+	background-color: #000000 !important;
+	color: #ffffff !important;
+}
+
+.font21{
+	font-size: 21px !important;
+}

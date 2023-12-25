@@ -1,0 +1,156 @@
+
+<div class="container mt-5">
+
+  <div class="row" *ngIf="verLista == 'S'">
+    <div class="col mt-1">
+      <button class="btn btn-success btn-lg" (click)="verVentanaAgregar()">
+        <i class="bi bi-plus-square-fill"></i>
+        Agregar
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="verLista == 'S'" >
+		<div class="col mt-1">
+			<div class="mb-3">
+				<p-table [value]="objetos" [tableStyle]="{ 'min-width': '50rem' }">
+
+					<ng-template pTemplate="header">
+						<tr>
+
+							<th class="tableHeaderBlack">CORREO</th>
+
+							<th class="tableHeaderBlack">NOMBRES</th>
+
+							<th class="tableHeaderBlack">APELLIDOS</th>
+
+							<th class="tableHeaderBlack">TELEFONO</th>
+
+							<th class="tableHeaderBlack">CUMPLEANOS</th>
+
+							<th class="tableHeaderBlack">NIT</th>
+
+							<th class="tableHeaderBlack">DIRECCION</th>
+
+							<th class="tableHeaderBlack">PENDIENTE DE PAGO</th>
+
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="body" let-objetoN>
+						<tr>
+
+							<td>{{ objetoN.correo }}</td>
+
+							<td>{{ objetoN.nombre }} {{ objetoN.nombreDos }}</td>
+
+							<td>{{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+
+							<td>{{ objetoN.telefono }}</td>
+
+							<td>{{ objetoN.cumpleanos }}</td>
+
+							<td>{{ objetoN.nit }}</td>
+
+							<td>{{ objetoN.direccion }}</td>
+
+							<td>{{ objetoN.pendienteDePago }}</td>
+
+						</tr>
+					</ng-template>
+
+				</p-table>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div class="container mt-5" *ngIf="verEditable == 'S'">
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-nombre" placeholder="" [(ngModel)]="objetoSeleccionado.nombre">
+        <label for="parametro-nombre" class="form-label">Nombre:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-apellido" placeholder=""
+          [(ngModel)]="objetoSeleccionado.apellido">
+        <label for="parametro-apellido" class="form-label">Apellido:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-telefono" placeholder=""
+          [(ngModel)]="objetoSeleccionado.telefono">
+        <label for="parametro-telefono" class="form-label">Telefono:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-cumpleanos" placeholder=""
+          [(ngModel)]="objetoSeleccionado.cumpleanos">
+        <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-nit" placeholder="" [(ngModel)]="objetoSeleccionado.nit">
+        <label for="parametro-nit" class="form-label">Nit:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-direccion" placeholder=""
+          [(ngModel)]="objetoSeleccionado.direccion">
+        <label for="parametro-direccion" class="form-label">Dirección:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="parametro-contrasena" placeholder=""
+          [(ngModel)]="objetoSeleccionado.contrasena">
+        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="mb-3">
+        <button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'" (click)="agregar(this.objetoSeleccionado)">
+          <i class="bi bi-floppy2-fill"></i>
+          Guardar
+        </button>
+        <button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'" (click)="actualizar(this.objetoSeleccionado)">
+          <i class="bi bi-shuffle"></i>
+          Actualizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
