@@ -23,17 +23,14 @@ export class PruebasComponent implements OnInit {
 	parametroServicio: ParametroServicio = {
 		url: "http://localhost:8001/api/artista",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Accept': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
 			'Authorization': 'Bearer '
 		})
 	}
 
 	service: PruebasService;
-	parametros: any = {
-		"nombre":"Juan",
-		"apellido":"Perez",
-	};
+	parametros: any = {};
 	objetoSeleccionado: any = {};
 	objetos: any[] = [];
 	pagina: number = 0;

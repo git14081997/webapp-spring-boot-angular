@@ -23,7 +23,7 @@ export class UsuariosListComponent implements OnInit {
 	parametroServicio: ParametroServicio = {
 		url: "http://localhost:8001/api/usuario",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json',
 			'Accept': 'application/json',
 			'Authorization': 'Bearer '
 		})
