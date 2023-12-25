@@ -71,6 +71,27 @@
 
 
 <div class="container mt-5" *ngIf="verEditable == 'S'">
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-correo" placeholder=""
+          [(ngModel)]="objetoSeleccionado.correo">
+        <label for="parametro-correo" class="form-label">Correo:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="parametro-contrasena" placeholder=""
+          [(ngModel)]="objetoSeleccionado.contrasena">
+        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
+      </div>
+    </div>
+  </div>
+  
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
@@ -125,16 +146,6 @@
         <input type="text" class="form-control" id="parametro-direccion" placeholder=""
           [(ngModel)]="objetoSeleccionado.direccion">
         <label for="parametro-direccion" class="form-label">Dirección:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="parametro-contrasena" placeholder=""
-          [(ngModel)]="objetoSeleccionado.contrasena">
-        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
       </div>
     </div>
   </div>

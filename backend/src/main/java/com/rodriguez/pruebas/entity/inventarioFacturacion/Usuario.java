@@ -59,7 +59,7 @@ public class Usuario implements Serializable {
 	@Column( name = "TELEFONO", length = 8, unique = true)
 	private String telefono;
 
-	@Column( name = "CORREO", unique = true)
+	@Column( name = "CORREO", unique = true, nullable = false)
 	private String correo;
 
 	@Column( name = "CONTRASENA")

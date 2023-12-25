@@ -21,7 +21,8 @@ import { ParametroServicio } from './ParametroServicio';
 export class PruebasComponent implements OnInit {
 
 	parametroServicio: ParametroServicio = {
-		url: "http://localhost:8001/api/artista",
+		//url: "http://localhost:8001/api/artista",
+		url: "/api/artista",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
