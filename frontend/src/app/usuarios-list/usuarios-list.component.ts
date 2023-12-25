@@ -62,14 +62,6 @@ export class UsuariosListComponent implements OnInit {
 		});
 	}
 
-	editar(objetoSeleccionado: any) {
-		this.objetoSeleccionado = objetoSeleccionado;
-		console.log(this.objetoSeleccionado);
-    this.verEditable = 'S';
-    this.verLista = 'N';
-    this.crearOrActualizar = 'A'
-	}
-
 	setPaginaCantidad(pagina: number, cantidad: number) {
 		this.pagina = pagina;
 		this.cantidad = cantidad;
@@ -81,16 +73,33 @@ export class UsuariosListComponent implements OnInit {
     this.crearOrActualizar = 'C';
   }
 
+	verListado(){
+		this.verLista = 'S';
+    this.verEditable = 'N';
+		this.objetoSeleccionado = {};
+	}
+
   agregar(parametros: any){
 		this.service.post(this.parametroServicio,parametros).subscribe(() => {
         this.verLista = 'S';
         this.verEditable = 'N';
-        this.getPorPagina
+        this.getPorPagina();
     });
 	}
 
 	actualizar(parametros: any) {
-		this.service.put(this.parametroServicio,parametros).subscribe();
+		this.service.put(this.parametroServicio,parametros).subscribe(()=> {
+			this.verLista = 'S';
+			this.verEditable = 'N';
+			this.objetoSeleccionado = {};
+			window.location.reload();	
+		});
 	}
-  
+
+	actualizarSeleccionado(){
+		this.crearOrActualizar = 'A';
+		this.verLista = 'N';
+		this.verEditable = 'S';
+	}
+
 }
