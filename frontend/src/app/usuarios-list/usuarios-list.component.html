@@ -2,8 +2,23 @@
 
   <div class="row">
     <div class="col mt-1">
+      <button class="btn btn-success btn-lg" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
+        <i class="bi bi-plus-square-fill"></i>
+        Agregar
+      </button>
+      &nbsp;
+      <button class="btn btn-info btn-lg" (click)="verListado()" *ngIf="verLista == 'N'">
+        <i class="bi bi-arrow-counterclockwise"></i>
+        Regresar
+      </button>
+      &nbsp;
+    </div>
+  </div>
+
+  <div class="row" *ngIf="verLista == 'S'">
+    <div class="col mt-1">
       <nav>
-        <ul class="pagination">
+        <ul class="pagination justify-content-center">
 
           <li class="page-item" (click)="getPorPaginaNum(pagina-1)">
             <a class="page-link" href="#">
@@ -16,7 +31,7 @@
           </li>
 
           <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="#">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
@@ -33,23 +48,9 @@
             </option>
             </select>
           </li>
+
         </ul>
       </nav>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <button class="btn btn-success btn-lg" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
-        <i class="bi bi-plus-square-fill"></i>
-        Agregar
-      </button>
-      &nbsp;
-      <button class="btn btn-info btn-lg" (click)="verListado()" *ngIf="verLista == 'N'">
-        <i class="bi bi-arrow-counterclockwise"></i>
-        Regresar
-      </button>
-      &nbsp;
     </div>
   </div>
 
@@ -60,9 +61,7 @@
           <tr>
             <th class="tableHeaderBlack" scope="col">Correo</th>
 
-            <th class="tableHeaderBlack" scope="col">Nombres</th>
-
-            <th class="tableHeaderBlack" scope="col">Apellidos</th>
+            <th class="tableHeaderBlack" scope="col">Nombre</th>
 
             <th class="tableHeaderBlack" scope="col">Teléfono</th>
 
@@ -81,9 +80,7 @@
 
             <td>{{ objetoN.correo }}</td>
 
-            <td>{{ objetoN.nombre }} {{ objetoN.nombreDos }}</td>
-
-            <td>{{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+            <td>{{ objetoN.nombre }} {{ objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
 
             <td> {{ objetoN.telefono }}</td>
 
@@ -140,6 +137,17 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="parametro-nombreDos" placeholder=""
+          [(ngModel)]="objetoSeleccionado.nombreDos">
+        <label for="parametro-nombreDos" class="form-label">Segundo nombre:</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-apellido" placeholder=""
           [(ngModel)]="objetoSeleccionado.apellido">
         <label for="parametro-apellido" class="form-label">Apellido:</label>
@@ -148,16 +156,18 @@
   </div>
 
   <div class="row">
-
-    <div class="col-4 mt-1">
+    <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-codigoArea" placeholder=""
-          [(ngModel)]="objetoSeleccionado.codigoArea">
-        <label for="parametro-codigoArea" class="form-label">Código de área:</label>
+        <input type="text" class="form-control" id="parametro-apellidoDos" placeholder=""
+          [(ngModel)]="objetoSeleccionado.apellidoDos">
+        <label for="parametro-apellidoDos" class="form-label">Segundo Apellido:</label>
       </div>
     </div>
+  </div>
 
-    <div class="col-8 mt-1">
+  <div class="row">
+
+    <div class="col mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-telefono" placeholder=""
           [(ngModel)]="objetoSeleccionado.telefono">
@@ -167,22 +177,22 @@
   </div>
 
   <div class="row">
-
-    <div class="col-4 mt-1">
+    <div class="col mt-1">
       <div class="form-floating mb-3">
         <input type="date" class="form-control" id="parametro-cumpleanos" placeholder=""
           [(ngModel)]="objetoSeleccionado.cumpleanos">
         <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
       </div>
     </div>
+  </div>
 
-    <div class="col-8 mt-1">
+  <div class="row">
+    <div class="col mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-nit" placeholder="" [(ngModel)]="objetoSeleccionado.nit">
         <label for="parametro-nit" class="form-label">Nit:</label>
       </div>
     </div>
-
   </div>
 
   <div class="row">
