@@ -1,75 +1,104 @@
-
 <div class="container mt-5">
 
-  <div class="row" >
+  <div class="row">
+    <div class="col mt-1">
+      <nav>
+        <ul class="pagination">
+
+          <li class="page-item" (click)="getPorPaginaNum(pagina-1)">
+            <a class="page-link" href="#">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+
+          <li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
+            <a class="page-link" href="#" (click)="this.getPorPaginaNum(paginaN.numPagina)">{{paginaN.numPagina}}</a>
+          </li>
+
+          <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+
+          <li class="page-item">
+            &nbsp;&nbsp;&nbsp;
+          </li>
+
+          <li class="page-item">
+            <select class="form-select" (change)="this.getPorPagina()"
+            [(ngModel)]="cantidad" >
+              <option *ngFor="let num of opcionesCantidadPorPagina">
+              {{num}}
+            </option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col mt-1">
       <button class="btn btn-success btn-lg" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
         <i class="bi bi-plus-square-fill"></i>
         Agregar
       </button>
+      &nbsp;
       <button class="btn btn-info btn-lg" (click)="verListado()" *ngIf="verLista == 'N'">
         <i class="bi bi-arrow-counterclockwise"></i>
         Regresar
       </button>
+      &nbsp;
     </div>
   </div>
 
-  <div class="row" *ngIf="verLista == 'S'" >
-		<div class="col mt-1">
-			<div class="mb-3">
-				<p-table [value]="objetos" [tableStyle]="{ 'width': 'max-content' }"
-        styleClass="p-datatable-striped"
-        selectionMode="single" [(selection)]="objetoSeleccionado" dataKey="id" >
+  <div class="row" *ngIf="verLista == 'S'">
+    <div class="col mt-1">
+      <table class="table table-secondary table-striped">
+        <thead>
+          <tr>
+            <th class="tableHeaderBlack" scope="col">Correo</th>
 
-					<ng-template pTemplate="header">
-						<tr>
+            <th class="tableHeaderBlack" scope="col">Nombres</th>
 
-							<th class="tableHeaderBlack">CORREO</th>
+            <th class="tableHeaderBlack" scope="col">Apellidos</th>
 
-							<th class="tableHeaderBlack">NOMBRES</th>
+            <th class="tableHeaderBlack" scope="col">Teléfono</th>
 
-							<th class="tableHeaderBlack">APELLIDOS</th>
+            <th class="tableHeaderBlack" scope="col">Cumpleaños</th>
 
-							<th class="tableHeaderBlack">TELEFONO</th>
+            <th class="tableHeaderBlack" scope="col">Nit</th>
 
-							<th class="tableHeaderBlack">CUMPLEANOS</th>
+            <th class="tableHeaderBlack" scope="col">Dirección</th>
 
-							<th class="tableHeaderBlack">NIT</th>
+            <th class="tableHeaderBlack" scope="col">Pendiente de pago</th>
 
-							<th class="tableHeaderBlack">DIRECCION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr (click)="actualizarSeleccionado(objetoN)" *ngFor="let objetoN of objetos">
 
-							<th class="tableHeaderBlack">PENDIENTE DE PAGO</th>
+            <td>{{ objetoN.correo }}</td>
 
-						</tr>
-					</ng-template>
+            <td>{{ objetoN.nombre }} {{ objetoN.nombreDos }}</td>
 
-					<ng-template pTemplate="body" let-objetoN>
-						<tr [pSelectableRow]="objetoN" (click)="actualizarSeleccionado()"  >
+            <td>{{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
 
-							<td>{{ objetoN.correo }}</td>
+            <td> {{ objetoN.telefono }}</td>
 
-							<td>{{ objetoN.nombre }} {{ objetoN.nombreDos }}</td>
+            <td>{{ objetoN.cumpleanoss }}</td>
 
-							<td>{{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+            <td>{{ objetoN.nit }}</td>
 
-							<td> +{{ objetoN.codigoArea }} {{ objetoN.telefono }}</td>
+            <td>{{ objetoN.direccion }}</td>
 
-							<td>{{ objetoN.cumpleanos | date: 'yyyy/MM/dd' }}</td>
-
-							<td>{{ objetoN.nit }}</td>
-
-							<td>{{ objetoN.direccion }}</td>
-
-							<td>{{ objetoN.pendienteDePago }}</td>
-
-						</tr>
-					</ng-template>
-
-				</p-table>
-			</div>
-
-		</div>
-	</div>
+            <td>{{ objetoN.pendienteDePago }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 
@@ -82,7 +111,7 @@
     <div class="col mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-correo" placeholder=""
-          [(ngModel)]="objetoSeleccionado.correo" required >
+          [(ngModel)]="objetoSeleccionado.correo" required>
         <label for="parametro-correo" class="form-label">Correo:</label>
       </div>
     </div>
@@ -97,11 +126,12 @@
       </div>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-nombre" placeholder="" [(ngModel)]="objetoSeleccionado.nombre">
+        <input type="text" class="form-control" id="parametro-nombre" placeholder=""
+          [(ngModel)]="objetoSeleccionado.nombre">
         <label for="parametro-nombre" class="form-label">Nombre:</label>
       </div>
     </div>
@@ -118,40 +148,41 @@
   </div>
 
   <div class="row">
-    <div class="col mt-1">
 
+    <div class="col-4 mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-codigoArea" placeholder=""
           [(ngModel)]="objetoSeleccionado.codigoArea">
         <label for="parametro-codigoArea" class="form-label">Código de área:</label>
       </div>
+    </div>
 
+    <div class="col-8 mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-telefono" placeholder=""
           [(ngModel)]="objetoSeleccionado.telefono">
-        <label for="parametro-telefono" class="form-label">Telefono:</label>
+        <label for="parametro-telefono" class="form-label">Teléfono:</label>
       </div>
-
     </div>
   </div>
 
   <div class="row">
-    <div class="col mt-1">
+
+    <div class="col-4 mt-1">
       <div class="form-floating mb-3">
         <input type="date" class="form-control" id="parametro-cumpleanos" placeholder=""
           [(ngModel)]="objetoSeleccionado.cumpleanos">
         <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col mt-1">
+    <div class="col-8 mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="parametro-nit" placeholder="" [(ngModel)]="objetoSeleccionado.nit">
         <label for="parametro-nit" class="form-label">Nit:</label>
       </div>
     </div>
+
   </div>
 
   <div class="row">
@@ -167,11 +198,13 @@
   <div class="row">
     <div class="col mt-1">
       <div class="mb-3">
-        <button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'" (click)="agregar(this.objetoSeleccionado)">
+        <button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'"
+          (click)="agregar(this.objetoSeleccionado)">
           <i class="bi bi-floppy2-fill"></i>
           Guardar
         </button>
-        <button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'" (click)="actualizar(this.objetoSeleccionado)">
+        <button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'"
+          (click)="actualizar(this.objetoSeleccionado)">
           <i class="bi bi-shuffle"></i>
           Actualizar
         </button>

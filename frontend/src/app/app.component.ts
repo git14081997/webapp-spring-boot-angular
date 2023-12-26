@@ -8,10 +8,10 @@ import { PruebasComponent } from './pruebas/pruebas.component';
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule, RouterOutlet,PruebasComponent
+    CommonModule, RouterOutlet, PruebasComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent {  
 }

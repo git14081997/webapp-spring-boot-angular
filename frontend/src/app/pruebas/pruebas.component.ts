@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { PruebasService } from './pruebas.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
 import { ParametroServicio } from './ParametroServicio';
 
 @Component({
@@ -13,7 +11,6 @@ import { ParametroServicio } from './ParametroServicio';
 	standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
-		ButtonModule, TableModule
 	],
 	templateUrl: './pruebas.component.html',
 	styleUrl: './pruebas.component.css'
@@ -21,7 +18,6 @@ import { ParametroServicio } from './ParametroServicio';
 export class PruebasComponent implements OnInit {
 
 	parametroServicio: ParametroServicio = {
-		//url: "http://localhost:8001/api/artista",
 		url: "/api/artista",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
