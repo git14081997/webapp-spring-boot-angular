@@ -20,7 +20,7 @@
       <nav>
         <ul class="pagination pagination-lg justify-content-center">
 
-          <select class="form-select form-select-lg" (change)="this.getPorPagina()" [(ngModel)]="cantidad"
+          <select class="form-select form-select-lg" (change)="this.setCantidadPorPag()" [(ngModel)]="cantidad"
             style="width: max-content;">
             <option *ngFor="let num of opcionesCantidadPorPagina">
               {{num}}

@@ -113,6 +113,11 @@ export class UsuariosListComponent implements OnInit {
 
 	}
 
+	setCantidadPorPag(){
+		this.pagina = 0;
+		this.getPorPagina();
+	}
+
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 			).subscribe((RESPONSE: any) => {
