@@ -133,7 +133,6 @@ public class UsuarioController {
 
 	@ResponseBody
 	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
 	) public Usuario findById(@PathVariable Integer id){
@@ -172,8 +171,7 @@ return artistaService.findAll();
  */
 @ResponseBody
 @GetMapping(
-//consumes = MediaType.APPLICATION_JSON_VALUE,
-//produces = MediaType.APPLICATION_JSON_VALUE,
+produces = MediaType.APPLICATION_JSON_VALUE,
 value = "{pagina}/{cantidad}"
 ) public Page<Usuario> findAll(
 	@PathVariable Integer pagina,
@@ -199,11 +197,8 @@ value = "{pagina}/{cantidad}"
 
 
 @ResponseBody
-@DeleteMapping(
-	consumes = MediaType.APPLICATION_JSON_VALUE,
-	produces = MediaType.APPLICATION_JSON_VALUE,
-	value = "{id}"
-) public void delete(@PathVariable Integer id){
+@DeleteMapping(value = "{id}")
+public void delete(@PathVariable Integer id){
 	usuarioRepository.deleteById(id);
 }
 
