@@ -2,20 +2,24 @@
 
   <div class="row">
     <div class="col mt-1">
-      <button class="btn btn-success btn-lg" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
-        <i class="bi bi-plus-square-fill"></i>
+      <button class="btn btn-success btn-lg align-middle" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
+        <i class="bi bi-plus-lg align-middle"></i>
         Agregar
       </button>
-      &nbsp;
-      <button class="btn btn-info btn-lg" (click)="verListado()" *ngIf="verLista == 'N'">
-        <i class="bi bi-arrow-counterclockwise"></i>
+      <button class="btn btn-info btn-lg align-middle" (click)="verListado()" *ngIf="verLista == 'N'">
+        <i class="bi bi-arrow-counterclockwise align-middle"></i>
         Regresar
       </button>
-      &nbsp;
     </div>
   </div>
 
-  <div class="row" *ngIf="verLista == 'S'">
+  <div class="row" *ngIf="verLista == 'S' && objetos.length == 0">
+    <div class="col mt-3">
+      <h1>No hay registros.</h1>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
     <div class="col mt-1">
       <nav >
         <ul class="pagination pagination-lg justify-content-center" >
@@ -34,7 +38,7 @@
 
           <li class="page-item" (click)="getPorPaginaNum(pagina-1)"  style="border: 0px solid white;">
             <a class="page-link" href="#">
-              <i class="bi bi-arrow-left-square-fill font27" ></i>
+              <i class="bi bi-arrow-left font27"></i>
             </a>
           </li>
 
@@ -46,7 +50,7 @@
 
           <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
             <a class="page-link" href="#">
-              <i class="bi bi-arrow-right-circle-fill font27"></i>
+              <i class="bi bi-arrow-right font27"></i>
             </a>
           </li>
 
@@ -55,11 +59,11 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="verLista == 'S'">
+  <div class="row" *ngIf="verLista == 'S' && objetos.length > 0 ">
     <div class="col mt-1">
       <div class="table-responsive">
 
-        <table class="table table-secondary table-striped
+        <table class="table  table-striped
          table-lg table-bordered table-hover">
           <thead>
             <tr>
@@ -90,19 +94,19 @@
                 </button>
               </td>
 
-              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.correo }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.correo }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre }} {{ objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.nombre }} {{ objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)"> {{ objetoN.telefono }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" > {{ objetoN.telefono }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.cumpleanoss }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.cumpleanoss }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nit }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.nit }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.direccion }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.direccion }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.pendienteDePago }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >Q. {{ objetoN.pendienteDePago }}</td>
             </tr>
           </tbody>
         </table>

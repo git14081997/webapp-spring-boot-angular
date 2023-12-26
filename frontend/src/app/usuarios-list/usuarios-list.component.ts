@@ -130,7 +130,6 @@ export class UsuariosListComponent implements OnInit {
 
 
 				this.tmp = RESPONSE;
-				console.log(RESPONSE);
 
 				this.objetos = this.tmp.content;
 				this.paginasDisponibles = this.tmp.totalPages;
