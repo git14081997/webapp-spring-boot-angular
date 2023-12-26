@@ -41,6 +41,8 @@ export class UsuariosListComponent implements OnInit {
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
 
+	tmp:any;
+
 	constructor() {
 		this.service = new PruebasService;
 	}
@@ -95,6 +97,11 @@ export class UsuariosListComponent implements OnInit {
 
 
 	formatoDeFecha(campoFecha:any) :string {
+		
+		if(campoFecha == null){
+			return "";
+		}
+
 		let fechaString = new Date(campoFecha.toString());
 
 		let mes = fechaString.getMonth()+1;
@@ -108,8 +115,7 @@ export class UsuariosListComponent implements OnInit {
 			diaTxt = ""+dia;
 		}
 
-		return fechaString.getFullYear() + "/" 
-		+ this.getMesLetras(mes) + "/" + diaTxt;
+		return diaTxt + " " + this.getMesLetras(mes) + " " + fechaString.getFullYear() + " ";
 
 	}
 
@@ -122,9 +128,13 @@ export class UsuariosListComponent implements OnInit {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 			).subscribe((RESPONSE: any) => {
 
-				this.objetos = RESPONSE.content;
-				this.paginasDisponibles = RESPONSE.totalPages;
-				this.total = RESPONSE.totalElements;
+
+				this.tmp = RESPONSE;
+				console.log(RESPONSE);
+
+				this.objetos = this.tmp.content;
+				this.paginasDisponibles = this.tmp.totalPages;
+				this.total = this.tmp.totalElements;
 
 				for( let objetoN of this.objetos ){
 					objetoN.cumpleanoss = this.formatoDeFecha( objetoN.cumpleanos );

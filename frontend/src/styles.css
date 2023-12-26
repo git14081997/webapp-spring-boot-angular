@@ -22,6 +22,11 @@ button {
 	font-size: 21px !important;
 }
 
-.page-link{
+.font27 {
+  font-size: 27px !important;
+}
+
+.page-link {
   color: #000000 !important;
+  border: 0px solid white !important;
 }
