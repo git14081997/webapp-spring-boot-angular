@@ -18,35 +18,35 @@
   <div class="row" *ngIf="verLista == 'S'">
     <div class="col mt-1">
       <nav>
-        <ul class="pagination justify-content-center">
+        <ul class="pagination pagination-lg justify-content-center">
 
-          <li class="page-item" (click)="getPorPaginaNum(pagina-1)">
-            <a class="page-link" href="#">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-
-          <li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
-            <a class="page-link" href="#" (click)="this.getPorPaginaNum(paginaN.numPagina)">{{paginaN.numPagina}}</a>
-          </li>
-
-          <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
-            <a class="page-link" href="#">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
+          <select class="form-select form-select-lg" (change)="this.getPorPagina()" [(ngModel)]="cantidad"
+            style="width: max-content;">
+            <option *ngFor="let num of opcionesCantidadPorPagina">
+              {{num}}
+            </option>
+          </select>
 
           <li class="page-item">
             &nbsp;&nbsp;&nbsp;
           </li>
 
-          <li class="page-item">
-            <select class="form-select" (change)="this.getPorPagina()"
-            [(ngModel)]="cantidad" >
-              <option *ngFor="let num of opcionesCantidadPorPagina">
-              {{num}}
-            </option>
-            </select>
+          <li class="page-item" (click)="getPorPaginaNum(pagina-1)">
+            <a class="page-link" href="#">
+              <i class="bi bi-arrow-left-circle-fill"></i>
+            </a>
+          </li>
+
+          <li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
+            <a class="page-link" href="#" (click)="this.getPorPaginaNum(paginaN.numPagina)">
+              {{paginaN.numPagina}}
+            </a>
+          </li>
+
+          <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
+            <a class="page-link" href="#">
+              <i class="bi bi-arrow-right-circle-fill"></i>
+            </a>
           </li>
 
         </ul>
@@ -56,44 +56,48 @@
 
   <div class="row" *ngIf="verLista == 'S'">
     <div class="col mt-1">
-      <table class="table table-secondary table-striped">
-        <thead>
-          <tr>
-            <th class="tableHeaderBlack" scope="col">Correo</th>
+      <div class="table-responsive">
 
-            <th class="tableHeaderBlack" scope="col">Nombre</th>
+        <table class="table table-secondary table-striped
+         table-lg table-bordered table-hover">
+          <thead>
+            <tr>
+              <th class="tableHeaderBlack" scope="col">Correo</th>
 
-            <th class="tableHeaderBlack" scope="col">Teléfono</th>
+              <th class="tableHeaderBlack" scope="col">Nombre</th>
 
-            <th class="tableHeaderBlack" scope="col">Cumpleaños</th>
+              <th class="tableHeaderBlack" scope="col">Teléfono</th>
 
-            <th class="tableHeaderBlack" scope="col">Nit</th>
+              <th class="tableHeaderBlack" scope="col">Cumpleaños</th>
 
-            <th class="tableHeaderBlack" scope="col">Dirección</th>
+              <th class="tableHeaderBlack" scope="col">Nit</th>
 
-            <th class="tableHeaderBlack" scope="col">Pendiente de pago</th>
+              <th class="tableHeaderBlack" scope="col">Dirección</th>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr (click)="actualizarSeleccionado(objetoN)" *ngFor="let objetoN of objetos">
+              <th class="tableHeaderBlack" scope="col">Pendiente de pago</th>
 
-            <td>{{ objetoN.correo }}</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr (click)="actualizarSeleccionado(objetoN)" *ngFor="let objetoN of objetos">
 
-            <td>{{ objetoN.nombre }} {{ objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+              <td>{{ objetoN.correo }}</td>
 
-            <td> {{ objetoN.telefono }}</td>
+              <td>{{ objetoN.nombre }} {{ objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
 
-            <td>{{ objetoN.cumpleanoss }}</td>
+              <td> {{ objetoN.telefono }}</td>
 
-            <td>{{ objetoN.nit }}</td>
+              <td>{{ objetoN.cumpleanoss }}</td>
 
-            <td>{{ objetoN.direccion }}</td>
+              <td>{{ objetoN.nit }}</td>
 
-            <td>{{ objetoN.pendienteDePago }}</td>
-          </tr>
-        </tbody>
-      </table>
+              <td>{{ objetoN.direccion }}</td>
+
+              <td>{{ objetoN.pendienteDePago }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -107,7 +111,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-correo" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-correo" placeholder=""
           [(ngModel)]="objetoSeleccionado.correo" required>
         <label for="parametro-correo" class="form-label">Correo:</label>
       </div>
@@ -117,7 +121,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="parametro-contrasena" placeholder=""
+        <input type="password" class="form-control form-control-lg" id="parametro-contrasena" placeholder=""
           [(ngModel)]="objetoSeleccionado.contrasena" required>
         <label for="parametro-contrasena" class="form-label">Contraseña:</label>
       </div>
@@ -127,7 +131,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-nombre" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
           [(ngModel)]="objetoSeleccionado.nombre">
         <label for="parametro-nombre" class="form-label">Nombre:</label>
       </div>
@@ -137,7 +141,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-nombreDos" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-nombreDos" placeholder=""
           [(ngModel)]="objetoSeleccionado.nombreDos">
         <label for="parametro-nombreDos" class="form-label">Segundo nombre:</label>
       </div>
@@ -148,7 +152,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-apellido" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-apellido" placeholder=""
           [(ngModel)]="objetoSeleccionado.apellido">
         <label for="parametro-apellido" class="form-label">Apellido:</label>
       </div>
@@ -158,7 +162,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-apellidoDos" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-apellidoDos" placeholder=""
           [(ngModel)]="objetoSeleccionado.apellidoDos">
         <label for="parametro-apellidoDos" class="form-label">Segundo Apellido:</label>
       </div>
@@ -169,7 +173,7 @@
 
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-telefono" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-telefono" placeholder=""
           [(ngModel)]="objetoSeleccionado.telefono">
         <label for="parametro-telefono" class="form-label">Teléfono:</label>
       </div>
@@ -179,7 +183,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="date" class="form-control" id="parametro-cumpleanos" placeholder=""
+        <input type="date" class="form-control form-control-lg" id="parametro-cumpleanos" placeholder=""
           [(ngModel)]="objetoSeleccionado.cumpleanos">
         <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
       </div>
@@ -189,7 +193,8 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-nit" placeholder="" [(ngModel)]="objetoSeleccionado.nit">
+        <input type="text" class="form-control form-control-lg" id="parametro-nit" placeholder=""
+          [(ngModel)]="objetoSeleccionado.nit">
         <label for="parametro-nit" class="form-label">Nit:</label>
       </div>
     </div>
@@ -198,7 +203,7 @@
   <div class="row">
     <div class="col mt-1">
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="parametro-direccion" placeholder=""
+        <input type="text" class="form-control form-control-lg" id="parametro-direccion" placeholder=""
           [(ngModel)]="objetoSeleccionado.direccion">
         <label for="parametro-direccion" class="form-label">Dirección:</label>
       </div>

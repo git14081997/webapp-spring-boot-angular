@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -78,7 +80,6 @@ public class UsuarioController {
 				usuarioReal.setApellido(usuarioDto.getApellido());
 				usuarioReal.setApellidoDos(usuarioDto.getApellidoDos());
 
-				usuarioReal.setCodigoArea(usuarioDto.getCodigoArea());
 				usuarioReal.setTelefono(usuarioDto.getTelefono());
 
 				usuarioReal.setDireccion(usuarioDto.getDireccion());
@@ -137,7 +138,19 @@ public class UsuarioController {
 		value = "{id}"
 	) public Usuario findById(@PathVariable Integer id){
 		Optional<Usuario> resultado = usuarioRepository.findById(id);
-		return resultado.orElse(null);
+		if(resultado.isPresent()){
+			Usuario usuarioEncontrado = resultado.get();
+			usuarioEncontrado.setContrasena("");
+
+			usuarioEncontrado.setUsuarioCreo(null);
+			usuarioEncontrado.setUsuarioModifico(null);
+
+			usuarioEncontrado.setFechaCreado(null);
+			usuarioEncontrado.setFechaModificado(null);
+
+			return usuarioEncontrado;
+		}
+		return null;
 	}
 
 /*
@@ -168,7 +181,20 @@ value = "{pagina}/{cantidad}"
 
 	Sort sort = Sort.by(Sort.Direction.ASC,"id");
 	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-	return usuarioRepository.findAll(pageable);
+	Page<Usuario> resultado = usuarioRepository.findAll(pageable);
+	List<Usuario> usuarios = resultado.getContent();
+	usuarios.forEach( usuarioEncontrado -> {
+		usuarioEncontrado.setContrasena("");
+
+		usuarioEncontrado.setUsuarioCreo(null);
+		usuarioEncontrado.setUsuarioModifico(null);
+
+		usuarioEncontrado.setFechaCreado(null);
+		usuarioEncontrado.setFechaModificado(null);
+
+	});
+
+	return resultado;
 }
 
 

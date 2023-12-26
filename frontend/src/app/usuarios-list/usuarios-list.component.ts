@@ -35,21 +35,11 @@ export class UsuariosListComponent implements OnInit {
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
-	cantidad: number = 2;
-	total: number = 2;
-	opcionesCantidadPorPagina = [2, 10, 50, 100];
+	cantidad: number = 1;
+	total: number = 1;
+	opcionesCantidadPorPagina = [1, 10, 25];
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
-
-	onPageChange(event: any) {
-		this.pagina = event.first;
-		this.cantidad = event.rows;
-		this.getPorPagina();
-	}
-
-	setCantidadPorPagina(){
-		this.getPorPagina();
-	}
 
 	constructor() {
 		this.service = new PruebasService;
@@ -59,22 +49,80 @@ export class UsuariosListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+	getMesLetras(mes:number): string {
+		let mesEnLetras = "";
+		if(mes == 1){
+			mesEnLetras = "ENERO";
+		}
+		if(mes == 2){
+			mesEnLetras = "FEBRERO";
+		}
+		if(mes == 3){
+			mesEnLetras = "MARZO";
+		}
+
+		if(mes == 4){
+			mesEnLetras = "ABRIL";
+		}
+		if(mes == 5){
+			mesEnLetras = "MAYO";
+		}
+		if(mes == 6){
+			mesEnLetras = "JUNIO";
+		}
+
+		if(mes == 7){
+			mesEnLetras = "JULIO";
+		}
+		if(mes == 8){
+			mesEnLetras = "AGOSTO";
+		}
+		if(mes == 9){
+			mesEnLetras = "SEPTIEMBRE";
+		}
+
+		if(mes == 10){
+			mesEnLetras = "OCTUBRE";
+		}
+		if(mes == 11){
+			mesEnLetras = "NOVIEMBRE";
+		}
+		if(mes == 12){
+			mesEnLetras = "DICIEMBRE";
+		}
+		return mesEnLetras;
+	}
+
+
+	formatoDeFecha(campoFecha:any) :string {
+		let fechaString = new Date(campoFecha.toString());
+
+		let mes = fechaString.getMonth()+1;
+		let dia = fechaString.getDate();
+
+		let diaTxt = "";
+		if( dia < 10 ){
+			diaTxt = "0"+dia;
+		}
+		else {
+			diaTxt = ""+dia;
+		}
+
+		return fechaString.getFullYear() + "/" 
+		+ this.getMesLetras(mes) + "/" + diaTxt;
+
+	}
+
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 			).subscribe((RESPONSE: any) => {
-
-				console.log(RESPONSE);
 
 				this.objetos = RESPONSE.content;
 				this.paginasDisponibles = RESPONSE.totalPages;
 				this.total = RESPONSE.totalElements;
 
 				for( let objetoN of this.objetos ){
-					
-					let fechaString = new Date(objetoN.cumpleanos.toString());
-
-					objetoN.cumpleanoss = fechaString.getFullYear() +
-						"/" + (fechaString.getMonth()+1) + "/" + fechaString.getDate();
+					objetoN.cumpleanoss = this.formatoDeFecha( objetoN.cumpleanos );
 				}
 
 				this.paginasDisponiblesArray = [];
@@ -86,31 +134,9 @@ export class UsuariosListComponent implements OnInit {
 			});
 	}
 
-
 	getPorPaginaNum(numPagina:number) {
 		this.pagina = numPagina;
-		this.service.getPaginado(
-			this.parametroServicio,
-			this.pagina,
-			this.cantidad).subscribe((RESPONSE: any) => {
-
-				this.objetos = RESPONSE.content;
-				this.paginasDisponibles = RESPONSE.totalPages;
-				this.total = RESPONSE.totalElements;
-
-				for( let objetoN of this.objetos ){
-					let fechaString = new Date(objetoN.cumpleanos.toString());
-					objetoN.cumpleanoss = fechaString.getFullYear() +
-						"/" + (fechaString.getMonth()+1) + "/" + fechaString.getDate();
-				}
-
-				this.paginasDisponiblesArray = [];
-				for(let i = 0; i < this.paginasDisponibles; i++){
-					let newObj = { "numPagina": i };
-					this.paginasDisponiblesArray.push(newObj);
-				}
-
-			});
+		this.getPorPagina();
 	}
 
 	eliminarPorID(id: number) {

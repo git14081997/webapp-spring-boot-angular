@@ -1,21 +1,11 @@
 
 /* Mis Varibles CSS */
 :root {
-  --darkblue: #001B33;
-  --blue: #1e90ff;
-  --white: #ffffff; 
+  --blue: #001b33;
 }
 
-.frankBlue {
+.customBlue {
   color: var(--blue);
-  background-color: var(--darkblue);
-  width: max-content !important;
-  padding: 18px !important;
-  border: 8px solid var(--blue);
-}
-
-.container-fixed-width {
-  width: 405px !important;
 }
 
 button {
@@ -30,4 +20,8 @@ button {
 
 .font21{
 	font-size: 21px !important;
+}
+
+.page-link{
+  color: #000000 !important;
 }
