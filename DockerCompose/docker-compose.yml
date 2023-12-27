@@ -11,3 +11,9 @@ services:
       - MARIADB_DATABASE=INVENTARIO_FACTURACION
       - MARIADB_USER=otherUser 
       - MARIADB_PASSWORD=otherPassword
+    volumes:
+      - myvol:/var/lib/mysql
+
+volumes:
+  myvol:
+    external: true
