@@ -128,7 +128,6 @@ export class UsuariosListComponent implements OnInit {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 			).subscribe((RESPONSE: any) => {
 
-
 				this.tmp = RESPONSE;
 
 				this.objetos = this.tmp.content;
