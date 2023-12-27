@@ -19,10 +19,32 @@
     </div>
   </div>
 
+  <br />
+
+  <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
+
+    <div class="col-1 mt-1 ">
+      <button class="btn btn-info btn-lg " (click)="limpiarBusqueda()">
+        <i class="bi bi-ban "></i>
+      </button>
+    </div>
+
+    <div class="col mt-1">
+      <div class="form-floating">
+        <input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder=""
+          [(ngModel)]="objetoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(objetoSeleccionado.buscar)">
+        <label for="parametro-buscar" class="form-label">
+          <i class="bi bi-search"></i>
+          Buscar:
+        </label>
+      </div>
+    </div>
+  </div>
+
   <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
     <div class="col mt-1">
-      <nav >
-        <ul class="pagination pagination-lg justify-content-center" >
+      <nav>
+        <ul class="pagination pagination-lg justify-content-center">
 
           <select class="form-select form-select-lg" (change)="this.setCantidadPorPag()" [(ngModel)]="cantidad"
             style="width: max-content;border: 1px solid gray;">
@@ -36,7 +58,7 @@
             &nbsp;&nbsp;&nbsp;
           </li>
 
-          <li class="page-item" (click)="getPorPaginaNum(pagina-1)"  style="border: 0px solid white;">
+          <li class="page-item" (click)="getPorPaginaNum(pagina-1)" style="border: 0px solid white;">
             <a class="page-link" href="#">
               <i class="bi bi-arrow-left font27"></i>
             </a>
@@ -94,19 +116,20 @@
                 </button>
               </td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.correo }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.correo }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.nombre }} {{ objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombre }} {{
+                objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" > {{ objetoN.telefono }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle"> {{ objetoN.telefono }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.cumpleanoss }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.cumpleanoss }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.nit }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nit }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >{{ objetoN.direccion }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.direccion }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle" >Q. {{ objetoN.pendienteDePago }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">Q. {{ objetoN.pendienteDePago }}</td>
             </tr>
           </tbody>
         </table>
@@ -183,11 +206,10 @@
   </div>
 
   <div class="row">
-
     <div class="col mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-telefono" placeholder=""
-          [(ngModel)]="objetoSeleccionado.telefono">
+          [(ngModel)]="objetoSeleccionado.telefono" maxlength="8">
         <label for="parametro-telefono" class="form-label">Teléfono:</label>
       </div>
     </div>

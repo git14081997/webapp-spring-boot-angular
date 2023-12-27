@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
@@ -243,6 +244,45 @@ public void delete(@PathVariable Integer id){
 
 
 
+	// findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<Usuario> resultados encontrados.
+	 */
+	@ResponseBody
+	@GetMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{pagina}/{cantidad}/buscar"
+	) public Page<Usuario> findAllByNombreAndApellido(
+		@PathVariable Integer pagina, @PathVariable Integer cantidad,
+		@RequestParam(required = true) String nombre,
+		@RequestParam(required = true) String apellido){
+
+		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
+
+		Page<Usuario> resultado =
+		usuarioRepository.findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(
+			pageable,nombre,apellido);
+
+		List<Usuario> usuarios = resultado.getContent();
+
+		usuarios.forEach( usuarioEncontrado -> {
+			usuarioEncontrado.setContrasena("");
+
+			usuarioEncontrado.setUsuarioCreo(null);
+			usuarioEncontrado.setUsuarioModifico(null);
+
+			usuarioEncontrado.setFechaCreado(null);
+			usuarioEncontrado.setFechaModificado(null);
+
+		});
+
+		return resultado;
+	}
 
 
 

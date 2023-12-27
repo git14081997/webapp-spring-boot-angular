@@ -208,4 +208,41 @@ export class UsuariosListComponent implements OnInit {
 		this.verEditable = 'S';
 	}
 
+	buscarEnDb(parametros: any){
+
+		let arrayRes = parametros.split(" ");
+
+		let nombre = arrayRes[0];
+		let apellido = arrayRes[1];
+
+		this.service.getPaginadoBuscando(
+			this.parametroServicio, 0, 20, nombre,apellido
+		).subscribe((RESPONSE) => {
+
+			console.log(RESPONSE);
+			this.tmp = RESPONSE;
+
+			this.objetos = this.tmp.content;
+			this.paginasDisponibles = this.tmp.totalPages;
+			this.total = this.tmp.totalElements;
+
+			for( let objetoN of this.objetos ){
+				objetoN.cumpleanoss = this.formatoDeFecha( objetoN.cumpleanos );
+			}
+
+			this.paginasDisponiblesArray = [];
+			for(let i = 0; i < this.paginasDisponibles; i++){
+				let newObj = { "numPagina": i };
+				this.paginasDisponiblesArray.push(newObj);
+			}
+		});
+	}
+
+	limpiarBusqueda(){
+		this.objetoSeleccionado.buscar = "";
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+		this.getPorPagina();
+	}
+
 }
