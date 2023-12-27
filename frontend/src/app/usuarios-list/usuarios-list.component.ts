@@ -148,6 +148,12 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 	getPorPaginaNum(numPagina:number) {
+		if(numPagina >= this.paginasDisponibles ){
+			numPagina = this.paginasDisponibles - 1;
+		}
+		if(numPagina <= 0){
+			numPagina = 0;
+		}
 		this.pagina = numPagina;
 		this.getPorPagina();
 	}
