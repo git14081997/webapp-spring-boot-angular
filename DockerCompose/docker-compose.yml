@@ -1,0 +1,13 @@
+version: "0.0.1"
+
+services:
+  mydb:
+    image: mariadb:lts
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=esUnSecreto
+      - MARIADB_DATABASE=INVENTARIO_FACTURACION
+      - MARIADB_USER=otherUser 
+      - MARIADB_PASSWORD=otherPassword
