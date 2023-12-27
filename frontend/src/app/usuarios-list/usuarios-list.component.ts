@@ -18,7 +18,7 @@ import { PruebasService } from '../pruebas/pruebas.service';
 export class UsuariosListComponent implements OnInit {
 
 	private parametroServicio: ParametroServicio = {
-		url: "http://192.168.1.2:8089/api/usuario",
+		url: "/api/usuario",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
