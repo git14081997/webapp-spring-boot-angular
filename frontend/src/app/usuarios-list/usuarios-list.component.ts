@@ -241,7 +241,7 @@ export class UsuariosListComponent implements OnInit {
 	limpiarBusqueda(){
 		this.objetoSeleccionado.buscar = "";
 		this.pagina = 0;
-		this.cantidad = this.opcionesCantidadPorPagina[0];
+		this.cantidad = 1;
 		this.getPorPagina();
 	}
 

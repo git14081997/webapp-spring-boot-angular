@@ -23,63 +23,26 @@
 
   <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
 
+    <div class="col-11 mt-1">
+      <div class="input-group mb-3">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="text" class="form-control form-control-lg" id="parametro-buscar" 
+        placeholder="Buscar" [(ngModel)]="objetoSeleccionado.buscar" maxlength="20" 
+        (change)="buscarEnDb(objetoSeleccionado.buscar)">
+        </div>
+
+    </div>
     <div class="col-1 mt-1 ">
-      <button class="btn btn-info btn-lg " (click)="limpiarBusqueda()">
-        <i class="bi bi-ban "></i>
+      <button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
+        <i class="bi bi-ban"></i>
       </button>
     </div>
 
-    <div class="col mt-1">
-      <div class="form-floating">
-        <input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder=""
-          [(ngModel)]="objetoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(objetoSeleccionado.buscar)">
-        <label for="parametro-buscar" class="form-label">
-          <i class="bi bi-search"></i>
-          Buscar:
-        </label>
-      </div>
-    </div>
   </div>
 
-  <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
-    <div class="col mt-1">
-      <nav>
-        <ul class="pagination pagination-lg justify-content-center">
 
-          <select class="form-select form-select-lg" (change)="this.setCantidadPorPag()" [(ngModel)]="cantidad"
-            style="width: max-content;border: 1px solid gray;">
-
-            <option *ngFor="let num of opcionesCantidadPorPagina">
-              {{num}}
-            </option>
-          </select>
-
-          <li class="page-item">
-            &nbsp;&nbsp;&nbsp;
-          </li>
-
-          <li class="page-item" (click)="getPorPaginaNum(pagina-1)" style="border: 0px solid white;">
-            <a class="page-link" href="#">
-              <i class="bi bi-arrow-left font27"></i>
-            </a>
-          </li>
-
-          <li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
-            <a class="page-link font27" href="#" (click)="this.getPorPaginaNum(paginaN.numPagina)">
-              {{paginaN.numPagina}}
-            </a>
-          </li>
-
-          <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
-            <a class="page-link" href="#">
-              <i class="bi bi-arrow-right font27"></i>
-            </a>
-          </li>
-
-        </ul>
-      </nav>
-    </div>
-  </div>
 
   <div class="row" *ngIf="verLista == 'S' && objetos.length > 0 ">
     <div class="col mt-1">
@@ -136,6 +99,47 @@
       </div>
     </div>
   </div>
+
+  <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
+    <div class="col mt-1">
+      <nav>
+        <ul class="pagination pagination-lg justify-content-center">
+
+          <select class="form-select form-select-lg" (change)="this.setCantidadPorPag()" [(ngModel)]="cantidad"
+            style="width: max-content;border: 1px solid gray;">
+
+            <option *ngFor="let num of opcionesCantidadPorPagina">
+              {{num}}
+            </option>
+          </select>
+
+          <li class="page-item">
+            &nbsp;&nbsp;&nbsp;
+          </li>
+
+          <li class="page-item" (click)="getPorPaginaNum(pagina-1)" style="border: 0px solid white;">
+            <a class="page-link" href="#">
+              <i class="bi bi-arrow-left font27"></i>
+            </a>
+          </li>
+
+          <li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
+            <a class="page-link font27" href="#" (click)="this.getPorPaginaNum(paginaN.numPagina)">
+              {{paginaN.numPagina}}
+            </a>
+          </li>
+
+          <li class="page-item" (click)="getPorPaginaNum(pagina+1)">
+            <a class="page-link" href="#">
+              <i class="bi bi-arrow-right font27"></i>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+
 </div>
 
 
