@@ -11,13 +11,13 @@ import { FacturadetalleListComponent } from './facturadetalle-list/facturadetall
 import { ProductoListComponent } from './producto-list/producto-list.component';
 import { TipopagoListComponent } from './tipopago-list/tipopago-list.component';
 
-import { InicioComponent } from './inicio/inicio.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { InicioComponent } from './paginas-estaticas/inicio/inicio.component';
+import { PagenotfoundComponent } from './paginas-estaticas/pagenotfound/pagenotfound.component';
 
 export const routes: Routes = [
 
-{ path: 'inicio', component: InicioComponent, title: 'Inicio',},
-{ path: '', component: PagenotfoundComponent, title: 'Error 404',},
+{ path: '', component: InicioComponent, title: 'Inicio',},
+
 { path: 'usuarios', component: UsuariosListComponent, title: 'Usuarios',},
 { path: 'categorias', component: CategoriaListComponent, title: 'Categorias',},
 { path: 'cliabo', component: ClienteabonaListComponent, title: 'Cliente Abona',},
@@ -27,4 +27,5 @@ export const routes: Routes = [
 { path: 'tiposdepago', component: TipopagoListComponent, title: 'Tipos de pago',},
 { path: 'pruebas', component: PruebasComponent, title: 'Pruebas',},
 
+{ path: '**', component: PagenotfoundComponent, title: 'Error 404',},
 ];
