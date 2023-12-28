@@ -84,7 +84,7 @@ public class Producto implements Serializable {
 	@Column( name = "ESTADO", length = 1)
 	private String estado; // A Activo I Inactivo
 	// A activo, es no ha sido "borrado"
-	// I Inactivo, es no ya fue "borrado".
+	// I Inactivo, es que ya fue "borrado".
 
 	@Column( name = "COSTO_UNIDAD", scale = 2)
 	private BigDecimal costoUnidad;
