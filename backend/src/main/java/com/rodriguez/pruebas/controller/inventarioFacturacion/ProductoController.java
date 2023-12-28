@@ -2,6 +2,7 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.dto.inventarioFacturacion.ProductoDto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -53,37 +57,47 @@ public class ProductoController {
 
 
 	@ResponseBody
-	@PostMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody ProductoDto productoDto ){
+
 		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
 
+
+		// valores por defecto al crear
 		if(producto.getCostoUnidad() == null) {
 			producto.setCostoUnidad(new BigDecimal(0));
 		}
 
+
+		// valores por defecto al crear
 		if(producto.getGanancia() == null) {
 			producto.setGanancia(new BigDecimal(0));
 		}
 
+
+		// valores por defecto al crear
 		if(producto.getGananciaPorcentaje() == null) {
 			producto.setGananciaPorcentaje(new BigDecimal(0));
 		}
 
+
+		// valores por defecto al crear
 		if(producto.getIva() == null) {
 			producto.setIva(new BigDecimal(0));
 		}
 
+
+		// valores por defecto al crear
 		if(producto.getPrecioVenta() == null) {
 			producto.setPrecioVenta(new BigDecimal(0));
 		}
 
+		// valores por defecto al crear
 		if(producto.getExistencias() == null) {
 			producto.setExistencias(0);
 		}
 
+		// valores por defecto al crear
 		if(producto.getEstado() == null) {
 			producto.setEstado("A");
 		}
@@ -94,14 +108,12 @@ public class ProductoController {
 
 
 	@ResponseBody
-	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public Producto findById(@PathVariable Integer id){
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public Producto findById(@PathVariable Integer id){
 		Optional<Producto> resultado = productoRepository.findById(id);
 		return resultado.orElse(null);
 	}
+
 
 /*
 @ResponseBody
@@ -113,35 +125,102 @@ return artistaService.findAll();
 }
 */
 
-/**
- * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
- *
- * @param pagina consultada.
- * @param cantidad maxima por pagina.
- * @return Page<Producto> resultados encontrados.
- */
-@ResponseBody
-@GetMapping(
-consumes = MediaType.APPLICATION_JSON_VALUE,
-produces = MediaType.APPLICATION_JSON_VALUE,
-value = "{pagina}/{cantidad}"
-) public Page<Producto> findAll(
-	@PathVariable Integer pagina,
-	@PathVariable Integer cantidad){
 
-	Sort sort = Sort.by(Sort.Direction.ASC,"id");
-	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-	return productoRepository.findAll(pageable);
-}
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<Producto> resultados encontrados.
+	 */
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
+	public Page<Producto> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
+		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
+		return productoRepository.findAll(pageable);
+	}
 
 
-@ResponseBody
-@DeleteMapping(
-	consumes = MediaType.APPLICATION_JSON_VALUE,
-	produces = MediaType.APPLICATION_JSON_VALUE,
-	value = "{id}"
-) public void delete(@PathVariable Integer id){
-	productoRepository.deleteById(id);
-}
+	@ResponseBody
+	@DeleteMapping(value = "{id}")
+	public void delete(@PathVariable Integer id){
+		productoRepository.deleteById(id);
+	}
+
+
+	@ResponseBody
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer update(@RequestBody ProductoDto dto ){
+
+		Integer tmpId = dto.getId();
+
+		if(tmpId == null){
+			return -1;
+		}
+		else {
+
+			Optional<Producto> optional = productoRepository.findById(tmpId);
+
+			if( optional.isPresent() ){
+
+				Producto objetoTmp = optional.get();
+
+				objetoTmp.setNombre(dto.getNombre());
+
+				objetoTmp.setExistencias(dto.getExistencias());
+				objetoTmp.setCostoUnidad(dto.getCostoUnidad());
+
+				objetoTmp.setGanancia(dto.getGanancia());
+				objetoTmp.setGananciaPorcentaje(dto.getGananciaPorcentaje());
+
+				objetoTmp.setIva(dto.getIva());
+				objetoTmp.setPrecioVenta(dto.getPrecioVenta());
+
+				objetoTmp.setAncho(dto.getAncho());
+				objetoTmp.setColor(dto.getColor());
+
+				objetoTmp.setEdad(dto.getEdad());
+				objetoTmp.setGenero(dto.getGenero());
+
+				objetoTmp.setTalla(dto.getTalla());
+
+				Categoria categoriaTmp = new Categoria();
+				categoriaTmp.setId(dto.getCategoria().getId());
+				categoriaTmp.setDescripcion(dto.getCategoria().getDescripcion());
+
+				objetoTmp.setCategoria(categoriaTmp);
+
+				productoRepository.save(objetoTmp);
+				return 0;
+			}
+			else {
+				return -2;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<Producto> resultados encontrados.
+	 */
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
+	public Page<Producto> findAllByNombre(
+			@PathVariable Integer pagina, @PathVariable Integer cantidad,
+			@RequestParam(required = true) String nombre){
+
+		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
+
+		return productoRepository.findByNombreContainingIgnoreCase(pageable, nombre);
+	}
+
+
 
 }

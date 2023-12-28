@@ -17,21 +17,38 @@ import java.util.Date;
 @Data
 public class ProductoDto implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private String nombre;
+
+	private String genero;
+	private String edad;
+
+	private String talla;
+	private BigDecimal largo;
+
+	private BigDecimal ancho;
+	private String color;
+
 	private Date fechaCreado;
 	private Date fechaModificado;
+
 	private Date fechaAdquisicion;
 	private UsuarioDto usuarioModifico;
+
 	private UsuarioDto usuarioCreo;
 	private String estado;
+
 	private BigDecimal costoUnidad;
 	private BigDecimal gananciaPorcentaje;
-	private BigDecimal gananciaMonto;
+
+	private BigDecimal ganancia;
 	private BigDecimal iva;
+
 	private BigDecimal precioVenta;
 	private Integer existencias;
+
 	private CategoriaDto categoria;
 }

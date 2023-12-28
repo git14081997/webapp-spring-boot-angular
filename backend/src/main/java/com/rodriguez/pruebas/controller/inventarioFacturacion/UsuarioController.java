@@ -62,14 +62,14 @@ public class UsuarioController {
 	)
 	public Integer update(@RequestBody UsuarioDto usuarioDto ){
 
-		Integer usuarioId = usuarioDto.getId();
+		Integer tmpId = usuarioDto.getId();
 
-		if(usuarioId == null){
+		if(tmpId == null){
 			return -1;
 		}
 		else {
 
-			Optional<Usuario> usuarioEnDB = usuarioRepository.findById(usuarioId);
+			Optional<Usuario> usuarioEnDB = usuarioRepository.findById(tmpId);
 
 			if( usuarioEnDB.isPresent() ){
 				Usuario usuarioReal = usuarioEnDB.get();
