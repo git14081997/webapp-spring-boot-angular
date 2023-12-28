@@ -24,7 +24,7 @@ export class ProductoListComponent {
 
 
 	private parametroServicio: ParametroServicio = {
-		url: "/api/tipopago",
+		url: "/api/producto",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
@@ -124,6 +124,11 @@ export class ProductoListComponent {
 	}
 
 	agregar(parametros: any) {
+
+    let tmpCategoria:any = {};
+    tmpCategoria.id = parametros.categoriaId;
+    parametros.categoria = tmpCategoria;
+
 		this.service.post(
 			this.parametroServicio,
 			parametros
