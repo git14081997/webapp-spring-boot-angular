@@ -32,13 +32,4 @@ export class PruebasService {
 		return this.http.delete( hostname + parametro.url + "/" + id,parametro.headers);
 	}
 
-	getPaginadoBuscando(
-		parametro:ParametroServicio, pagina: number, cantidad: number,
-		nombre: string, apellido: string): Observable<any> {
-		return this.http.get<any>(
-			hostname + parametro.url + "/" + pagina + "/" + cantidad +
-			"/buscar" + "?nombre="+nombre + "&apellido="+apellido,
-			parametro.headers);
-	}
-
 }

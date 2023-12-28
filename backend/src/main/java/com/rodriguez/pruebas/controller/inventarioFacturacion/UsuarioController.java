@@ -132,10 +132,8 @@ public class UsuarioController {
 
 
 	@ResponseBody
-	@GetMapping(
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public Usuario findById(@PathVariable Integer id){
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public Usuario findById(@PathVariable Integer id){
 		Optional<Usuario> resultado = usuarioRepository.findById(id);
 		if(resultado.isPresent()){
 			Usuario usuarioEncontrado = resultado.get();
@@ -170,12 +168,8 @@ return artistaService.findAll();
  * @return Page<Usuario> resultados encontrados.
  */
 @ResponseBody
-@GetMapping(
-produces = MediaType.APPLICATION_JSON_VALUE,
-value = "{pagina}/{cantidad}"
-) public Page<Usuario> findAll(
-	@PathVariable Integer pagina,
-	@PathVariable Integer cantidad){
+@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
+public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 
 	Sort sort = Sort.by(Sort.Direction.ASC,"id");
 	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
@@ -213,10 +207,8 @@ public void delete(@PathVariable Integer id){
 	 * @return Page<Usuario> resultados encontrados.
 	 */
 	@ResponseBody
-	@GetMapping(
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{pagina}/{cantidad}/buscar"
-	) public Page<Usuario> findAllByNombreAndApellido(
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
+	public Page<Usuario> findAllByNombreAndApellido(
 		@PathVariable Integer pagina, @PathVariable Integer cantidad,
 		@RequestParam(required = true) String nombre,
 		@RequestParam(required = true) String apellido){
@@ -243,7 +235,5 @@ public void delete(@PathVariable Integer id){
 
 		return resultado;
 	}
-
-
 
 }

@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -52,10 +55,7 @@ public class TipoPagoController {
 
 
 	@ResponseBody
-	@PostMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody TipoPagoDto tipoPagoDto ){
 		TipoPago tipoPago = MODEL_MAPPER.map(tipoPagoDto, TipoPago.class);
 		tipoPago = tipoPagoRepository.save(tipoPago);
@@ -64,11 +64,8 @@ public class TipoPagoController {
 
 
 	@ResponseBody
-	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public TipoPago findById(@PathVariable Integer id){
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public TipoPago findById(@PathVariable Integer id){
 		Optional<TipoPago> resultado = tipoPagoRepository.findById(id);
 		return resultado.orElse(null);
 	}
@@ -91,11 +88,8 @@ return artistaService.findAll();
  * @return Page<TipoPago> resultados encontrados.
  */
 @ResponseBody
-@GetMapping(
-consumes = MediaType.APPLICATION_JSON_VALUE,
-produces = MediaType.APPLICATION_JSON_VALUE,
-value = "{pagina}/{cantidad}"
-) public Page<TipoPago> findAll(
+@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
+public Page<TipoPago> findAll(
 	@PathVariable Integer pagina,
 	@PathVariable Integer cantidad){
 
@@ -106,12 +100,57 @@ value = "{pagina}/{cantidad}"
 
 
 @ResponseBody
-@DeleteMapping(
-	consumes = MediaType.APPLICATION_JSON_VALUE,
-	produces = MediaType.APPLICATION_JSON_VALUE,
-	value = "{id}"
-) public void delete(@PathVariable Integer id){
+@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+public void delete(@PathVariable Integer id){
 	tipoPagoRepository.deleteById(id);
 }
+
+
+	@ResponseBody
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer update(@RequestBody TipoPagoDto tipoPagoDto ){
+
+		Integer tipoPagoId = tipoPagoDto.getId();
+
+		if(tipoPagoId == null){
+			return -1;
+		}
+		else {
+
+			Optional<TipoPago> tipoPagoEnDB = tipoPagoRepository.findById(tipoPagoId);
+
+			if( tipoPagoEnDB.isPresent() ){
+				TipoPago tipoPagoReal = tipoPagoEnDB.get();
+
+				tipoPagoReal.setDescripcion(tipoPagoDto.getDescripcion());
+
+				tipoPagoRepository.save(tipoPagoReal);
+				return 0;
+			}
+			else {
+				return -2;
+			}
+		}
+	}
+
+
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<TipoPago> resultados encontrados.
+	 */
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
+	public Page<TipoPago> findAllByDescripcion(
+			@PathVariable Integer pagina, @PathVariable Integer cantidad,
+			@RequestParam(required = true) String descripcion){
+
+		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
+
+		return tipoPagoRepository.findByDescripcionContainingIgnoreCase(pageable, descripcion);
+	}
 
 }

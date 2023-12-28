@@ -5,6 +5,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
+import { formatoDeFecha } from '../libproyecto';
+import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { hostname } from '../hostname';
 
 @Component({
 	selector: 'app-usuarios-list',
@@ -26,6 +31,7 @@ export class UsuariosListComponent implements OnInit {
 		})
 	}
 
+	private http = inject(HttpClient);
 	service: PruebasService;
 	parametros: any = {};
 	objetoSeleccionado: any = {};
@@ -35,9 +41,9 @@ export class UsuariosListComponent implements OnInit {
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
-	cantidad: number = 1;
+	cantidad: number = 10;
 	total: number = 1;
-	opcionesCantidadPorPagina = [1, 10, 25];
+	opcionesCantidadPorPagina = [10, 25, 50, 100];
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
 
@@ -49,74 +55,6 @@ export class UsuariosListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getPorPagina();
-	}
-
-	getMesLetras(mes:number): string {
-		let mesEnLetras = "";
-		if(mes == 1){
-			mesEnLetras = "ENERO";
-		}
-		if(mes == 2){
-			mesEnLetras = "FEBRERO";
-		}
-		if(mes == 3){
-			mesEnLetras = "MARZO";
-		}
-
-		if(mes == 4){
-			mesEnLetras = "ABRIL";
-		}
-		if(mes == 5){
-			mesEnLetras = "MAYO";
-		}
-		if(mes == 6){
-			mesEnLetras = "JUNIO";
-		}
-
-		if(mes == 7){
-			mesEnLetras = "JULIO";
-		}
-		if(mes == 8){
-			mesEnLetras = "AGOSTO";
-		}
-		if(mes == 9){
-			mesEnLetras = "SEPTIEMBRE";
-		}
-
-		if(mes == 10){
-			mesEnLetras = "OCTUBRE";
-		}
-		if(mes == 11){
-			mesEnLetras = "NOVIEMBRE";
-		}
-		if(mes == 12){
-			mesEnLetras = "DICIEMBRE";
-		}
-		return mesEnLetras;
-	}
-
-
-	formatoDeFecha(campoFecha:any) :string {
-		
-		if(campoFecha == null){
-			return "";
-		}
-
-		let fechaString = new Date(campoFecha.toString());
-
-		let mes = fechaString.getMonth()+1;
-		let dia = fechaString.getDate();
-
-		let diaTxt = "";
-		if( dia < 10 ){
-			diaTxt = "0"+dia;
-		}
-		else {
-			diaTxt = ""+dia;
-		}
-
-		return diaTxt + " " + this.getMesLetras(mes) + " " + fechaString.getFullYear() + " ";
-
 	}
 
 	setCantidadPorPag(){
@@ -135,7 +73,7 @@ export class UsuariosListComponent implements OnInit {
 				this.total = this.tmp.totalElements;
 
 				for( let objetoN of this.objetos ){
-					objetoN.cumpleanoss = this.formatoDeFecha( objetoN.cumpleanos );
+					objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
 				}
 
 				this.paginasDisponiblesArray = [];
@@ -221,11 +159,10 @@ export class UsuariosListComponent implements OnInit {
 		let nombre = arrayRes[0];
 		let apellido = arrayRes[1];
 
-		this.service.getPaginadoBuscando(
+		this.getPaginadoBuscando(
 			this.parametroServicio, 0, 20, nombre,apellido
 		).subscribe((RESPONSE) => {
 
-			console.log(RESPONSE);
 			this.tmp = RESPONSE;
 
 			this.objetos = this.tmp.content;
@@ -233,7 +170,7 @@ export class UsuariosListComponent implements OnInit {
 			this.total = this.tmp.totalElements;
 
 			for( let objetoN of this.objetos ){
-				objetoN.cumpleanoss = this.formatoDeFecha( objetoN.cumpleanos );
+				objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
 			}
 
 			this.paginasDisponiblesArray = [];
@@ -247,8 +184,17 @@ export class UsuariosListComponent implements OnInit {
 	limpiarBusqueda(){
 		this.objetoSeleccionado.buscar = "";
 		this.pagina = 0;
-		this.cantidad = 1;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
 		this.getPorPagina();
+	}
+
+	getPaginadoBuscando(
+		parametro:ParametroServicio, pagina: number, cantidad: number,
+		nombre: string, apellido: string): Observable<any> {
+		return this.http.get<any>(
+			hostname + parametro.url + "/" + pagina + "/" + cantidad +
+			"/buscar" + "?nombre="+nombre + "&apellido="+apellido,
+			parametro.headers);
 	}
 
 }
