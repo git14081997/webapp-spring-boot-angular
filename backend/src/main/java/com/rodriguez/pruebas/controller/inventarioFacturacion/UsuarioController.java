@@ -203,48 +203,8 @@ public void delete(@PathVariable Integer id){
 }
 
 
-	@ResponseBody
-	@PutMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{opcion}"
-	)
-	public Integer updateCorreoContrasena(
-			@PathVariable Integer opcion,
-			@RequestBody UsuarioDto usuarioDto ){
-
-		Integer usuarioId = usuarioDto.getId();
-
-		if(usuarioId == null){
-			return -1;
-		}
-		else {
-
-			Optional<Usuario> usuarioEnDB = usuarioRepository.findById(usuarioId);
-
-			if( usuarioEnDB.isPresent() ){
-				Usuario usuarioReal = usuarioEnDB.get();
-
-				if( opcion == 0 ){
-					usuarioReal.setContrasena(usuarioDto.getContrasena());
-				}
-
-				if( opcion == 1 ){
-					usuarioReal.setCorreo(usuarioDto.getCorreo());
-				}
-
-				usuarioRepository.save(usuarioReal);
-				return 0;
-			}
-			else {
-				return -2;
-			}
-		}
-	}
 
 
-
-	// findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase
 	/**
 	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
 	 *
