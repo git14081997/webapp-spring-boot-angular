@@ -11,7 +11,6 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 
-
 @Component({
   selector: 'app-tipopago-list',
   standalone: true,
