@@ -53,8 +53,28 @@
               <th class="tableHeaderBlack" scope="col">Eliminar</th>
 
               <th class="tableHeaderBlack" scope="col">ID</th>
+              <th class="tableHeaderBlack" scope="col">Nombre</th>
 
-              <th class="tableHeaderBlack" scope="col">nombre</th>
+              <th class="tableHeaderBlack" scope="col">Genero</th>
+              <th class="tableHeaderBlack" scope="col">Edad</th>
+
+              <th class="tableHeaderBlack" scope="col">Talla</th>
+              <th class="tableHeaderBlack" scope="col">Largo</th>
+
+              <th class="tableHeaderBlack" scope="col">Ancho</th>
+              <th class="tableHeaderBlack" scope="col">Color</th>
+
+              <th class="tableHeaderBlack" scope="col">Fecha Adquisición</th>
+              <th class="tableHeaderBlack" scope="col">Costo Por Unidad</th>
+
+              <th class="tableHeaderBlack" scope="col">Ganancia %</th>
+              <th class="tableHeaderBlack" scope="col">Ganancia Q</th>
+              
+              <th class="tableHeaderBlack" scope="col">IVA Q</th>
+              <th class="tableHeaderBlack" scope="col">Precio de venta Q</th>
+              
+              <th class="tableHeaderBlack" scope="col">Existencias</th>
+              <th class="tableHeaderBlack" scope="col">Categoria</th>
 
             </tr>
           </thead>
@@ -68,8 +88,28 @@
               </td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.id }}</td>
-
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombre }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.genero }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.edad }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.talla }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.largo }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ancho }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.color }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.fechaAdquisicion }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.costoUnidad }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.gananciaPorcentaje }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ganancia }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.iva }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.precioVenta }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.existencias }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.categoria.descripcion }}</td>
 
             </tr>
           </tbody>
@@ -138,26 +178,28 @@
 
   <div class="row">
     <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-genero" placeholder=""
-          [(ngModel)]="objetoSeleccionado.genero" required>
-        <label for="parametro-genero" class="form-label">Genero:</label>
-      </div>
+      Genero
+      <select class="form-select form-select-lg" required
+      [(ngModel)]="objetoSeleccionado.genero">
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
     </div>
   </div>
 
   <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-edad" placeholder=""
-          [(ngModel)]="objetoSeleccionado.edad" required>
-        <label for="parametro-edad" class="form-label">Edad:</label>
-      </div>
+    <div class="col mt-3">
+      Edad
+      <select class="form-select form-select-lg" required
+      [(ngModel)]="objetoSeleccionado.edad">
+      <option value="A">Adulto</option>
+      <option value="N">Niño</option>
+      </select>
     </div>
   </div>
 
   <div class="row">
-    <div class="col mt-1">
+    <div class="col mt-3">
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-talla" placeholder=""
           [(ngModel)]="objetoSeleccionado.talla" required>
@@ -211,7 +253,7 @@
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
           [(ngModel)]="objetoSeleccionado.costoUnidad" required>
-        <label for="parametro-costoUnidad" class="form-label">Costo Por Unidad:</label>
+        <label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
       </div>
     </div>
   </div>
@@ -221,7 +263,7 @@
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-gananciaPorcentaje" placeholder=""
           [(ngModel)]="objetoSeleccionado.gananciaPorcentaje" required>
-        <label for="parametro-gananciaPorcentaje" class="form-label">Ganancia En Porcentaje:</label>
+        <label for="parametro-gananciaPorcentaje" class="form-label">Ganancia En Porcentaje ( 0-1 % ):</label>
       </div>
     </div>
   </div>
@@ -231,7 +273,7 @@
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
           [(ngModel)]="objetoSeleccionado.ganancia" required>
-        <label for="parametro-ganancia" class="form-label">Ganancia:</label>
+        <label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
       </div>
     </div>
   </div>
@@ -241,7 +283,7 @@
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-iva" placeholder=""
           [(ngModel)]="objetoSeleccionado.iva" required>
-        <label for="parametro-iva" class="form-label">IVA:</label>
+        <label for="parametro-iva" class="form-label">IVA ( Q ):</label>
       </div>
     </div>
   </div>
@@ -251,7 +293,7 @@
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-precioVenta" placeholder=""
           [(ngModel)]="objetoSeleccionado.precioVenta" required>
-        <label for="parametro-precioVenta" class="form-label">Precio de venta:</label>
+        <label for="parametro-precioVenta" class="form-label">Precio de venta ( Q ):</label>
       </div>
     </div>
   </div>
@@ -261,23 +303,25 @@
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-existencias" placeholder=""
           [(ngModel)]="objetoSeleccionado.existencias" required>
-        <label for="parametro-existencias" class="form-label">Existencias:</label>
+        <label for="parametro-existencias" class="form-label">Existencias (Número Entero):</label>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-categoria" placeholder=""
-          [(ngModel)]="objetoSeleccionado.categoriaId" required>
-        <label for="parametro-categoria" class="form-label">Categoria/Tipo de producto:</label>
-      </div>
+      Categoria
+      <select class="form-select form-select-lg" required
+      [(ngModel)]="objetoSeleccionado.categoriaId">
+        <option value={{categoriaN.id}} *ngFor="let categoriaN of categoriasDisponibles">
+          {{categoriaN.descripcion}}
+        </option>
+      </select>
     </div>
   </div>
 
   <div class="row">
-    <div class="col mt-1">
+    <div class="col mt-3">
       <div class="mb-3">
         <button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'"
           (click)="agregar(this.objetoSeleccionado)">

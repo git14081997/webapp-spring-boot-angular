@@ -20,7 +20,7 @@ import { hostname } from '../hostname';
   templateUrl: './producto-list.component.html',
   styleUrl: './producto-list.component.css'
 })
-export class ProductoListComponent {
+export class ProductoListComponent implements OnInit {
 
 
 	private parametroServicio: ParametroServicio = {
@@ -49,6 +49,7 @@ export class ProductoListComponent {
 	paginasDisponiblesArray: any[] = [];
 
 	tmp:any;
+  categoriasDisponibles:any[] = [];
 
 	constructor() {
 		this.service = new PruebasService;
@@ -56,7 +57,16 @@ export class ProductoListComponent {
 
 	ngOnInit(): void {
 		this.getPorPagina();
+    this.getCategorias();
 	}
+
+  getCategorias(){
+    this.getPaginadoCategorias(this.parametroServicio)
+      .subscribe((RESPONSE) => {
+        this.tmp = RESPONSE;
+        this.categoriasDisponibles = this.tmp.content;
+      });
+  }
 
 	setCantidadPorPag(){
 		this.pagina = 0;
@@ -193,6 +203,12 @@ export class ProductoListComponent {
 		return this.http.get<any>(
 			hostname + parametro.url + "/" + pagina + "/" + cantidad +
 			"/buscar" + "?nombre="+nombre,
+			parametro.headers);
+	}
+
+	getPaginadoCategorias(parametro:ParametroServicio): Observable<any> {
+		return this.http.get<any>(
+      hostname + "/api/categoria" + "/" + 0 + "/" + 10,
 			parametro.headers);
 	}
 
