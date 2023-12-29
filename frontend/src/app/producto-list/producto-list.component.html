@@ -243,7 +243,10 @@
       <div class="form-floating mb-3">
         <input type="date" class="form-control form-control-lg" id="parametro-fecha-adquisicion" placeholder=""
           [(ngModel)]="objetoSeleccionado.fechaAdquisicion" required>
-        <label for="parametro-fecha-adquisicion" class="form-label">Fecha Adquisición:</label>
+        <label for="parametro-fecha-adquisicion" class="form-label">
+          Fecha Adquisición: 
+          <span *ngIf="objetoSeleccionado.fechaAdquisicionn">{{ objetoSeleccionado.fechaAdquisicionn }}</span>
+        </label>
       </div>
     </div>
   </div>

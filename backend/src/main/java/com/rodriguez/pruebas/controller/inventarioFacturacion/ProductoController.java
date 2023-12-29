@@ -187,6 +187,7 @@ return artistaService.findAll();
 				objetoTmp.setGenero(dto.getGenero());
 
 				objetoTmp.setTalla(dto.getTalla());
+				objetoTmp.setFechaAdquisicion(dto.getFechaAdquisicion());
 
 				Optional<Categoria> optionalCategoria =
 				categoriaRepository.findById(dto.getCategoria().getId());

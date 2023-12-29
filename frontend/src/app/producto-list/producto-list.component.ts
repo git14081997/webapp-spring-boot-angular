@@ -50,6 +50,7 @@ export class ProductoListComponent implements OnInit {
 
 	tmp:any;
   categoriasDisponibles:any[] = [];
+	formatoDeFecha = formatoDeFecha;
 
 	constructor() {
 		this.service = new PruebasService;
@@ -168,6 +169,8 @@ export class ProductoListComponent implements OnInit {
 
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
+		parametros.categoriaId = parametros.categoria.id;
+
 		this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
