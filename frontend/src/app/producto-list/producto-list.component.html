@@ -48,7 +48,7 @@
 
         <table class="table  table-striped
          table-lg table-bordered table-hover">
-          <thead>
+          <thead class="align-middle">
             <tr>
               <th class="tableHeaderBlack" scope="col">Eliminar</th>
 
@@ -64,21 +64,21 @@
               <th class="tableHeaderBlack" scope="col">Ancho</th>
               <th class="tableHeaderBlack" scope="col">Color</th>
 
-              <th class="tableHeaderBlack" scope="col">Fecha Adquisición</th>
-              <th class="tableHeaderBlack" scope="col">Costo Por Unidad</th>
+              <th class="tableHeaderBlack" scope="col">Adquirido</th>
+              <th class="tableHeaderBlack" scope="col">Costo Unidad</th>
 
               <th class="tableHeaderBlack" scope="col">Ganancia %</th>
               <th class="tableHeaderBlack" scope="col">Ganancia Q</th>
               
               <th class="tableHeaderBlack" scope="col">IVA Q</th>
-              <th class="tableHeaderBlack" scope="col">Precio de venta Q</th>
+              <th class="tableHeaderBlack" scope="col">Precio Venta Q</th>
               
               <th class="tableHeaderBlack" scope="col">Existencias</th>
               <th class="tableHeaderBlack" scope="col">Categoria</th>
 
             </tr>
           </thead>
-          <tbody>
+          <tbody class="align-middle">
             <tr *ngFor="let objetoN of objetos">
 
               <td>
@@ -99,7 +99,7 @@
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ancho }}</td>
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.color }}</td>
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.fechaAdquisicion }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.fechaAdquisicionn }}</td>
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.costoUnidad }}</td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.gananciaPorcentaje }}</td>

@@ -4,6 +4,7 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 import com.rodriguez.pruebas.dto.inventarioFacturacion.ProductoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -51,6 +51,9 @@ public class ProductoController {
 
 	@Autowired
 	private ProductoRepository productoRepository;
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -185,11 +188,13 @@ return artistaService.findAll();
 
 				objetoTmp.setTalla(dto.getTalla());
 
-				Categoria categoriaTmp = new Categoria();
-				categoriaTmp.setId(dto.getCategoria().getId());
-				categoriaTmp.setDescripcion(dto.getCategoria().getDescripcion());
+				Optional<Categoria> optionalCategoria =
+				categoriaRepository.findById(dto.getCategoria().getId());
 
-				objetoTmp.setCategoria(categoriaTmp);
+				if( optionalCategoria.isPresent() ){
+					Categoria categoriaTmp = optionalCategoria.get();
+					objetoTmp.setCategoria(categoriaTmp);
+				}
 
 				productoRepository.save(objetoTmp);
 				return 0;

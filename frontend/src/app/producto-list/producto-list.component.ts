@@ -84,7 +84,7 @@ export class ProductoListComponent implements OnInit {
 				this.total = this.tmp.totalElements;
 
 				for( let objetoN of this.objetos ){
-					objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
+					objetoN.fechaAdquisicionn = formatoDeFecha( objetoN.fechaAdquisicion );
 				}
 
 				this.paginasDisponiblesArray = [];
@@ -150,6 +150,11 @@ export class ProductoListComponent implements OnInit {
 	}
 
 	actualizar(parametros: any) {
+
+		let tmpCategoria:any = {};
+    tmpCategoria.id = parametros.categoriaId;
+    parametros.categoria = tmpCategoria;
+
 		this.service.put(
 			this.parametroServicio,
 			parametros
