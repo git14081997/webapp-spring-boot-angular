@@ -3,53 +3,71 @@ package com.rodriguez.pruebas.repository.inventarioFacturacion;
 
 import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
+import com.rodriguez.pruebas.rowMapper.UsuarioRm;
+import lombok.Getter;
+import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import java.util.List;
 
 public class SpecialRepository {
 
+	private static final Logger log = LoggerFactory.getLogger(SpecialRepository.class);
+
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public SpecialRepository(JdbcTemplate jdbcTemplate){
-		this.jdbcTemplate = jdbcTemplate;
-	}
+
+	@Getter @Setter
+	private String sql;
 
 
 	public List<Usuario> buscarCliente(String nombre){
 
-		String queryBuscarClientePorNombre = """
-			SELECT * FROM USUARIO WHERE NOMBRE LIKE = ?
-		""";
+		setSql("SELECT * FROM USUARIO WHERE NOMBRE LIKE = ?");
 
-		return jdbcTemplate.query(queryBuscarClientePorNombre, );
+		// opcion1
+		return jdbcTemplate.query(sql, new UsuarioRm());
+
+		// opcion2
+		/*
+		return jdbcTemplate.query(sql,
+			new BeanPropertyRowMapper<Usuario>(Usuario.class)
+		);
+		*/
 	}
 
-	public int count() {
-		String query = "SELECT COUNT(*) FROM USUARIO";
-		return jdbcTemplate.queryForObject(query, Integer.class);
+
+	public Integer count() {
+		setSql("SELECT COUNT(*) FROM USUARIO");
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+
 
 	public int save(UsuarioDto usuarioDto) {
-		String query = "insert into USUARIO (correo, contrasena) values(?,?)";
-		return jdbcTemplate.update(query,
+		setSql("insert into USUARIO (correo, contrasena) values(?,?)");
+		return jdbcTemplate.update(sql,
 			usuarioDto.getCorreo(), usuarioDto.getContrasena()
 		);
 	}
 
+
 	public int update(UsuarioDto usuarioDto) {
-		String query = "update USUARIO set correo = ? where id = ?";
-		return jdbcTemplate.update(query,
+		setSql("update USUARIO set correo = ? where id = ?");
+		return jdbcTemplate.update(sql,
 			usuarioDto.getCorreo(), usuarioDto.getId()
 		);
 	}
 
+
 	public int deleteById(Long id) {
-		String query = "delete USUARIO where id = ?";
-		return jdbcTemplate.update(query, id);
+		setSql("delete USUARIO where id = ?");
+		return jdbcTemplate.update(sql, id);
 	}
+
 
 
 

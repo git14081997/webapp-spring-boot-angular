@@ -30,10 +30,10 @@ public class PruebasApplication implements CommandLineRunner {
 System.out.println("Realizando pruebas rapidas");
 log.info("Realizando pruebas rapidas");
 
-jdbcTemplate.execute("INSERT INTO Person(first_name,last_name) VALUES('Oscar', 'Wilde')");
-jdbcTemplate.execute("INSERT INTO Person(first_name,last_name) VALUES('Victor', 'Hugo')");
-jdbcTemplate.execute("INSERT INTO Person(first_name,last_name) VALUES('Dante', 'Alighieri')");
-jdbcTemplate.execute("INSERT INTO Person(first_name,last_name) VALUES('Stefan', 'Zweig')");
+jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Juan','Robles','JROBLES2@GMAIL.COM', '123')");
+jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Victor', 'Hugo','VHUGO4@HOTMAIL.COM', '123')");
+jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Maria', 'Perez','MPEREZ24@YAHOO.COM', '123')");
+jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Estefani', 'Gomez','EGOMEZ52@OUTLOOK.COM', '123')");
 
 
 	}
