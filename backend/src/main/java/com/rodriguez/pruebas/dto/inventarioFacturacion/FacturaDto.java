@@ -16,11 +16,21 @@ import java.util.Date;
  */
 @Data
 public class FacturaDto implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private UsuarioDto cliente;
-	private BigDecimal total;
-	private Date fechaEmision;
+	private String nombre;
+	private String apellido;
+	private String nit;
+	private String direccion;
 	private TipoPagoDto tipoPago;
+	private Date fechaEmision;
+	private BigDecimal total;
+	private BigDecimal iva;
+	private BigDecimal ganancia;
+	private BigDecimal pendienteDePago;
+
 }

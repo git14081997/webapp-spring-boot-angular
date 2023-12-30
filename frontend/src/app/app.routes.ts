@@ -20,7 +20,7 @@ export const routes: Routes = [
 
 { path: 'usuarios', component: UsuariosListComponent, title: 'Usuarios',},
 { path: 'categorias', component: CategoriaListComponent, title: 'Categorias',},
-{ path: 'cliabo', component: ClienteabonaListComponent, title: 'Cliente Abona',},
+{ path: 'abonosdelcliente', component: ClienteabonaListComponent, title: 'Abonos del cliente',},
 { path: 'facturas', component: FacturaListComponent, title: 'Facturas',},
 { path: 'detalledefacturas', component: FacturadetalleListComponent, title: 'Detalles de facturas',},
 { path: 'productos', component: ProductoListComponent, title: 'Productos',},

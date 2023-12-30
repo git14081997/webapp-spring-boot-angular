@@ -30,37 +30,37 @@ import java.math.BigDecimal;
 @Table( name = "FACTURA_DETALLE", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
 public class FacturaDetalle implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Id
-	@Column( name = "ID", unique = true)
-	@GeneratedValue( strategy = GenerationType.IDENTITY )
+	@Id
+	@Column(name = "ID", unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "FACTURA_ID")
 	private Factura factura;
 
-	@Column( name = "CANTIDAD_PRODUCTO_VENDIDO")
+	@Column(name = "CANTIDAD_PRODUCTO_VENDIDO")
 	private Integer cantidadProductoVendido;
 
-	@Column( name = "PRECIO_VENTA_POR_PRODUCTO", scale = 2)
+	@Column(name = "PRECIO_VENTA_POR_PRODUCTO", scale = 2)
 	private BigDecimal precioVentaPorProducto;
 
-	@Column( name = "SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal subtotalPorProducto;
 
-	@Column( name = "IVA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "IVA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal ivaDelSubtotalPorProducto;
 
-	@Column( name = "COSTO_UNIDAD", scale = 2)
+	@Column(name = "COSTO_UNIDAD", scale = 2)
 	private BigDecimal costoUnidad;
 
-	@Column( name = "COSTO_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "COSTO_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal costoDelSubtotalPorProducto;
 
-	@Column( name = "GANANCIA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "GANANCIA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal gananciaDelSubtotalPorProducto;
 
 	@ManyToOne

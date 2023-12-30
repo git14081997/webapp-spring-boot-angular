@@ -56,10 +56,7 @@ public class UsuarioController {
 
 
 	@ResponseBody
-	@PutMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody UsuarioDto usuarioDto ){
 
 		Integer tmpId = usuarioDto.getId();
@@ -100,11 +97,10 @@ public class UsuarioController {
 		}
 	}
 
+
+
 	@ResponseBody
-	@PostMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody UsuarioDto usuarioDto ){
 
 		Integer usuarioId = usuarioDto.getId();
@@ -150,6 +146,8 @@ public class UsuarioController {
 		return null;
 	}
 
+
+
 /*
 @ResponseBody
 @GetMapping(
@@ -160,41 +158,43 @@ return artistaService.findAll();
 }
 */
 
-/**
- * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
- *
- * @param pagina consultada.
- * @param cantidad maxima por pagina.
- * @return Page<Usuario> resultados encontrados.
- */
-@ResponseBody
-@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
-public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 
-	Sort sort = Sort.by(Sort.Direction.ASC,"id");
-	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-	Page<Usuario> resultado = usuarioRepository.findAll(pageable);
-	List<Usuario> usuarios = resultado.getContent();
-	usuarios.forEach( usuarioEncontrado -> {
-		usuarioEncontrado.setContrasena("");
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<Usuario> resultados encontrados.
+	 */
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
+	public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 
-		usuarioEncontrado.setUsuarioCreo(null);
-		usuarioEncontrado.setUsuarioModifico(null);
+		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
+		Page<Usuario> resultado = usuarioRepository.findAll(pageable);
 
-		usuarioEncontrado.setFechaCreado(null);
-		usuarioEncontrado.setFechaModificado(null);
+		List<Usuario> usuarios = resultado.getContent();
+		usuarios.forEach( usuarioEncontrado -> {
+			usuarioEncontrado.setContrasena("");
 
-	});
+			usuarioEncontrado.setUsuarioCreo(null);
+			usuarioEncontrado.setUsuarioModifico(null);
 
-	return resultado;
-}
+			usuarioEncontrado.setFechaCreado(null);
+			usuarioEncontrado.setFechaModificado(null);
+
+		});
+
+		return resultado;
+	}
 
 
-@ResponseBody
-@DeleteMapping(value = "{id}")
-public void delete(@PathVariable Integer id){
-	usuarioRepository.deleteById(id);
-}
+	@ResponseBody
+	@DeleteMapping(value = "{id}")
+	public void delete(@PathVariable Integer id){
+		usuarioRepository.deleteById(id);
+	}
 
 
 

@@ -15,11 +15,19 @@ import java.math.BigDecimal;
  */
 @Data
 public class FacturaDetalleDto implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private FacturaDto factura;
-	private Integer cantidad;
-	private BigDecimal precio;
+	private Integer cantidadProductoVendido;
+	private BigDecimal precioVentaPorProducto;
+	private BigDecimal subtotalPorProducto;
+	private BigDecimal ivaDelSubtotalPorProducto;
+	private BigDecimal costoUnidad;
+	private BigDecimal costoDelSubtotalPorProducto;
+	private BigDecimal gananciaDelSubtotalPorProducto;
 	private ProductoDto producto;
+
 }
