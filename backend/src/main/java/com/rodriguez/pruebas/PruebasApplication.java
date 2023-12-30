@@ -1,19 +1,18 @@
 
 package com.rodriguez.pruebas;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
 @SpringBootApplication
 @AutoConfiguration
-public class PruebasApplication implements CommandLineRunner {
+public class PruebasApplication /*implements CommandLineRunner*/ {
 
 	private static final Logger log = LoggerFactory.getLogger(PruebasApplication.class);
 
@@ -22,11 +21,14 @@ public class PruebasApplication implements CommandLineRunner {
 
 
 	public static void main(String[] args) {
+		log.info("API REST STARTED");
 		SpringApplication.run(PruebasApplication.class, args);
 	}
 
-	@Override
-	public void run(String... strings) throws Exception {
+
+/*
+@Override
+public void run(String... strings) throws Exception {
 System.out.println("Realizando pruebas rapidas");
 log.info("Realizando pruebas rapidas");
 
@@ -34,8 +36,8 @@ jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VAL
 jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Victor', 'Hugo','VHUGO4@HOTMAIL.COM', '123')");
 jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Maria', 'Perez','MPEREZ24@YAHOO.COM', '123')");
 jdbcTemplate.execute("INSERT INTO USUARIO(NOMBRE,APELLIDO,CORREO,CONTRASENA) VALUES('Estefani', 'Gomez','EGOMEZ52@OUTLOOK.COM', '123')");
+}
+*/
 
-
-	}
 
 }

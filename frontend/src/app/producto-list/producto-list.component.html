@@ -178,23 +178,27 @@
 
   <div class="row">
     <div class="col mt-1">
-      Genero
+      <div class="form-floating mb-3">
       <select class="form-select form-select-lg" required
       [(ngModel)]="objetoSeleccionado.genero">
         <option value="M">Masculino</option>
         <option value="F">Femenino</option>
       </select>
+      <label for="parametro-genero">Genero</label>
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col mt-3">
-      Edad
-      <select class="form-select form-select-lg" required
-      [(ngModel)]="objetoSeleccionado.edad">
+      <div class="form-floating mb-3">
+      <select class="form-select form-select-lg" required placeholder=""
+      [(ngModel)]="objetoSeleccionado.edad" id="parametro-edad" >
       <option value="A">Adulto</option>
       <option value="N">Niño</option>
       </select>
+      <label for="parametro-edad">Edad</label>
+      </div>
     </div>
   </div>
 
@@ -209,6 +213,7 @@
   </div>
 
   <div class="row">
+
     <div class="col mt-1">
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-largo" placeholder=""
@@ -216,7 +221,27 @@
         <label for="parametro-largo" class="form-label">Largo:</label>
       </div>
     </div>
+
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-ancho" placeholder=""
+          [(ngModel)]="objetoSeleccionado.ancho" required>
+        <label for="parametro-ancho" class="form-label">Ancho:</label>
+      </div>
+    </div>
+
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-color" placeholder=""
+          [(ngModel)]="objetoSeleccionado.color" required>
+        <label for="parametro-color" class="form-label">Color:</label>
+      </div>
+    </div>
+
   </div>
+
+  <!--
+
 
   <div class="row">
     <div class="col mt-1">
@@ -237,6 +262,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <div class="row">
     <div class="col mt-1">
@@ -320,6 +346,26 @@
           {{categoriaN.descripcion}}
         </option>
       </select>
+    </div>
+  </div>
+
+  
+  <br/>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="file" class="form-control form-control-lg" id="parametro-imagen" placeholder=""
+          [(ngModel)]="objetoSeleccionado.imagen" >
+        <label for="parametro-imagen" class="form-label">Imagen:</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col mt-1">
+    <br/>
     </div>
   </div>
 

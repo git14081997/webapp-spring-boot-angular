@@ -26,7 +26,7 @@ export class TipopagoListComponent implements OnInit {
 		url: "/api/tipopago",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json;charset=utf-8',
-			'Accept': 'application/json',
+			'Accept': 'application/json;charset=utf-8',
 			'Authorization': 'Bearer '
 		})
 	}

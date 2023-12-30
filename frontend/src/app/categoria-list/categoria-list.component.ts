@@ -20,13 +20,13 @@ import { hostname } from '../hostname';
   templateUrl: './categoria-list.component.html',
   styleUrl: './categoria-list.component.css'
 })
-export class CategoriaListComponent {
+export class CategoriaListComponent implements OnInit {
 
 	private parametroServicio: ParametroServicio = {
 		url: "/api/categoria",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json;charset=utf-8',
-			'Accept': 'application/json',
+			'Accept': 'application/json;charset=utf-8',
 			'Authorization': 'Bearer '
 		})
 	}
