@@ -118,15 +118,13 @@ public class ProductoController {
 	}
 
 
-/*
-@ResponseBody
-@GetMapping(
-consumes = MediaType.APPLICATION_JSON_VALUE,
-produces = MediaType.APPLICATION_JSON_VALUE
-) public List<Artista> findAll(){
-return artistaService.findAll();
-}
-*/
+	/*
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Producto> findAll(){
+		return productoRepository.findAll();
+	}
+	*/
 
 
 	/**

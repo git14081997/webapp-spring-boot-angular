@@ -148,15 +148,13 @@ public class UsuarioController {
 
 
 
-/*
-@ResponseBody
-@GetMapping(
-consumes = MediaType.APPLICATION_JSON_VALUE,
-produces = MediaType.APPLICATION_JSON_VALUE
-) public List<Artista> findAll(){
-return artistaService.findAll();
-}
-*/
+	/*
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Usuario> findAll(){
+		return usuarioRepository.findAll();
+	}
+	*/
 
 
 	/**

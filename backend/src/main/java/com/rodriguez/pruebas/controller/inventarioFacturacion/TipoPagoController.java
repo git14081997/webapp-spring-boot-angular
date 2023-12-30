@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
@@ -70,40 +69,37 @@ public class TipoPagoController {
 		return resultado.orElse(null);
 	}
 
-/*
-@ResponseBody
-@GetMapping(
-consumes = MediaType.APPLICATION_JSON_VALUE,
-produces = MediaType.APPLICATION_JSON_VALUE
-) public List<Artista> findAll(){
-return artistaService.findAll();
-}
-*/
 
-/**
- * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
- *
- * @param pagina consultada.
- * @param cantidad maxima por pagina.
- * @return Page<TipoPago> resultados encontrados.
- */
-@ResponseBody
-@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
-public Page<TipoPago> findAll(
-	@PathVariable Integer pagina,
-	@PathVariable Integer cantidad){
-
-	Sort sort = Sort.by(Sort.Direction.ASC,"id");
-	Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-	return tipoPagoRepository.findAll(pageable);
-}
+	/*
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TipoPago> findAll(){
+		return tipoPagoRepository.findAll();
+	}
+	*/
 
 
-@ResponseBody
-@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
-public void delete(@PathVariable Integer id){
-	tipoPagoRepository.deleteById(id);
-}
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<TipoPago> resultados encontrados.
+	 */
+	@ResponseBody
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
+	public Page<TipoPago> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
+		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
+		return tipoPagoRepository.findAll(pageable);
+	}
+
+
+	@ResponseBody
+	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public void delete(@PathVariable Integer id){
+		tipoPagoRepository.deleteById(id);
+	}
 
 
 	@ResponseBody

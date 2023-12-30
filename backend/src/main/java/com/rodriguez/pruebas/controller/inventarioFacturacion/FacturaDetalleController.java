@@ -79,8 +79,8 @@ public class FacturaDetalleController {
 	/*
 	@ResponseBody
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Artista> findAll(){
-		return artistaService.findAll();
+	public List<FacturaDetalle> findAll(){
+		return facturaDetalleRepository.findAll();
 	}
 	*/
 
