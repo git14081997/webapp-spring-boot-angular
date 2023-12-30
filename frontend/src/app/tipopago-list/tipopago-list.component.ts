@@ -25,7 +25,7 @@ export class TipopagoListComponent implements OnInit {
 	private parametroServicio: ParametroServicio = {
 		url: "/api/tipopago",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
+			'Content-Type': 'application/json;charset=utf-8',
 			'Accept': 'application/json',
 			'Authorization': 'Bearer '
 		})

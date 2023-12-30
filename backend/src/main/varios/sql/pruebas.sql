@@ -42,14 +42,14 @@ create table artista (
     id integer not null auto_increment,
     nombre varchar(255),
     primary key (id)
-) engine=InnoDB;
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 create table cancion (
     id integer not null auto_increment,
     nombre varchar(255),
     primary key (id),
     artista_id integer
-) engine=InnoDB;
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 alter table cancion
     add constraint FK_CANCION_ARTISTA
@@ -84,18 +84,18 @@ create table libro (
     id integer not null auto_increment,
     titulo varchar(255),
     primary key (id)
-) engine=InnoDB
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 create table escritor (
     id integer not null auto_increment,
     nombre varchar(255),
     primary key (id)
-) engine=InnoDB
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 create table libro_escritor (
     escritor_id integer not null,
     libro_id integer not null
-) engine=InnoDB
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 alter table libro_escritor
    add constraint FK_LE_ESCRITOR
@@ -129,7 +129,7 @@ nombre varchar(255),
 apellido varchar(255),
 usuario_modifico integer,
 primary key (id)
-) engine=InnoDB;
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 alter table usuario
    add constraint FK_USUARIO_USUARIO
@@ -194,7 +194,7 @@ create table usuarios_x (
     id integer not null auto_increment,
     primary key (id),
     nombre varchar(255),
-) engine=InnoDB;
+) engine=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
 

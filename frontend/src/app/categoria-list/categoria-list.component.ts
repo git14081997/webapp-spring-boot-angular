@@ -25,7 +25,7 @@ export class CategoriaListComponent {
 	private parametroServicio: ParametroServicio = {
 		url: "/api/categoria",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
+			'Content-Type': 'application/json;charset=utf-8',
 			'Accept': 'application/json',
 			'Authorization': 'Bearer '
 		})
