@@ -4,6 +4,7 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 import com.rodriguez.pruebas.dto.inventarioFacturacion.FilesystemStorageService;
 import com.rodriguez.pruebas.dto.inventarioFacturacion.ProductoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.ImagenProducto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
@@ -298,15 +299,15 @@ public class ProductoController {
 	public Integer saveImage(@RequestBody MultipartFile fileimagen){
 		try {
 
-			String nuevoNombreArchivo = UUID.randomUUID().toString();
-
 			String nombreArchivo = fileimagen.getOriginalFilename();
 			String extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf("."));
+
+			String nuevoNombreArchivo = UUID.randomUUID().toString() + "." + extensionArchivo;
 
 			byte[] bytesImagen = fileimagen.getBytes();
 
 			long sizeImagen = fileimagen.getSize();
-			long maxSize = 5 * 1024 * 1024;
+			long maxSize = 1048576 * 2;
 
 			log.info(nombreArchivo);
 			log.info(extensionArchivo);
@@ -327,10 +328,17 @@ public class ProductoController {
 				archivoDeDirectorio.mkdirs();
 			}
 
+			// se guarda imagen en servidor donde se ejecuta el api
 			Path path = Paths.get(recursosApiRest + "/" + nuevoNombreArchivo );
 			Files.write(path, bytesImagen);
 
-			return 0;
+			// Se guarda copia de imagen en base de datos.
+			ImagenProducto imagenProducto = new ImagenProducto();
+			imagenProducto.setArchivo(bytesImagen);
+			imagenProducto =
+			imagenProductoRepository.save(imagenProducto);
+
+			return imagenProducto.getId();
 		} catch (Exception exception) {
 			log.warn(exception.getMessage());
 		}
