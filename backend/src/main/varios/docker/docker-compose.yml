@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+
+  dbdocker:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: esUnSecreto
+
+  springboot_app:
+    container_name: 'springboot_app'
+    image: 'springboot_app:1.0'
+    mem_limit: 512m
+    environment:
+      JAVA_OPTS: '-Dcom.sun.management.jmxremote
+                  -Dcom.sun.management.jmxremote.local.only=false
+                  -Dcom.sun.management.jmxremote.authenticate=false
+                  -Dcom.sun.management.jmxremote.port=9010
+                  -Dcom.sun.management.jmxremote.rmi.port=9010
+                  -Djava.rmi.server.hostname=0.0.0.0
+                  -Dcom.sun.management.jmxremote.ssl=false'
+    ports:
+      - '8080:8080'
+      - '9010:9010'
+    restart: always
