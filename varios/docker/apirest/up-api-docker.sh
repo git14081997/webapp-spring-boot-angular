@@ -1,5 +1,5 @@
 #!/bin/bash
-rm -rf target
+rm -rf ./target
 #mvn clean install package -DskipTests -e -X
 mvn clean install package
 docker build -t spring-boot-docker:latest .

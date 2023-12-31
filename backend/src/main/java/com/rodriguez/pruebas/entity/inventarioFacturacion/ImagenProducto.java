@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -36,10 +35,7 @@ public class ImagenProducto implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-
-
 	@Column(name = "ARCHIVO")
 	private byte[] archivo;
-
 
 }
