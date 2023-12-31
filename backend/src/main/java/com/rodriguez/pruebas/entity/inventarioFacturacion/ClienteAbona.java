@@ -53,4 +53,8 @@ public class ClienteAbona implements Serializable {
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario cliente;
 
+	@Column(name = "DETALLES", length = 512)
+	private String detalles;
+
+
 }

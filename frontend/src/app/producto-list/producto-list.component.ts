@@ -22,12 +22,11 @@ import { hostname } from '../hostname';
 })
 export class ProductoListComponent implements OnInit {
 
-
 	private parametroServicio: ParametroServicio = {
 		url: "/api/producto",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
+			'Content-Type': 'application/json;charset=UTF-8',
+			'Accept': 'application/json;charset=UTF-8',
 			'Authorization': 'Bearer '
 		})
 	}
@@ -139,15 +138,13 @@ export class ProductoListComponent implements OnInit {
     let tmpCategoria:any = {};
     tmpCategoria.id = parametros.categoriaId;
     parametros.categoria = tmpCategoria;
-
-		this.service.post(
-			this.parametroServicio,
-			parametros
-		).subscribe(() => {
+		
+		this.service.post(this.parametroServicio,parametros).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
 			this.getPorPagina();
 		});
+		
 	}
 
 	actualizar(parametros: any) {
@@ -218,6 +215,34 @@ export class ProductoListComponent implements OnInit {
 		return this.http.get<any>(
       hostname + "/api/categoria" + "/" + 0 + "/" + 10,
 			parametro.headers);
+	}
+
+	cargarImagen(objetoN:any){
+
+		// filesize
+		// 1,085,348 bytes
+
+		// max file size
+		// 1,048,576 bytes = 2^20 = 1 MB = 1 Megabyte
+		//     1,024 bytes        = 1 KB = 1 Kilobyte
+		//         1 byte         = 01 B = 1 Byte
+		//         1 bits         = 08 B = 1 Bits
+
+
+		this.tmp = new FormData();
+		this.tmp.append("fileimagen",objetoN.target.files[0]);
+
+		console.log("archivo imagen");
+		console.log(this.tmp);
+
+		this.http.post<any>(hostname + "/api/producto/imagen", this.tmp, 
+			this.parametroServicio.headers).subscribe(() => {
+
+			this.verLista = 'S';
+			this.verEditable = 'N';
+
+		});	
+		
 	}
 
 }

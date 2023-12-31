@@ -1,13 +1,15 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
+import com.rodriguez.pruebas.dto.inventarioFacturacion.FilesystemStorageService;
 import com.rodriguez.pruebas.dto.inventarioFacturacion.ProductoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +31,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
+
 
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
@@ -41,13 +55,17 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-@NoArgsConstructor
 @RequestMapping("api/producto")
 public class ProductoController {
 
 	private static final Logger log = LoggerFactory.getLogger(ProductoController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
+
+	private final HttpServletRequest httpServletRequest;
+
+	@Autowired
+	private ImagenProductoRepository imagenProductoRepository;
 
 	@Autowired
 	private ProductoRepository productoRepository;
@@ -59,11 +77,53 @@ public class ProductoController {
 	private JdbcTemplate jdbcTemplate;
 
 
+
+	private byte[] getImagen(String rutaAlArchivo) throws IOException {
+		FileInputStream fileInputStream = new FileInputStream(rutaAlArchivo);
+		return fileInputStream.readAllBytes();
+	}
+
+
+
 	@ResponseBody
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody ProductoDto productoDto ){
+	public Integer save(@RequestBody ProductoDto productoDto, @RequestParam MultipartFile fileImagen){
 
 		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
+
+		try(InputStream inputStream = fileImagen.getInputStream()){
+
+			producto.setImagen(inputStream.readAllBytes());
+
+		} catch (IOException ioException){
+			log.info("error al guardar byte[] en DB");
+			log.error(ioException.getLocalizedMessage());
+		}
+
+
+
+		log.info("opcion2 guardar copia en carpeta de servidor");
+		FilesystemStorageService fss = new FilesystemStorageService();
+
+		try {
+			fss.init();
+			String path = fss.store(fileImagen);
+
+			String host = httpServletRequest.getRequestURL().toString().replace(
+				httpServletRequest.getRequestURI(), ""
+			);
+
+			String urlConImg = ServletUriComponentsBuilder.fromHttpUrl(host)
+			.path("/media/").path(path).toString();
+
+			log.info("imagen: " + urlConImg);
+
+
+		} catch (IOException ioException) {
+			log.info("error2 al guardar imagen en carpeta del servidor");
+			log.error(ioException.getLocalizedMessage());
+			throw new RuntimeException(ioException);
+		}
 
 
 		// valores por defecto al crear
@@ -224,6 +284,59 @@ public class ProductoController {
 
 		return productoRepository.findByNombreContainingIgnoreCase(pageable, nombre);
 	}
+
+
+
+
+
+
+	@PostMapping(
+		value = "imagen",
+		//consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	public Integer saveImage(@RequestBody MultipartFile fileimagen){
+		try {
+
+			String nuevoNombreArchivo = UUID.randomUUID().toString();
+
+			String nombreArchivo = fileimagen.getOriginalFilename();
+			String extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf("."));
+
+			byte[] bytesImagen = fileimagen.getBytes();
+
+			long sizeImagen = fileimagen.getSize();
+			long maxSize = 5 * 1024 * 1024;
+
+			log.info(nombreArchivo);
+			log.info(extensionArchivo);
+			log.info(sizeImagen + "");
+			log.info(nuevoNombreArchivo);
+
+			if( sizeImagen > maxSize){
+				log.warn("Tamaño de archivo supera: " + maxSize );
+			}
+			if(!nombreArchivo.endsWith(".png") && !nombreArchivo.endsWith(".jpg") && !nombreArchivo.endsWith(".jpeg")){
+				log.warn("Solo se permiten imagenes '.jpg', '.jpeg', '.png'");
+			}
+
+			// crear carpeta
+			String recursosApiRest = "src/main/resources/pic";
+			File archivoDeDirectorio = new File(recursosApiRest);
+			if(!archivoDeDirectorio.exists()){
+				archivoDeDirectorio.mkdirs();
+			}
+
+			Path path = Paths.get(recursosApiRest + "/" + nuevoNombreArchivo );
+			Files.write(path, bytesImagen);
+
+			return 0;
+		} catch (Exception exception) {
+			log.warn(exception.getMessage());
+		}
+		return -1;
+	}
+
 
 
 

@@ -22,4 +22,6 @@ public class ClienteAbonaDto implements Serializable {
 	private FacturaDto factura;
 	private BigDecimal valor;
 	private Date fecha;
+	private String detalles;
+
 }

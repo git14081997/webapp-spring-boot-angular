@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -107,5 +109,10 @@ public class Producto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "CATEGORIA_ID")
 	private Categoria categoria;
+
+	@Lob
+	@Column(name = "IMAGEN")
+	private byte[] imagen;
+
 
 }

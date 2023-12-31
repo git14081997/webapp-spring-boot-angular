@@ -2,6 +2,7 @@
 package com.rodriguez.pruebas.dto.inventarioFacturacion;
 
 import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,33 +23,26 @@ public class ProductoDto implements Serializable {
 
 	private Integer id;
 	private String nombre;
-
 	private String genero;
 	private String edad;
-
 	private String talla;
 	private BigDecimal largo;
-
 	private BigDecimal ancho;
 	private String color;
-
 	private Date fechaCreado;
 	private Date fechaModificado;
-
 	private Date fechaAdquisicion;
 	private UsuarioDto usuarioModifico;
-
 	private UsuarioDto usuarioCreo;
 	private String estado;
-
 	private BigDecimal costoUnidad;
 	private BigDecimal gananciaPorcentaje;
-
 	private BigDecimal ganancia;
 	private BigDecimal iva;
-
 	private BigDecimal precioVenta;
 	private Integer existencias;
-
 	private CategoriaDto categoria;
+
+	private byte[] imagen;
+
 }
