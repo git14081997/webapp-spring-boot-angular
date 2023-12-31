@@ -2,7 +2,6 @@
 package com.rodriguez.pruebas.dto.inventarioFacturacion;
 
 import lombok.Data;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
