@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -53,8 +53,8 @@ public class TipoPagoController {
 	private JdbcTemplate jdbcTemplate;
 
 
-	@ResponseBody
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody TipoPagoDto tipoPagoDto ){
 		TipoPago tipoPago = MODEL_MAPPER.map(tipoPagoDto, TipoPago.class);
 		tipoPago = tipoPagoRepository.save(tipoPago);
@@ -62,7 +62,7 @@ public class TipoPagoController {
 	}
 
 
-	@ResponseBody
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public TipoPago findById(@PathVariable Integer id){
 		Optional<TipoPago> resultado = tipoPagoRepository.findById(id);
@@ -86,7 +86,7 @@ public class TipoPagoController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<TipoPago> resultados encontrados.
 	 */
-	@ResponseBody
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<TipoPago> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
@@ -95,15 +95,16 @@ public class TipoPagoController {
 	}
 
 
-	@ResponseBody
+
 	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public void delete(@PathVariable Integer id){
 		tipoPagoRepository.deleteById(id);
 	}
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody TipoPagoDto tipoPagoDto ){
 
 		Integer tipoPagoId = tipoPagoDto.getId();
@@ -137,7 +138,6 @@ public class TipoPagoController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<TipoPago> resultados encontrados.
 	 */
-	@ResponseBody
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<TipoPago> findAllByDescripcion(
 			@PathVariable Integer pagina, @PathVariable Integer cantidad,
@@ -148,5 +148,6 @@ public class TipoPagoController {
 
 		return tipoPagoRepository.findByDescripcionContainingIgnoreCase(pageable, descripcion);
 	}
+	
 
 }

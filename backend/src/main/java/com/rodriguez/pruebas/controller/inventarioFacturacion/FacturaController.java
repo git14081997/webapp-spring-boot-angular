@@ -21,15 +21,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -62,8 +61,8 @@ public class FacturaController {
 	private JdbcTemplate jdbcTemplate;
 
 
-	@ResponseBody
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody FacturaDto facturaDto ){
 		Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class);
 		factura = facturaRepository.save(factura);
@@ -71,7 +70,7 @@ public class FacturaController {
 	}
 
 
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public Factura findById(@PathVariable Integer id){
 		Optional<Factura> resultado = facturaRepository.findById(id);
@@ -81,7 +80,7 @@ public class FacturaController {
 
 
 	/*
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Factura> findAll(){
 		return facturaRepository.findAll();
@@ -97,7 +96,7 @@ public class FacturaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Factura> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Factura> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
@@ -107,11 +106,12 @@ public class FacturaController {
 
 
 
-	@ResponseBody
+/*
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		facturaRepository.deleteById(id);
 	}
+*/
 
 
 
@@ -123,7 +123,7 @@ public class FacturaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Factura> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/{usuarioId}")
 	public Page<Factura> findByCliente(
 	@PathVariable Integer pagina, @PathVariable Integer cantidad, @PathVariable Integer usuarioId){
@@ -134,8 +134,8 @@ public class FacturaController {
 
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody FacturaDto dto ){
 
 		Integer tmpId = dto.getId();

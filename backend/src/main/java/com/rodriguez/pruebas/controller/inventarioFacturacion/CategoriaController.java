@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -53,8 +53,8 @@ public class CategoriaController {
 	private JdbcTemplate jdbcTemplate;
 
 
-	@ResponseBody
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody CategoriaDto categoriaDto ){
 		Categoria categoria = MODEL_MAPPER.map(categoriaDto, Categoria.class);
 		categoria = categoriaRepository.save(categoria);
@@ -62,7 +62,7 @@ public class CategoriaController {
 	}
 
 
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public Categoria findById(@PathVariable Integer id){
 		Optional<Categoria> resultado = categoriaRepository.findById(id);
@@ -71,7 +71,7 @@ public class CategoriaController {
 
 
 	/*
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Categoria> findAll(){
 		return categoriaRepository.findAll();
@@ -86,7 +86,7 @@ public class CategoriaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Categoria> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Categoria> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
@@ -95,7 +95,7 @@ public class CategoriaController {
 	}
 
 
-	@ResponseBody
+	 
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		categoriaRepository.deleteById(id);
@@ -103,8 +103,8 @@ public class CategoriaController {
 
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody CategoriaDto categoriaDto ){
 
 		Integer tmpId = categoriaDto.getId();
@@ -137,7 +137,7 @@ public class CategoriaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Categoria> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Categoria> findAllByDescripcion(
 			@PathVariable Integer pagina, @PathVariable Integer cantidad,

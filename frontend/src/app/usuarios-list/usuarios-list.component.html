@@ -52,7 +52,9 @@
          table-lg table-bordered table-hover">
           <thead>
             <tr>
+              <!--
               <th class="tableHeaderBlack" scope="col">Eliminar</th>
+              -->
 
               <th class="tableHeaderBlack" scope="col">Correo</th>
 
@@ -73,11 +75,13 @@
           <tbody>
             <tr *ngFor="let objetoN of objetos">
 
+              <!--
               <td>
                 <button class="btn btn-danger" (click)="eliminarPorID(objetoN.id) ">
                   <i class="bi bi-trash3-fill"></i>
                 </button>
               </td>
+              -->
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.correo }}</td>
 

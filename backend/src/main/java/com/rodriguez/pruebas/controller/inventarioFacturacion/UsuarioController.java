@@ -55,9 +55,9 @@ public class UsuarioController {
 	private JdbcTemplate jdbcTemplate;
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody UsuarioDto usuarioDto ){
+
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer update(@RequestBody UsuarioDto usuarioDto){
 
 		Integer tmpId = usuarioDto.getId();
 
@@ -99,8 +99,8 @@ public class UsuarioController {
 
 
 
-	@ResponseBody
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody UsuarioDto usuarioDto ){
 
 		Integer usuarioId = usuarioDto.getId();
@@ -164,7 +164,6 @@ public class UsuarioController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Usuario> resultados encontrados.
 	 */
-	@ResponseBody
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 
@@ -188,7 +187,7 @@ public class UsuarioController {
 	}
 
 
-	@ResponseBody
+
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		usuarioRepository.deleteById(id);
@@ -204,7 +203,6 @@ public class UsuarioController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Usuario> resultados encontrados.
 	 */
-	@ResponseBody
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Usuario> findAllByNombreAndApellido(
 		@PathVariable Integer pagina, @PathVariable Integer cantidad,
@@ -233,5 +231,6 @@ public class UsuarioController {
 
 		return resultado;
 	}
+
 
 }

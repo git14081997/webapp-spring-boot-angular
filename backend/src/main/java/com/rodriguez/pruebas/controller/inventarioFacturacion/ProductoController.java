@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -119,7 +119,7 @@ public class ProductoController {
 
 
 
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public Producto findById(@PathVariable Integer id){
 		Optional<Producto> resultado = productoRepository.findById(id);
@@ -128,7 +128,7 @@ public class ProductoController {
 
 
 	/*
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Producto> findAll(){
 		return productoRepository.findAll();
@@ -143,7 +143,7 @@ public class ProductoController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Producto> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Producto> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
@@ -152,15 +152,15 @@ public class ProductoController {
 	}
 
 
-	@ResponseBody
+	 
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		productoRepository.deleteById(id);
 	}
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody ProductoDto dto ){
 
 		Integer tmpId = dto.getId();
@@ -223,7 +223,7 @@ public class ProductoController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Producto> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Producto> findAllByNombre(
 			@PathVariable Integer pagina, @PathVariable Integer cantidad,

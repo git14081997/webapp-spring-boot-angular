@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -58,8 +58,8 @@ public class FacturaDetalleController {
 
 
 
-	@ResponseBody
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody FacturaDetalleDto facturaDetalleDto ){
 		FacturaDetalle facturaDetalle = MODEL_MAPPER.map(facturaDetalleDto, FacturaDetalle.class);
 		facturaDetalle = facturaDetalleRepository.save(facturaDetalle);
@@ -68,7 +68,7 @@ public class FacturaDetalleController {
 
 
 
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public FacturaDetalle findById(@PathVariable Integer id){
 		Optional<FacturaDetalle> resultado = facturaDetalleRepository.findById(id);
@@ -77,7 +77,7 @@ public class FacturaDetalleController {
 
 
 	/*
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FacturaDetalle> findAll(){
 		return facturaDetalleRepository.findAll();
@@ -92,7 +92,7 @@ public class FacturaDetalleController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<FacturaDetalle> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<FacturaDetalle> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
@@ -102,7 +102,7 @@ public class FacturaDetalleController {
 
 
 
-	@ResponseBody
+	 
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		facturaDetalleRepository.deleteById(id);
@@ -110,8 +110,8 @@ public class FacturaDetalleController {
 
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody FacturaDetalleDto dto ){
 
 		Integer tmpId = dto.getId();

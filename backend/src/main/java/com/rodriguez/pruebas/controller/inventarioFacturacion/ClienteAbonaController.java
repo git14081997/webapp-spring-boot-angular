@@ -17,15 +17,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -52,8 +51,8 @@ public class ClienteAbonaController {
 	private JdbcTemplate jdbcTemplate;
 
 
-	@ResponseBody
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody ClienteAbonaDto clienteAbonaDto ){
 		ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
@@ -61,7 +60,7 @@ public class ClienteAbonaController {
 	}
 
 
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public ClienteAbona findById(@PathVariable Integer id){
 		Optional<ClienteAbona> resultado = clienteAbonaRepository.findById(id);
@@ -70,7 +69,7 @@ public class ClienteAbonaController {
 
 
 	/*
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ClienteAbona> findAll(){
 		return clienteAbonaRepository.findAll();
@@ -85,7 +84,7 @@ public class ClienteAbonaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<ClienteAbona> resultados encontrados.
 	 */
-	@ResponseBody
+	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<ClienteAbona> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
@@ -94,16 +93,17 @@ public class ClienteAbonaController {
 	}
 
 
-	@ResponseBody
+/*
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		clienteAbonaRepository.deleteById(id);
 	}
+ */
 
 
 
-	@ResponseBody
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	 
+	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer update(@RequestBody ClienteAbonaDto dto ){
 
 		Integer tmpId = dto.getId();
