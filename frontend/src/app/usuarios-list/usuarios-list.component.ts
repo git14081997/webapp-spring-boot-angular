@@ -162,6 +162,7 @@ export class UsuariosListComponent implements OnInit {
 		this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
+		this.verAgregar = 'N';
 	}
 
 	buscarEnDb(parametros: any){
@@ -169,7 +170,10 @@ export class UsuariosListComponent implements OnInit {
 		let arrayRes = parametros.split(" ");
 
 		let nombre = arrayRes[0];
-		let apellido = arrayRes[1];
+		let apellido = "";
+		if( arrayRes.length > 1 ){
+			apellido = arrayRes[1];	
+		}
 
 		this.getPaginadoBuscando(
 			this.parametroServicio, 0, 20, nombre,apellido

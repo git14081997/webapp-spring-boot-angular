@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -105,15 +106,15 @@ public class Producto implements Serializable {
 	@Column( name = "EXISTENCIAS")
 	private Integer existencias;
 
-	/*
-	@ManyToOne
-	@JoinColumn(name = "CATEGORIA_ID")
-	private Categoria categoria;
-	*/
 
+	////// revision pendiente
 	@Lob
 	@Column(name = "IMAGEN",columnDefinition="LONGBLOB")
 	private byte[] imagen;
 
+	@OneToOne
+	@JoinColumn(name="IMAGEN_PRODUCTO")
+	private ImagenProducto imagenProducto;
+	///// revision pendiente
 
 }

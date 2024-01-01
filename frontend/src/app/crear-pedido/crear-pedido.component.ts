@@ -12,17 +12,17 @@ import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 
 @Component({
-  selector: 'app-crear-pedido',
-  standalone: true,
+	selector: 'app-crear-pedido',
+	standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
 	],
-  templateUrl: './crear-pedido.component.html',
-  styleUrl: './crear-pedido.component.css'
+	templateUrl: './crear-pedido.component.html',
+	styleUrl: './crear-pedido.component.css'
 })
 export class CrearPedidoComponent implements OnInit {
 
-  private parametroServicio: ParametroServicio = {
+	private parametroServicio: ParametroServicio = {
 		url: "/api/usuario",
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
@@ -34,18 +34,44 @@ export class CrearPedidoComponent implements OnInit {
 	private http = inject(HttpClient);
 	service: PruebasService;
 	parametros: any = {};
-	objetoSeleccionado: any = {};
-	objetos: any[] = [];
+	productoSeleccionado: any = {};
+	productosEncontrados: any[] = [];
+	objetosPedido: any[] = [];
 
-  tmp:any;
+	todoElPedido:any = {};
 
-  constructor() {
+	constructor() {
 		this.service = new PruebasService;
 	}
 
 	ngOnInit(): void {
 	}
 
-  
+	limpiarBusqueda(){
+		this.parametros.buscar = "";
+		this.productosEncontrados = [];
+	}
+
+	getPaginadoBuscando(nombre: string) {
+		return this.http.get<any>(
+			hostname + '/api/producto' + "/" + 0 + "/" + 10 +
+			"/buscar" + "?nombre="+nombre,
+			this.parametroServicio.headers).subscribe((RESPONSE:any) => {
+				this.productosEncontrados = RESPONSE.content;
+			});
+	}
+
+	quitarDelPedido(index: number) {
+	}
+
+	agregarAlPedido(objetoN:any){
+		this.objetosPedido.push(objetoN);
+	}
+
+	guardarPedido(){
+		// enviar
+		console.log("Todo el detalle del pedido");
+		console.log(this.todoElPedido);
+	}
 
 }

@@ -56,7 +56,7 @@ public class Factura implements Serializable {
 	private String tipoPago;
 	// Venta en efectivo 'E'
 	// Venta al credito  'C'
-	// 
+	//
 	// E Efectivo; C Credito; V Visto
 
 	@Column( name = "FECHA_EMISION")

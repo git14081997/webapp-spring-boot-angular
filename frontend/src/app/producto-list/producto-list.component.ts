@@ -146,13 +146,8 @@ export class ProductoListComponent implements OnInit {
 
 	agregar(parametros: any) {
 
-    let tmpCategoria:any = {};
-    tmpCategoria.id = parametros.categoriaId;
-    parametros.categoria = tmpCategoria;
-		
 		this.service.post(this.parametroServicio,parametros).subscribe(() => {
-			this.verLista = 'S';
-			this.verEditable = 'N';
+			this.verListado();
 			this.getPorPagina();
 		});
 		

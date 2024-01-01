@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 
@@ -105,6 +106,12 @@ public class ProductoController {
 		}
 		*/
 
+		BigDecimal costo = producto.getCostoUnidad();
+		BigDecimal ganancia = producto.getGanancia();
+		BigDecimal precioVenta =  costo.add(ganancia);
+		producto.setPrecioVenta(precioVenta);
+
+
 		producto = productoRepository.save(producto);
 		return producto.getId();
 	}
@@ -156,6 +163,11 @@ public class ProductoController {
 	 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public void update(@RequestBody Producto producto){
+
+		BigDecimal costo = producto.getCostoUnidad();
+		BigDecimal ganancia = producto.getGanancia();
+		BigDecimal precioVenta =  costo.add(ganancia);
+		producto.setPrecioVenta(precioVenta);
 
 		productoRepository.save(producto);
 
@@ -239,7 +251,13 @@ public class ProductoController {
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		return productoRepository.findByNombreContainingIgnoreCase(pageable, nombre);
+		Page<Producto> resultado = productoRepository.findByNombreContainingIgnoreCase(pageable, nombre);
+
+		resultado.forEach( resultadoN -> {
+			resultadoN.setImagen(null);
+		});
+
+		return resultado;
 	}
 
 

@@ -1,11 +1,11 @@
 
 /* Mis Varibles CSS */
 :root {
-  --blue: #001b33;
+	--blue: #001b33;
 }
 
 .customBlue {
-  color: var(--blue);
+	color: var(--blue);
 }
 
 button {
@@ -15,7 +15,13 @@ button {
 .tableHeaderBlack {
 	background-color: #000000 !important;
 	color: #ffffff !important;
-  width: max-content !important;
+	width: max-content !important;
+}
+
+.tableHeaderRed {
+	background-color: #ff0000 !important;
+	color: #ffffff !important;
+	width: 45px !important;
 }
 
 .font21{
@@ -23,10 +29,10 @@ button {
 }
 
 .font27 {
-  font-size: 27px !important;
+	font-size: 27px !important;
 }
 
 .page-link {
-  color: #000000 !important;
-  border: 0px solid white !important;
+	color: #000000 !important;
+	border: 0px solid white !important;
 }

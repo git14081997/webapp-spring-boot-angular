@@ -212,16 +212,21 @@ public class UsuarioController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Usuario> findAllByNombreAndApellido(
 		@PathVariable Integer pagina, @PathVariable Integer cantidad,
-		@RequestParam(required = true) String nombre
-		//,@RequestParam(required = true) String apellido
+		@RequestParam(required = true) String nombre,
+		@RequestParam(required = false) String apellido
 	){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		Page<Usuario> resultado =
-		usuarioRepository.findByNombreCompletoContainingIgnoreCase(
-			pageable,nombre);
+		Page<Usuario> resultado;
+
+		if(!apellido.isEmpty()){
+			resultado = usuarioRepository.findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(pageable,nombre,apellido);
+		}
+		else {
+			resultado = usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable,nombre);
+		}
 
 		List<Usuario> usuarios = resultado.getContent();
 
@@ -235,6 +240,10 @@ public class UsuarioController {
 			usuarioEncontrado.setFechaModificado(null);
 
 		});
+
+
+
+
 
 		return resultado;
 	}
