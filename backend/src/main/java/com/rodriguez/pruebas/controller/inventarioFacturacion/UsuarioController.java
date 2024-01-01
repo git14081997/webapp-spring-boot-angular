@@ -81,18 +81,12 @@ public class UsuarioController {
 
 		Integer usuarioId = usuario.getId();
 		if(null == usuarioId){
-			return -2;
-		}
-
-		// ya existia este registro ?
-		Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuario.getId());
-		if(usuarioOptional.isEmpty()){
 
 			usuario.setNombreCompleto(
-				usuario.getNombre() + " " +
-				usuario.getNombreDos() + " " +
-				usuario.getApellido() + " " +
-				usuario.getApellidoDos()
+					usuario.getNombre() + " " +
+							usuario.getNombreDos() + " " +
+							usuario.getApellido() + " " +
+							usuario.getApellidoDos()
 			);
 
 			usuario.setPendienteDePago(new BigDecimal(0));
@@ -101,6 +95,7 @@ public class UsuarioController {
 			usuario = usuarioRepository.save(usuario);
 			return usuario.getId();
 		}
+
 		return -1;
 
 		/*
