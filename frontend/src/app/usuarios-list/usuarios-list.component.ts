@@ -49,6 +49,8 @@ export class UsuariosListComponent implements OnInit {
 
 	tmp:any;
 
+	verAgregar: string = 'N';
+
 	constructor() {
 		this.service = new PruebasService;
 	}
@@ -112,13 +114,23 @@ export class UsuariosListComponent implements OnInit {
 	verVentanaAgregar() {
 		this.objetoSeleccionado = {};
 		this.verLista = 'N';
-		this.verEditable = 'S';
+		this.verAgregar = 'S';
+		this.verEditable = 'N';
 		this.crearOrActualizar = 'C';
+	}
+
+	verVentanaEditar() {
+		this.objetoSeleccionado = {};
+		this.verLista = 'N';
+		this.verAgregar = 'N';
+		this.verEditable = 'S';
+		this.crearOrActualizar = 'A';
 	}
 
 	verListado() {
 		this.verLista = 'S';
 		this.verEditable = 'N';
+		this.verAgregar = 'N';
 		this.objetoSeleccionado = {};
 	}
 

@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,46 +58,18 @@ public class UsuarioController {
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public void update(@RequestBody Usuario usuario){
 
-		usuarioRepository.save(usuario);
+		// copia del saldo pendiente de pago, antes de cambiarlo
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuario.getId());
+		if(usuarioOptional.isPresent()){
+			Usuario usuarioCopy = usuarioOptional.get();
+			usuarioCopy.setPendienteDePagoCopy(usuarioCopy.getPendienteDePago());
+			usuarioRepository.save(usuarioCopy);
 
-		/*
-		Integer tmpId = usuarioDto.getId();
+			usuario.setPendienteDePagoCopy(usuarioCopy.getPendienteDePago());
 
-		if(tmpId == null){
-			return -1;
+			// actualizando datos
+			usuarioRepository.save(usuario);
 		}
-		else {
-
-			Optional<Usuario> usuarioEnDB = usuarioRepository.findById(tmpId);
-
-			if( usuarioEnDB.isPresent() ){
-				Usuario usuarioReal = usuarioEnDB.get();
-
-				usuarioReal.setNombre(usuarioDto.getNombre());
-				usuarioReal.setNombreDos(usuarioDto.getNombreDos());
-
-				usuarioReal.setApellido(usuarioDto.getApellido());
-				usuarioReal.setApellidoDos(usuarioDto.getApellidoDos());
-
-				usuarioReal.setTelefono(usuarioDto.getTelefono());
-
-				usuarioReal.setDireccion(usuarioDto.getDireccion());
-
-				usuarioReal.setNit(usuarioDto.getNit());
-
-				usuarioReal.setCumpleanos(usuarioDto.getCumpleanos());
-
-				//usuarioReal.setContrasena(usuarioDto.getContrasena());
-				//usuarioReal.setCorreo(usuarioDto.getCorreo());
-
-				usuarioRepository.save(usuarioReal);
-				return 0;
-			}
-			else {
-				return -2;
-			}
-
-		 */
 
 	}
 
@@ -105,15 +79,29 @@ public class UsuarioController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody Usuario usuario ){
 
-		usuario.setNombreCompleto(
-				usuario.getNombre() + " " +
-						usuario.getNombreDos() + " " +
-						usuario.getApellido() + " " +
-						usuario.getApellidoDos()
-		);
+		Integer usuarioId = usuario.getId();
+		if(null == usuarioId){
+			return -2;
+		}
 
-		usuario = usuarioRepository.save(usuario);
-		return usuario.getId();
+		// ya existia este registro ?
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuario.getId());
+		if(usuarioOptional.isEmpty()){
+
+			usuario.setNombreCompleto(
+				usuario.getNombre() + " " +
+				usuario.getNombreDos() + " " +
+				usuario.getApellido() + " " +
+				usuario.getApellidoDos()
+			);
+
+			usuario.setPendienteDePago(new BigDecimal(0));
+			usuario.setPendienteDePagoCopy(usuario.getPendienteDePago());
+
+			usuario = usuarioRepository.save(usuario);
+			return usuario.getId();
+		}
+		return -1;
 
 		/*
 		Integer usuarioId = usuarioDto.getId();

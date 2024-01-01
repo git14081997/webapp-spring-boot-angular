@@ -157,7 +157,140 @@
 
 
 
+<!-- agregar -->
+<div class="container mt-5" *ngIf="verAgregar == 'S'">
 
+
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
+          [(ngModel)]="objetoSeleccionado.nombre">
+        <label for="parametro-nombre" class="form-label">Nombre:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-nombreDos" placeholder=""
+          [(ngModel)]="objetoSeleccionado.nombreDos">
+        <label for="parametro-nombreDos" class="form-label">Segundo nombre:</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-apellido" placeholder=""
+          [(ngModel)]="objetoSeleccionado.apellido">
+        <label for="parametro-apellido" class="form-label">Apellido:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-apellidoDos" placeholder=""
+          [(ngModel)]="objetoSeleccionado.apellidoDos">
+        <label for="parametro-apellidoDos" class="form-label">Segundo Apellido:</label>
+      </div>
+    </div>
+  </div>
+
+<!--
+
+    <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-correo" placeholder=""
+          [(ngModel)]="objetoSeleccionado.correo" required>
+        <label for="parametro-correo" class="form-label">Correo:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control form-control-lg" id="parametro-contrasena" placeholder=""
+          [(ngModel)]="objetoSeleccionado.contrasena" required>
+        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-telefono" placeholder=""
+          [(ngModel)]="objetoSeleccionado.telefono" maxlength="8">
+        <label for="parametro-telefono" class="form-label">Teléfono:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control form-control-lg" id="parametro-cumpleanos" placeholder=""
+          [(ngModel)]="objetoSeleccionado.cumpleanos">
+        <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-nit" placeholder=""
+          [(ngModel)]="objetoSeleccionado.nit">
+        <label for="parametro-nit" class="form-label">Nit:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-direccion" placeholder=""
+          [(ngModel)]="objetoSeleccionado.direccion">
+        <label for="parametro-direccion" class="form-label">Dirección:</label>
+      </div>
+    </div>
+  </div>
+-->
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="mb-3">
+        <button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'"
+          (click)="agregar(this.objetoSeleccionado)">
+          <i class="bi bi-floppy2-fill"></i>
+          Guardar
+        </button>
+        <button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'"
+          (click)="actualizar(this.objetoSeleccionado)">
+          <i class="bi bi-shuffle"></i>
+          Actualizar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- editar -->
 <div class="container mt-5" *ngIf="verEditable == 'S'">
 
 
