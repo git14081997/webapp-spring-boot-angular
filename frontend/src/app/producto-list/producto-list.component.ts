@@ -38,6 +38,7 @@ export class ProductoListComponent implements OnInit {
 	objetos: any[] = [];
 	verLista: string = 'S';
 	verEditable: string = 'N';
+	verAgregar: string = 'N';
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
@@ -123,13 +124,23 @@ export class ProductoListComponent implements OnInit {
 	verVentanaAgregar() {
 		this.objetoSeleccionado = {};
 		this.verLista = 'N';
-		this.verEditable = 'S';
+		this.verEditable = 'N';
+		this.verAgregar = 'S';
 		this.crearOrActualizar = 'C';
+	}
+
+	verVentanaEditar() {
+		this.objetoSeleccionado = {};
+		this.verLista = 'N';
+		this.verEditable = 'S';
+		this.verAgregar = 'N';
+		this.crearOrActualizar = 'A';
 	}
 
 	verListado() {
 		this.verLista = 'S';
 		this.verEditable = 'N';
+		this.verAgregar = 'N';
 		this.objetoSeleccionado = {};
 	}
 
