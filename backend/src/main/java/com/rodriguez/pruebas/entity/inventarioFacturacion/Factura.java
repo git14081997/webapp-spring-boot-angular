@@ -43,11 +43,8 @@ public class Factura implements Serializable {
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario cliente;
 
-	@Column( name = "NOMBRE")
-	private String nombre;
-
-	@Column( name = "APELLIDO")
-	private String apellido;
+	@Column( name = "NOMBRE_COMPLETO")
+	private String nombreCompleto;
 
 	@Column( name = "NIT")
 	private String nit;
@@ -55,9 +52,8 @@ public class Factura implements Serializable {
 	@Column( name = "DIRECCION")
 	private String direccion;
 
-	@ManyToOne
-	@JoinColumn(name = "TIPO_PAGO_ID")
-	private TipoPago tipoPago;
+	@Column(name = "TIPO_PAGO_ID", length = 1)
+	private String tipoPago; // E Efectivo; C Credito; V Visto
 
 	@Column( name = "FECHA_EMISION")
 	private Date fechaEmision;

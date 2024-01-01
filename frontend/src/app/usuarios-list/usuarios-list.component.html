@@ -56,9 +56,14 @@
               <th class="tableHeaderBlack" scope="col">Eliminar</th>
               -->
 
-              <th class="tableHeaderBlack" scope="col">Correo</th>
 
               <th class="tableHeaderBlack" scope="col">Nombre</th>
+
+              <th class="tableHeaderBlack" scope="col">Pendiente de pago</th>
+
+              <!--
+
+              <th class="tableHeaderBlack" scope="col">Correo</th>
 
               <th class="tableHeaderBlack" scope="col">Teléfono</th>
 
@@ -67,8 +72,7 @@
               <th class="tableHeaderBlack" scope="col">Nit</th>
 
               <th class="tableHeaderBlack" scope="col">Dirección</th>
-
-              <th class="tableHeaderBlack" scope="col">Pendiente de pago</th>
+              -->
 
             </tr>
           </thead>
@@ -83,10 +87,14 @@
               </td>
               -->
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.correo }}</td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombre }} {{
                 objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">Q. {{ objetoN.pendienteDePago }}</td>
+
+              <!--
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.correo }}</td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle"> {{ objetoN.telefono }}</td>
 
@@ -95,8 +103,8 @@
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nit }}</td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.direccion }}</td>
+              -->
 
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">Q. {{ objetoN.pendienteDePago }}</td>
             </tr>
           </tbody>
         </table>
@@ -152,25 +160,7 @@
 
 <div class="container mt-5" *ngIf="verEditable == 'S'">
 
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-correo" placeholder=""
-          [(ngModel)]="objetoSeleccionado.correo" required>
-        <label for="parametro-correo" class="form-label">Correo:</label>
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control form-control-lg" id="parametro-contrasena" placeholder=""
-          [(ngModel)]="objetoSeleccionado.contrasena" required>
-        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col mt-1">
@@ -209,6 +199,28 @@
         <input type="text" class="form-control form-control-lg" id="parametro-apellidoDos" placeholder=""
           [(ngModel)]="objetoSeleccionado.apellidoDos">
         <label for="parametro-apellidoDos" class="form-label">Segundo Apellido:</label>
+      </div>
+    </div>
+  </div>
+
+<!--
+
+    <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-correo" placeholder=""
+          [(ngModel)]="objetoSeleccionado.correo" required>
+        <label for="parametro-correo" class="form-label">Correo:</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mt-1">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control form-control-lg" id="parametro-contrasena" placeholder=""
+          [(ngModel)]="objetoSeleccionado.contrasena" required>
+        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
       </div>
     </div>
   </div>
@@ -252,6 +264,7 @@
       </div>
     </div>
   </div>
+-->
 
   <div class="row">
     <div class="col mt-1">

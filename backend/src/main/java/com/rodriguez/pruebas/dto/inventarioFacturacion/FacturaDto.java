@@ -26,7 +26,7 @@ public class FacturaDto implements Serializable {
 	private String apellido;
 	private String nit;
 	private String direccion;
-	private TipoPagoDto tipoPago;
+	private String tipoPago; // E Efectivo; C Credito; V Visto
 	private Date fechaEmision;
 	private BigDecimal total;
 	private BigDecimal iva;

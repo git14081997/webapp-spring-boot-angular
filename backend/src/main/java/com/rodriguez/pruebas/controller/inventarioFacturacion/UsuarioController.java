@@ -17,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -115,9 +115,18 @@ public class UsuarioController {
 				usuario.setPendienteDePago(new BigDecimal(0));
 			}
 
+			/*
 			if(usuario.getBloqueado() == null) {
 				usuario.setBloqueado("N");
 			}
+			*/
+
+			usuario.setNombreCompleto(
+				usuario.getNombre() + " " +
+				usuario.getNombreDos() + " " +
+				usuario.getApellido() + " " +
+				usuario.getApellidoDos()
+			);
 
 			usuario = usuarioRepository.save(usuario);
 			return usuario.getId();
@@ -187,12 +196,12 @@ public class UsuarioController {
 	}
 
 
-
+/*
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		usuarioRepository.deleteById(id);
 	}
-
+*/
 
 
 
@@ -206,15 +215,16 @@ public class UsuarioController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Usuario> findAllByNombreAndApellido(
 		@PathVariable Integer pagina, @PathVariable Integer cantidad,
-		@RequestParam(required = true) String nombre,
-		@RequestParam(required = true) String apellido){
+		@RequestParam(required = true) String nombre
+		//,@RequestParam(required = true) String apellido
+	){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
 		Page<Usuario> resultado =
-		usuarioRepository.findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(
-			pageable,nombre,apellido);
+		usuarioRepository.findByNombreCompletoContainingIgnoreCase(
+			pageable,nombre);
 
 		List<Usuario> usuarios = resultado.getContent();
 

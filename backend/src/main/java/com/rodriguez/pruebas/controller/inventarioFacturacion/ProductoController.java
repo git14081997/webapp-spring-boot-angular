@@ -2,7 +2,6 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.dto.inventarioFacturacion.ProductoDto;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
@@ -20,7 +19,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Optional;
 
 
@@ -73,6 +70,8 @@ public class ProductoController {
 
 		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
 
+		/*
+
 		// valores por defecto al crear
 		if(producto.getCostoUnidad() == null) {
 			producto.setCostoUnidad(new BigDecimal(0));
@@ -111,6 +110,7 @@ public class ProductoController {
 		if(producto.getEstado() == null) {
 			producto.setEstado("A");
 		}
+		*/
 
 		producto = productoRepository.save(producto);
 		return producto.getId();
@@ -152,16 +152,17 @@ public class ProductoController {
 	}
 
 
-	 
+	 /*
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		productoRepository.deleteById(id);
 	}
+	*/
 
 
 	 
-	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody ProductoDto dto ){
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer update(@RequestBody ProductoDto dto){
 
 		Integer tmpId = dto.getId();
 
@@ -169,6 +170,12 @@ public class ProductoController {
 			return -1;
 		}
 		else {
+
+			Producto producto = MODEL_MAPPER.map(dto, Producto.class);
+			producto = productoRepository.save(producto);
+			return producto.getId();
+
+			/*
 
 			Optional<Producto> optional = productoRepository.findById(tmpId);
 
@@ -210,6 +217,9 @@ public class ProductoController {
 			else {
 				return -2;
 			}
+
+			 */
+
 		}
 	}
 
@@ -223,7 +233,6 @@ public class ProductoController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Producto> resultados encontrados.
 	 */
-	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Producto> findAllByNombre(
 			@PathVariable Integer pagina, @PathVariable Integer cantidad,

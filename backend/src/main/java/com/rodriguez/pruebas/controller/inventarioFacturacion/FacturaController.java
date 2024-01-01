@@ -3,10 +3,8 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.dto.inventarioFacturacion.FacturaDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.TipoPago;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaRepository;
-import com.rodriguez.pruebas.repository.inventarioFacturacion.TipoPagoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
@@ -53,9 +50,6 @@ public class FacturaController {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private TipoPagoRepository tipoPagoRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -155,8 +149,7 @@ public class FacturaController {
 				if(optionalCliente.isPresent()){
 					Usuario usuario = optionalCliente.get();
 					objetoTemp.setCliente(usuario);
-					objetoTemp.setNombre(usuario.getNombre());
-					objetoTemp.setApellido(usuario.getApellido());
+					objetoTemp.setNombreCompleto(usuario.getNombreCompleto());
 					objetoTemp.setNit(usuario.getNit());
 					objetoTemp.setDireccion(usuario.getDireccion());
 				}
@@ -167,11 +160,16 @@ public class FacturaController {
 				objetoTemp.setPendienteDePago(dto.getPendienteDePago());
 				objetoTemp.setTotal(dto.getTotal());
 
+				// E Efectivo; C Credito; V Visto
+				objetoTemp.setTipoPago(objetoTemp.getTipoPago());
+
+				/*
 				Optional<TipoPago> optional = tipoPagoRepository.findById(dto.getTipoPago().getId());
 				if(optional.isPresent()){
 					TipoPago tipoPago = optional.get();
 					objetoTemp.setTipoPago(tipoPago);
 				}
+				*/
 
 				facturaRepository.save(objetoTemp);
 				return 0;

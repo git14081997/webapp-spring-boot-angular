@@ -5,12 +5,7 @@ import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Esta clase contiene metodos básicos y avanzados
@@ -23,6 +18,10 @@ import java.util.List;
 @Repository("usuarioRepository")
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
+	Page<Usuario> findByNombreCompletoContainingIgnoreCase(Pageable pageable, String nombre);
+
+
+	/*
 	Page<Usuario> findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(Pageable pageable,String nombre, String apellido);
 
 	List<Usuario> findByNombreIgnoreCase(String nombre);
@@ -50,6 +49,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	Page<Usuario> traerPorPagina(Pageable pageable);
 
 
+	*/
 
 
 }

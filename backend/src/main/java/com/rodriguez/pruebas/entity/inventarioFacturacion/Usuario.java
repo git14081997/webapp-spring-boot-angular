@@ -41,6 +41,9 @@ public class Usuario implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
+	@Column( name = "NOMBRE_COMPLETO")
+	private String nombreCompleto;
+
     @Column( name = "NOMBRE")
     private String nombre;
 
@@ -53,10 +56,16 @@ public class Usuario implements Serializable {
 	@Column( name = "APELLIDO_DOS")
 	private String apellidoDos;
 
-	@Column( name = "TELEFONO", length = 20, unique = true)
+	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
+	private BigDecimal pendienteDePago;
+
+
+	//@Column( name = "TELEFONO", length = 20, unique = true)
+	@Column( name = "TELEFONO")
 	private String telefono;
 
-	@Column( name = "CORREO", unique = true, nullable = false)
+	//@Column( name = "CORREO", unique = true, nullable = false)
+	@Column( name = "CORREO")
 	private String correo;
 
 	@Column( name = "CONTRASENA")
@@ -83,9 +92,6 @@ public class Usuario implements Serializable {
 	@OneToOne
 	@JoinColumn(name="USUARIO_CREO")
 	private Usuario usuarioCreo;
-
-	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
-	private BigDecimal pendienteDePago;
 
 	@Column( name = "NIT")
 	private String nit;

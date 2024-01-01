@@ -12,6 +12,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -40,18 +42,22 @@ public class ClienteAbona implements Serializable {
 	private Integer id;
 
 	@ManyToOne
+	@JoinColumn(name = "USUARIO_ID")
+	private Usuario cliente;
+
+	@ManyToOne
 	@JoinColumn(name = "FACTURA_ID")
 	private Factura factura;
 
 	@Column( name = "VALOR", scale = 2)
 	private BigDecimal valor;
 
+	@Column( name = "SALDO", scale = 2)
+	private BigDecimal saldo;
+
+	@CreationTimestamp
 	@Column( name = "FECHA")
 	private Date fecha;
-
-	@ManyToOne
-	@JoinColumn(name = "USUARIO_ID")
-	private Usuario cliente;
 
 	@Column(name = "DETALLES", length = 512)
 	private String detalles;

@@ -22,6 +22,8 @@ public class UsuarioDto implements Serializable {
 
 	private Integer id;
 
+	private String nombreCompleto;
+
 	private String nombre;
 
 	private String nombreDos;

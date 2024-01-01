@@ -60,6 +60,9 @@ public class Producto implements Serializable {
 	@Column( name = "ANCHO", scale = 2)
 	private BigDecimal ancho;
 
+	@Column( name = "PROFUNDIDAD", scale = 2)
+	private BigDecimal profundidad;
+
 	@Column( name = "COLOR")
 	private String color;
 
@@ -89,9 +92,6 @@ public class Producto implements Serializable {
 
 	@Column( name = "COSTO_UNIDAD", scale = 2)
 	private BigDecimal costoUnidad;
-
-	@Column( name = "GANANCIA_PORCENTAJE", scale = 2)
-	private BigDecimal gananciaPorcentaje;
 
 	@Column( name = "GANANCIA", scale = 2)
 	private BigDecimal ganancia;
