@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -268,14 +268,15 @@ public class ProductoController {
 
 
 	@GetMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "pic/{idproducto}")
-	public @ResponseBody byte[] updateImage(@PathVariable Integer idproducto) throws IOException {
+	public ResponseEntity<byte[]> updateImage(@PathVariable Integer idproducto) throws IOException {
 		Optional<Producto> optional = productoRepository.findById(idproducto);
 		if(optional.isEmpty()) {
 			return null;
 		}
 		Producto objetoTmp = optional.get();
-		byte[] bytesImagen = objetoTmp.getImagen();
-		return bytesImagen;
+		byte[] image = objetoTmp.getImagen();
+
+		return ResponseEntity.ok().contentType(MediaType.valueOf(MediaType.IMAGE_PNG_VALUE)).body(image);
 	}
 
 

@@ -164,33 +164,9 @@ export class ProductoListComponent implements OnInit {
 		});
 	}
 
-	actualizarSeleccionado(parametros: any) {
-		this.objetoSeleccionado = parametros;
-
-		this.crearOrActualizar = 'A';
-		this.verLista = 'N';
-		this.verEditable = 'S';
-
-		// getImagenProducto
-		this.http.get<any>(hostname + this.parametroServicio.url + "/pic/" + this.objetoSeleccionado.id,
-			this.parametroServicio.headers).subscribe((imagenN) => {
-
-//				this.objetoSeleccionado.srcImagen = imagenN;
-//				console.log(this.objetoSeleccionado.srcImagen);
-
-				
-				this.tmp = imagenN;
-				this.objetoSeleccionado.srcImagen = btoa( new Uint8Array(this.tmp)
-          .reduce((data, byte) => data + String.fromCharCode(byte), '')
-				);
-
-				console.log(this.objetoSeleccionado.srcImagen);
-				
 
 
-			}) ;
 
-	}
 
 	buscarEnDb(parametros: any){
 
@@ -256,5 +232,37 @@ export class ProductoListComponent implements OnInit {
 		});	
 		
 	}
+
+
+
+
+
+
+
+
+
+	actualizarSeleccionado(parametros: any) {
+		this.objetoSeleccionado = parametros;
+
+		this.crearOrActualizar = 'A';
+		this.verLista = 'N';
+		this.verEditable = 'S';
+
+
+		/* proximamente se podra traer una imagen y mostrarla
+		// getImagenProducto
+		this.http.get<any>(
+			hostname + this.parametroServicio.url + "/pic/" + this.objetoSeleccionado.id,
+			this.parametroServicio.headers
+		).subscribe((imagenN:any) => {
+			this.objetoSeleccionado.srcImagen = imagenN;
+		});
+		*/
+
+
+	}
+
+
+
 
 }
