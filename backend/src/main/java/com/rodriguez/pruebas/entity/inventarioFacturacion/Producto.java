@@ -112,7 +112,7 @@ public class Producto implements Serializable {
 	*/
 
 	@Lob
-	@Column(name = "IMAGEN")
+	@Column(name = "IMAGEN",columnDefinition="LONGBLOB")
 	private byte[] imagen;
 
 

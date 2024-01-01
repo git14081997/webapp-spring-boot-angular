@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -253,18 +254,29 @@ public class ProductoController {
 
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{idproducto}")
-	public void updateImage(@RequestBody MultipartFile file, @PathVariable Integer idproducto) throws IOException {
+	public void updateImage(@RequestBody MultipartFile fileImagen, @PathVariable Integer idproducto) throws IOException {
 		Optional<Producto> optional = productoRepository.findById(idproducto);
 		if(optional.isEmpty()) {
 			return;
 		}
 		Producto objetoTmp = optional.get();
-		byte[] bytesImagen = file.getBytes();
+		byte[] bytesImagen = fileImagen.getBytes();
 		objetoTmp.setImagen(bytesImagen);
 		productoRepository.save(objetoTmp);
 	}
 
 
+
+	@GetMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "pic/{idproducto}")
+	public @ResponseBody byte[] updateImage(@PathVariable Integer idproducto) throws IOException {
+		Optional<Producto> optional = productoRepository.findById(idproducto);
+		if(optional.isEmpty()) {
+			return null;
+		}
+		Producto objetoTmp = optional.get();
+		byte[] bytesImagen = objetoTmp.getImagen();
+		return bytesImagen;
+	}
 
 
 

@@ -27,7 +27,7 @@ export class ProductoListComponent implements OnInit {
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json;charset=UTF-8',
 			'Accept': 'application/json;charset=UTF-8',
-			'Authorization': 'Bearer '
+			'Authorization': 'Bearer ' + localStorage.getItem("personal-token")
 		})
 	}
 
@@ -166,11 +166,30 @@ export class ProductoListComponent implements OnInit {
 
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
-		parametros.categoriaId = parametros.categoria.id;
 
 		this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
+
+		// getImagenProducto
+		this.http.get<any>(hostname + this.parametroServicio.url + "/pic/" + this.objetoSeleccionado.id,
+			this.parametroServicio.headers).subscribe((imagenN) => {
+
+//				this.objetoSeleccionado.srcImagen = imagenN;
+//				console.log(this.objetoSeleccionado.srcImagen);
+
+				
+				this.tmp = imagenN;
+				this.objetoSeleccionado.srcImagen = btoa( new Uint8Array(this.tmp)
+          .reduce((data, byte) => data + String.fromCharCode(byte), '')
+				);
+
+				console.log(this.objetoSeleccionado.srcImagen);
+				
+
+
+			}) ;
+
 	}
 
 	buscarEnDb(parametros: any){
@@ -219,24 +238,17 @@ export class ProductoListComponent implements OnInit {
 
 	cargarImagen(objetoN:any){
 
-		// filesize
-		// 1,085,348 bytes
-
 		// max file size
-		// 1,048,576 bytes = 2^20 = 1 MB = 1 Megabyte
-		//     1,024 bytes        = 1 KB = 1 Kilobyte
-		//         1 byte         = 01 B = 1 Byte
-		//         1 bits         = 08 B = 1 Bits
-
+		// (1048576 * 2) 2 MegaBytes
 
 		this.tmp = new FormData();
-		this.tmp.append("fileimagen",objetoN.target.files[0]);
+		this.tmp.append("fileImagen",objetoN.target.files[0]);
 
-		console.log("archivo imagen");
-		console.log(this.tmp);
-
-		this.http.post<any>(hostname + "/api/producto/imagen", this.tmp, 
-			this.parametroServicio.headers).subscribe(() => {
+		this.http.put<any>(
+			hostname + "/api/producto/" + this.objetoSeleccionado.id, 
+			this.tmp, 
+			this.parametroServicio.headers
+		).subscribe(() => {
 
 			this.verLista = 'S';
 			this.verEditable = 'N';
