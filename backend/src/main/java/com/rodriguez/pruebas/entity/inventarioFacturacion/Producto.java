@@ -105,9 +105,11 @@ public class Producto implements Serializable {
 	@Column( name = "EXISTENCIAS")
 	private Integer existencias;
 
+	/*
 	@ManyToOne
 	@JoinColumn(name = "CATEGORIA_ID")
 	private Categoria categoria;
+	*/
 
 	@Lob
 	@Column(name = "IMAGEN")

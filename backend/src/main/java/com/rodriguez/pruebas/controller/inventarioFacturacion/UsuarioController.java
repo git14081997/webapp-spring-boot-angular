@@ -1,7 +1,6 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
@@ -19,15 +18,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
+import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +54,11 @@ public class UsuarioController {
 
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody UsuarioDto usuarioDto){
+	public void update(@RequestBody Usuario usuario){
 
+		usuarioRepository.save(usuario);
+
+		/*
 		Integer tmpId = usuarioDto.getId();
 
 		if(tmpId == null){
@@ -94,15 +94,28 @@ public class UsuarioController {
 			else {
 				return -2;
 			}
-		}
+
+		 */
+
 	}
 
 
 
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody UsuarioDto usuarioDto ){
+	public Integer save(@RequestBody Usuario usuario ){
 
+		usuario.setNombreCompleto(
+				usuario.getNombre() + " " +
+						usuario.getNombreDos() + " " +
+						usuario.getApellido() + " " +
+						usuario.getApellidoDos()
+		);
+
+		usuario = usuarioRepository.save(usuario);
+		return usuario.getId();
+
+		/*
 		Integer usuarioId = usuarioDto.getId();
 
 		if(usuarioId != null){
@@ -115,11 +128,10 @@ public class UsuarioController {
 				usuario.setPendienteDePago(new BigDecimal(0));
 			}
 
-			/*
+
 			if(usuario.getBloqueado() == null) {
 				usuario.setBloqueado("N");
 			}
-			*/
 
 			usuario.setNombreCompleto(
 				usuario.getNombre() + " " +
@@ -130,9 +142,11 @@ public class UsuarioController {
 
 			usuario = usuarioRepository.save(usuario);
 			return usuario.getId();
-		}
 
+		 */
 	}
+
+
 
 
 

@@ -1,9 +1,7 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.FacturaDetalleDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.FacturaDetalle;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaDetalleRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import lombok.AllArgsConstructor;
@@ -60,8 +58,8 @@ public class FacturaDetalleController {
 
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody FacturaDetalleDto facturaDetalleDto ){
-		FacturaDetalle facturaDetalle = MODEL_MAPPER.map(facturaDetalleDto, FacturaDetalle.class);
+	public Integer save(@RequestBody FacturaDetalle facturaDetalle ){
+		//FacturaDetalle facturaDetalle = MODEL_MAPPER.map(facturaDetalleDto, FacturaDetalle.class);
 		facturaDetalle = facturaDetalleRepository.save(facturaDetalle);
 		return facturaDetalle.getId();
 	}
@@ -112,8 +110,11 @@ public class FacturaDetalleController {
 
 	 
 	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody FacturaDetalleDto dto ){
+	public void update(@RequestBody FacturaDetalle facturaDetalle ){
 
+		facturaDetalleRepository.save(facturaDetalle);
+
+		/*
 		Integer tmpId = dto.getId();
 
 		if(tmpId == null){
@@ -150,7 +151,9 @@ public class FacturaDetalleController {
 			else {
 				return -2;
 			}
-		}
+
+		 */
+
 	}
 
 

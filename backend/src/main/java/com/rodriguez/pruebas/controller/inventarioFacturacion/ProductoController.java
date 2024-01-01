@@ -1,12 +1,9 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.ProductoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
-import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -49,8 +46,6 @@ public class ProductoController {
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
-	private final HttpServletRequest httpServletRequest;
-
 	@Autowired
 	private ImagenProductoRepository imagenProductoRepository;
 
@@ -58,19 +53,16 @@ public class ProductoController {
 	private ProductoRepository productoRepository;
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
-
-	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody ProductoDto productoDto, @RequestParam MultipartFile fileimagen){
-
-		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
+	public Integer save(@RequestBody Producto producto){
 
 		/*
+
+		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
 
 		// valores por defecto al crear
 		if(producto.getCostoUnidad() == null) {
@@ -162,7 +154,12 @@ public class ProductoController {
 
 	 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody ProductoDto dto){
+	public void update(@RequestBody Producto producto){
+
+		productoRepository.save(producto);
+
+
+		/*
 
 		Integer tmpId = dto.getId();
 
@@ -175,7 +172,7 @@ public class ProductoController {
 			producto = productoRepository.save(producto);
 			return producto.getId();
 
-			/*
+
 
 			Optional<Producto> optional = productoRepository.findById(tmpId);
 
@@ -221,7 +218,7 @@ public class ProductoController {
 			 */
 
 		}
-	}
+
 
 
 

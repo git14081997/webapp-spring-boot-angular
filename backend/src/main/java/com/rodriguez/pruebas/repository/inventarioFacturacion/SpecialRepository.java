@@ -1,7 +1,6 @@
 
 package com.rodriguez.pruebas.repository.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.rowMapper.UsuarioRm;
 import lombok.Getter;
@@ -47,18 +46,18 @@ public class SpecialRepository {
 	}
 
 
-	public int save(UsuarioDto usuarioDto) {
+	public int save(Usuario usuario) {
 		setSql("insert into USUARIO (correo, contrasena) values(?,?)");
 		return jdbcTemplate.update(sql,
-			usuarioDto.getCorreo(), usuarioDto.getContrasena()
+			usuario.getCorreo(), usuario.getContrasena()
 		);
 	}
 
 
-	public int update(UsuarioDto usuarioDto) {
+	public int update(Usuario usuario) {
 		setSql("update USUARIO set correo = ? where id = ?");
 		return jdbcTemplate.update(sql,
-			usuarioDto.getCorreo(), usuarioDto.getId()
+			usuario.getCorreo(), usuario.getId()
 		);
 	}
 

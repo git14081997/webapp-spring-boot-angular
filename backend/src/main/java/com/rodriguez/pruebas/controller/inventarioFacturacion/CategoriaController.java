@@ -1,7 +1,6 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.CategoriaDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Categoria;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.CategoriaRepository;
 import lombok.AllArgsConstructor;
@@ -55,8 +54,8 @@ public class CategoriaController {
 
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody CategoriaDto categoriaDto ){
-		Categoria categoria = MODEL_MAPPER.map(categoriaDto, Categoria.class);
+	public Integer save(@RequestBody Categoria categoria ){
+		//Categoria categoria = MODEL_MAPPER.map(categoriaDto, Categoria.class);
 		categoria = categoriaRepository.save(categoria);
 		return categoria.getId();
 	}
@@ -105,7 +104,7 @@ public class CategoriaController {
 
 	 
 	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody CategoriaDto categoriaDto ){
+	public Integer update(@RequestBody Categoria categoriaDto ){
 
 		Integer tmpId = categoriaDto.getId();
 

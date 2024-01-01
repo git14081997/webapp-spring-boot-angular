@@ -1,7 +1,6 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.ClienteAbonaDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import lombok.AllArgsConstructor;
@@ -53,8 +52,8 @@ public class ClienteAbonaController {
 
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody ClienteAbonaDto clienteAbonaDto ){
-		ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
+	public Integer save(@RequestBody ClienteAbona clienteAbona ){
+		//ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
 		return clienteAbona.getId();
 	}
@@ -104,9 +103,13 @@ public class ClienteAbonaController {
 
 	 
 	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody ClienteAbonaDto dto ){
+	public void update(@RequestBody ClienteAbona clienteAbona ){
 
-		Integer tmpId = dto.getId();
+		clienteAbonaRepository.save(clienteAbona);
+
+
+		/*
+		Integer tmpId = clienteAbona.getId();
 
 		if(tmpId == null){
 			return -1;
@@ -128,6 +131,8 @@ public class ClienteAbonaController {
 				return -2;
 			}
 		}
+
+		*/
 	}
 
 

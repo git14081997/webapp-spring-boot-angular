@@ -1,9 +1,7 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.FacturaDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
@@ -57,8 +55,8 @@ public class FacturaController {
 
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody FacturaDto facturaDto ){
-		Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class);
+	public Integer save(@RequestBody Factura factura ){
+		//Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class);
 		factura = facturaRepository.save(factura);
 		return factura.getId();
 	}
@@ -130,8 +128,12 @@ public class FacturaController {
 
 	 
 	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer update(@RequestBody FacturaDto dto ){
+	public void update(@RequestBody Factura factura ){
 
+
+		facturaRepository.save(factura);
+
+		/*
 		Integer tmpId = dto.getId();
 
 		if(tmpId == null){
@@ -163,13 +165,13 @@ public class FacturaController {
 				// E Efectivo; C Credito; V Visto
 				objetoTemp.setTipoPago(objetoTemp.getTipoPago());
 
-				/*
+
 				Optional<TipoPago> optional = tipoPagoRepository.findById(dto.getTipoPago().getId());
 				if(optional.isPresent()){
 					TipoPago tipoPago = optional.get();
 					objetoTemp.setTipoPago(tipoPago);
 				}
-				*/
+
 
 				facturaRepository.save(objetoTemp);
 				return 0;
@@ -177,8 +179,9 @@ public class FacturaController {
 			else {
 				return -2;
 			}
+			*/
 		}
-	}
+
 
 
 

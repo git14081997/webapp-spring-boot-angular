@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas.old;
 
-import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -46,14 +46,14 @@ public class CrudClasico {
 
 
 
-	public void insertOld(UsuarioDto usuarioDto) throws SQLException {
+	public void insertOld(Usuario usuario) throws SQLException {
 		setSql("INSERT INTO USUARIO(CORREO, CONTRASENA,NOMBRE,APELLIDO) values (?,?,?,?)");
 		prepareStatement = connection.prepareStatement(sql);
 
-		prepareStatement.setString(1, usuarioDto.getCorreo());
-		prepareStatement.setString(2, usuarioDto.getContrasena());
-		prepareStatement.setString(3, usuarioDto.getNombre());
-		prepareStatement.setString(4, usuarioDto.getApellido());
+		prepareStatement.setString(1, usuario.getCorreo());
+		prepareStatement.setString(2, usuario.getContrasena());
+		prepareStatement.setString(3, usuario.getNombre());
+		prepareStatement.setString(4, usuario.getApellido());
 
 		int out = prepareStatement.executeUpdate();
 
@@ -66,14 +66,14 @@ public class CrudClasico {
 	}
 
 
-	public UsuarioDto getOld(Integer id) throws SQLException {
-		UsuarioDto usuarioDto = null;
+	public Usuario getOld(Integer id) throws SQLException {
+		Usuario usuarioDto = null;
 		setSql("SELECT NOMBRE, APELLIDO FROM USUARIO WHERE ID=?");
 		prepareStatement = connection.prepareStatement(sql);
 		prepareStatement.setInt(1, id);
 		resultSet = prepareStatement.executeQuery();
 		if (resultSet.next()) {
-			usuarioDto = new UsuarioDto();
+			usuarioDto = new Usuario();
 			usuarioDto.setId(id);
 			usuarioDto.setNombre(resultSet.getString("nombre"));
 			usuarioDto.setApellido(resultSet.getString("apellido"));
@@ -87,7 +87,7 @@ public class CrudClasico {
 
 
 
-	public void updateOld(UsuarioDto usuarioDto) throws SQLException {
+	public void updateOld(Usuario usuarioDto) throws SQLException {
 		setSql("UPDATE USUARIO SET NOMBRE=?, APELLIDO=? WHERE ID=?");
 		prepareStatement = connection.prepareStatement(sql);
 		prepareStatement.setString(1, usuarioDto.getNombre());
@@ -120,13 +120,13 @@ public class CrudClasico {
 
 
 
-	public List<UsuarioDto> getAll() throws SQLException {
+	public List<Usuario> getAll() throws SQLException {
 		setSql("SELECT ID, CORREO, CONTRASENA, NOMBRE, APELLIDO FROM USUARIO");
-		List<UsuarioDto> ans = new ArrayList<UsuarioDto>();
+		List<Usuario> ans = new ArrayList<Usuario>();
 		prepareStatement = connection.prepareStatement(sql);
 		resultSet = prepareStatement.executeQuery();
 		while (resultSet.next()) {
-			UsuarioDto emp = new UsuarioDto();
+			Usuario emp = new Usuario();
 			emp.setId(resultSet.getInt("id"));
 			emp.setCorreo(resultSet.getString("correo"));
 			emp.setContrasena(resultSet.getString("contrasena"));
