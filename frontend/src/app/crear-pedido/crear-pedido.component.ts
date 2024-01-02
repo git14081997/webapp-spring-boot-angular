@@ -63,111 +63,58 @@ export class CrearPedidoComponent implements OnInit {
 	}
 
 	quitarDelPedido(index: number) {
+		this.objetosPedido.splice(index, 1);
+		this.actualizarDetallePedido();
 	}
 
-	agregarAlPedido(objetoN:any){
+	agregarAlPedido(objetoN:any, index:number){
 
 		if(objetoN.cantidadProductoVendido == undefined){
 			objetoN.cantidadProductoVendido = 1;
 		}
 
-		objetoN.precioVentaPorProducto = this.dosDecimales(objetoN.precioVenta,3);
-
-		objetoN.subtotalPorProducto = this.dosDecimales(objetoN.cantidadProductoVendido * objetoN.precioVentaPorProducto, 3) ;
-		objetoN.ivaDelSubtotalPorProducto = this.dosDecimales((objetoN.subtotalPorProducto * IVA), 3);
-
-		objetoN.gananciaUnidad = this.dosDecimales(objetoN.ganancia,3);
-
-		objetoN.costoDelSubtotalPorProducto = this.dosDecimales((objetoN.costoUnidad * objetoN.cantidadProductoVendido), 3);
-		objetoN.gananciaDelSubtotalPorProducto = this.dosDecimales((objetoN.ganancia * objetoN.cantidadProductoVendido), 3);
-
-		objetoN.nombreProducto = objetoN.nombre;
-
 		let refProducto:any = {};
 		refProducto.productoId = objetoN.id;
 		objetoN.producto = refProducto;
 
+		// se agrega al pedido
 		this.objetosPedido.push(objetoN);
 
-		this.todoElPedido.total = 0;
+		// se quita de resultados previos
+		this.productosEncontrados.splice(index, 1);
 
-		for(let productoPedido of this.objetosPedido ){
-
-			this.todoElPedido.total += this.dosDecimales(productoPedido.subtotalPorProducto, 3);
-
-			productoPedido.ivaDelSubtotalPorProducto =  
-			this.dosDecimales((productoPedido.subtotalPorProducto * IVA), 3);
-
-		}
-
-		this.todoElPedido.facturaDetalle = this.objetosPedido;
-		this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA), 3);
-		this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total, 3);
-		this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva), 3);
+		this.actualizarDetallePedido();
 
 	}
 
 
 
 	guardarPedido(){
+
+		this.actualizarDetallePedido();
+
 		// enviar
-		console.log("-- -- -- -- -- -- --");
-		console.log("Pedido");
+		console.log("-- -- P E D I D O -- --");
 		console.log(this.todoElPedido);
-
-		for( let productoN of this.todoElPedido.objetosPedido ){
-
-			if(productoN.cantidadProductoVendido == undefined){
-				productoN.cantidadProductoVendido = 1;
-			}
-	
-			productoN.precioVentaPorProducto = this.dosDecimales(productoN.precioVenta,3);
-	
-			productoN.subtotalPorProducto = this.dosDecimales(productoN.cantidadProductoVendido * productoN.precioVentaPorProducto, 3) ;
-			productoN.ivaDelSubtotalPorProducto = this.dosDecimales((productoN.subtotalPorProducto * IVA), 3);
-	
-			productoN.gananciaUnidad = this.dosDecimales(productoN.ganancia,3);
-	
-			productoN.costoDelSubtotalPorProducto = this.dosDecimales((productoN.costoUnidad * productoN.cantidadProductoVendido), 3);
-			productoN.gananciaDelSubtotalPorProducto = this.dosDecimales((productoN.ganancia * productoN.cantidadProductoVendido), 3);
-	
-			productoN.nombreProducto = productoN.nombre;
-	
-			let refProducto:any = {};
-			refProducto.productoId = productoN.id;
-			productoN.producto = refProducto;
-	
-			this.todoElPedido.total = 0;
-
-			this.todoElPedido.total += this.dosDecimales(productoN.subtotalPorProducto, 3);
-			productoN.ivaDelSubtotalPorProducto = this.dosDecimales((productoN.subtotalPorProducto * IVA), 3);
-
-		} // FOR
-
-		
-		this.todoElPedido.facturaDetalle = this.objetosPedido;
-		this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA), 3);
-		this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total, 3);
-		this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva), 3);
-
-
-		console.log("-- -- -- -- -- -- --");
-
+		console.log("-- -- P E D I D O -- --");
 	}
 
 
 
-	dosDecimales (xnumber:number, posiciones:number) {
+	dosDecimales (xnumber:number) {
 
-		if(posiciones < 0){
-			posiciones = 0;
-		}
+		console.log( xnumber );
 
+		let	posiciones = 3;
 		let s = xnumber.toString();
-		let l = s.length;
-		let decimalLength = s.indexOf('.') + 1;
-		let numStr = s.substring(0, decimalLength + (posiciones-1));
-		return Number(numStr);
+		let decimalLength = s.indexOf('.') + posiciones;
+		let numStr = s.substring(0, decimalLength + (posiciones));
+				
+		let ans = Number(numStr);
+		
+		console.log( ans );
+
+		return ans;
 	}
 
 
@@ -175,20 +122,46 @@ export class CrearPedidoComponent implements OnInit {
 
 	actualizarDetallePedido(){
 
+		this.todoElPedido.iva = 0;
+		this.todoElPedido.subtotal = 0;
+		this.todoElPedido.total = 0;
+
 		if( this.objetosPedido.length > 0 ){
 
 			for(let productoPedido of this.objetosPedido ){
 
+				productoPedido.precioVentaPorProducto = this.dosDecimales(productoPedido.precioVenta );
+
+				productoPedido.subtotalPorProducto = this.dosDecimales(productoPedido.cantidadProductoVendido * productoPedido.precioVentaPorProducto ) ;
+				productoPedido.ivaDelSubtotalPorProducto = this.dosDecimales((productoPedido.subtotalPorProducto * IVA) );
+		
+				productoPedido.gananciaUnidad = this.dosDecimales(productoPedido.ganancia );
+		
+				productoPedido.costoDelSubtotalPorProducto = this.dosDecimales((productoPedido.costoUnidad * productoPedido.cantidadProductoVendido) );
+				productoPedido.gananciaDelSubtotalPorProducto = this.dosDecimales((productoPedido.ganancia * productoPedido.cantidadProductoVendido) );
+		
+				productoPedido.nombreProducto = productoPedido.nombre;
+		
 				///
 
+				this.todoElPedido.total += this.dosDecimales(productoPedido.subtotalPorProducto );
+
+				productoPedido.ivaDelSubtotalPorProducto =  
+				this.dosDecimales((productoPedido.subtotalPorProducto * IVA) );
+	
 			} // FOR
 
 			this.todoElPedido.facturaDetalle = this.objetosPedido;
-			this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA), 3);
-			this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total, 3);
-			this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva), 3);	
+			this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total );
+			this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA) );
+			this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva) );
 
 		} // FI
+
+		else {
+			this.todoElPedido.facturaDetalle = null;
+
+		}
 
 	}
 

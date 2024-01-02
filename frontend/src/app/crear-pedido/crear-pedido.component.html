@@ -1,25 +1,26 @@
 <!-- INICIO-PAG -->
 
-<div class="container mt-5">
+<div class="container-fluid mt-5">
 
 	<!-- busqueda-de-productos -->
 	<div class="row">
 
-		<div class="col-1 mt-1 ">
-			<button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
-				<i class="bi bi-ban"></i>
-			</button>
-		</div>
-
-		<div class="col-11 mt-1">
+		<div class="col-12 mt-1">
 			<div class="input-group mb-3">
 				<span class="input-group-text">
-					<i class="bi bi-search"></i>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+					</svg>
 				</span>
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" 
-				placeholder="Buscar" [(ngModel)]="parametros.buscar" maxlength="20" 
+				placeholder="Buscar producto" [(ngModel)]="parametros.buscar" maxlength="20" 
 				(change)="getPaginadoBuscando(parametros.buscar)">
-				</div>
+				<button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+						<path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+					</svg>
+				</button>
+			</div>
 
 		</div>
 
@@ -34,14 +35,14 @@
 				<table class="table table-striped table-lg">
 					<thead>
 						<tr>
-							<th class="tableHeaderBlack" scope="col">Existencias</th>
+							<th class="tableHeaderBlack" scope="col">Hay</th>
 							<th class="tableHeaderBlack" scope="col">Producto</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let objetoN of productosEncontrados">
-							<td (click)="agregarAlPedido(objetoN)" class="align-middle">{{ objetoN.existencias }}</td>
-							<td (click)="agregarAlPedido(objetoN)" class="align-middle">{{ objetoN.nombre }}</td>
+						<tr *ngFor="let objetoN of productosEncontrados; index as ind ">
+							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.existencias }}</td>
+							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.nombre }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -90,11 +91,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let objetoN of objetosPedido">
+						<tr *ngFor="let objetoN of objetosPedido; index as ind ">
 
 							<td>
-								<button class="btn btn-danger" (click)="quitarDelPedido(objetoN.id) ">
-									<i class="bi bi-trash3-fill"></i>
+								<button class="btn btn-danger" (click)="quitarDelPedido(ind) ">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+									</svg>
 								</button>
 							</td>
 
@@ -134,13 +137,16 @@
 
 
 
-<div class="container mt-5">
+<div class="container-fluid mt-5">
 
 	<div class="row">
 		<div class="col mt-1">
 			<div class="mb-3">
 				<button class="btn btn-success btn-lg" (click)="guardarPedido()">
-					<i class="bi bi-floppy2-fill"></i>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy2-fill" viewBox="0 0 16 16">
+						<path d="M12 2h-2v3h2z"/>
+						<path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v13A1.5 1.5 0 0 0 1.5 16h13a1.5 1.5 0 0 0 1.5-1.5V2.914a1.5 1.5 0 0 0-.44-1.06L14.147.439A1.5 1.5 0 0 0 13.086 0zM4 6a1 1 0 0 1-1-1V1h10v4a1 1 0 0 1-1 1zM3 9h10a1 1 0 0 1 1 1v5H2v-5a1 1 0 0 1 1-1"/>
+					</svg>
 					Guardar
 				</button>
 			</div>
