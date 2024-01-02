@@ -101,20 +101,8 @@ export class CrearPedidoComponent implements OnInit {
 
 
 
-	dosDecimales (xnumber:number) {
-
-		console.log( xnumber );
-
-		let	posiciones = 3;
-		let s = xnumber.toString();
-		let decimalLength = s.indexOf('.') + posiciones;
-		let numStr = s.substring(0, decimalLength + (posiciones));
-				
-		let ans = Number(numStr);
-		
-		console.log( ans );
-
-		return ans;
+	dosDecimales (xnumber:number) :number {
+		return Number(xnumber.toFixed(2));
 	}
 
 
