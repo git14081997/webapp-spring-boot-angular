@@ -67,16 +67,19 @@ export class CrearPedidoComponent implements OnInit {
 
 	agregarAlPedido(objetoN:any){
 
-		objetoN.cantidadProductoVendido = 1;
-		objetoN.precioVentaPorProducto = objetoN.precioVenta;
+		if(objetoN.cantidadProductoVendido == undefined){
+			objetoN.cantidadProductoVendido = 1;
+		}
 
-		objetoN.subtotalPorProducto = objetoN.cantidadProductoVendido * objetoN.precioVentaPorProducto;
-		objetoN.ivaDelSubtotalPorProducto = objetoN.subtotalPorProducto * IVA;
+		objetoN.precioVentaPorProducto = this.dosDecimales(objetoN.precioVenta,3);
 
-		objetoN.gananciaUnidad = objetoN.ganancia;
+		objetoN.subtotalPorProducto = this.dosDecimales(objetoN.cantidadProductoVendido * objetoN.precioVentaPorProducto, 3) ;
+		objetoN.ivaDelSubtotalPorProducto = this.dosDecimales((objetoN.subtotalPorProducto * IVA), 3);
 
-		objetoN.costoDelSubtotalPorProducto = objetoN.costoUnidad * objetoN.cantidadProductoVendido;
-		objetoN.gananciaDelSubtotalPorProducto = objetoN.ganancia * objetoN.cantidadProductoVendido;
+		objetoN.gananciaUnidad = this.dosDecimales(objetoN.ganancia,3);
+
+		objetoN.costoDelSubtotalPorProducto = this.dosDecimales((objetoN.costoUnidad * objetoN.cantidadProductoVendido), 3);
+		objetoN.gananciaDelSubtotalPorProducto = this.dosDecimales((objetoN.ganancia * objetoN.cantidadProductoVendido), 3);
 
 		objetoN.nombreProducto = objetoN.nombre;
 
@@ -85,12 +88,48 @@ export class CrearPedidoComponent implements OnInit {
 		objetoN.producto = refProducto;
 
 		this.objetosPedido.push(objetoN);
+
+		this.todoElPedido.total = 0;
+
+		for(let productoPedido of this.objetosPedido ){
+
+			this.todoElPedido.total += this.dosDecimales(productoPedido.subtotalPorProducto, 3);
+
+			productoPedido.ivaDelSubtotalPorProducto =  
+			this.dosDecimales((productoPedido.subtotalPorProducto * IVA), 3);
+
+			console.log(productoPedido.subtotalPorProducto);
+		}
+
+		this.todoElPedido.facturaDetalle = this.objetosPedido;
+		this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA), 3);
+		this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total, 3);
+		this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva), 3);
+
+		console.log("total del pedido: " + this.todoElPedido.total);
+
 	}
+
+
 
 	guardarPedido(){
 		// enviar
 		console.log("Todo el detalle del pedido");
 		console.log(this.todoElPedido);
+	}
+
+
+	dosDecimales (xnumber:number, posiciones:number) {
+
+		if(posiciones < 0){
+			posiciones = 0;
+		}
+
+		let s = xnumber.toString();
+		let l = s.length;
+		let decimalLength = s.indexOf('.') + 1;
+		let numStr = s.substring(0, decimalLength + (posiciones-1));
+		return Number(numStr);
 	}
 
 }

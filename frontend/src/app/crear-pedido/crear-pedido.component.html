@@ -5,7 +5,13 @@
 	<!-- busqueda-de-productos -->
 	<div class="row">
 
-		<div class="col-11 mt-1">
+		<div class="col-1 mt-1 ">
+			<button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
+				<i class="bi bi-ban"></i>
+			</button>
+		</div>
+
+		<div class="col-10 mt-1">
 			<div class="input-group mb-3">
 				<span class="input-group-text">
 					<i class="bi bi-search"></i>
@@ -16,6 +22,7 @@
 				</div>
 
 		</div>
+
 		<div class="col-1 mt-1 ">
 			<button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
 				<i class="bi bi-ban"></i>
@@ -52,6 +59,13 @@
 	</div>
 	<!-- tabla-busqueda-de-productos -->
 	<!-- busqueda-de-productos -->
+
+
+
+
+
+
+
 
 
 
@@ -94,18 +108,22 @@
 								</button>
 							</td>
 
-							<td (click)="agregarAlPedido(objetoN)" class="align-middle">{{ objetoN.nombre }}</td>
-
-							<td (click)="agregarAlPedido(objetoN)" class="align-middle">{{ objetoN.cantidadProductoVendido }}</td>
-
-							<td (click)="agregarAlPedido(objetoN)" class="align-middle">Q. {{ objetoN.precioVenta }}</td>
-
-							<td (click)="agregarAlPedido(objetoN)" class="align-middle">Q. {{ objetoN.subtotalPorProducto }}</td>
+							<td class="align-middle">{{ objetoN.nombre }}</td>
+							<td class="align-middle">{{ objetoN.cantidadProductoVendido }}</td>
+							<td class="align-middle">Q. {{ objetoN.precioVenta }}</td>
+							<td class="align-middle">Q. {{ objetoN.subtotalPorProducto }}</td>
 
 						</tr>
 					</tbody>
 				</table>
 			</div>
+
+			<div class="h3" style="text-align:right !important;">
+				Subtotal  Q. {{todoElPedido.subtotal}}<br/>
+				IVA  Q. {{ todoElPedido.iva }}<br/>
+				Total  Q. {{ todoElPedido.total }}
+			</div>
+
 		</div>
 	</div>
 	<!-- tabla-detalle-pedido -->
