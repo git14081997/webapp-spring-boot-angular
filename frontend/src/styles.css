@@ -18,8 +18,8 @@ button {
 	width: max-content !important;
 }
 
-.tableHeaderRed {
-	background-color: #ff0000 !important;
+.tableHeaderButton {
+	background-color: #000000 !important;
 	color: #ffffff !important;
 	width: 45px !important;
 }
