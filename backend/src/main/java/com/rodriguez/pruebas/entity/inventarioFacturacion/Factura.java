@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -42,6 +43,33 @@ public class Factura implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario cliente;
+	// cliente.usuarioId = 1
+
+
+	@Column(name = "TIPO_PAGO", length = 8)
+	private String tipoPago;
+	// Venta en E 'Efectivo' 8  Factura
+	// Venta al C 'Credito'  7  Factura sin pagar en el acto
+	// V          'Visto'    5  Posible perdida si no pagan
+
+
+	@Column( name = "GANANCIA", scale = 2)
+	private BigDecimal ganancia;
+
+	@Column( name = "IVA", scale = 2)
+	private BigDecimal iva;
+
+	@Column( name = "TOTAL", scale = 2)
+	private BigDecimal total;
+
+
+	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
+	private BigDecimal pendienteDePago;
+
+
+	@CreationTimestamp
+	@Column( name = "FECHA_EMISION", updatable = false)
+	private Date fechaEmision;
 
 	@Column( name = "NOMBRE_COMPLETO")
 	private String nombreCompleto;
@@ -51,27 +79,5 @@ public class Factura implements Serializable {
 
 	@Column( name = "DIRECCION")
 	private String direccion;
-
-	@Column(name = "TIPO_PAGO_ID", length = 1)
-	private String tipoPago;
-	// Venta en efectivo 'E'
-	// Venta al credito  'C'
-	//
-	// E Efectivo; C Credito; V Visto
-
-	@Column( name = "FECHA_EMISION")
-	private Date fechaEmision;
-
-	@Column( name = "TOTAL", scale = 2)
-	private BigDecimal total;
-
-	@Column( name = "IVA", scale = 2)
-	private BigDecimal iva;
-
-	@Column( name = "GANANCIA", scale = 2)
-	private BigDecimal ganancia;
-
-	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
-	private BigDecimal pendienteDePago;
 
 }

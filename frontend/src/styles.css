@@ -1,5 +1,6 @@
 
 /* Mis Varibles CSS */
+/*
 :root {
 	--blue: #001b33;
 }
@@ -7,29 +8,10 @@
 .customBlue {
 	color: var(--blue);
 }
-
-button {
-	font-weight: bold;
-}
+*/
 
 .tableHeaderBlack {
-	background-color: #000000 !important;
-	color: #ffffff !important;
 	width: max-content !important;
-}
-
-.tableHeaderButton {
-	background-color: #000000 !important;
-	color: #ffffff !important;
-	width: 45px !important;
-}
-
-.font21{
-	font-size: 21px !important;
-}
-
-.font27 {
-	font-size: 27px !important;
 }
 
 .page-link {

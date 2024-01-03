@@ -49,7 +49,7 @@ public class Libro implements Serializable {
 
 	@ManyToMany
 	@JoinTable(
-		name = "LIBRO_ESCRITOR",
+		name = "LIBRO_ESCRITOR", schema = "DBDEV", catalog = "DBDEV",
 		joinColumns = @JoinColumn(name = "LIBRO_ID"),
 		inverseJoinColumns = @JoinColumn(name = "ESCRITOR_ID")
 	)

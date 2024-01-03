@@ -7,14 +7,17 @@
 
 		<div class="col-12 mt-1">
 			<div class="input-group mb-3">
+
 				<span class="input-group-text">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
 					</svg>
 				</span>
+
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" 
 				placeholder="Buscar producto" [(ngModel)]="parametros.buscar" maxlength="20" 
 				(change)="getPaginadoBuscando(parametros.buscar)">
+
 				<button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
 						<path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
@@ -32,15 +35,15 @@
 		<div class="col mt-1">
 			<div class="table-responsive">
 
-				<table class="table table-lg">
-					<thead>
-						<tr>
-							<th class="tableHeaderBlack" scope="col">Hay</th>
-							<th class="tableHeaderBlack" scope="col">Producto</th>
+				<table class="table table-lg table-borderless table-striped">
+					<thead class="align-middle">
+						<tr class="align-middle">
+							<th class="bg-dark text-white" scope="col">Hay</th>
+							<th class="bg-dark text-white" scope="col">Producto</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr *ngFor="let objetoN of productosEncontrados; index as ind ">
+					<tbody class="align-middle">
+						<tr *ngFor="let objetoN of productosEncontrados; index as ind " class="align-middle">
 							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.existencias }}</td>
 							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.nombre }}</td>
 						</tr>
@@ -65,33 +68,30 @@
 
 	<div class="row">
 		<div class="col mt-5">
-			<h1>Detalle del pedido</h1>
+			<div class="h3">Detalle del pedido</div>
 		</div>
 	</div>
 
 	<!-- tabla-detalle-pedido -->
 	<div class="row">
 		<div class="col mt-1">
+			<!--
 			<div class="table-responsive">
-
-				<table class="table table-lg ">
+			-->
+				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
 
-							<th class="tableHeaderButton" scope="col">&nbsp;</th>
-
-							<th class="tableHeaderBlack" scope="col">Producto</th>
-
-							<th class="tableHeaderBlack" scope="col">Cantidad</th>
-
-							<th class="tableHeaderBlack" scope="col">Precio</th>
-
-							<th class="tableHeaderBlack" scope="col">Subtotal</th>
+							<th scope="col" class="bg-dark text-white" style="width:54px !important;">&nbsp;</th>
+							<th scope="col" class="bg-dark text-white" >Producto</th>
+							<th scope="col" class="bg-dark text-white" >Precio</th>
+							<th scope="col" class="bg-dark text-white" >Cantidad</th>
+							<th scope="col" class="bg-dark text-white" >Subtotal</th>
 
 						</tr>
 					</thead>
-					<tbody>
-						<tr *ngFor="let objetoN of objetosPedido; index as ind ">
+					<tbody class="align-middle">
+						<tr *ngFor="let objetoN of objetosPedido; index as ind " class="align-middle" >
 
 							<td>
 								<button class="btn btn-danger" (click)="quitarDelPedido(ind) ">
@@ -103,23 +103,25 @@
 
 							<td class="align-middle">{{ objetoN.nombre }}</td>
 
-							<td class="align-middle" style="width: 63px !important;" >
-								<div class="form-floating mb-3">
-									<input type="number" class="form-control form-control-lg" id="parametro-cantidad" placeholder=""
+							<td class="align-middle" >Q. {{ objetoN.precioVenta }}</td>
+							
+							<td class="align-middle" style="width: 81px !important;" >
+									<input type="number" class="form-control" id="parametro-cantidad" placeholder=""
 										[(ngModel)]="objetoN.cantidadProductoVendido" min="1" (change)="actualizarDetallePedido()" >
 									<label for="parametro-cantidad" class="form-label"></label>
-								</div>
 							</td>
 
-							<td class="align-middle">Q. {{ objetoN.precioVenta }}</td>
-							<td class="align-middle">Q. {{ objetoN.subtotalPorProducto }}</td>
+							
+							<td class="align-middle" >Q. {{ objetoN.subtotalPorProducto }}</td>
 
 						</tr>
 					</tbody>
 				</table>
+				<!--
 			</div>
+				-->
 
-			<div class="h3" style="text-align:right !important;">
+			<div class="h3">
 				Subtotal  Q. {{todoElPedido.subtotal || 0 }}<br/>
 				IVA  Q. {{ todoElPedido.iva || 0 }}<br/>
 				Total  Q. {{ todoElPedido.total || 0 }}

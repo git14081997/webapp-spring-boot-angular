@@ -10,8 +10,8 @@ import { FacturadetalleListComponent } from './facturadetalle-list/facturadetall
 import { ProductoListComponent } from './producto-list/producto-list.component';
 import { CrearPedidoComponent } from './crear-pedido/crear-pedido.component';
 
-import { InicioComponent } from './paginas-estaticas/inicio/inicio.component';
-import { PagenotfoundComponent } from './paginas-estaticas/pagenotfound/pagenotfound.component';
+import { InicioComponent } from './inicio/inicio.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 export const routes: Routes = [
 
