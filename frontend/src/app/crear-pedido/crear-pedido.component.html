@@ -196,6 +196,18 @@
 	</div>
 	<!-- tabla-detalle-pedido -->
 
+	<div class="row">
+		<div class="col-2 mt-5">
+			Tipo de Venta
+			<select class="form-select form-select-lg"
+  style="min-width: 100% !important; width: max-content;border: 1px solid gray;" 
+  [(ngModel)]="todoElPedido.tipoPago" >
+<option *ngFor="let objetoN of tiposDePago" value={{objetoN.id}} >
+{{objetoN.nombre}}
+</option>
+</select>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col mt-5">

@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,14 +79,6 @@ public class FacturaController {
 
 		Factura factura = new Factura();
 
-		Optional<Usuario> optionalUsuario =
-		usuarioRepository.findById(pedidoDto.getUsuarioId());
-
-		if(optionalUsuario.isPresent()){
-			Usuario usuarioCliente = optionalUsuario.get();
-			factura.setCliente(usuarioCliente);
-			factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
-		}
 
 		factura.setGanancia( pedidoDto.getGanancia() );
 
@@ -94,6 +87,39 @@ public class FacturaController {
 		factura.setTotal( pedidoDto.getTotal() );
 
 		factura.setTipoPago(pedidoDto.getTipoPago() );
+
+		if(pedidoDto.getTipoPago().equals("C") || pedidoDto.getTipoPago().equals("V")){
+			// Venta al credito
+			// Visto pendiente de confirmar pedido
+			factura.setPendienteDePago(pedidoDto.getTotal());
+		}
+
+		if(pedidoDto.getTipoPago().equals("E")){
+			// Venta en efectivo
+			factura.setPendienteDePago(new BigDecimal(0));
+		}
+
+
+		Optional<Usuario> optionalUsuario =
+				usuarioRepository.findById(pedidoDto.getUsuarioId());
+
+		if(optionalUsuario.isPresent()){
+			Usuario usuarioCliente = optionalUsuario.get();
+			factura.setCliente(usuarioCliente);
+			factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
+
+			BigDecimal saldoPendiente = usuarioCliente.getPendienteDePago();
+
+			// Saldo anterior antes de este pedidoN
+			usuarioCliente.setPendienteDePagoCopy(saldoPendiente);
+
+			usuarioCliente.setPendienteDePago(
+				saldoPendiente.add( pedidoDto.getTotal() )
+			);
+
+		}
+
+
 
 		factura = facturaRepository.save(factura);
 

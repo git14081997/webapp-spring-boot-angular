@@ -44,6 +44,13 @@ todoElPedido:any = {};
 
 clientesEncontrados: any[] = [];
 
+tiposDePago: any[] = [
+	{ "id": "C", "nombre": "Crédito" },
+	{ "id": "E", "nombre": "Efectivo" },
+	{ "id": "V", "nombre": "Visto" },
+];
+
+
 constructor() {
 this.service = new PruebasService;
 }
@@ -81,9 +88,11 @@ if(objetoN.cantidadProductoVendido == undefined){
 objetoN.cantidadProductoVendido = 1;
 }
 
-let refProducto:any = {};
-refProducto.productoId = objetoN.id;
-objetoN.producto = refProducto;
+objetoN.productoId = objetoN.id;
+
+//let refProducto:any = {};
+//refProducto.productoId = objetoN.id;
+//objetoN.producto = refProducto;
 
 // se agrega al pedido
 this.objetosPedido.push(objetoN);
@@ -107,7 +116,7 @@ this.actualizarDetallePedido();
 // enviar
 console.log(this.todoElPedido);
 
-/*
+
 this.service.post(this.parametroServicio,this.todoElPedido)
 	.subscribe((facturaN) => {
 		let facturaId = facturaN.id;
@@ -116,7 +125,7 @@ this.service.post(this.parametroServicio,this.todoElPedido)
 		window.location.href = '/factura';
 	}
 );
-*/
+
 
 
 }
@@ -132,6 +141,7 @@ return Number(xnumber.toFixed(2));
 
 actualizarDetallePedido(){
 
+this.todoElPedido.ganancia = 0;
 this.todoElPedido.iva = 0;
 this.todoElPedido.subtotal = 0;
 this.todoElPedido.total = 0;
@@ -146,9 +156,12 @@ productoPedido.subtotalPorProducto = this.dosDecimales(productoPedido.cantidadPr
 productoPedido.ivaDelSubtotalPorProducto = this.dosDecimales((productoPedido.subtotalPorProducto * IVA) );
 
 productoPedido.gananciaUnidad = this.dosDecimales(productoPedido.ganancia );
+productoPedido.ganancia = productoPedido.gananciaUnidad;
 
 productoPedido.costoDelSubtotalPorProducto = this.dosDecimales((productoPedido.costoUnidad * productoPedido.cantidadProductoVendido) );
 productoPedido.gananciaDelSubtotalPorProducto = this.dosDecimales((productoPedido.ganancia * productoPedido.cantidadProductoVendido) );
+
+this.todoElPedido.ganancia += productoPedido.gananciaDelSubtotalPorProducto;
 
 productoPedido.nombreProducto = productoPedido.nombre;
 
