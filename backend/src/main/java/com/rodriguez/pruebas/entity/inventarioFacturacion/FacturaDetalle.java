@@ -41,34 +41,46 @@ public class FacturaDetalle implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "FACTURA_ID")
 	private Factura factura;
+	// factura.facturaId
 
-	@Column(name = "CANTIDAD_PRODUCTO_VENDIDO")
+	@Column(name = "CANTIDAD_PRODUCTO_VENDIDO", nullable = false )
 	private Integer cantidadProductoVendido;
 
-	@Column(name = "PRECIO_VENTA_POR_PRODUCTO", scale = 2)
+	@Column(name = "PRECIO_VENTA_POR_PRODUCTO", scale = 2, nullable = false )
 	private BigDecimal precioVentaPorProducto;
+
+
+
 
 	@Column(name = "SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal subtotalPorProducto;
 
+
 	@Column(name = "IVA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal ivaDelSubtotalPorProducto;
+
+
 
 	@Column(name = "COSTO_UNIDAD", scale = 2)
 	private BigDecimal costoUnidad;
 
-	@Column(name = "GANANCIA_UNIDAD", scale = 2)
-	private BigDecimal gananciaUnidad;
-
 	@Column(name = "COSTO_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal costoDelSubtotalPorProducto;
+
+
+
+
+	@Column(name = "GANANCIA_UNIDAD", scale = 2)
+	private BigDecimal gananciaUnidad;
 
 	@Column(name = "GANANCIA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
 	private BigDecimal gananciaDelSubtotalPorProducto;
 
+
 	@ManyToOne
 	@JoinColumn(name = "PRODUCTO_ID")
 	private Producto producto;
+	// producto.productoId
 
 	@Column( name = "NOMBRE_PRODUCTO")
 	private String nombreProducto;

@@ -1,8 +1,15 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
+import com.rodriguez.pruebas.entity.inventarioFacturacion.DetallePedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.FacturaDetalle;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.PedidoDto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaDetalleRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -16,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +32,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,21 +57,90 @@ public class FacturaController {
 	private FacturaRepository facturaRepository;
 
 	@Autowired
+	private FacturaDetalleRepository facturaDetalleRepository;
+
+	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private ProductoRepository productoRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
-	 
-	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody Factura factura ){
-		//Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class);
+
+	@Transactional
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer save(@RequestBody PedidoDto pedidoDto ){
+
+		/* Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class); */
+
+		Factura factura = new Factura();
+
+		Optional<Usuario> optionalUsuario =
+		usuarioRepository.findById(pedidoDto.getUsuarioId());
+
+		if(optionalUsuario.isPresent()){
+			Usuario usuarioCliente = optionalUsuario.get();
+			factura.setCliente(usuarioCliente);
+			factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
+		}
+
+		factura.setGanancia( pedidoDto.getGanancia() );
+
+		factura.setIva( pedidoDto.getIva() );
+
+		factura.setTotal( pedidoDto.getTotal() );
+
+		factura.setTipoPago(pedidoDto.getTipoPago() );
+
 		factura = facturaRepository.save(factura);
-		return factura.getId();
+
+		Integer idFactura = factura.getId();
+
+
+
+		// DETALLES DE FACTURA/PEDIDO
+		List<DetallePedidoDto> detallesDelPedido = pedidoDto.getDetalle();
+
+		for(DetallePedidoDto detallePedidoDto: detallesDelPedido){
+
+			FacturaDetalle facturaDetalle = new FacturaDetalle();
+
+			facturaDetalle.setFactura(factura);
+
+			Optional<Producto> optionalProducto =
+			productoRepository.findById(detallePedidoDto.getProductoId());
+
+			if(optionalProducto.isPresent()){
+
+				Producto productoN = optionalProducto.get();
+
+				facturaDetalle.setProducto(productoN);
+
+				facturaDetalle.setCantidadProductoVendido(
+					detallePedidoDto.getCantidadProductoVendido()
+				);
+
+				facturaDetalle.setPrecioVentaPorProducto(
+					detallePedidoDto.getPrecioVentaPorProducto()
+				);
+
+				facturaDetalleRepository.save(facturaDetalle);
+
+			}
+
+
+		}
+
+
+		return idFactura;
 	}
 
 
+
+	
 	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public Factura findById(@PathVariable Integer id){

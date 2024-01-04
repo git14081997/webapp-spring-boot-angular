@@ -162,75 +162,30 @@ public class ProductoController {
 
 	 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public void update(@RequestBody Producto producto){
+	public void update(@RequestBody Producto dto){
 
-		BigDecimal costo = producto.getCostoUnidad();
-		BigDecimal ganancia = producto.getGanancia();
-		BigDecimal precioVenta =  costo.add(ganancia);
-		producto.setPrecioVenta(precioVenta);
-
-		productoRepository.save(producto);
-
-
-		/*
+		/* Producto producto = MODEL_MAPPER.map(dto, Producto.class); */
 
 		Integer tmpId = dto.getId();
 
-		if(tmpId == null){
-			return -1;
-		}
-		else {
-
-			Producto producto = MODEL_MAPPER.map(dto, Producto.class);
-			producto = productoRepository.save(producto);
-			return producto.getId();
-
-
-
+		if(tmpId != null){
 			Optional<Producto> optional = productoRepository.findById(tmpId);
+			if (optional.isPresent()) {
 
-			if( optional.isPresent() ){
+				Producto objetoDB = optional.get();
 
-				Producto objetoTmp = optional.get();
+				BigDecimal costo = dto.getCostoUnidad();
+				BigDecimal ganancia = dto.getGanancia();
+				BigDecimal iva = dto.getIva();
 
-				objetoTmp.setNombre(dto.getNombre());
+				BigDecimal precioVenta =  costo.add(ganancia).add(iva);
+				objetoDB.setPrecioVenta(precioVenta);
 
-				objetoTmp.setExistencias(dto.getExistencias());
-				objetoTmp.setCostoUnidad(dto.getCostoUnidad());
+				productoRepository.save(objetoDB);
 
-				objetoTmp.setGanancia(dto.getGanancia());
-				objetoTmp.setGananciaPorcentaje(dto.getGananciaPorcentaje());
-
-				objetoTmp.setIva(dto.getIva());
-				objetoTmp.setPrecioVenta(dto.getPrecioVenta());
-
-				objetoTmp.setAncho(dto.getAncho());
-				objetoTmp.setColor(dto.getColor());
-
-				objetoTmp.setEdad(dto.getEdad());
-				objetoTmp.setGenero(dto.getGenero());
-
-				objetoTmp.setTalla(dto.getTalla());
-				objetoTmp.setFechaAdquisicion(dto.getFechaAdquisicion());
-
-				Optional<Categoria> optionalCategoria =
-				categoriaRepository.findById(dto.getCategoria().getId());
-
-				if( optionalCategoria.isPresent() ){
-					Categoria categoriaTmp = optionalCategoria.get();
-					objetoTmp.setCategoria(categoriaTmp);
-				}
-
-				productoRepository.save(objetoTmp);
-				return 0;
 			}
-			else {
-				return -2;
-			}
-
-			 */
-
 		}
+	}
 
 
 

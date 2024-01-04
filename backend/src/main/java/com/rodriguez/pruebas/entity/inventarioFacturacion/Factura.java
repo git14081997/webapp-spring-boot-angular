@@ -53,31 +53,33 @@ public class Factura implements Serializable {
 	// V          'Visto'    5  Posible perdida si no pagan
 
 
-	@Column( name = "GANANCIA", scale = 2)
+	@Column( name = "GANANCIA", scale = 2, nullable = false )
 	private BigDecimal ganancia;
 
-	@Column( name = "IVA", scale = 2)
+	@Column( name = "IVA", scale = 2, nullable = false )
 	private BigDecimal iva;
 
-	@Column( name = "TOTAL", scale = 2)
+	@Column( name = "TOTAL", scale = 2, nullable = false )
 	private BigDecimal total;
 
-
-	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
+	@Column( name = "PENDIENTE_DE_PAGO", scale = 2, nullable = false )
 	private BigDecimal pendienteDePago;
 
-
 	@CreationTimestamp
-	@Column( name = "FECHA_EMISION", updatable = false)
+	@Column( name = "FECHA_EMISION", updatable = false )
 	private Date fechaEmision;
 
-	@Column( name = "NOMBRE_COMPLETO")
+	@Column( name = "NOMBRE_COMPLETO", nullable = false )
 	private String nombreCompleto;
 
+
+	// extras - extras - extras
 	@Column( name = "NIT")
 	private String nit;
 
 	@Column( name = "DIRECCION")
 	private String direccion;
+
+	// extras - extras - extras
 
 }

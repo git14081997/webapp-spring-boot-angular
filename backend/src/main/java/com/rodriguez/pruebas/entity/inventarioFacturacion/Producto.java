@@ -43,9 +43,29 @@ public class Producto implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-    @Column( name = "NOMBRE")
+    @Column( name = "NOMBRE", nullable = false)
     private String nombre;
 
+	@Column( name = "COSTO_UNIDAD", scale = 2, nullable = false)
+	private BigDecimal costoUnidad;
+
+	@Column( name = "GANANCIA", scale = 2, nullable = false)
+	private BigDecimal ganancia;
+
+	@Column( name = "IVA", scale = 2, nullable = false)
+	private BigDecimal iva;
+
+	@Column( name = "PRECIO_VENTA", scale = 2, nullable = false)
+	private BigDecimal precioVenta;
+
+	@Column( name = "EXISTENCIAS", nullable = false )
+	private Integer existencias;
+
+
+
+
+
+	// extras - extras - extras
 	@Column( name = "GENERO",length = 1)
 	private String genero;
 
@@ -91,22 +111,6 @@ public class Producto implements Serializable {
 	// A activo, es no ha sido "borrado"
 	// I Inactivo, es que ya fue "borrado".
 
-	@Column( name = "COSTO_UNIDAD", scale = 2)
-	private BigDecimal costoUnidad;
-
-	@Column( name = "GANANCIA", scale = 2)
-	private BigDecimal ganancia;
-
-	@Column( name = "IVA", scale = 2)
-	private BigDecimal iva;
-
-	@Column( name = "PRECIO_VENTA", scale = 2)
-	private BigDecimal precioVenta;
-
-	@Column( name = "EXISTENCIAS")
-	private Integer existencias;
-
-
 	////// revision pendiente
 	@Lob
 	@Column(name = "IMAGEN",columnDefinition="LONGBLOB")
@@ -116,5 +120,7 @@ public class Producto implements Serializable {
 	@JoinColumn(name="IMAGEN_PRODUCTO")
 	private ImagenProducto imagenProducto;
 	///// revision pendiente
+
+	// extras - extras - extras
 
 }
