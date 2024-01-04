@@ -2,10 +2,71 @@
 
 <div class="container-fluid mt-5">
 
+<!-- clientes-encontrados -->
+<div class="row">
+<div class="col-12 mt-2">
+
+	<div class="h3">Buscar cliente</div>
+	<div *ngIf="todoElPedido.usuarioNombre" >{{  todoElPedido.usuarioNombre || ""}}</div>
+	<div class="input-group mb-3">
+
+		<span class="input-group-text">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+				<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+			</svg>
+		</span>
+
+		<input type="text" class="form-control form-control-lg" id="parametro-buscar" 
+		placeholder="Buscar cliente" [(ngModel)]="parametros.buscarCliente" maxlength="20" 
+		(change)="getClientes(parametros.buscarCliente)">
+
+		<button class="btn btn-secondary btn-lg " (click)="limpiarBusquedaClientes()">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+				<path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+			</svg>
+		</button>
+	</div>
+</div>
+
+</div>
+
+<div class="row">
+<div class="col-12 mt-2">
+<div class="table-responsive">
+<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
+<thead class="align-middle">
+<tr class="align-middle">
+<th class="bg-dark text-white" scope="col">Clientes encontrados</th>
+</tr>
+</thead>
+<tbody class="align-middle">
+<tr *ngFor="let clienteN of clientesEncontrados; index as ind " class="align-middle">
+<td (click)="setClienteCompra(clienteN, ind )" class="align-middle">
+	{{ clienteN.nombre }} {{ clienteN.nombreDos || "" }} {{ clienteN.apellido || "" }} {{ clienteN.apellidoDos || "" }}
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>	
+</div>	
+
+
+
+<!-- clientes-encontrados -->
+<br/><br/><br/>
+
+
+
+
+
+
+
+
 	<!-- busqueda-de-productos -->
 	<div class="row">
 
-		<div class="col-12 mt-1">
+		<div class="col-12 mt-3">
 			<div class="input-group mb-3">
 
 				<span class="input-group-text">
@@ -29,10 +90,9 @@
 
 	</div>
 
-
-	<!-- tabla-busqueda-productos -->
+	<!-- tabla-productos-encontrados -->
 	<div class="row">
-		<div class="col mt-1">
+		<div class="col mt-2">
 			<div class="table-responsive">
 
 				<table class="table table-lg table-borderless table-striped">
@@ -52,10 +112,10 @@
 			</div>
 		</div>
 	</div>
-	<!-- tabla-busqueda-de-productos -->
+	<!-- tabla-productos-encontrados -->
+
 	<!-- busqueda-de-productos -->
-
-
+	<br/><br/><br/>
 
 
 
@@ -72,12 +132,12 @@
 		</div>
 	</div>
 
+
 	<!-- tabla-detalle-pedido -->
 	<div class="row">
 		<div class="col mt-1">
-			<!--
+			
 			<div class="table-responsive">
-			-->
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
@@ -86,7 +146,7 @@
 							<th scope="col" class="bg-dark text-white" >Producto</th>
 							<th scope="col" class="bg-dark text-white" >Precio</th>
 							<th scope="col" class="bg-dark text-white" >Cantidad</th>
-							<th scope="col" class="bg-dark text-white" >Subtotal</th>
+							<th scope="col" class="bg-dark text-white" >Subtotal por producto</th>
 
 						</tr>
 					</thead>
@@ -103,12 +163,18 @@
 
 							<td class="align-middle">{{ objetoN.nombre }}</td>
 
-							<td class="align-middle" >Q. {{ objetoN.precioVenta }}</td>
+							<td class="align-middle" style="width: 99px !important;" >
+								Q. {{ objetoN.precioVenta }}
+								<input type="number" class="form-control" id="parametro-precioVenta" placeholder=""
+								[(ngModel)]="objetoN.precioVenta" min={{objetoN.precioVentaMin}} (change)="validarNewPrecioVenta(objetoN)" >
+							<label for="parametro-precioVenta" class="form-label"></label>
+
+							</td>
 							
-							<td class="align-middle" style="width: 81px !important;" >
-									<input type="number" class="form-control" id="parametro-cantidad" placeholder=""
-										[(ngModel)]="objetoN.cantidadProductoVendido" min="1" (change)="actualizarDetallePedido()" >
-									<label for="parametro-cantidad" class="form-label"></label>
+							<td class="align-middle" style="width: 99px !important;" >
+								<input type="number" class="form-control" id="parametro-cantidad" placeholder=""
+									[(ngModel)]="objetoN.cantidadProductoVendido" min="1" (change)="actualizarDetallePedido()" >
+								<label for="parametro-cantidad" class="form-label"></label>
 							</td>
 
 							
@@ -117,14 +183,13 @@
 						</tr>
 					</tbody>
 				</table>
-				<!--
 			</div>
-				-->
+
 
 			<div class="h3">
-				Subtotal  Q. {{todoElPedido.subtotal || 0 }}<br/>
-				IVA  Q. {{ todoElPedido.iva || 0 }}<br/>
-				Total  Q. {{ todoElPedido.total || 0 }}
+				Q. {{todoElPedido.subtotal || 0 }} Subtotal<br/>
+				Q. {{ todoElPedido.iva || 0 }} IVA<br/>
+				Q. {{ todoElPedido.total || 0 }} Total
 			</div>
 
 		</div>
@@ -132,18 +197,8 @@
 	<!-- tabla-detalle-pedido -->
 
 
-
-</div>
-
-
-
-
-
-<div class="container-fluid mt-5">
-
 	<div class="row">
-		<div class="col mt-1">
-			<div class="mb-3">
+		<div class="col mt-5">
 				<button class="btn btn-success btn-lg" (click)="guardarPedido()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy2-fill" viewBox="0 0 16 16">
 						<path d="M12 2h-2v3h2z"/>
@@ -151,7 +206,6 @@
 					</svg>
 					Guardar
 				</button>
-			</div>
 		</div>
 	</div>
 

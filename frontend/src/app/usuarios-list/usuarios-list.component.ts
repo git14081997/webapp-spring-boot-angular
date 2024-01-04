@@ -139,19 +139,19 @@ export class UsuariosListComponent implements OnInit {
 			this.parametroServicio,
 			parametros
 		).subscribe(() => {
-			this.verLista = 'S';
-			this.verEditable = 'N';
+			this.verListado();
 			this.getPorPagina();
 		});
 	}
+
 
 	actualizar(parametros: any) {
 		this.service.put(
 			this.parametroServicio,
 			parametros
 		).subscribe(() => {
-			this.verLista = 'S';
-			this.verEditable = 'N';
+
+			this.verListado();
 			this.objetoSeleccionado = {};
 			window.location.reload();
 		});

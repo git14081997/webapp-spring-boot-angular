@@ -44,7 +44,7 @@ public class Usuario implements Serializable {
 	@Column( name = "NOMBRE_COMPLETO")
 	private String nombreCompleto;
 
-    @Column( name = "NOMBRE")
+    @Column( name = "NOMBRE", nullable = false)
     private String nombre;
 
 	@Column( name = "NOMBRE_DOS")
@@ -61,6 +61,9 @@ public class Usuario implements Serializable {
 
 	@Column( name = "PENDIENTE_DE_PAGO_COPY", scale = 2)
 	private BigDecimal pendienteDePagoCopy;
+
+	@Column( name = "INFORMACION_ADICIONAL")
+	private String informacionAdicional;
 
 	//@Column( name = "TELEFONO", length = 20, unique = true)
 	@Column( name = "TELEFONO")

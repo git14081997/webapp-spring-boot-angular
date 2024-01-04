@@ -1,7 +1,7 @@
-<div class="container mt-5">
+<div class="container-fluid">
 
   <div class="row">
-    <div class="col mt-1">
+    <div class="col mt-3">
       <button class="btn btn-success btn-lg align-middle" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
         <i class="bi bi-plus-lg align-middle"></i>
         Agregar
@@ -23,21 +23,24 @@
 
   <div class="row" *ngIf="verLista == 'S' && objetos.length > 0">
 
-    <div class="col-11 mt-1">
+    <div class="col mt-1">
       <div class="input-group mb-3">
         <span class="input-group-text">
-          <i class="bi bi-search"></i>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+					</svg>
         </span>
         <input type="text" class="form-control form-control-lg" id="parametro-buscar" 
         placeholder="Buscar" [(ngModel)]="objetoSeleccionado.buscar" maxlength="20" 
         (change)="buscarEnDb(objetoSeleccionado.buscar)">
-        </div>
 
-    </div>
-    <div class="col-1 mt-1 ">
       <button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
-        <i class="bi bi-ban"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+          <path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+        </svg>
       </button>
+    </div>
+
     </div>
 
   </div>
@@ -158,12 +161,10 @@
 
 
 <!-- agregar -->
-<div class="container mt-5" *ngIf="verAgregar == 'S'">
-
-
+<div class="container-fluid" *ngIf="verAgregar == 'S'">
 
   <div class="row">
-    <div class="col mt-1">
+    <div class="col mt-3">
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
           [(ngModel)]="objetoSeleccionado.nombre">
@@ -202,69 +203,6 @@
       </div>
     </div>
   </div>
-
-<!--
-
-    <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-correo" placeholder=""
-          [(ngModel)]="objetoSeleccionado.correo" required>
-        <label for="parametro-correo" class="form-label">Correo:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control form-control-lg" id="parametro-contrasena" placeholder=""
-          [(ngModel)]="objetoSeleccionado.contrasena" required>
-        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-telefono" placeholder=""
-          [(ngModel)]="objetoSeleccionado.telefono" maxlength="8">
-        <label for="parametro-telefono" class="form-label">Teléfono:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="date" class="form-control form-control-lg" id="parametro-cumpleanos" placeholder=""
-          [(ngModel)]="objetoSeleccionado.cumpleanos">
-        <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-nit" placeholder=""
-          [(ngModel)]="objetoSeleccionado.nit">
-        <label for="parametro-nit" class="form-label">Nit:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-direccion" placeholder=""
-          [(ngModel)]="objetoSeleccionado.direccion">
-        <label for="parametro-direccion" class="form-label">Dirección:</label>
-      </div>
-    </div>
-  </div>
--->
 
   <div class="row">
     <div class="col mt-1">
@@ -291,12 +229,10 @@
 
 
 <!-- editar -->
-<div class="container mt-5" *ngIf="verEditable == 'S'">
-
-
+<div class="container-fluid" *ngIf="verEditable == 'S'">
 
   <div class="row">
-    <div class="col mt-1">
+    <div class="col mt-3">
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
           [(ngModel)]="objetoSeleccionado.nombre">
@@ -335,69 +271,6 @@
       </div>
     </div>
   </div>
-
-<!--
-
-    <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-correo" placeholder=""
-          [(ngModel)]="objetoSeleccionado.correo" required>
-        <label for="parametro-correo" class="form-label">Correo:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control form-control-lg" id="parametro-contrasena" placeholder=""
-          [(ngModel)]="objetoSeleccionado.contrasena" required>
-        <label for="parametro-contrasena" class="form-label">Contraseña:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-telefono" placeholder=""
-          [(ngModel)]="objetoSeleccionado.telefono" maxlength="8">
-        <label for="parametro-telefono" class="form-label">Teléfono:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="date" class="form-control form-control-lg" id="parametro-cumpleanos" placeholder=""
-          [(ngModel)]="objetoSeleccionado.cumpleanos">
-        <label for="parametro-cumpleanos" class="form-label">Cumpleaños:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-nit" placeholder=""
-          [(ngModel)]="objetoSeleccionado.nit">
-        <label for="parametro-nit" class="form-label">Nit:</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col mt-1">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control form-control-lg" id="parametro-direccion" placeholder=""
-          [(ngModel)]="objetoSeleccionado.direccion">
-        <label for="parametro-direccion" class="form-label">Dirección:</label>
-      </div>
-    </div>
-  </div>
--->
 
   <div class="row">
     <div class="col mt-1">

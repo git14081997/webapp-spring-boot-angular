@@ -81,4 +81,7 @@ export class PruebasComponent implements OnInit {
 		this.cantidad = cantidad;
 	}
 
+	hacerAlgo(){
+	}
+	
 }

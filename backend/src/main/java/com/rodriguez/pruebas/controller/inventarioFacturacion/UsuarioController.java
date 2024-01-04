@@ -18,13 +18,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -55,6 +54,7 @@ public class UsuarioController {
 
 
 
+	/*
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public void update(@RequestBody Usuario usuario){
 
@@ -73,6 +73,8 @@ public class UsuarioController {
 
 	}
 
+	 */
+
 
 
 
@@ -82,11 +84,18 @@ public class UsuarioController {
 		Integer usuarioId = usuario.getId();
 		if(null == usuarioId){
 
+			if(usuario.getNombreDos() == null){
+				usuario.setNombreDos("");
+			}
+			if(usuario.getApellido() == null){
+				usuario.setApellido("");
+			}
+			if(usuario.getApellidoDos() == null){
+				usuario.setApellidoDos("");
+			}
+
 			usuario.setNombreCompleto(
-					usuario.getNombre() + " " +
-							usuario.getNombreDos() + " " +
-							usuario.getApellido() + " " +
-							usuario.getApellidoDos()
+			usuario.getNombre() + " " + usuario.getNombreDos() + " " + usuario.getApellido() + " " + usuario.getApellidoDos()
 			);
 
 			usuario.setPendienteDePago(new BigDecimal(0));
@@ -221,7 +230,7 @@ public class UsuarioController {
 
 		Page<Usuario> resultado;
 
-		if(!apellido.isEmpty()){
+		if( apellido != null) {
 			resultado = usuarioRepository.findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(pageable,nombre,apellido);
 		}
 		else {

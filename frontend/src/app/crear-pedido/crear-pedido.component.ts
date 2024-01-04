@@ -42,6 +42,8 @@ objetosPedido: any[] = [];
 
 todoElPedido:any = {};
 
+clientesEncontrados: any[] = [];
+
 constructor() {
 this.service = new PruebasService;
 }
@@ -60,13 +62,18 @@ hostname + '/api/producto' + "/" + 0 + "/" + 10 +
 "/buscar" + "?nombre="+nombre,
 this.parametroServicio.headers).subscribe((RESPONSE:any) => {
 this.productosEncontrados = RESPONSE.content;
+for(let productoN of this.productosEncontrados){
+	productoN.precioVentaMin = productoN.precioVenta;
+}
 });
 }
+
 
 quitarDelPedido(index: number) {
 this.objetosPedido.splice(index, 1);
 this.actualizarDetallePedido();
 }
+
 
 agregarAlPedido(objetoN:any, index:number){
 
@@ -92,11 +99,15 @@ this.actualizarDetallePedido();
 
 guardarPedido(){
 
+this.todoElPedido.usuarioId = Number(this.todoElPedido.usuarioId );
+
 this.actualizarDetallePedido();
+
 
 // enviar
 console.log(this.todoElPedido);
 
+/*
 this.service.post(this.parametroServicio,this.todoElPedido)
 	.subscribe((facturaN) => {
 		let facturaId = facturaN.id;
@@ -105,6 +116,7 @@ this.service.post(this.parametroServicio,this.todoElPedido)
 		window.location.href = '/factura';
 	}
 );
+*/
 
 
 }
@@ -165,6 +177,44 @@ this.todoElPedido.facturaDetalle = null;
 
 
 
+
+getClientes(nombre: string){
+	return this.http.get<any>(hostname + '/api/usuario' + "/" + 0 + "/" + 10 +
+		"/buscar" + "?nombre="+nombre,
+		this.parametroServicio.headers).subscribe((RESPONSE:any) => {
+		this.clientesEncontrados = RESPONSE.content;
+	});
+}
+
+
+limpiarBusquedaClientes(){
+	this.parametros.buscarCliente = "";
+	// this.clientesEncontrados = [];
+}
+
+
+setClienteCompra(clienteEncontrado:any, indice: number ){
+	this.todoElPedido.usuarioId = clienteEncontrado.id;
+
+	this.todoElPedido.usuarioNombre =
+		clienteEncontrado.nombre 
+		+ " " + clienteEncontrado.nombreDos
+		+ " " + clienteEncontrado.apellido
+		+ " " + clienteEncontrado.apellidoDos;
+
+
+}
+
+
+validarNewPrecioVenta(objetoN:any){
+	if( objetoN.precioVenta > objetoN.precioVentaMin ){
+		this.actualizarDetallePedido();
+	}
+	else {
+		objetoN.precioVenta = objetoN.precioVentaMin;
+	}
+
+}
 
 
 }
