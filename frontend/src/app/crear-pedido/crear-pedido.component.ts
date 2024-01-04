@@ -174,7 +174,7 @@ this.dosDecimales((productoPedido.subtotalPorProducto * IVA) );
 
 } // FOR
 
-this.todoElPedido.facturaDetalle = this.objetosPedido;
+this.todoElPedido.detalle = this.objetosPedido;
 this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total );
 this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA) );
 this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva) );
@@ -182,7 +182,7 @@ this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.t
 } // FI
 
 else {
-this.todoElPedido.facturaDetalle = null;
+this.todoElPedido.detalle = null;
 
 }
 
