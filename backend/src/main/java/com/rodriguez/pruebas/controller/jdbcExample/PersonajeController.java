@@ -3,7 +3,6 @@ package com.rodriguez.pruebas.controller.jdbcExample;
 
 import com.rodriguez.pruebas.entity.jdbcExample.Personaje;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,8 +36,6 @@ import java.util.List;
 public class PersonajeController {
 
 	private static final Logger log = LoggerFactory.getLogger(PersonajeController.class);
-
-	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -73,10 +72,8 @@ public class PersonajeController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Personaje> findAll(){
-		String sql = "SELECT * FROM DBDEV.PERSONAJE WHERE NOMBRE LIKE = ?";
-		return jdbcTemplate.query(sql,
-			new BeanPropertyRowMapper<Personaje>(Personaje.class)
-		);
+		String sql = "SELECT * FROM DBDEV.PERSONAJE";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Personaje.class));
 	}
 
 
@@ -85,6 +82,80 @@ public class PersonajeController {
 		String sql = "delete from DBDEV.PERSONAJE where id=?";
 		jdbcTemplate.update(sql, id);
 	}
+
+
+	// nombre=Chris&edad=25
+	// @RequestParam(name = "nombre") String nombre, @RequestParam(name = "edad") Integer edad
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "search")
+	public List<Personaje> findAllByName(@RequestParam(name = "nombre") String nombre){
+		String sql = "SELECT * FROM DBDEV.PERSONAJE WHERE NOMBRE LIKE ?";
+		String patronDeBusqueda = "%" + nombre + "%";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Personaje.class), patronDeBusqueda);
+	}
+
+
+
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "exec")
+	public void findAllByName(){
+
+		/*
+
+		ejemplo de insercion o ejecucion de 1 query
+
+String sql = """
+create table mytable (id integer, name varchar(100))
+""";
+
+String sql2 = """
+INSERT INTO DBDEV.PERSONAJE(NOMBRE,PUNTOS)VALUES('JUAN',0)
+""";
+jdbcTemplate.execute(sql2);
+
+*/
+
+
+
+
+// ejemplo de insercion multiple
+int cantidadInsert = 0;
+List<String> nombresDB = new ArrayList<>();
+
+nombresDB.add("juan");
+nombresDB.add("jenny");
+nombresDB.add("maria");
+nombresDB.add("pedro");
+nombresDB.add("marie");
+nombresDB.add("juana");
+nombresDB.add("cindy");
+
+cantidadInsert = nombresDB.size();
+
+String sqlTemp = "INSERT INTO DBDEV.PERSONAJE(NOMBRE) VALUES ('";
+
+for( int contadorI = 0; contadorI < cantidadInsert; contadorI++ ){
+
+	jdbcTemplate.execute(sqlTemp + ((String) nombresDB.get(contadorI)) + "')");
+
+} /* for */
+// ejemplo de insercion multiple
+
+
+
+
+
+
+		// ejemplo de traer Integer o string
+		String sqlConsultarNumero = "SELECT COUNT(ID) FROM DBDEV.PERSONAJE";
+		Integer resultado = null;
+		resultado = jdbcTemplate.queryForObject(sqlConsultarNumero, Integer.class);
+		log.info( "" + resultado );
+
+
+
+}
+
+
 
 
 }

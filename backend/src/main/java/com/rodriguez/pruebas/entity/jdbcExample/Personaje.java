@@ -37,10 +37,10 @@ public class Personaje implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-    @Column( name = "NOMBRE", length = 27 )
+    @Column( name = "NOMBRE", length = 27, unique = true )
     private String nombre;
 
-	@Column( name = "PUNTOS", scale = 2, nullable = false )
+	@Column( name = "PUNTOS", scale = 2)//, nullable = false )
 	private BigDecimal puntos;
 
 	@Column( name = "FECHA_GUARDADO" )
