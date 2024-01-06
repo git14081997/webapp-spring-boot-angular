@@ -43,7 +43,7 @@ public class Producto implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-    @Column( name = "NOMBRE", nullable = false)
+    @Column( name = "NOMBRE", nullable = false, unique = true, length = 512)
     private String nombre;
 
 	@Column( name = "COSTO_UNIDAD", scale = 2, nullable = false)

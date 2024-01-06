@@ -49,6 +49,58 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	Page<Usuario> traerPorPagina(Pageable pageable);
 
 
+  @Query("SELECT * FROM person WHERE lastname = :lastname")
+  List<Person> findByLastname(String lastname);
+
+
+  @Query("SELECT * FROM person WHERE lastname = :lastname")
+  Stream<Person> streamByLastname(String lastname);
+
+
+  @Query("SELECT * FROM person WHERE username = :#{ principal?.username }")
+  Person findActiveUser();
+
+
+findByBirthdateAfter(Date date)
+
+findByAgeGreaterThan(int age)
+
+findByAgeGreaterThanEqual(int age)
+
+findByAgeBetween(int from, int to)
+
+findByBirthdateBefore(Date date)
+
+
+findByAgeNotBetween(int from, int to)
+
+findByAgeNotIn(Collection ages)
+
+findByFirstnameNotContaining(String name)
+
+findByFirstnameNot(String name)
+
+
+findByActiveIsTrue()
+
+
+
+interface UserRepository extends CrudRepository<User, Long> {
+  @Query("select firstName, lastName from User u where u.emailAddress = :email")
+  User findByEmailAddress(@Param("email") String email);
+}
+
+
+@Modifying
+@Query("UPDATE DUMMYENTITY SET name = :name WHERE id = :id")
+boolean updateName(@Param("id") Long id, @Param("name") String name);
+
+
+
+
+
+
+
 	*/
 
 
