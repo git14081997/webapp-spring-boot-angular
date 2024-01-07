@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -49,11 +48,17 @@ public class ClienteAbona implements Serializable {
 	@JoinColumn(name = "FACTURA_ID")
 	private Factura factura;
 
-	@Column( name = "VALOR", scale = 2)
-	private BigDecimal valor;
+	@Column( name = "SALDO_ANTERIOR", scale = 2)
+	private BigDecimal saldoAnterior; // saldo historico
+
+	@Column( name = "CARGOS", scale = 2)
+	private BigDecimal cargos; // cliente se compro al credito
+
+	@Column( name = "ABONOS", scale = 2)
+	private BigDecimal abonos; // cliente paga parcial o totalmente su deuda por compras
 
 	@Column( name = "SALDO", scale = 2)
-	private BigDecimal saldo;
+	private BigDecimal saldo; // saldo actual, que cliente pagará eventualmente
 
 	@CreationTimestamp
 	@Column( name = "FECHA")

@@ -63,7 +63,7 @@ public class Factura implements Serializable {
 	private BigDecimal total;
 
 	@Column( name = "PENDIENTE_DE_PAGO", scale = 2, nullable = false )
-	private BigDecimal pendienteDePago;
+	private BigDecimal pendienteDePago; // Venta al credito
 
 	@CreationTimestamp
 	@Column( name = "FECHA_EMISION", updatable = false )

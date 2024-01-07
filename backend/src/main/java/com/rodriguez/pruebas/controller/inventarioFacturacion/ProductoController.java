@@ -1,8 +1,10 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -14,7 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -55,6 +54,9 @@ public class ProductoController {
 	private ProductoRepository productoRepository;
 
 	@Autowired
+	private InventarioRepository inventarioRepository;
+
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
@@ -62,57 +64,38 @@ public class ProductoController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody Producto producto){
 
-		/*
+		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
 
-		Producto producto = MODEL_MAPPER.map(productoDto, Producto.class);
-
-		// valores por defecto al crear
-		if(producto.getCostoUnidad() == null) {
-			producto.setCostoUnidad(new BigDecimal(0));
-		}
-
-
-		// valores por defecto al crear
-		if(producto.getGanancia() == null) {
-			producto.setGanancia(new BigDecimal(0));
-		}
-
-
-		// valores por defecto al crear
-		if(producto.getGananciaPorcentaje() == null) {
-			producto.setGananciaPorcentaje(new BigDecimal(0));
-		}
-
-
-		// valores por defecto al crear
-		if(producto.getIva() == null) {
-			producto.setIva(new BigDecimal(0));
-		}
-
-
-		// valores por defecto al crear
-		if(producto.getPrecioVenta() == null) {
-			producto.setPrecioVenta(new BigDecimal(0));
-		}
-
-		// valores por defecto al crear
-		if(producto.getExistencias() == null) {
-			producto.setExistencias(0);
-		}
-
-		// valores por defecto al crear
-		if(producto.getEstado() == null) {
-			producto.setEstado("A");
-		}
-		*/
+		producto.setEstado("A"); // A Activo or I Inactivo
 
 		BigDecimal costo = producto.getCostoUnidad();
 		BigDecimal ganancia = producto.getGanancia();
-		BigDecimal precioVenta =  costo.add(ganancia);
-		producto.setPrecioVenta(precioVenta);
 
+		BigDecimal precioVenta =  costo.add(ganancia);
+
+		producto.setPrecioVenta(precioVenta);
+		// precio de venta Sin IVA
+		// el IVA se pondrá al realizar/registrar venta
 
 		producto = productoRepository.save(producto);
+
+
+		Inventario inventario = new Inventario();
+		inventario.setProducto(producto);
+
+		inventario.setSaldoAnterior(0);
+
+		inventario.setEntradas( producto.getExistencias() );
+
+		inventario.setSalidas(0);
+
+		inventario.setExistencia(
+			inventario.getSaldoAnterior()
+			+ inventario.getEntradas()
+			- inventario.getSalidas()
+		);
+		inventarioRepository.save(inventario);
+
 		return producto.getId();
 	}
 
@@ -168,21 +151,15 @@ public class ProductoController {
 
 		Integer tmpId = dto.getId();
 
-		if(tmpId != null){
+		if(tmpId != null) {
 			Optional<Producto> optional = productoRepository.findById(tmpId);
 			if (optional.isPresent()) {
-
 				Producto objetoDB = optional.get();
-
 				BigDecimal costo = dto.getCostoUnidad();
 				BigDecimal ganancia = dto.getGanancia();
-				BigDecimal iva = dto.getIva();
-
-				BigDecimal precioVenta =  costo.add(ganancia).add(iva);
+				BigDecimal precioVenta =  costo.add(ganancia);
 				objetoDB.setPrecioVenta(precioVenta);
-
 				productoRepository.save(objetoDB);
-
 			}
 		}
 	}
@@ -208,11 +185,13 @@ public class ProductoController {
 
 		Page<Producto> resultado = productoRepository.findByNombreContainingIgnoreCase(pageable, nombre);
 
+		/*
 		resultado.forEach( resultadoN -> {
 			resultadoN.setImagen(null);
 		});
-
+		*/
 		return resultado;
+
 	}
 
 
@@ -226,6 +205,7 @@ public class ProductoController {
 
 
 
+	/* guardar imagen del producto
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{idproducto}")
 	public void updateImage(@RequestBody MultipartFile fileImagen, @PathVariable Integer idproducto) throws IOException {
 		Optional<Producto> optional = productoRepository.findById(idproducto);
@@ -237,9 +217,12 @@ public class ProductoController {
 		objetoTmp.setImagen(bytesImagen);
 		productoRepository.save(objetoTmp);
 	}
+	*/
 
 
 
+
+	/* regresar imagen del producto
 	@GetMapping(produces = MediaType.IMAGE_PNG_VALUE, value = "pic/{idproducto}")
 	public ResponseEntity<byte[]> updateImage(@PathVariable Integer idproducto) throws IOException {
 		Optional<Producto> optional = productoRepository.findById(idproducto);
@@ -251,6 +234,7 @@ public class ProductoController {
 
 		return ResponseEntity.ok().contentType(MediaType.valueOf(MediaType.IMAGE_PNG_VALUE)).body(image);
 	}
+	*/
 
 
 

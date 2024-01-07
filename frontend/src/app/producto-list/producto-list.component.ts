@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
+import { IVA } from '../impuestos';
 
 @Component({
   selector: 'app-producto-list',
@@ -145,7 +146,6 @@ export class ProductoListComponent implements OnInit {
 	}
 
 	agregar(parametros: any) {
-
 		this.service.post(this.parametroServicio,parametros).subscribe(() => {
 			this.verListado();
 			this.getPorPagina();

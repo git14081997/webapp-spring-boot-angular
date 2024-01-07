@@ -85,7 +85,7 @@ public class FacturaController {
 
 		factura.setTotal( pedidoDto.getTotal() );
 
-		factura.setTipoPago(pedidoDto.getTipoPago() );
+		factura.setTipoPago(pedidoDto.getTipoPago() ); // Efectivo, Credito
 
 		if(pedidoDto.getTipoPago().equals("C") || pedidoDto.getTipoPago().equals("V")){
 			// Venta al credito
