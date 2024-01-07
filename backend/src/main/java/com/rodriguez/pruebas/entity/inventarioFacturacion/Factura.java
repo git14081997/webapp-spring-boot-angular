@@ -79,7 +79,7 @@ public class Factura implements Serializable {
 
 	@Column( name = "DIRECCION")
 	private String direccion;
-
 	// extras - extras - extras
+
 
 }

@@ -4,11 +4,13 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.DetallePedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.FacturaDetalle;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.PedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaDetalleRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +35,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +68,10 @@ public class FacturaController {
 
 	@Autowired
 	private ProductoRepository productoRepository;
+
+	@Autowired
+	private InventarioRepository inventarioRepository;
+
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -102,9 +110,13 @@ public class FacturaController {
 		Optional<Usuario> optionalUsuario =
 				usuarioRepository.findById(pedidoDto.getUsuarioId());
 
+
 		if(optionalUsuario.isPresent()){
+
 			Usuario usuarioCliente = optionalUsuario.get();
+
 			factura.setCliente(usuarioCliente);
+
 			factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
 
 			BigDecimal saldoPendiente = usuarioCliente.getPendienteDePago();
@@ -142,22 +154,50 @@ public class FacturaController {
 
 				Producto productoN = optionalProducto.get();
 
+
+
+
+
+
+
 				facturaDetalle.setProducto(productoN);
-
-				facturaDetalle.setCantidadProductoVendido(
-					detallePedidoDto.getCantidadProductoVendido()
-				);
-
-				facturaDetalle.setPrecioVentaPorProducto(
-					detallePedidoDto.getPrecioVentaPorProducto()
-				);
-
+				facturaDetalle.setCantidadProductoVendido(detallePedidoDto.getCantidadProductoVendido());
+				facturaDetalle.setPrecioVentaPorProducto(detallePedidoDto.getPrecioVentaPorProducto());
 				facturaDetalleRepository.save(facturaDetalle);
 
-			}
+
+				// reduccion del inventario
+				Inventario inventario = new Inventario();
+				inventario.setEntradas(0);
+				inventario.setSalidas(detallePedidoDto.getCantidadProductoVendido());
+
+				// traer el ultimo registro por fecha y guardar su saldo como saldoAnterior
+				Integer saldoAnterior = 0;
+				Inventario ultimoRegistroDelInventario =
+				buscarUltimoRegistroDelInventarioDelProducto(productoN.getId());
+				saldoAnterior = ultimoRegistroDelInventario.getExistencia();
+
+				inventario.setSaldoAnterior(saldoAnterior);
+
+				inventario.setProducto(productoN);
+
+				Integer saldoActualExistencias = saldoAnterior + inventario.getEntradas() - inventario.getSalidas();
+
+				inventario.setExistencia( saldoActualExistencias );
+
+				inventarioRepository.save(inventario);
+
+
+				// Actualizacion del saldo de exitencias del producto
+				productoN.setExistencias(saldoActualExistencias);
+				productoRepository.save(productoN);
+
+
+			} // actualizar existencias del producto
 
 
 		}
+
 
 
 		return idFactura;
@@ -165,7 +205,27 @@ public class FacturaController {
 
 
 
-	
+
+	@Transactional
+	private Inventario buscarUltimoRegistroDelInventarioDelProducto(Integer productoId){
+		String sql = "SELECT * FROM INVENTARIO_FACTURACION.INVENTARIO WHERE PRODUCTO_ID = ? ORDER BY FECHA DESC";
+		List<Inventario> registrosDelInventario = jdbcTemplate.query(
+				sql, new BeanPropertyRowMapper<>(Inventario.class), productoId
+		);
+
+		for( Inventario registroNDelInventarioProductoX : registrosDelInventario ){
+			log.info( registroNDelInventarioProductoX.toString() );
+		}
+
+		return registrosDelInventario.get(0);
+	}
+
+
+
+
+
+
+
 	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public Factura findById(@PathVariable Integer id){

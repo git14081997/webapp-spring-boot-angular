@@ -95,6 +95,47 @@ interface UserRepository extends CrudRepository<User, Long> {
 @Query("UPDATE DUMMYENTITY SET name = :name WHERE id = :id")
 boolean updateName(@Param("id") Long id, @Param("name") String name);
 
+List<User> findByNameIsNull();
+List<User> findByNameIsNotNull();
+List<User> findByNameStartingWith(String prefix);
+List<User> findByNameEndingWith(String suffix);
+List<User> findByNameContaining(String infix);
+List<User> findByActiveTrue();
+List<User> findByActiveFalse();
+List<User> findByNameLike(String likePattern);
+List<User> findByAgeLessThan(Integer age);
+List<User> findByAgeLessThanEqual(Integer age);
+List<User> findByAgeGreaterThan(Integer age);
+List<User> findByAgeGreaterThanEqual(Integer age);
+List<User> findByAgeBetween(Integer startAge, Integer endAge);
+List<User> findByAgeIn(Collection<Integer> ages);
+List<User> findByBirthDateAfter(ZonedDateTime birthDate);
+List<User> findByBirthDateBefore(ZonedDateTime birthDate);
+List<User> findByNameOrAge(String name, Integer age);
+List<User> findByNameOrAgeAndActive(String name, Integer age, Boolean active);
+List<User> findByNameOrderByName(String name);
+List<User> findByNameOrderByNameAsc(String name);
+List<User> findByNameOrderByNameDesc(String name);
+List<User> findByEmailAddressAndLastname(String emailAddress, String lastname);
+findDistinctByLastnameAndFirstname
+findByLastnameAndFirstname
+findByFirstnameIgnoreCase
+findByActiveFalse
+findByActiveTrue
+findByAgeNotIn(Collection<Age> ages)
+findByAgeIn(Collection<Age> ages)
+findByLastnameNot
+findByAgeOrderByLastnameDesc
+findByFirstnameContaining
+findByFirstnameStartingWith
+findByFirstnameEndingWith
+findByFirstnameNotLike
+findByFirstnameLike
+
+
+@Query("select u from User u where u.emailAddress = ?1")
+User findByEmailAddress(String emailAddress);
+
 
 
 

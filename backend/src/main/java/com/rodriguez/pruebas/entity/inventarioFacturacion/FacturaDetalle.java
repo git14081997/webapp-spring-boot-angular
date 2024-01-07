@@ -53,11 +53,11 @@ public class FacturaDetalle implements Serializable {
 
 
 	@Column(name = "SUBTOTAL_POR_PRODUCTO", scale = 2)
-	private BigDecimal subtotalPorProducto;
+	private BigDecimal subtotalPorProducto; // cantidadProductoVendido * precioVentaPorProducto
 
 
 	@Column(name = "IVA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
-	private BigDecimal ivaDelSubtotalPorProducto;
+	private BigDecimal ivaDelSubtotalPorProducto; //subtotalPorProducto * 0.12 or 0.05
 
 
 
@@ -65,7 +65,7 @@ public class FacturaDetalle implements Serializable {
 	private BigDecimal costoUnidad;
 
 	@Column(name = "COSTO_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
-	private BigDecimal costoDelSubtotalPorProducto;
+	private BigDecimal costoDelSubtotalPorProducto; // costoUnidad * cantidadProductoVendido
 
 
 
@@ -74,7 +74,7 @@ public class FacturaDetalle implements Serializable {
 	private BigDecimal gananciaUnidad;
 
 	@Column(name = "GANANCIA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
-	private BigDecimal gananciaDelSubtotalPorProducto;
+	private BigDecimal gananciaDelSubtotalPorProducto; // gananciaUnidad * cantidadProductoVendido
 
 
 	@ManyToOne
