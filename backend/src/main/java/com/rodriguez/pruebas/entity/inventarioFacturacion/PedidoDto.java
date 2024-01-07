@@ -18,6 +18,7 @@ public class PedidoDto implements Serializable {
 	private BigDecimal ganancia;
 	private BigDecimal iva;
 	private BigDecimal total;
+	private BigDecimal subtotal;
 
 	private String tipoPago;
 

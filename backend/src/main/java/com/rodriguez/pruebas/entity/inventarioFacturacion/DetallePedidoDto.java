@@ -16,4 +16,9 @@ public class DetallePedidoDto implements Serializable {
 	private Integer cantidadProductoVendido;
 	private BigDecimal precioVentaPorProducto;
 
+	private BigDecimal subtotalPorProducto;
+	private BigDecimal ivaDelSubtotalPorProducto;
+	private BigDecimal costoDelSubtotalPorProducto;
+	private BigDecimal gananciaDelSubtotalPorProducto;
+
 }

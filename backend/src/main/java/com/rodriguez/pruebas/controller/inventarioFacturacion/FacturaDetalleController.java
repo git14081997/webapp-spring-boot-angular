@@ -10,28 +10,24 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
@@ -55,8 +51,7 @@ public class FacturaDetalleController {
 	private JdbcTemplate jdbcTemplate;
 
 
-
-	 
+	@Transactional
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody FacturaDetalle facturaDetalle ){
 		//FacturaDetalle facturaDetalle = MODEL_MAPPER.map(facturaDetalleDto, FacturaDetalle.class);
@@ -65,97 +60,22 @@ public class FacturaDetalleController {
 	}
 
 
-
-	 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
-	public FacturaDetalle findById(@PathVariable Integer id){
-		Optional<FacturaDetalle> resultado = facturaDetalleRepository.findById(id);
-		return resultado.orElse(null);
-	}
-
-
-	/*
-	 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<FacturaDetalle> findAll(){
-		return facturaDetalleRepository.findAll();
-	}
-	*/
-
-
 	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 * Retorna un listado del detalle por factura/pedido
+	 * de la factura con el id correspondiente.
 	 *
-	 * @param pagina consultada.
-	 * @param cantidad maxima por pagina.
-	 * @return Page<FacturaDetalle> resultados encontrados.
+	 * @param facturaid consultada.
+	 * @return List<FacturaDetalle> resultados encontrados.
 	 */
-	 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
-	public Page<FacturaDetalle> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
-		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return facturaDetalleRepository.findAll(pageable);
+	@Transactional
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{facturaid}")
+	public List<FacturaDetalle> find(@PathVariable Integer facturaid) {
+		String sql = "SELECT * FROM INVENTARIO_FACTURACION.FACTURA_DETALLE WHERE FACTURA_ID = ? ORDER BY ID ASC";
+		List<FacturaDetalle> detallesPorFactura = jdbcTemplate.query(
+				sql, new BeanPropertyRowMapper<>(FacturaDetalle.class), facturaid
+		);
+		return detallesPorFactura;
 	}
-
-
-
-	 
-	@DeleteMapping(value = "{id}")
-	public void delete(@PathVariable Integer id){
-		facturaDetalleRepository.deleteById(id);
-	}
-
-
-
-	 
-	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public void update(@RequestBody FacturaDetalle facturaDetalle ){
-
-		facturaDetalleRepository.save(facturaDetalle);
-
-		/*
-		Integer tmpId = dto.getId();
-
-		if(tmpId == null){
-			return -1;
-		}
-		else {
-
-			Optional<FacturaDetalle> dataOnDB = facturaDetalleRepository.findById(tmpId);
-
-			if( dataOnDB.isPresent() ){
-				FacturaDetalle objetoTemp = dataOnDB.get();
-
-				objetoTemp.setCostoUnidad(dto.getCostoUnidad());
-				objetoTemp.setCantidadProductoVendido(dto.getCantidadProductoVendido());
-
-				objetoTemp.setCostoDelSubtotalPorProducto(dto.getCostoDelSubtotalPorProducto());
-				objetoTemp.setGananciaDelSubtotalPorProducto(dto.getGananciaDelSubtotalPorProducto());
-
-				objetoTemp.setSubtotalPorProducto(dto.getSubtotalPorProducto());
-				objetoTemp.setPrecioVentaPorProducto(dto.getPrecioVentaPorProducto());
-
-				objetoTemp.setCantidadProductoVendido(dto.getCantidadProductoVendido());
-				objetoTemp.setIvaDelSubtotalPorProducto(dto.getIvaDelSubtotalPorProducto());
-
-				Optional<Producto> optional = productoRepository.findById(dto.getProducto().getId());
-				if(optional.isPresent()){
-					Producto productoReemplaza = optional.get();
-					objetoTemp.setProducto(productoReemplaza);
-				}
-
-				facturaDetalleRepository.save(objetoTemp);
-				return 0;
-			}
-			else {
-				return -2;
-			}
-
-		 */
-
-	}
-
 
 
 }

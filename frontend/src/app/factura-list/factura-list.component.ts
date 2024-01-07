@@ -31,6 +31,11 @@ export class FacturaListComponent implements OnInit {
 		})
 	}
 
+	private parametroServicioDetallefacturas: ParametroServicio = {
+		url: "/api/facturadetalle",
+		headers: this.parametroServicio.headers
+	}
+
 	private http = inject(HttpClient);
 	service: PruebasService;
 	parametros: any = {};
@@ -48,6 +53,10 @@ export class FacturaListComponent implements OnInit {
 	paginasDisponiblesArray: any[] = [];
 
 	tmp:any;
+
+	formatoDeFecha = formatoDeFecha;
+
+	detallesPorFactura: any[] = [];
 
 	constructor() {
 		this.service = new PruebasService;
@@ -145,12 +154,16 @@ export class FacturaListComponent implements OnInit {
 		});
 	}
 
+
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
-		this.crearOrActualizar = 'A';
+		//this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
+		console.log(parametros);
+		this.getDetallePorFactura(parametros.id);
 	}
+
 
 	buscarEnDb(parametros: any){
 
@@ -190,4 +203,21 @@ export class FacturaListComponent implements OnInit {
 			parametro.headers);
 	}
 
+
+
+
+
+
+
+	getDetallePorFactura(facturaId:number) {
+		let enlace = this.parametroServicioDetallefacturas.url + "/" + facturaId;
+		this.parametroServicioDetallefacturas.url = enlace;
+		this.service.getAll(this.parametroServicioDetallefacturas).subscribe((RESPONSE: any) => {
+			console.log(RESPONSE);
+			this.detallesPorFactura = RESPONSE;
+		});
+	}
+
+
+	
 }

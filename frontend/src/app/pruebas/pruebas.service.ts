@@ -16,6 +16,10 @@ export class PruebasService {
 		return this.http.get<any>( hostname + parametro.url + "/" + id, parametro.headers);
 	}
 
+	getAll(parametro:ParametroServicio): Observable<any> {
+		return this.http.get<any>( hostname + parametro.url, parametro.headers);
+	}
+
 	getPaginado(parametro:ParametroServicio, pagina: number, cantidad: number): Observable<any> {
 		return this.http.get<any>( hostname + parametro.url + "/" + pagina + "/" + cantidad, parametro.headers);
 	}

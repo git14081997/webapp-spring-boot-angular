@@ -62,6 +62,9 @@ public class Factura implements Serializable {
 	@Column( name = "TOTAL", scale = 2, nullable = false )
 	private BigDecimal total;
 
+	@Column( name = "SUBTOTAL_SIN_IVA", scale = 2, nullable = false )
+	private BigDecimal subtotalSinIva;
+
 	@Column( name = "PENDIENTE_DE_PAGO", scale = 2, nullable = false )
 	private BigDecimal pendienteDePago; // Venta al credito
 
