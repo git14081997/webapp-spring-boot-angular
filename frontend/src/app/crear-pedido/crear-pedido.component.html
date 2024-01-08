@@ -164,7 +164,7 @@
 							<td class="align-middle">{{ objetoN.nombre }}</td>
 
 							<td class="align-middle" style="width: 99px !important;" >
-								Q. {{ objetoN.precioVenta }}
+								Q. {{ objetoN.precioVenta | currency: 'Q. ' }}
 								<input type="number" class="form-control" id="parametro-precioVenta" placeholder=""
 								[(ngModel)]="objetoN.precioVenta" min={{objetoN.precioVentaMin}} (change)="validarNewPrecioVenta(objetoN)" >
 							<label for="parametro-precioVenta" class="form-label"></label>
@@ -178,7 +178,7 @@
 							</td>
 
 							
-							<td class="align-middle" >Q. {{ objetoN.subtotalPorProducto }}</td>
+							<td class="align-middle" >Q. {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
 
 						</tr>
 					</tbody>
@@ -187,9 +187,9 @@
 
 
 			<div class="h3">
-				Q. {{todoElPedido.subtotal || 0 }} Subtotal<br/>
-				Q. {{ todoElPedido.iva || 0 }} IVA<br/>
-				Q. {{ todoElPedido.total || 0 }} Total
+				 {{todoElPedido.subtotal | currency: 'Q. ' || 0 }} Subtotal<br/>
+				 {{ todoElPedido.iva | currency: 'Q. ' || 0 }} IVA<br/>
+				 {{ todoElPedido.total | currency: 'Q. ' || 0 }} Total
 			</div>
 
 		</div>

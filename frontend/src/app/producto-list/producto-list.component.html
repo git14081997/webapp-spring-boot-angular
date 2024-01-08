@@ -2,7 +2,7 @@
 
 <!-- botones -->
 <div class="row">
-<div class="col mt-5">
+<div class="col mt-3">
 <button class="btn btn-success btn-lg align-middle" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
 <i class="bi bi-plus-lg align-middle"></i>
 Agregar
@@ -70,9 +70,9 @@ Regresar
 </td>
 -->
 <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombre }}</td>
-<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.costoUnidad }}</td>
-<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ganancia }}</td>
-<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.precioVenta }}</td>
+<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.costoUnidad | currency: 'Q. ' }}</td>
+<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ganancia | currency: 'Q. ' }}</td>
+<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.precioVenta | currency: 'Q. ' }}</td>
 <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.existencias }}</td>
 </tr>
 </tbody>
