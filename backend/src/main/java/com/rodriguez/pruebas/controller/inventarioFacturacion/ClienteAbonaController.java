@@ -2,7 +2,9 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 /**
@@ -42,16 +45,19 @@ public class ClienteAbonaController {
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
 	private ClienteAbonaRepository clienteAbonaRepository;
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+	private UsuarioRepository usuarioRepository;
 
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody ClienteAbona clienteAbona ){
 		//ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
+		clienteAbona.setDetalles("CLIENTE HACE PAGO");
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
 		return clienteAbona.getId();
 	}
@@ -85,9 +91,13 @@ public class ClienteAbonaController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<ClienteAbona> findAllByUsuarioId(@PathVariable Integer pagina, @PathVariable Integer cantidad,
 		@PathVariable Integer usuarioid) {
+
 		Sort sort = Sort.by(Sort.Direction.DESC ,"FECHA");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return clienteAbonaRepository.findByCliente(pageable, usuarioid);
+
+		Usuario clienteResponsable = usuarioRepository.getReferenceById(usuarioid);
+
+		return clienteAbonaRepository.findByCliente(pageable, clienteResponsable);
 	}
 
 

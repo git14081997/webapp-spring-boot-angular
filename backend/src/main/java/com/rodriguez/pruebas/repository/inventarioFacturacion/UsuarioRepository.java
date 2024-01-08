@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * para acceder a la información de la base de datos,
  * vinculada a la entidad tipo Usuario.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @Repository("usuarioRepository")

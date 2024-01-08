@@ -107,12 +107,21 @@ public class FacturaController {
 
 		cargosAbonosCliente.setCargos(pedidoDto.getTotal());
 		cargosAbonosCliente.setAbonos(new BigDecimal(0));
+		cargosAbonosCliente.setDetalles("CLIENTE NOS COMPRA");
 
 		// traer ultimo registro de cargos y abonos para consultar el saldo de ese ultimo registro
 		Sort sort = Sort.by(Sort.Direction.DESC ,"FECHA");
 		Pageable pageableCargosAbonosCliente = PageRequest.of(0,3,sort);
+
+		Optional<Usuario> optionalUsuario = usuarioRepository.findById(pedidoDto.getUsuarioId());
+
+		if(optionalUsuario.isEmpty()){
+			throw new RuntimeException("Usuario con ID no existe para guardar factura.");
+		}
+
+		Usuario clienteCompro = optionalUsuario.get();
 		Page<ClienteAbona> cargos_abonos_del_cliente = clienteAbonaRepository.findByCliente(
-			pageableCargosAbonosCliente, pedidoDto.getUsuarioId()
+			pageableCargosAbonosCliente, clienteCompro
 		);
 
 		List<ClienteAbona> listaDeCargosAbonosCliente = cargos_abonos_del_cliente.getContent();
@@ -146,31 +155,20 @@ public class FacturaController {
 			factura.setPendienteDePago(new BigDecimal(0));
 		}
 
+		Usuario usuarioCliente = optionalUsuario.get();
 
-		Optional<Usuario> optionalUsuario =
-				usuarioRepository.findById(pedidoDto.getUsuarioId());
+		factura.setCliente(usuarioCliente);
 
+		factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
 
-		if(optionalUsuario.isPresent()){
+		BigDecimal saldoPendiente = usuarioCliente.getPendienteDePago();
 
-			Usuario usuarioCliente = optionalUsuario.get();
+		// Saldo anterior antes de este pedidoN
+		//usuarioCliente.setPendienteDePagoCopy(saldoPendiente);
 
-			factura.setCliente(usuarioCliente);
-
-			factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
-
-			BigDecimal saldoPendiente = usuarioCliente.getPendienteDePago();
-
-			// Saldo anterior antes de este pedidoN
-			//usuarioCliente.setPendienteDePagoCopy(saldoPendiente);
-
-			usuarioCliente.setPendienteDePago(
-				saldoPendiente.add( pedidoDto.getTotal() )
-			);
-
-		}
-
-
+		usuarioCliente.setPendienteDePago(
+			saldoPendiente.add( pedidoDto.getTotal() )
+		);
 
 		factura = facturaRepository.save(factura);
 
