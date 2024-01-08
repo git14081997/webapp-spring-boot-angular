@@ -39,8 +39,8 @@ export class FacturaListComponent implements OnInit {
 	private http = inject(HttpClient);
 	service: PruebasService;
 	parametros: any = {};
-	objetoSeleccionado: any = {};
-	objetos: any[] = [];
+	facturaSeleccionada: any = {};
+	facturas: any[] = [];
 	verLista: string = 'S';
 	verEditable: string = 'N';
 	crearOrActualizar: string = 'C';
@@ -77,11 +77,11 @@ export class FacturaListComponent implements OnInit {
 
 				this.tmp = RESPONSE;
 
-				this.objetos = this.tmp.content;
+				this.facturas = this.tmp.content;
 				this.paginasDisponibles = this.tmp.totalPages;
 				this.total = this.tmp.totalElements;
 
-				for( let objetoN of this.objetos ){
+				for( let objetoN of this.facturas ){
 					objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
 				}
 
@@ -105,6 +105,7 @@ export class FacturaListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+	/*
 	eliminarPorID(id: number) {
 		this.service.deleteById(
 			this.parametroServicio, id
@@ -112,6 +113,8 @@ export class FacturaListComponent implements OnInit {
 			this.getPorPagina();
 		});
 	}
+	*/
+
 
 	setPaginaCantidad(pagina: number, cantidad: number) {
 		this.pagina = pagina;
@@ -119,7 +122,7 @@ export class FacturaListComponent implements OnInit {
 	}
 
 	verVentanaAgregar() {
-		this.objetoSeleccionado = {};
+		this.facturaSeleccionada = {};
 		this.verLista = 'N';
 		this.verEditable = 'S';
 		this.crearOrActualizar = 'C';
@@ -128,7 +131,7 @@ export class FacturaListComponent implements OnInit {
 	verListado() {
 		this.verLista = 'S';
 		this.verEditable = 'N';
-		this.objetoSeleccionado = {};
+		this.facturaSeleccionada = {};
 	}
 
 	agregar(parametros: any) {
@@ -149,14 +152,14 @@ export class FacturaListComponent implements OnInit {
 		).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
-			this.objetoSeleccionado = {};
+			this.facturaSeleccionada = {};
 			window.location.reload();
 		});
 	}
 
 
 	actualizarSeleccionado(parametros: any) {
-		this.objetoSeleccionado = parametros;
+		this.facturaSeleccionada = parametros;
 		//this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
@@ -165,35 +168,29 @@ export class FacturaListComponent implements OnInit {
 	}
 
 
-	buscarEnDb(parametros: any){
+	
+	buscarEnDb(nombreCliente: any){
 
-		let descripcion = parametros;
-
-		this.getPaginadoBuscando(
-			this.parametroServicio, 0, 20, descripcion
+		return this.http.post<any>(
+			hostname + '/api/factura/nombre/' + nombreCliente,
+			this.parametroServicio.headers
 		).subscribe((RESPONSE) => {
-
-			this.tmp = RESPONSE;
-
-			this.objetos = this.tmp.content;
-			this.paginasDisponibles = this.tmp.totalPages;
-			this.total = this.tmp.totalElements;
-
-			this.paginasDisponiblesArray = [];
-			for(let i = 0; i < this.paginasDisponibles; i++){
-				let newObj = { "numPagina": i };
-				this.paginasDisponiblesArray.push(newObj);
-			}
+			console.log(RESPONSE);
+			this.facturas = RESPONSE;
 		});
+
 	}
+	
+	
 
 	limpiarBusqueda(){
-		this.objetoSeleccionado.buscar = "";
+		this.facturaSeleccionada.buscar = "";
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
 		this.getPorPagina();
 	}
 
+	/*
 	getPaginadoBuscando(parametro:ParametroServicio, 
 		pagina: number, cantidad: number,descripcion: string): Observable<any> {
 
@@ -202,6 +199,7 @@ export class FacturaListComponent implements OnInit {
 			"/buscar" + "?descripcion="+descripcion,
 			parametro.headers);
 	}
+	*/
 
 
 
@@ -210,12 +208,17 @@ export class FacturaListComponent implements OnInit {
 
 
 	getDetallePorFactura(facturaId:number) {
+
 		let enlace = this.parametroServicioDetallefacturas.url + "/" + facturaId;
 		this.parametroServicioDetallefacturas.url = enlace;
-		this.service.getAll(this.parametroServicioDetallefacturas).subscribe((RESPONSE: any) => {
-			console.log(RESPONSE);
-			this.detallesPorFactura = RESPONSE;
-		});
+
+		this.service.getAll(this.parametroServicioDetallefacturas)
+			.subscribe((RESPONSE: any) => {
+				this.detallesPorFactura = RESPONSE;
+			}
+		);
+
+
 	}
 
 

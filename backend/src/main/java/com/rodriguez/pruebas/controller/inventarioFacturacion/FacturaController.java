@@ -302,4 +302,32 @@ public class FacturaController {
 
 
 
+	/**
+	 * Retorna las facturas que le pertenescan a cierto cliente y
+	 * estarán ordenadadas por fecha de emision de manera descendente
+	 * para ver las facturas más recientes.
+	 *
+	 * @return List<Factura> resultados encontrados.
+	 */
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "nombre/{nombreusuario}")
+	public List<Factura> findByCliente(@PathVariable String nombreusuario){
+
+String sql = """
+SELECT FACTURA.* FROM INVENTARIO_FACTURACION.FACTURA left join INVENTARIO_FACTURACION.USUARIO
+on FACTURA.USUARIO_ID = USUARIO.ID
+WHERE FACTURA.NOMBRE_COMPLETO LIKE ? OR USUARIO.NOMBRE_COMPLETO LIKE ?
+ORDER BY FACTURA.FECHA_EMISION DESC
+""";
+
+		String patronDeBusqueda = "%" + nombreusuario + "%";
+
+		List<Factura> facturasDelCliente = jdbcTemplate.query(
+			sql, new BeanPropertyRowMapper<>(Factura.class),
+			nombreusuario, patronDeBusqueda
+		);
+		return facturasDelCliente;
+	}
+
+
+
 }

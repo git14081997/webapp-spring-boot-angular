@@ -122,7 +122,7 @@ this.service.post(this.parametroServicio,this.todoElPedido)
 		let facturaId = facturaN.id;
 		facturaId = JSON.stringify(facturaId);
 		localStorage.setItem('id', facturaId );
-		window.location.href = '/factura';
+		window.location.href = '/facturas';
 	}
 );
 
