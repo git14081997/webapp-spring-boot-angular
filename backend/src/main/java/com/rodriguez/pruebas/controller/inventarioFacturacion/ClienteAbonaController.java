@@ -2,8 +2,12 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.IngresosEgresos;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.IngresosEgresosRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -24,8 +28,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.math.BigDecimal;
 import java.util.Optional;
+
 
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
@@ -53,12 +58,67 @@ public class ClienteAbonaController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private FacturaRepository facturaRepository;
+
+	@Autowired
+	private IngresosEgresosRepository ingresosEgresosRepository;
+
+
+
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody ClienteAbona clienteAbona ){
 		//ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
 		clienteAbona.setDetalles("CLIENTE HACE PAGO");
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
+
+
+		// REGISTRA ABONO EN USUARIO-1
+		BigDecimal valorPago = clienteAbona.getAbonos();
+
+		BigDecimal valorCero = new BigDecimal(0);
+
+		if(valorPago.compareTo( valorCero ) > 0 ){
+
+			// Se reduce saldo pendiente de pago del Cliente-1
+			Usuario clienteResponsable = usuarioRepository.getReferenceById( clienteAbona.getCliente().getId() );
+			BigDecimal pendienteDePagoEnCliente = clienteResponsable.getPendienteDePago();
+			BigDecimal nuevoSaldoPendienteEnCliente = pendienteDePagoEnCliente.subtract( valorPago );
+			clienteResponsable.setPendienteDePago( nuevoSaldoPendienteEnCliente );
+			// Se reduce saldo pendiente de pago del Cliente-2
+
+
+
+			// Se reduce saldo pendiente de pago de la factura-1
+			Factura factura = facturaRepository.getReferenceById( clienteAbona.getFactura().getId() );
+			BigDecimal pendienteDePagoEnFactura = factura.getPendienteDePago();
+			BigDecimal nuevoSaldoPendienteDePagoEnFactura = pendienteDePagoEnFactura.subtract(valorPago);
+			factura.setPendienteDePago(nuevoSaldoPendienteDePagoEnFactura);
+			// Se reduce saldo pendiente de pago de la factura-2
+
+
+
+			// Se agrega al historico de ingresos y egresos-1
+			// estos son ingresos brutos, la ganancia exacta esta por factura
+			// si y solo si el pago fue en efectivo o si ya se pago toda la factura/pedido
+
+			IngresosEgresos ingresosEgresos = new IngresosEgresos();
+			ingresosEgresos.setIngresos( valorPago );
+			ingresosEgresos.setEgresos( valorCero );
+			ingresosEgresos.setDetalle("Abono de cliente a su saldo pendiente de pago" );
+			// Se agrega al historico de ingresos y egresos-2
+
+
+
+		} // REGISTRA ABONO EN USUARIO-2
+
+
+
+
+
+
+
 		return clienteAbona.getId();
 	}
 
@@ -92,7 +152,7 @@ public class ClienteAbonaController {
 	public Page<ClienteAbona> findAllByUsuarioId(@PathVariable Integer pagina, @PathVariable Integer cantidad,
 		@PathVariable Integer usuarioid) {
 
-		Sort sort = Sort.by(Sort.Direction.DESC ,"FECHA");
+		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
 		Usuario clienteResponsable = usuarioRepository.getReferenceById(usuarioid);

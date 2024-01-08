@@ -110,7 +110,7 @@ public class FacturaController {
 		cargosAbonosCliente.setDetalles("CLIENTE NOS COMPRA");
 
 		// traer ultimo registro de cargos y abonos para consultar el saldo de ese ultimo registro
-		Sort sort = Sort.by(Sort.Direction.DESC ,"FECHA");
+		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
 		Pageable pageableCargosAbonosCliente = PageRequest.of(0,3,sort);
 
 		Optional<Usuario> optionalUsuario = usuarioRepository.findById(pedidoDto.getUsuarioId());
