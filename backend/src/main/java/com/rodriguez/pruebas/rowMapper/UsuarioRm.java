@@ -17,7 +17,7 @@ public class UsuarioRm implements RowMapper<Usuario> {
 
 		usuario.setPendienteDePago(new BigDecimal(rs.getString("pendienteDePago")));
 
-		usuario.setCorreo(rs.getString("correo"));
+		//usuario.setCorreo(rs.getString("correo"));
 		usuario.setNombre(rs.getString("nombre"));
 		usuario.setApellido(rs.getString("apellido"));
 

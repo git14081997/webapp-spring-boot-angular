@@ -50,8 +50,8 @@ public class CrudClasico {
 		setSql("INSERT INTO USUARIO(CORREO, CONTRASENA,NOMBRE,APELLIDO) values (?,?,?,?)");
 		prepareStatement = connection.prepareStatement(sql);
 
-		prepareStatement.setString(1, usuario.getCorreo());
-		prepareStatement.setString(2, usuario.getContrasena());
+//		prepareStatement.setString(1, usuario.getCorreo());
+//		prepareStatement.setString(2, usuario.getContrasena());
 		prepareStatement.setString(3, usuario.getNombre());
 		prepareStatement.setString(4, usuario.getApellido());
 
@@ -128,8 +128,8 @@ public class CrudClasico {
 		while (resultSet.next()) {
 			Usuario emp = new Usuario();
 			emp.setId(resultSet.getInt("id"));
-			emp.setCorreo(resultSet.getString("correo"));
-			emp.setContrasena(resultSet.getString("contrasena"));
+			//emp.setCorreo(resultSet.getString("correo"));
+			//emp.setContrasena(resultSet.getString("contrasena"));
 			emp.setNombre(resultSet.getString("nombre"));
 			emp.setApellido(resultSet.getString("apellido"));
 			ans.add(emp);

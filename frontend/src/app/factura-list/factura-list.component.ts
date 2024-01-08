@@ -171,10 +171,10 @@ export class FacturaListComponent implements OnInit {
 	
 	buscarEnDb(nombreCliente: any){
 
-		return this.http.post<any>(
+		return this.http.get<any>(
 			hostname + '/api/factura/nombre/' + nombreCliente,
 			this.parametroServicio.headers
-		).subscribe((RESPONSE) => {
+		).subscribe((RESPONSE:any) => {
 			console.log(RESPONSE);
 			this.facturas = RESPONSE;
 		});

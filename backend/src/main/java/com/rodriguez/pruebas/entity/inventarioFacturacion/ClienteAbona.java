@@ -22,7 +22,7 @@ import java.util.Date;
  * Esta clase es una abstracción de la entidad ClienteAbona,
  * y almacenará la información que se desee.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @AllArgsConstructor
@@ -52,10 +52,10 @@ public class ClienteAbona implements Serializable {
 	private BigDecimal saldoAnterior; // saldo historico
 
 	@Column( name = "CARGOS", scale = 2)
-	private BigDecimal cargos; // cliente se compro al credito
+	private BigDecimal cargos; // cliente compro al credito
 
 	@Column( name = "ABONOS", scale = 2)
-	private BigDecimal abonos; // cliente paga parcial o totalmente su deuda por compras
+	private BigDecimal abonos; // cliente paga parcial o totalmente su deuda por compras Al Credito
 
 	@Column( name = "SALDO", scale = 2)
 	private BigDecimal saldo; // saldo actual, que cliente pagará eventualmente
