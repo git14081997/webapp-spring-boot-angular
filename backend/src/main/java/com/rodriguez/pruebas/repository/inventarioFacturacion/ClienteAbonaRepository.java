@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository("clienteAbonaRepository")
 public interface ClienteAbonaRepository extends JpaRepository<ClienteAbona, Integer> {
 
-	Page<ClienteAbona> findyByUsuarioId(Pageable pageable, Integer usuarioId);
+	Page<ClienteAbona> findByCliente(Pageable pageable, Integer usuarioId);
 
 }

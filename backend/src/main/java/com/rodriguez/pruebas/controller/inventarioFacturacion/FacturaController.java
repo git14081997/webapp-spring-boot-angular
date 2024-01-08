@@ -1,6 +1,7 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
+import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.DetallePedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.FacturaDetalle;
@@ -8,6 +9,7 @@ import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.PedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaDetalleRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.FacturaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
@@ -39,6 +41,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
  *
@@ -57,6 +60,9 @@ public class FacturaController {
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
 	private FacturaRepository facturaRepository;
 
 	@Autowired
@@ -71,9 +77,10 @@ public class FacturaController {
 	@Autowired
 	private InventarioRepository inventarioRepository;
 
-
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private ClienteAbonaRepository clienteAbonaRepository;
+
+
 
 
 
@@ -91,6 +98,34 @@ public class FacturaController {
 		factura.setIva( pedidoDto.getIva() );
 
 		factura.setTotal( pedidoDto.getTotal() );
+
+		ClienteAbona cargosAbonosCliente = new ClienteAbona();
+
+		Usuario cliente = usuarioRepository.getReferenceById(pedidoDto.getUsuarioId());
+
+		cargosAbonosCliente.setCliente(cliente);
+
+		cargosAbonosCliente.setCargos(pedidoDto.getTotal());
+		cargosAbonosCliente.setAbonos(new BigDecimal(0));
+
+		// traer ultimo registro de cargos y abonos para consultar el saldo de ese ultimo registro
+		Sort sort = Sort.by(Sort.Direction.DESC ,"FECHA");
+		Pageable pageableCargosAbonosCliente = PageRequest.of(0,3,sort);
+		Page<ClienteAbona> cargos_abonos_del_cliente = clienteAbonaRepository.findByCliente(
+			pageableCargosAbonosCliente, pedidoDto.getUsuarioId()
+		);
+
+		List<ClienteAbona> listaDeCargosAbonosCliente = cargos_abonos_del_cliente.getContent();
+		ClienteAbona ultimoRegistroCargosAbonos = listaDeCargosAbonosCliente.get(0);
+
+		cargosAbonosCliente.setSaldoAnterior(ultimoRegistroCargosAbonos.getSaldo());
+
+		BigDecimal saldoAnterior = ultimoRegistroCargosAbonos.getSaldo();
+
+		BigDecimal nuevoSaldoActual = saldoAnterior.add( cargosAbonosCliente.getCargos() );
+
+		cargosAbonosCliente.setSaldo(nuevoSaldoActual);
+
 
 
 		BigDecimal total = pedidoDto.getTotal();
@@ -127,7 +162,7 @@ public class FacturaController {
 			BigDecimal saldoPendiente = usuarioCliente.getPendienteDePago();
 
 			// Saldo anterior antes de este pedidoN
-			usuarioCliente.setPendienteDePagoCopy(saldoPendiente);
+			//usuarioCliente.setPendienteDePagoCopy(saldoPendiente);
 
 			usuarioCliente.setPendienteDePago(
 				saldoPendiente.add( pedidoDto.getTotal() )
@@ -141,6 +176,9 @@ public class FacturaController {
 
 		Integer idFactura = factura.getId();
 
+
+		cargosAbonosCliente.setFactura(factura);
+		clienteAbonaRepository.save(cargosAbonosCliente);
 
 
 		// DETALLES DE FACTURA/PEDIDO
@@ -182,16 +220,16 @@ public class FacturaController {
 				inventario.setSalidas(detallePedidoDto.getCantidadProductoVendido());
 
 				// traer el ultimo registro por fecha y guardar su saldo como saldoAnterior
-				Integer saldoAnterior = 0;
+				Integer saldoAnteriorProducto = 0;
 				Inventario ultimoRegistroDelInventario =
 				buscarUltimoRegistroDelInventarioDelProducto(productoN.getId());
-				saldoAnterior = ultimoRegistroDelInventario.getExistencia();
+				saldoAnteriorProducto = ultimoRegistroDelInventario.getExistencia();
 
-				inventario.setSaldoAnterior(saldoAnterior);
+				inventario.setSaldoAnterior(saldoAnteriorProducto);
 
 				inventario.setProducto(productoN);
 
-				Integer saldoActualExistencias = saldoAnterior + inventario.getEntradas() - inventario.getSalidas();
+				Integer saldoActualExistencias = saldoAnteriorProducto + inventario.getEntradas() - inventario.getSalidas();
 
 				inventario.setExistencia( saldoActualExistencias );
 
@@ -262,13 +300,13 @@ public class FacturaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Factura> resultados encontrados.
 	 */
-	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Factura> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return facturaRepository.findAll(pageable);
 	}
+
 
 
 
@@ -309,7 +347,7 @@ public class FacturaController {
 	 *
 	 * @return List<Factura> resultados encontrados.
 	 */
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "nombre/{nombreusuario}")
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "nombre/{nombreusuario}")
 	public List<Factura> findByCliente(@PathVariable String nombreusuario){
 
 String sql = """

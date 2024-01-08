@@ -19,17 +19,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
@@ -77,19 +75,22 @@ public class ClienteAbonaController {
 
 
 	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 * Retorna un listado ordenado por fecha descendente de
+	 * cargos y abonos de un cliente especifico.
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.
 	 * @return Page<ClienteAbona> resultados encontrados.
 	 */
-	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
-	public Page<ClienteAbona> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+	public Page<ClienteAbona> findAllByUsuarioId(@PathVariable Integer pagina, @PathVariable Integer cantidad,
+		@PathVariable Integer usuarioid) {
+		Sort sort = Sort.by(Sort.Direction.DESC ,"FECHA");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return clienteAbonaRepository.findAll(pageable);
+		return clienteAbonaRepository.findByCliente(pageable, usuarioid);
 	}
+
+
 
 
 /*
@@ -101,40 +102,25 @@ public class ClienteAbonaController {
 
 
 
-	 
-	@PutMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public void update(@RequestBody ClienteAbona clienteAbona ){
-
-		clienteAbonaRepository.save(clienteAbona);
 
 
-		/*
-		Integer tmpId = clienteAbona.getId();
 
-		if(tmpId == null){
-			return -1;
-		}
-		else {
+/*
+	private List<ClienteAbona> getUltimoSaldo(Integer usuarioId ){
 
-			Optional<ClienteAbona> dataOnDB = clienteAbonaRepository.findById(tmpId);
+	String sql = """
+SELECT * FROM INVENTARIO_FACTURACION.CLIENTE_ABONA WHERE
+CLIENTE_ABONA.USUARIO_ID = ? ORDER BY CLIENTE_ABONA.FECHA DESC
+""";
 
-			if( dataOnDB.isPresent() ){
-				ClienteAbona objetoTemp = dataOnDB.get();
+	List<ClienteAbona> historialCargosAbonos = jdbcTemplate.query(
+		sql, new BeanPropertyRowMapper<>(ClienteAbona.class), usuarioId
+	);
 
-				objetoTemp.setFecha(dto.getFecha());
-				objetoTemp.setValor(dto.getValor());
+	return historialCargosAbonos;
 
-				clienteAbonaRepository.save(objetoTemp);
-				return 0;
-			}
-			else {
-				return -2;
-			}
-		}
-
-		*/
 	}
-
+	*/
 
 
 

@@ -1,7 +1,9 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
+import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -22,17 +24,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
@@ -47,10 +49,13 @@ public class UsuarioController {
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private ClienteAbonaRepository clienteAbonaRepository;
 
 
 
@@ -98,10 +103,24 @@ public class UsuarioController {
 			usuario.getNombre() + " " + usuario.getNombreDos() + " " + usuario.getApellido() + " " + usuario.getApellidoDos()
 			);
 
+
 			usuario.setPendienteDePago(new BigDecimal(0));
-			usuario.setPendienteDePagoCopy(usuario.getPendienteDePago());
+
+			BigDecimal saldoCero = new BigDecimal(0);
+
+			ClienteAbona clienteAbona = new ClienteAbona();
+			clienteAbona.setSaldo(saldoCero);
+			clienteAbona.setSaldoAnterior(saldoCero);
+			clienteAbona.setCargos(saldoCero);
+			clienteAbona.setAbonos(saldoCero);
+			clienteAbona.setDetalles("Saldo inicial");
+			clienteAbona.setFactura(null);
 
 			usuario = usuarioRepository.save(usuario);
+
+			clienteAbona.setCliente( usuario );
+			clienteAbonaRepository.save(clienteAbona);
+
 			return usuario.getId();
 		}
 
@@ -142,19 +161,19 @@ public class UsuarioController {
 
 
 
-	@ResponseBody
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
 	public Usuario findById(@PathVariable Integer id){
 		Optional<Usuario> resultado = usuarioRepository.findById(id);
 		if(resultado.isPresent()){
 			Usuario usuarioEncontrado = resultado.get();
-			usuarioEncontrado.setContrasena("");
+			//usuarioEncontrado.setContrasena("");
 
-			usuarioEncontrado.setUsuarioCreo(null);
-			usuarioEncontrado.setUsuarioModifico(null);
+			//usuarioEncontrado.setUsuarioCreo(null);
+			//usuarioEncontrado.setUsuarioModifico(null);
 
-			usuarioEncontrado.setFechaCreado(null);
-			usuarioEncontrado.setFechaModificado(null);
+			//usuarioEncontrado.setFechaCreado(null);
+			//usuarioEncontrado.setFechaModificado(null);
 
 			return usuarioEncontrado;
 		}
@@ -188,13 +207,13 @@ public class UsuarioController {
 
 		List<Usuario> usuarios = resultado.getContent();
 		usuarios.forEach( usuarioEncontrado -> {
-			usuarioEncontrado.setContrasena("");
+//			usuarioEncontrado.setContrasena("");
 
-			usuarioEncontrado.setUsuarioCreo(null);
-			usuarioEncontrado.setUsuarioModifico(null);
+//			usuarioEncontrado.setUsuarioCreo(null);
+//			usuarioEncontrado.setUsuarioModifico(null);
 
-			usuarioEncontrado.setFechaCreado(null);
-			usuarioEncontrado.setFechaModificado(null);
+//			usuarioEncontrado.setFechaCreado(null);
+//			usuarioEncontrado.setFechaModificado(null);
 
 		});
 
@@ -221,32 +240,24 @@ public class UsuarioController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
 	public Page<Usuario> findAllByNombreAndApellido(
 		@PathVariable Integer pagina, @PathVariable Integer cantidad,
-		@RequestParam(required = true) String nombre,
-		@RequestParam(required = false) String apellido
+		@RequestParam(required = true) String nombre
 	){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		Page<Usuario> resultado;
-
-		if( apellido != null) {
-			resultado = usuarioRepository.findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(pageable,nombre,apellido);
-		}
-		else {
-			resultado = usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable,nombre);
-		}
+		Page<Usuario> resultado = usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable, nombre);
 
 		List<Usuario> usuarios = resultado.getContent();
 
 		usuarios.forEach( usuarioEncontrado -> {
-			usuarioEncontrado.setContrasena("");
+//			usuarioEncontrado.setContrasena("");
 
-			usuarioEncontrado.setUsuarioCreo(null);
-			usuarioEncontrado.setUsuarioModifico(null);
+//			usuarioEncontrado.setUsuarioCreo(null);
+//			usuarioEncontrado.setUsuarioModifico(null);
 
-			usuarioEncontrado.setFechaCreado(null);
-			usuarioEncontrado.setFechaModificado(null);
+//			usuarioEncontrado.setFechaCreado(null);
+//			usuarioEncontrado.setFechaModificado(null);
 
 		});
 
