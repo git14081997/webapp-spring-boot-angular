@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 /**
  * Esta clase es una abstracción de la entidad IngresoEgresos,
  * y almacenará la información que se desee.
@@ -44,9 +43,6 @@ public class IngresosEgresos implements Serializable {
 
 	@Column( name = "EGRESOS", scale = 2)
 	private BigDecimal egresos;
-
-	@Column( name = "SALDO", scale = 2)
-	private BigDecimal saldo;
 
 	@CreationTimestamp
 	@Column( name = "FECHA")
