@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -59,32 +59,33 @@ public class UsuarioController {
 
 
 
-	/*
+
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public void update(@RequestBody Usuario usuario){
+	public void update(@RequestBody Usuario dto){
 
-		// copia del saldo pendiente de pago, antes de cambiarlo
-		Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuario.getId());
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(dto.getId());
+
 		if(usuarioOptional.isPresent()){
-			Usuario usuarioCopy = usuarioOptional.get();
-			usuarioCopy.setPendienteDePagoCopy(usuarioCopy.getPendienteDePago());
-			usuarioRepository.save(usuarioCopy);
 
-			usuario.setPendienteDePagoCopy(usuarioCopy.getPendienteDePago());
+			Usuario usuarioDB = usuarioOptional.get();
 
-			// actualizando datos
-			usuarioRepository.save(usuario);
+
+
+			usuarioRepository.save(usuarioDB);
+
 		}
 
 	}
 
-	 */
+
 
 
 
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody Usuario usuario ){
+
+		BigDecimal cero = new BigDecimal(0);
 
 		Integer usuarioId = usuario.getId();
 		if(null == usuarioId){
@@ -103,16 +104,13 @@ public class UsuarioController {
 			usuario.getNombre() + " " + usuario.getNombreDos() + " " + usuario.getApellido() + " " + usuario.getApellidoDos()
 			);
 
-
-			usuario.setPendienteDePago(new BigDecimal(0));
-
-			BigDecimal saldoCero = new BigDecimal(0);
+			usuario.setPendienteDePago(cero);
 
 			ClienteAbona clienteAbona = new ClienteAbona();
-			clienteAbona.setSaldo(saldoCero);
-			clienteAbona.setSaldoAnterior(saldoCero);
-			clienteAbona.setCargos(saldoCero);
-			clienteAbona.setAbonos(saldoCero);
+			clienteAbona.setSaldo(cero);
+			clienteAbona.setSaldoAnterior(cero);
+			clienteAbona.setCargos(cero);
+			clienteAbona.setAbonos(cero);
 			clienteAbona.setDetalles("Saldo inicial");
 			clienteAbona.setFactura(null);
 
@@ -125,36 +123,6 @@ public class UsuarioController {
 		}
 
 		return -1;
-
-		/*
-		Integer usuarioId = usuarioDto.getId();
-
-		if(usuarioId != null){
-			return -1;
-		}
-		else {
-			Usuario usuario = MODEL_MAPPER.map(usuarioDto,Usuario.class);
-
-			if(usuario.getPendienteDePago() == null) {
-				usuario.setPendienteDePago(new BigDecimal(0));
-			}
-
-
-			if(usuario.getBloqueado() == null) {
-				usuario.setBloqueado("N");
-			}
-
-			usuario.setNombreCompleto(
-				usuario.getNombre() + " " +
-				usuario.getNombreDos() + " " +
-				usuario.getApellido() + " " +
-				usuario.getApellidoDos()
-			);
-
-			usuario = usuarioRepository.save(usuario);
-			return usuario.getId();
-
-		 */
 	}
 
 
@@ -167,14 +135,6 @@ public class UsuarioController {
 		Optional<Usuario> resultado = usuarioRepository.findById(id);
 		if(resultado.isPresent()){
 			Usuario usuarioEncontrado = resultado.get();
-			//usuarioEncontrado.setContrasena("");
-
-			//usuarioEncontrado.setUsuarioCreo(null);
-			//usuarioEncontrado.setUsuarioModifico(null);
-
-			//usuarioEncontrado.setFechaCreado(null);
-			//usuarioEncontrado.setFechaModificado(null);
-
 			return usuarioEncontrado;
 		}
 		return null;
@@ -191,6 +151,8 @@ public class UsuarioController {
 	*/
 
 
+
+
 	/**
 	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
 	 *
@@ -200,25 +162,11 @@ public class UsuarioController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		Page<Usuario> resultado = usuarioRepository.findAll(pageable);
-
-		List<Usuario> usuarios = resultado.getContent();
-		usuarios.forEach( usuarioEncontrado -> {
-//			usuarioEncontrado.setContrasena("");
-
-//			usuarioEncontrado.setUsuarioCreo(null);
-//			usuarioEncontrado.setUsuarioModifico(null);
-
-//			usuarioEncontrado.setFechaCreado(null);
-//			usuarioEncontrado.setFechaModificado(null);
-
-		});
-
-		return resultado;
+		return usuarioRepository.findAll(pageable);
 	}
+
 
 
 /*
@@ -230,43 +178,23 @@ public class UsuarioController {
 
 
 
-	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
-	 *
-	 * @param pagina consultada.
-	 * @param cantidad maxima por pagina.
-	 * @return Page<Usuario> resultados encontrados.
-	 */
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
-	public Page<Usuario> findAllByNombreAndApellido(
-		@PathVariable Integer pagina, @PathVariable Integer cantidad,
-		@RequestParam(required = true) String nombre
-	){
+/**
+* Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+*
+* @param pagina consultada.
+* @param cantidad maxima por pagina.
+* @return Page<Usuario> resultados encontrados.
+*/
+@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
+public Page<Usuario> findAllByNombreAndApellido(
+@PathVariable Integer pagina, @PathVariable Integer cantidad, @RequestParam(required = true) String nombre){
 
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		Page<Usuario> resultado = usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable, nombre);
-
-		List<Usuario> usuarios = resultado.getContent();
-
-		usuarios.forEach( usuarioEncontrado -> {
-//			usuarioEncontrado.setContrasena("");
-
-//			usuarioEncontrado.setUsuarioCreo(null);
-//			usuarioEncontrado.setUsuarioModifico(null);
-
-//			usuarioEncontrado.setFechaCreado(null);
-//			usuarioEncontrado.setFechaModificado(null);
-
-		});
-
-
-
-
-
-		return resultado;
+		return usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable, nombre);
 	}
+
 
 
 }

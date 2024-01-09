@@ -65,7 +65,7 @@ this.productosEncontrados = [];
 
 getPaginadoBuscando(nombre: string) {
 return this.http.get<any>(
-hostname + '/api/producto' + "/" + 0 + "/" + 10 +
+hostname + '/api/producto' + "/" + 0 + "/" + 20 +
 "/buscar" + "?nombre="+nombre,
 this.parametroServicio.headers).subscribe((RESPONSE:any) => {
 this.productosEncontrados = RESPONSE.content;
@@ -90,10 +90,6 @@ objetoN.cantidadProductoVendido = 1;
 
 objetoN.productoId = objetoN.id;
 
-//let refProducto:any = {};
-//refProducto.productoId = objetoN.id;
-//objetoN.producto = refProducto;
-
 // se agrega al pedido
 this.objetosPedido.push(objetoN);
 
@@ -112,20 +108,13 @@ this.todoElPedido.usuarioId = Number(this.todoElPedido.usuarioId );
 
 this.actualizarDetallePedido();
 
-
-// enviar
-console.log(this.todoElPedido);
-
-
-this.service.post(this.parametroServicio,this.todoElPedido)
-	.subscribe((facturaN) => {
+this.service.post(this.parametroServicio,this.todoElPedido).subscribe((facturaN) => {
 		let facturaId = facturaN.id;
 		facturaId = JSON.stringify(facturaId);
 		localStorage.setItem('id', facturaId );
 		window.location.href = '/facturas';
 	}
 );
-
 
 
 }
@@ -192,7 +181,7 @@ this.todoElPedido.detalle = null;
 
 
 getClientes(nombre: string){
-	return this.http.get<any>(hostname + '/api/usuario' + "/" + 0 + "/" + 10 +
+	return this.http.get<any>(hostname + '/api/usuario' + "/" + 0 + "/" + 20 +
 		"/buscar" + "?nombre="+nombre,
 		this.parametroServicio.headers).subscribe((RESPONSE:any) => {
 		this.clientesEncontrados = RESPONSE.content;
@@ -202,7 +191,6 @@ getClientes(nombre: string){
 
 limpiarBusquedaClientes(){
 	this.parametros.buscarCliente = "";
-	// this.clientesEncontrados = [];
 }
 
 
@@ -215,7 +203,6 @@ setClienteCompra(clienteEncontrado:any, indice: number ){
 		+ " " + clienteEncontrado.apellido
 		+ " " + clienteEncontrado.apellidoDos;
 
-
 }
 
 
@@ -226,7 +213,6 @@ validarNewPrecioVenta(objetoN:any){
 	else {
 		objetoN.precioVenta = objetoN.precioVentaMin;
 	}
-
 }
 
 

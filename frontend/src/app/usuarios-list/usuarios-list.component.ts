@@ -55,14 +55,17 @@ export class UsuariosListComponent implements OnInit {
 		this.service = new PruebasService;
 	}
 
+	
 	ngOnInit(): void {
 		this.getPorPagina();
 	}
+
 
 	setCantidadPorPag(){
 		this.pagina = 0;
 		this.getPorPagina();
 	}
+
 
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
@@ -87,6 +90,7 @@ export class UsuariosListComponent implements OnInit {
 			});
 	}
 
+
 	getPorPaginaNum(numPagina:number) {
 		if(numPagina >= this.paginasDisponibles ){
 			numPagina = this.paginasDisponibles - 1;
@@ -98,6 +102,7 @@ export class UsuariosListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+
 	eliminarPorID(id: number) {
 		this.service.deleteById(
 			this.parametroServicio, id
@@ -106,10 +111,12 @@ export class UsuariosListComponent implements OnInit {
 		});
 	}
 
+
 	setPaginaCantidad(pagina: number, cantidad: number) {
 		this.pagina = pagina;
 		this.cantidad = cantidad;
 	}
+
 
 	verVentanaAgregar() {
 		this.objetoSeleccionado = {};
@@ -119,6 +126,7 @@ export class UsuariosListComponent implements OnInit {
 		this.crearOrActualizar = 'C';
 	}
 
+
 	verVentanaEditar() {
 		this.objetoSeleccionado = {};
 		this.verLista = 'N';
@@ -127,6 +135,7 @@ export class UsuariosListComponent implements OnInit {
 		this.crearOrActualizar = 'A';
 	}
 
+
 	verListado() {
 		this.verLista = 'S';
 		this.verEditable = 'N';
@@ -134,11 +143,9 @@ export class UsuariosListComponent implements OnInit {
 		this.objetoSeleccionado = {};
 	}
 
+
 	agregar(parametros: any) {
-		this.service.post(
-			this.parametroServicio,
-			parametros
-		).subscribe(() => {
+		this.service.post(this.parametroServicio,parametros).subscribe(() => {
 			this.verListado();
 			this.getPorPagina();
 		});
@@ -146,16 +153,16 @@ export class UsuariosListComponent implements OnInit {
 
 
 	actualizar(parametros: any) {
-		this.service.put(
-			this.parametroServicio,
-			parametros
-		).subscribe(() => {
+		this.service.put(this.parametroServicio, parametros).subscribe(() => {
 
 			this.verListado();
 			this.objetoSeleccionado = {};
-			window.location.reload();
+			window.location.reload();	
+
 		});
+
 	}
+
 
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
@@ -164,6 +171,7 @@ export class UsuariosListComponent implements OnInit {
 		this.verEditable = 'S';
 		this.verAgregar = 'N';
 	}
+
 
 	buscarEnDb(parametros: any){
 
@@ -175,9 +183,7 @@ export class UsuariosListComponent implements OnInit {
 			apellido = arrayRes[1];	
 		}
 
-		this.getPaginadoBuscando(
-			this.parametroServicio, 0, 20, nombre,apellido
-		).subscribe((RESPONSE) => {
+		this.getPaginadoBuscando(this.parametroServicio, 0, 20, nombre).subscribe((RESPONSE) => {
 
 			this.tmp = RESPONSE;
 
@@ -194,8 +200,10 @@ export class UsuariosListComponent implements OnInit {
 				let newObj = { "numPagina": i };
 				this.paginasDisponiblesArray.push(newObj);
 			}
+
 		});
 	}
+
 
 	limpiarBusqueda(){
 		this.objetoSeleccionado.buscar = "";
@@ -204,13 +212,19 @@ export class UsuariosListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+
 	getPaginadoBuscando(
-		parametro:ParametroServicio, pagina: number, cantidad: number,
-		nombre: string, apellido: string): Observable<any> {
-		return this.http.get<any>(
-			hostname + parametro.url + "/" + pagina + "/" + cantidad +
-			"/buscar" + "?nombre="+nombre + "&apellido="+apellido,
-			parametro.headers);
+		parametro:ParametroServicio,
+		pagina: number, 
+		cantidad: number,
+		nombre: string): Observable<any> {
+			
+			return this.http.get<any>(
+				hostname + parametro.url + "/" + pagina + "/" + cantidad +
+				"/buscar" + "?nombre="+nombre, parametro.headers
+			);
 	}
+
+
 
 }
