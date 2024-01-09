@@ -20,9 +20,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	Page<Usuario> findByNombreCompletoContainingIgnoreCase(Pageable pageable, String nombre);
 
-	Page<Usuario> findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(Pageable pageable,String nombre, String apellido);
 
 	/*
+
+	Page<Usuario> findByNombreContainingIgnoreCaseAndApellidoContainingIgnoreCase(Pageable pageable,String nombre, String apellido);
 
 	List<Usuario> findByNombreIgnoreCase(String nombre);
 
