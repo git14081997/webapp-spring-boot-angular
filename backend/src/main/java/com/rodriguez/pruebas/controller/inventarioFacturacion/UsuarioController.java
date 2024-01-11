@@ -115,24 +115,24 @@ public class UsuarioController {
 
 		BigDecimal cero = new BigDecimal(0);
 
-		Integer usuarioId = usuario.getId();
+		Integer usuarioId = dto.getId();
 		if(null == usuarioId){
 
-			if(usuario.getNombreDos() == null){
-				usuario.setNombreDos("");
+			if(dto.getNombreDos() == null){
+				dto.setNombreDos("");
 			}
-			if(usuario.getApellido() == null){
-				usuario.setApellido("");
+			if(dto.getApellido() == null){
+				dto.setApellido("");
 			}
-			if(usuario.getApellidoDos() == null){
-				usuario.setApellidoDos("");
+			if(dto.getApellidoDos() == null){
+				dto.setApellidoDos("");
 			}
 
-			usuario.setNombreCompleto(
-			usuario.getNombre() + " " + usuario.getNombreDos() + " " + usuario.getApellido() + " " + usuario.getApellidoDos()
+			dto.setNombreCompleto(
+					dto.getNombre() + " " + dto.getNombreDos() + " " + dto.getApellido() + " " + dto.getApellidoDos()
 			);
 
-			usuario.setPendienteDePago(cero);
+			dto.setPendienteDePago(cero);
 
 			ClienteAbona clienteAbona = new ClienteAbona();
 			clienteAbona.setSaldo(cero);
@@ -142,12 +142,12 @@ public class UsuarioController {
 			clienteAbona.setDetalles("Saldo inicial");
 			clienteAbona.setFactura(null);
 
-			usuario = usuarioRepository.save(usuario);
+			dto = usuarioRepository.save(dto);
 
-			clienteAbona.setCliente( usuario );
+			clienteAbona.setCliente( dto );
 			clienteAbonaRepository.save(clienteAbona);
 
-			return usuario.getId();
+			return dto.getId();
 		}
 
 		return -1;

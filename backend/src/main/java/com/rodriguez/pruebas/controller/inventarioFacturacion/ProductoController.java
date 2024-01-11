@@ -157,10 +157,19 @@ public class ProductoController {
 			Optional<Producto> optional = productoRepository.findById(tmpId);
 			if (optional.isPresent()) {
 				Producto objetoDB = optional.get();
+
 				BigDecimal costo = dto.getCostoUnidad();
 				BigDecimal ganancia = dto.getGanancia();
 				BigDecimal precioVenta =  costo.add(ganancia);
+
+
+
+				objetoDB.setCostoUnidad(dto.getCostoUnidad());
+
+				objetoDB.setGanancia(dto.getGanancia());
+
 				objetoDB.setPrecioVenta(precioVenta);
+
 				productoRepository.save(objetoDB);
 			}
 		}

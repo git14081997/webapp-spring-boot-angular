@@ -12,17 +12,15 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serial;
 import java.io.Serializable;
-
 import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * Esta clase es una abstracción de la entidad Categoria,
  * y almacenará la información que se desee.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @AllArgsConstructor

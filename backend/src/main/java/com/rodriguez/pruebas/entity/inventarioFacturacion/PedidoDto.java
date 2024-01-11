@@ -15,10 +15,15 @@ public class PedidoDto implements Serializable {
 
 	private Integer usuarioId;
 
+	private BigDecimal costoTotal;
+
 	private BigDecimal ganancia;
+
 	private BigDecimal iva;
-	private BigDecimal total;
+
 	private BigDecimal subtotal;
+
+	private BigDecimal total;
 
 	private String tipoPago;
 

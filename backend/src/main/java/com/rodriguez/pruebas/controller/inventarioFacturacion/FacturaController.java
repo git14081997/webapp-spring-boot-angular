@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -97,112 +98,95 @@ public class FacturaController {
 
 		BigDecimal cero = new BigDecimal(0);
 
-		factura.setGanancia( pedidoDto.getGanancia() );
-
-		factura.setIva( pedidoDto.getIva() );
-
-		factura.setTotal( pedidoDto.getTotal() );
-
-		ClienteAbona cargosAbonosCliente = new ClienteAbona();
-
 		Usuario cliente = usuarioRepository.getReferenceById(pedidoDto.getUsuarioId());
 
+		BigDecimal totalFactura = pedidoDto.getTotal();
+		BigDecimal ivaFactura = pedidoDto.getIva();
+		BigDecimal costoFactura = pedidoDto.getCostoTotal();
+		BigDecimal totalMenosIva = totalFactura.subtract(ivaFactura);
+		BigDecimal ganancia = totalMenosIva.subtract(costoFactura);
+
+		factura.setGanancia( ganancia );
+		factura.setSubtotalSinIva(totalMenosIva);
+		factura.setIva( pedidoDto.getIva() );
+		factura.setTotal( pedidoDto.getTotal() );
+		factura.setTipoPago(pedidoDto.getTipoPago() ); // Efectivo, Credito, Visto
+
+		factura.setCliente(cliente);
+		factura.setNombreCompleto(cliente.getNombreCompleto());
+
+		BigDecimal saldoPendiente = cliente.getPendienteDePago();
+		BigDecimal nuevoSaldoPendiente = saldoPendiente.add( pedidoDto.getTotal() );
+		cliente.setPendienteDePago(nuevoSaldoPendiente);
+
+		factura = facturaRepository.save(factura);
+		Integer idFactura = factura.getId();
+
+
+
+
+
+
+		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
+		ClienteAbona cargosAbonosCliente = new ClienteAbona();
 		cargosAbonosCliente.setCliente(cliente);
-
 		cargosAbonosCliente.setCargos(pedidoDto.getTotal());
-		cargosAbonosCliente.setAbonos(cero);
-		cargosAbonosCliente.setDetalles("CLIENTE NOS COMPRA");
 
-		// traer ultimo registro de cargos y abonos para consultar el saldo de ese ultimo registro
-		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
-		Pageable pageableCargosAbonosCliente = PageRequest.of(0,3,sort);
-
-		Optional<Usuario> optionalUsuario = usuarioRepository.findById(pedidoDto.getUsuarioId());
-
-		if(optionalUsuario.isEmpty()){
-			throw new RuntimeException("Usuario con ID no existe para guardar factura.");
-		}
-
-		Usuario clienteCompro = optionalUsuario.get();
-		Page<ClienteAbona> cargos_abonos_del_cliente = clienteAbonaRepository.findByCliente(
-			pageableCargosAbonosCliente, clienteCompro
-		);
-
-		List<ClienteAbona> listaDeCargosAbonosCliente = cargos_abonos_del_cliente.getContent();
-		ClienteAbona ultimoRegistroCargosAbonos = listaDeCargosAbonosCliente.get(0);
-
-		cargosAbonosCliente.setSaldoAnterior(ultimoRegistroCargosAbonos.getSaldo());
-
-		BigDecimal saldoAnterior = ultimoRegistroCargosAbonos.getSaldo();
-
+		BigDecimal saldoAnterior = getUltimoRegistroSaldoActual( pedidoDto.getUsuarioId() );
 		BigDecimal nuevoSaldoActual = saldoAnterior.add( cargosAbonosCliente.getCargos() );
-
 		cargosAbonosCliente.setSaldo(nuevoSaldoActual);
+		cargosAbonosCliente.setDetalles("PEDIDO # " + idFactura );
+		cargosAbonosCliente.setFactura(factura);
+		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
 
 
 
-		BigDecimal total = pedidoDto.getTotal();
-		BigDecimal iva = pedidoDto.getIva();
-		BigDecimal subtotal = total.subtract(iva);
-		factura.setSubtotalSinIva(subtotal);
-
-		factura.setTipoPago(pedidoDto.getTipoPago() ); // Efectivo, Credito
 
 		if(pedidoDto.getTipoPago().equals("C") || pedidoDto.getTipoPago().equals("V")){
-			// Venta al credito
-			// Visto pendiente de confirmar pedido
-			factura.setPendienteDePago(pedidoDto.getTotal());
+			// Venta al credito o se deja en Visto pendiente de confirmar compra o devolucion
+			cargosAbonosCliente.setAbonos(cero);
 		}
 
+
 		if(pedidoDto.getTipoPago().equals("E")){
-			// Venta en efectivo
-			factura.setPendienteDePago(cero);
+
+			cargosAbonosCliente.setAbonos(pedidoDto.getTotal());
+			cargosAbonosCliente.setSaldo(saldoAnterior);
+
 
 			IngresosEgresos ingresosEgresos = new IngresosEgresos();
-
-			ingresosEgresos.setDetalle("Pago en efectivo");
+			ingresosEgresos.setDetalle("Pago en efectivo por pedido # " + idFactura );
 			ingresosEgresos.setIngresos( pedidoDto.getTotal() );
 			ingresosEgresos.setEgresos(cero);
-
 			ingresosEgresosRepository.save(ingresosEgresos);
 
 		}
 
-		Usuario usuarioCliente = optionalUsuario.get();
-
-		factura.setCliente(usuarioCliente);
-
-		factura.setNombreCompleto(usuarioCliente.getNombreCompleto());
-
-		BigDecimal saldoPendiente = usuarioCliente.getPendienteDePago();
-
-		// Saldo anterior antes de este pedidoN
-		//usuarioCliente.setPendienteDePagoCopy(saldoPendiente);
-
-		usuarioCliente.setPendienteDePago(
-			saldoPendiente.add( pedidoDto.getTotal() )
-		);
-
-		factura = facturaRepository.save(factura);
-
-		Integer idFactura = factura.getId();
-
-
-		cargosAbonosCliente.setFactura(factura);
 		clienteAbonaRepository.save(cargosAbonosCliente);
 
 
-		// DETALLES DE FACTURA/PEDIDO
+
+
+
+
+
+
+
+
+
+
+
+		// DETALLES DE FACTURA/PEDIDO-1
 		List<DetallePedidoDto> detallesDelPedido = pedidoDto.getDetalle();
 
+		FacturaDetalle facturaDetalle;
 		for(DetallePedidoDto detallePedidoDto: detallesDelPedido){
 
-			FacturaDetalle facturaDetalle = new FacturaDetalle();
+			facturaDetalle = new FacturaDetalle();
 
 			facturaDetalle.setFactura(factura);
 
-			Optional<Producto> optionalProducto =
-			productoRepository.findById(detallePedidoDto.getProductoId());
+			Optional<Producto> optionalProducto = productoRepository.findById(detallePedidoDto.getProductoId());
 
 			if(optionalProducto.isPresent()){
 
@@ -256,6 +240,9 @@ public class FacturaController {
 
 
 		}
+
+		// DETALLES DE FACTURA/PEDIDO-2
+
 
 
 
@@ -375,6 +362,32 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 			nombreusuario, patronDeBusqueda
 		);
 		return facturasDelCliente;
+	}
+
+
+
+
+
+	private BigDecimal getUltimoRegistroSaldoActual(Integer usuarioId){
+
+		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
+		Pageable pageableCargosAbonosCliente = PageRequest.of(0,1,sort);
+
+		Optional<Usuario> optionalUsuario = usuarioRepository.findById(usuarioId);
+
+		if(optionalUsuario.isEmpty()){
+			throw new RuntimeException("Usuario con ID no existe para guardar factura.");
+		}
+
+		Usuario clienteCompro = optionalUsuario.get();
+		Page<ClienteAbona> cargos_abonos_del_cliente = clienteAbonaRepository.findByCliente(
+				pageableCargosAbonosCliente, clienteCompro
+		);
+
+		List<ClienteAbona> listaDeCargosAbonosCliente = cargos_abonos_del_cliente.getContent();
+		ClienteAbona ultimoRegistroCargosAbonos = listaDeCargosAbonosCliente.get(0);
+
+		return ultimoRegistroCargosAbonos.getSaldo();
 	}
 
 

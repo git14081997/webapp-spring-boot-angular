@@ -2,7 +2,6 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.IngresosEgresos;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
@@ -28,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -81,6 +81,11 @@ public class ClienteAbonaController {
 
 		if(valorPago.compareTo( valorCero ) > 0 ){
 
+
+
+
+
+
 			// Se reduce saldo pendiente de pago del Cliente-1
 			Usuario clienteResponsable = usuarioRepository.getReferenceById( clienteAbona.getCliente().getId() );
 			BigDecimal pendienteDePagoEnCliente = clienteResponsable.getPendienteDePago();
@@ -88,14 +93,6 @@ public class ClienteAbonaController {
 			clienteResponsable.setPendienteDePago( nuevoSaldoPendienteEnCliente );
 			// Se reduce saldo pendiente de pago del Cliente-2
 
-
-
-			// Se reduce saldo pendiente de pago de la factura-1
-			Factura factura = facturaRepository.getReferenceById( clienteAbona.getFactura().getId() );
-			BigDecimal pendienteDePagoEnFactura = factura.getPendienteDePago();
-			BigDecimal nuevoSaldoPendienteDePagoEnFactura = pendienteDePagoEnFactura.subtract(valorPago);
-			factura.setPendienteDePago(nuevoSaldoPendienteDePagoEnFactura);
-			// Se reduce saldo pendiente de pago de la factura-2
 
 
 
@@ -108,6 +105,9 @@ public class ClienteAbonaController {
 			ingresosEgresos.setEgresos( valorCero );
 			ingresosEgresos.setDetalle("Abono de cliente a su saldo pendiente de pago" );
 			// Se agrega al historico de ingresos y egresos-2
+
+
+
 
 
 

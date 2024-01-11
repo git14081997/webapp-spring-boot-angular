@@ -17,7 +17,7 @@ import java.io.Serializable;
  * Esta clase es una abstracción de la entidad Artista,
  * y almacenará la información que se desee.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @AllArgsConstructor
@@ -25,7 +25,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table( name = "ARTISTA", schema = "DBDEV", catalog = "DBDEV")
-public class 	Artista implements Serializable {
+public class Artista implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 193445286905151910L;

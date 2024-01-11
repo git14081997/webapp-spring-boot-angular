@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  * Esta clase es una abstracción de la entidad FacturaDetalle,
  * y almacenará la información que se desee.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @AllArgsConstructor
