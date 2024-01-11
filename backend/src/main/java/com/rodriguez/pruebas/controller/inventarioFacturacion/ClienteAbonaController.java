@@ -69,8 +69,13 @@ public class ClienteAbonaController {
 	 
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody ClienteAbona clienteAbona ){
+
 		//ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
+
 		clienteAbona.setDetalles("CLIENTE HACE PAGO");
+
+
+
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
 
 
@@ -89,8 +94,10 @@ public class ClienteAbonaController {
 			// Se reduce saldo pendiente de pago del Cliente-1
 			Usuario clienteResponsable = usuarioRepository.getReferenceById( clienteAbona.getCliente().getId() );
 			BigDecimal pendienteDePagoEnCliente = clienteResponsable.getPendienteDePago();
+
 			BigDecimal nuevoSaldoPendienteEnCliente = pendienteDePagoEnCliente.subtract( valorPago );
 			clienteResponsable.setPendienteDePago( nuevoSaldoPendienteEnCliente );
+			usuarioRepository.save(clienteResponsable);
 			// Se reduce saldo pendiente de pago del Cliente-2
 
 
@@ -103,7 +110,19 @@ public class ClienteAbonaController {
 			IngresosEgresos ingresosEgresos = new IngresosEgresos();
 			ingresosEgresos.setIngresos( valorPago );
 			ingresosEgresos.setEgresos( valorCero );
-			ingresosEgresos.setDetalle("Abono de cliente a su saldo pendiente de pago" );
+
+
+			BigDecimal pendienteDePago = clienteResponsable.getPendienteDePago();
+			BigDecimal nuevoSaldo = pendienteDePago.subtract(valorPago);
+
+			clienteResponsable.setPendienteDePago(nuevoSaldo);
+
+			ingresosEgresos.setDetalle(
+				"Abono de "
+				+ valorPago
+				+ " de "
+				+ clienteResponsable.getNombreCompleto()
+				+ ". Nuevo saldo pendiente de pago: " + nuevoSaldo );
 			// Se agrega al historico de ingresos y egresos-2
 
 

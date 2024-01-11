@@ -53,17 +53,20 @@ public class Factura implements Serializable {
 	// V          'Visto'    5  Posible perdida si no pagan
 
 
+	@Column( name = "COSTO_TOTAL", scale = 2, nullable = false )
+	private BigDecimal costoTotal;
+
 	@Column( name = "GANANCIA", scale = 2, nullable = false )
 	private BigDecimal ganancia;
 
 	@Column( name = "IVA", scale = 2, nullable = false )
 	private BigDecimal iva;
 
-	@Column( name = "TOTAL", scale = 2, nullable = false )
-	private BigDecimal total;
-
 	@Column( name = "SUBTOTAL_SIN_IVA", scale = 2, nullable = false )
 	private BigDecimal subtotalSinIva;
+
+	@Column( name = "TOTAL", scale = 2, nullable = false )
+	private BigDecimal total;
 
 	@CreationTimestamp
 	@Column( name = "FECHA_EMISION", updatable = false )

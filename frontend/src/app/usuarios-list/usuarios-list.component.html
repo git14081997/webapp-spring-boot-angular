@@ -49,58 +49,23 @@
          table-lg table-bordered table-hover">
           <thead>
             <tr>
-              <!--
-              <th class="tableHeaderBlack" scope="col">Eliminar</th>
-              -->
+              <th class="bg-dark text-white" scope="col">ID</th>
 
+              <th class="bg-dark text-white" scope="col">Nombre</th>
 
-              <th class="tableHeaderBlack" scope="col">Nombre</th>
-
-              <th class="tableHeaderBlack" scope="col">Pendiente de pago</th>
-
-              <!--
-
-              <th class="tableHeaderBlack" scope="col">Correo</th>
-
-              <th class="tableHeaderBlack" scope="col">Teléfono</th>
-
-              <th class="tableHeaderBlack" scope="col">Cumpleaños</th>
-
-              <th class="tableHeaderBlack" scope="col">Nit</th>
-
-              <th class="tableHeaderBlack" scope="col">Dirección</th>
-              -->
+              <th class="bg-dark text-white" scope="col">Pendiente de pago</th>
 
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let objetoN of objetos">
 
-              <!--
-              <td>
-                <button class="btn btn-danger" (click)="eliminarPorID(objetoN.id) ">
-                  <i class="bi bi-trash3-fill"></i>
-                </button>
-              </td>
-              -->
-
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.id }}</td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombre }} {{
-                objetoN.nombreDos }} {{ objetoN.apellido }} {{ objetoN.apellidoDos }}</td>
+                objetoN.nombreDos || "" }} {{ objetoN.apellido || "" }} {{ objetoN.apellidoDos || "" }}</td>
 
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">Q. {{ objetoN.pendienteDePago }}</td>
-
-              <!--
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.correo }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle"> {{ objetoN.telefono }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.cumpleanoss }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nit }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.direccion }}</td>
-              -->
 
             </tr>
           </tbody>

@@ -130,6 +130,7 @@ return Number(xnumber.toFixed(2));
 
 actualizarDetallePedido(){
 
+this.todoElPedido.costoTotal = 0;
 this.todoElPedido.ganancia = 0;
 this.todoElPedido.iva = 0;
 this.todoElPedido.subtotal = 0;
@@ -144,12 +145,15 @@ productoPedido.precioVentaPorProducto = this.dosDecimales(productoPedido.precioV
 productoPedido.subtotalPorProducto = this.dosDecimales(productoPedido.cantidadProductoVendido * productoPedido.precioVentaPorProducto ) ;
 productoPedido.ivaDelSubtotalPorProducto = this.dosDecimales((productoPedido.subtotalPorProducto * IVA) );
 
-productoPedido.gananciaUnidad = this.dosDecimales(productoPedido.ganancia );
+productoPedido.gananciaUnidad = this.dosDecimales( 
+	productoPedido.precioVentaPorProducto - productoPedido.ivaDelSubtotalPorProducto - productoPedido.costoUnidad
+);
 productoPedido.ganancia = productoPedido.gananciaUnidad;
 
 productoPedido.costoDelSubtotalPorProducto = this.dosDecimales((productoPedido.costoUnidad * productoPedido.cantidadProductoVendido) );
 productoPedido.gananciaDelSubtotalPorProducto = this.dosDecimales((productoPedido.ganancia * productoPedido.cantidadProductoVendido) );
 
+this.todoElPedido.costoTotal += productoPedido.costoDelSubtotalPorProducto;
 this.todoElPedido.ganancia += productoPedido.gananciaDelSubtotalPorProducto;
 
 productoPedido.nombreProducto = productoPedido.nombre;
@@ -174,6 +178,8 @@ else {
 this.todoElPedido.detalle = null;
 
 }
+
+console.log(this.todoElPedido);
 
 }
 

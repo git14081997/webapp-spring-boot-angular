@@ -103,9 +103,17 @@ public class FacturaController {
 		BigDecimal totalFactura = pedidoDto.getTotal();
 		BigDecimal ivaFactura = pedidoDto.getIva();
 		BigDecimal costoFactura = pedidoDto.getCostoTotal();
+
+		log.warn("total: " + totalFactura.toString());
+		log.warn("ivaFactura: " + ivaFactura.toString());
+		log.warn("costoFactura: " + costoFactura.toString());
+
+
+
 		BigDecimal totalMenosIva = totalFactura.subtract(ivaFactura);
 		BigDecimal ganancia = totalMenosIva.subtract(costoFactura);
 
+		factura.setCostoTotal(pedidoDto.getCostoTotal());
 		factura.setGanancia( ganancia );
 		factura.setSubtotalSinIva(totalMenosIva);
 		factura.setIva( pedidoDto.getIva() );
@@ -351,7 +359,7 @@ public class FacturaController {
 String sql = """
 SELECT FACTURA.* FROM INVENTARIO_FACTURACION.FACTURA left join INVENTARIO_FACTURACION.USUARIO
 on FACTURA.USUARIO_ID = USUARIO.ID
-WHERE FACTURA.NOMBRE_COMPLETO LIKE ? OR USUARIO.NOMBRE_COMPLETO LIKE ?
+WHERE USUARIO.ID = ? OR FACTURA.NOMBRE_COMPLETO LIKE ? OR USUARIO.NOMBRE_COMPLETO LIKE ?
 ORDER BY FACTURA.FECHA_EMISION DESC
 """;
 
@@ -359,7 +367,7 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 		List<Factura> facturasDelCliente = jdbcTemplate.query(
 			sql, new BeanPropertyRowMapper<>(Factura.class),
-			nombreusuario, patronDeBusqueda
+			nombreusuario, nombreusuario, patronDeBusqueda
 		);
 		return facturasDelCliente;
 	}
