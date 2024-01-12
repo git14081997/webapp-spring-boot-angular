@@ -90,6 +90,8 @@ public class ClienteAbonaController {
 
 		// SE REGISTRA ABONO DEL CLIENTE-1
 		clienteAbona.setDetalles( detalleDelAbono );
+		clienteAbona.setSaldoAnterior( pendienteDePagoEnCliente );
+		clienteAbona.setSaldo( nuevoSaldoPendienteEnCliente );
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
 		// SE REGISTRA ABONO DEL CLIENTE-1
 

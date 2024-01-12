@@ -254,7 +254,24 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 	agregarAbono(){
-		console.log(this.objetoSeleccionado);
+
+		let logCargosAbonos:any = {
+			cargos: 0,
+			abonos: this.objetoSeleccionado.abono,
+			cliente: {
+				id: this.objetoSeleccionado.id
+			}
+		};
+
+		// enviar cliente y monto que abona
+		return this.http.post<any>(
+			hostname + "/api/clienteabona",
+			logCargosAbonos,
+			this.parametroServicio.headers
+		).subscribe((RESPONSE) => {
+			console.log(RESPONSE);
+		});
+
 	}
 
 
