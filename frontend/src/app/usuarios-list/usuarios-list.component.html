@@ -250,9 +250,9 @@ Tabla con cargos y abonos del cliente
 
 
   <div class="row" *ngIf="verTablaFacturas" >
-    <div class="col-3 mt-1">
+    <div class="col mt-1">
 
-Tabla con facturas del cliente
+      <app-factura-list [idCliente]="objetoSeleccionado.id" />
 
     </div>
   </div>

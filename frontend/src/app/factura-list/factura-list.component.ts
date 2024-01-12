@@ -1,7 +1,7 @@
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
@@ -56,15 +56,27 @@ export class FacturaListComponent implements OnInit {
 
 	formatoDeFecha = formatoDeFecha;
 
+	@Input() idCliente: string = "";
+
 	detallesPorFactura: any[] = [];
 
 	constructor() {
 		this.service = new PruebasService;
 	}
 
+	
 	ngOnInit(): void {
-		this.getPorPagina();
+
+		if( this.idCliente == "" ){
+			this.getPorPagina();
+		}
+		else {
+			this.buscarEnDb( this.idCliente );
+		}
+
 	}
+
+
 
 	setCantidadPorPag(){
 		this.pagina = 0;
