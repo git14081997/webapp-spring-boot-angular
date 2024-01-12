@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Profile;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -14,10 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * sea predecible y pueda indicar claramente si se ha modificado algo
  * que ya funcionaba, cumpliendo algún objetivo concreto.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @SpringBootTest
+@Profile("rolpruebas")
 class PruebasApplicationTests {
 
 	@Autowired
