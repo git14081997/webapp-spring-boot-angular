@@ -1,17 +1,14 @@
 
 import { Routes } from '@angular/router';
-
 import { PruebasComponent } from './pruebas/pruebas.component';
-
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
 import { ClienteabonaListComponent } from './clienteabona-list/clienteabona-list.component';
 import { FacturaListComponent } from './factura-list/factura-list.component';
-
 import { ProductoListComponent } from './producto-list/producto-list.component';
 import { CrearPedidoComponent } from './crear-pedido/crear-pedido.component';
-
 import { InicioComponent } from './inicio/inicio.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { IngresosEgresosListComponent } from './ingresos-egresos-list/ingresos-egresos-list.component';
 
 export const routes: Routes = [
 
@@ -23,6 +20,8 @@ export const routes: Routes = [
 
 { path: 'productos', component: ProductoListComponent, title: 'Productos',},
 { path: 'registrar-venta', component: CrearPedidoComponent, title: 'Registrar venta',},
+
+{ path: 'ie', component: IngresosEgresosListComponent, title: 'Registrar venta',},
 
 { path: '**', component: PagenotfoundComponent, title: 'Error 404',},
 ];

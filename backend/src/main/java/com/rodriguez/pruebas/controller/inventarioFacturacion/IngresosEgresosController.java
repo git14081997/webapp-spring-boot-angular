@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,9 +53,13 @@ public class IngresosEgresosController {
 		registroIE.setEgresos( dto.getEgresos() );
 		registroIE.setIngresos( cero );
 		registroIE.setDetalle( dto.getDetalle() );
+		registroIE.setFecha(new Date());
 
 		ingresosEgresosRepository.save(registroIE);
 	}
+
+
+
 
 	/**
 	 * Retorna una lista de los ingresos y egresos por año y mes.
@@ -67,7 +72,7 @@ public class IngresosEgresosController {
 	public List<IngresosEgresos> findAll(@PathVariable Integer year, @PathVariable Integer month){
 
 		String sql = """
-			SELECT SUM(INGRESOS), SUM(EGRESOS) FROM INVENTARIO_FACTURACION.INGRESOS_EGRESOS
+			SELECT INGRESOS_EGRESOS.* FROM INVENTARIO_FACTURACION.INGRESOS_EGRESOS
 			WHERE YEAR(FECHA) = ? AND MONTH(FECHA) = ?
 		""";
 
@@ -75,5 +80,7 @@ public class IngresosEgresosController {
 			sql, new BeanPropertyRowMapper<>(IngresosEgresos.class), year, month
 		);
 	}
+
+
 
 }

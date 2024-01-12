@@ -176,6 +176,8 @@ public class ProductoController {
 
 				objetoDB.setNombre( dto.getNombre() );
 
+				objetoDB.setFechaModificado(new Date());
+
 				productoRepository.save(objetoDB);
 			}
 		}
