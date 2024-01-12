@@ -95,6 +95,19 @@ export class FacturaListComponent implements OnInit {
 
 				for( let objetoN of this.facturas ){
 					objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
+
+					if(objetoN.tipoPago == 'C'){
+						objetoN.tipoPagoDetalle = "Credito";
+					}
+
+					if(objetoN.tipoPago == 'E'){
+						objetoN.tipoPagoDetalle = "Efectivo";
+					}
+
+					if(objetoN.tipoPago == 'V'){
+						objetoN.tipoPagoDetalle = "Visto/Consignacion";
+					}
+
 				}
 
 				this.paginasDisponiblesArray = [];

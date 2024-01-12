@@ -51,6 +51,7 @@
               <th class="bg-dark text-white" scope="col">Nó. Factura</th>
 
               <th class="bg-dark text-white" scope="col">Cliente</th>
+              <th class="bg-dark text-white" scope="col">Tipo Pedido</th>
 
               <th class="bg-dark text-white" scope="col">Ganancia</th>
               <th class="bg-dark text-white" scope="col">Subtotal sin IVA</th>
@@ -75,6 +76,8 @@
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.id }}</td>
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombreCompleto }}</td>
 
+              <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.tipoPagoDetalle }}</td>
+
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ganancia }}</td>
               <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.subtotalSinIva }}</td>
 
@@ -92,7 +95,7 @@
   </div>
 
   <div class="row" *ngIf="verLista == 'S' && facturas.length > 0">
-    <div class="col mt-1">
+    <div class="col mt-2">
       <nav>
         <ul class="pagination pagination-lg justify-content-center">
 
