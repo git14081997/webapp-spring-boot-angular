@@ -135,63 +135,41 @@ style="width: max-content;border: 1px solid gray;">
 <div class="container-fluid" *ngIf="verEditable == 'S'">
 
 <div class="row">
-<div class="col mt-3">
+
+<div class="col mt-2">
 <div class="form-floating mb-3">
 <input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
 [(ngModel)]="objetoSeleccionado.nombre" required>
 <label for="parametro-nombre" class="form-label">Nombre:</label>
 </div>
 </div>
+
 </div>
 
 
 <div class="row">
-<div class="col mt-1">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
-[(ngModel)]="objetoSeleccionado.costoUnidad">
-<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
-</div>
-</div>
+	<div class="col mt-2">
+		<div class="form-floating mb-3">
+		<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
+		[(ngModel)]="objetoSeleccionado.costoUnidad">
+		<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
+		</div>
+	</div>
+
+	<div class="col mt-2">
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
+			[(ngModel)]="objetoSeleccionado.ganancia">
+			<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
+		</div>
+	</div>
+
 </div>
 
 
+<!-- proximamente se podrá adjuntar una imagen por producto
 <div class="row">
-<div class="col mt-1">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
-[(ngModel)]="objetoSeleccionado.ganancia">
-<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
-</div>
-</div>
-</div>
-
-
-<div class="row">
-<div class="col mt-1">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-precioVenta" placeholder=""
-[(ngModel)]="objetoSeleccionado.precioVenta">
-<label for="parametro-precioVenta" class="form-label">Precio de venta ( Q ):</label>
-</div>
-</div>
-</div>
-
-<div class="row">
-<div class="col mt-1">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-existencias" placeholder=""
-[(ngModel)]="objetoSeleccionado.existencias">
-<label for="parametro-existencias" class="form-label">Existencias (Número Entero):</label>
-</div>
-</div>
-</div>
-
-
-<br />
-
-<div class="row">
-<div class="col mt-1">
+<div class="col mt-2">
 <div class="form-floating mb-3">
 <input type="file" accept="image/*" (change)="cargarImagen($event)" class="form-control form-control-lg"
 id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
@@ -202,27 +180,41 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 <button>Guardar imagen</button>
 </div>
 </div>
+-->
+
 
 <div class="row">
-<div class="col mt-1"><br /></div>
-</div>
-
-<div class="row">
-<div class="col mt-3">
+<div class="col mt-2">
 <div class="mb-3">
-<button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'"
-(click)="agregar(this.objetoSeleccionado)">
-<i class="bi bi-floppy2-fill"></i>
+<button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'" (click)="agregar(this.objetoSeleccionado)">
 Guardar
 </button>
-<button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'"
-(click)="actualizar(this.objetoSeleccionado)">
-<i class="bi bi-shuffle"></i>
+<button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'" (click)="actualizar(this.objetoSeleccionado)">
 Actualizar
 </button>
 </div>
 </div>
 </div>
+
+
+
+
+
+<div class="row">
+<div class="col mt-2">
+	<div class="form-floating mb-3">
+		<input type="number" class="form-control form-control-lg" id="parametro-nuevasUnidades" placeholder=""
+		[(ngModel)]="objetoSeleccionado.nuevasUnidades">
+		<label for="parametro-nuevasUnidades" class="form-label">Nuevas unidades:</label>
+	</div>
+</div>
+<div class="col mt-2">
+	<button class="btn btn-success btn-lg" (click)="agregarAlInventario(this.objetoSeleccionado)">
+	Agregar al inventario
+	</button>
+</div>
+</div>
+
 
 
 </div><!-- editar -->

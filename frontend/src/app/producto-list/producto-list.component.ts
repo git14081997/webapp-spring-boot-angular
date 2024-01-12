@@ -218,6 +218,12 @@ export class ProductoListComponent implements OnInit {
 			parametro.headers);
 	}
 
+
+
+
+
+
+
 	cargarImagen(objetoN:any){
 
 		// max file size
@@ -236,6 +242,17 @@ export class ProductoListComponent implements OnInit {
 			this.verEditable = 'N';
 
 		});	
+
+				/* proximamente se podra traer una imagen y mostrarla
+		// getImagenProducto
+		this.http.get<any>(
+			hostname + this.parametroServicio.url + "/pic/" + this.objetoSeleccionado.id,
+			this.parametroServicio.headers
+		).subscribe((imagenN:any) => {
+			this.objetoSeleccionado.srcImagen = imagenN;
+		});
+		*/
+
 		
 	}
 
@@ -249,26 +266,32 @@ export class ProductoListComponent implements OnInit {
 
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
-
 		this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
+	}
 
 
-		/* proximamente se podra traer una imagen y mostrarla
-		// getImagenProducto
-		this.http.get<any>(
-			hostname + this.parametroServicio.url + "/pic/" + this.objetoSeleccionado.id,
-			this.parametroServicio.headers
-		).subscribe((imagenN:any) => {
-			this.objetoSeleccionado.srcImagen = imagenN;
+	
+
+
+	agregarAlInventario(unObjeto:any){
+
+		let info:any = {
+			idProducto: unObjeto.id,
+			entradasProducto: unObjeto.nuevasUnidades
+		};
+
+		this.http.post<any>(
+			hostname + "/api/producto/add", info,	this.parametroServicio.headers
+		).subscribe(() => {
+			this.verLista = 'S';
+			this.verEditable = 'N';
 		});
-		*/
-
 
 	}
 
 
-
+	
 
 }
