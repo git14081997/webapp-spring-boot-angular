@@ -26,8 +26,8 @@ export class ProductoListComponent implements OnInit {
 	private parametroServicio: ParametroServicio = {
 		url: "/api/producto",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json;charset=UTF-8',
-			'Accept': 'application/json;charset=UTF-8',
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
 			'Authorization': 'Bearer ' + localStorage.getItem("personal-token")
 		})
 	}
@@ -40,6 +40,7 @@ export class ProductoListComponent implements OnInit {
 	verLista: string = 'S';
 	verEditable: string = 'N';
 	verAgregar: string = 'N';
+	verInventario:string = 'N';
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
@@ -52,6 +53,8 @@ export class ProductoListComponent implements OnInit {
 	tmp:any;
   categoriasDisponibles:any[] = [];
 	formatoDeFecha = formatoDeFecha;
+
+	regInventario: any[] = [];
 
 	constructor() {
 		this.service = new PruebasService;
@@ -136,12 +139,15 @@ export class ProductoListComponent implements OnInit {
 		this.verEditable = 'S';
 		this.verAgregar = 'N';
 		this.crearOrActualizar = 'A';
+		this.verInventario = 'N';
+
 	}
 
 	verListado() {
 		this.verLista = 'S';
 		this.verEditable = 'N';
 		this.verAgregar = 'N';
+		this.verInventario = 'N';
 		this.objetoSeleccionado = {};
 	}
 
@@ -287,11 +293,34 @@ export class ProductoListComponent implements OnInit {
 		).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
+			window.location.reload();
 		});
 
 	}
 
 
-	
+	verVentanaInventario(){
+
+		let paginaInventario = "0";
+		let cantidadInventario = "50";
+
+		console.log( this.objetoSeleccionado.id );
+
+		this.http.get<any>(
+			hostname + "/api/inventario/" +	paginaInventario + "/" + cantidadInventario +
+			"/" + this.objetoSeleccionado.id,
+			this.parametroServicio.headers
+		).subscribe(( RESPONSE ) => {
+			this.tmp = RESPONSE;
+			this.regInventario = this.tmp.content;
+		});
+
+
+		this.verLista = 'N';
+		this.verEditable = 'N';
+		this.verInventario = 'S';		
+
+	}
+
 
 }

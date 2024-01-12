@@ -273,6 +273,12 @@ export class UsuariosListComponent implements OnInit {
 			this.parametroServicio.headers
 		).subscribe((RESPONSE) => {
 			console.log(RESPONSE);
+
+			this.verEditable = 'N';
+			this.verAgregar = 'N';
+			this.verLista = 'S';
+			this.objetoSeleccionado = {};
+
 		});
 
 	}

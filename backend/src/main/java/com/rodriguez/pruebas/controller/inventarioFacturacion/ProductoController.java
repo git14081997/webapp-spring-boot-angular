@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -68,6 +69,8 @@ public class ProductoController {
 
 		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
 
+		producto.setId(null);
+
 		producto.setEstado("A"); // A Activo or I Inactivo
 
 		BigDecimal costo = producto.getCostoUnidad();
@@ -79,10 +82,13 @@ public class ProductoController {
 		// precio de venta Sin IVA
 		// el IVA se pondrá al realizar/registrar venta/pedido
 
+		producto.setFechaAdquisicion(new Date());
+
 		producto = productoRepository.save(producto);
 
 
 		Inventario inventario = new Inventario();
+
 		inventario.setProducto(producto);
 
 		inventario.setSaldoAnterior(0);
@@ -167,6 +173,8 @@ public class ProductoController {
 				objetoDB.setGanancia(ganancia);
 
 				objetoDB.setPrecioVenta(precioVenta);
+
+				objetoDB.setNombre( dto.getNombre() );
 
 				productoRepository.save(objetoDB);
 			}
@@ -276,6 +284,7 @@ public class ProductoController {
 
 				// Se aumenta el saldo en el inventario-1
 				Inventario inventarioProducto = new Inventario();
+				inventarioProducto.setProducto( productoDB );
 				inventarioProducto.setSaldoAnterior( existenciasProducto );
 				inventarioProducto.setEntradas( dto.getEntradasProducto() );
 				inventarioProducto.setSalidas( 0 );

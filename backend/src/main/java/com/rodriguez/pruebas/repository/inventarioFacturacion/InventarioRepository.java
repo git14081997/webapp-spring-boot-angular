@@ -2,6 +2,9 @@
 package com.rodriguez.pruebas.repository.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("inventarioRepository")
 public interface InventarioRepository extends JpaRepository<Inventario, Integer> {
+
+	Page<Inventario> findByProducto(Pageable pageable, Producto producto);
+
 }

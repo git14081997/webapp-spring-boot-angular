@@ -2,15 +2,20 @@
 
 <!-- botones -->
 <div class="row">
-<div class="col mt-3">
+<div class="col mt-2">
+
 <button class="btn btn-success btn-lg align-middle" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
-<i class="bi bi-plus-lg align-middle"></i>
 Agregar
 </button>
+
 <button class="btn btn-info btn-lg align-middle" (click)="verListado()" *ngIf="verLista == 'N'">
-<i class="bi bi-arrow-counterclockwise align-middle"></i>
 Regresar
 </button>
+&nbsp;
+<button class="btn btn-dark btn-lg align-middle" (click)="verVentanaInventario()" *ngIf="verLista == 'N'">
+Log Inventario
+</button>
+
 </div>
 </div><!-- botones -->
 
@@ -285,3 +290,44 @@ Actualizar
 
 
 </div><!-- agregar -->
+
+
+
+
+
+
+
+<!-- registros-inventario-por-producto -->
+<div class="container-fluid" *ngIf="verInventario == 'S'">
+<div class="row">
+<div class="col mt-2">
+
+	<table class="table table-lg table-borderless table-striped">
+		<thead class="align-middle">
+		<tr class="align-middle">
+		<th class="bg-dark text-white" scope="col">ID</th>
+		<th class="bg-dark text-white" scope="col">Saldo Anterior</th>
+		<th class="bg-dark text-white" scope="col">Entradas</th>
+		<th class="bg-dark text-white" scope="col">Salidas</th>
+		<th class="bg-dark text-white" scope="col">Existencias</th>
+		<th class="bg-dark text-white" scope="col">Fecha</th>
+
+		</tr>
+		</thead>
+		<tbody class="align-middle">
+		<tr *ngFor="let objetoN of regInventario" class="align-middle">
+		
+		<td class="align-middle">{{ objetoN.id }}</td>
+		<td class="align-middle">{{ objetoN.saldoAnterior }}</td>
+		<td class="align-middle">{{ objetoN.entradas }}</td>
+		<td class="align-middle">{{ objetoN.salidas }}</td>
+		<td class="align-middle">{{ objetoN.existencia }}</td>
+		<td class="align-middle">{{ formatoDeFecha(objetoN.fecha) }}</td>
+
+		</tr>
+		</tbody>
+		</table>
+
+</div>
+</div>
+</div><!-- registros-inventario-por-producto -->
