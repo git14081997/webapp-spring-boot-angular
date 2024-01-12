@@ -94,7 +94,7 @@ public class FacturaController {
 
 		/* Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class); */
 
-		Factura factura = new Factura();
+		Factura factura = new Factura(); // Factura o Pedido
 
 		BigDecimal cero = new BigDecimal(0);
 
@@ -103,12 +103,6 @@ public class FacturaController {
 		BigDecimal totalFactura = pedidoDto.getTotal();
 		BigDecimal ivaFactura = pedidoDto.getIva();
 		BigDecimal costoFactura = pedidoDto.getCostoTotal();
-
-		log.warn("total: " + totalFactura.toString());
-		log.warn("ivaFactura: " + ivaFactura.toString());
-		log.warn("costoFactura: " + costoFactura.toString());
-
-
 
 		BigDecimal totalMenosIva = totalFactura.subtract(ivaFactura);
 		BigDecimal ganancia = totalMenosIva.subtract(costoFactura);
@@ -142,6 +136,8 @@ public class FacturaController {
 
 		BigDecimal saldoAnterior = getUltimoRegistroSaldoActual( pedidoDto.getUsuarioId() );
 		BigDecimal nuevoSaldoActual = saldoAnterior.add( cargosAbonosCliente.getCargos() );
+
+		cargosAbonosCliente.setSaldoAnterior(saldoAnterior);
 		cargosAbonosCliente.setSaldo(nuevoSaldoActual);
 		cargosAbonosCliente.setDetalles("PEDIDO # " + idFactura );
 		cargosAbonosCliente.setFactura(factura);
