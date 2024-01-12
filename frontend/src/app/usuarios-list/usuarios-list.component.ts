@@ -51,6 +51,10 @@ export class UsuariosListComponent implements OnInit {
 
 	verAgregar: string = 'N';
 
+	verAgregarAbono: boolean = false;
+	verTablaCargosAbonos: boolean = false;
+	verTablaFacturas: boolean = false;
+
 	constructor() {
 		this.service = new PruebasService;
 	}
@@ -223,6 +227,34 @@ export class UsuariosListComponent implements OnInit {
 				hostname + parametro.url + "/" + pagina + "/" + cantidad +
 				"/buscar" + "?nombre="+nombre, parametro.headers
 			);
+	}
+
+
+
+
+	mostrarCargosAbonos(){
+		this.verAgregarAbono = false;
+		this.verTablaCargosAbonos = true;
+		this.verTablaFacturas = false;
+
+		console.log(this.objetoSeleccionado);
+	}
+
+	mostrarAgregarAbono(){
+		this.verAgregarAbono = true;
+		this.verTablaCargosAbonos = false;
+		this.verTablaFacturas = false;
+	}
+
+	mostrarFacturas(){
+		this.verAgregarAbono = false;
+		this.verTablaCargosAbonos = false;
+		this.verTablaFacturas = true;
+
+	}
+
+	agregarAbono(){
+		console.log(this.objetoSeleccionado);
 	}
 
 
