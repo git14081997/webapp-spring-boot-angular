@@ -29,7 +29,7 @@ import java.util.UUID;
 /**
  * Esta clase contiene los endpoint para subir imagenes.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
