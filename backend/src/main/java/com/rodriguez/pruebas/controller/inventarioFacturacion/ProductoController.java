@@ -3,6 +3,7 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.UpdateInventario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -35,7 +35,7 @@ import java.util.Optional;
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
@@ -77,7 +77,7 @@ public class ProductoController {
 
 		producto.setPrecioVenta(precioVenta);
 		// precio de venta Sin IVA
-		// el IVA se pondrá al realizar/registrar venta
+		// el IVA se pondrá al realizar/registrar venta/pedido
 
 		producto = productoRepository.save(producto);
 
@@ -162,11 +162,9 @@ public class ProductoController {
 				BigDecimal ganancia = dto.getGanancia();
 				BigDecimal precioVenta =  costo.add(ganancia);
 
+				objetoDB.setCostoUnidad(costo);
 
-
-				objetoDB.setCostoUnidad(dto.getCostoUnidad());
-
-				objetoDB.setGanancia(dto.getGanancia());
+				objetoDB.setGanancia(ganancia);
 
 				objetoDB.setPrecioVenta(precioVenta);
 
@@ -248,6 +246,51 @@ public class ProductoController {
 	*/
 
 
+
+
+
+
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "add")
+	public void updateInventario(@RequestBody UpdateInventario dto){
+
+		/* Producto producto = MODEL_MAPPER.map(dto, Producto.class); */
+
+		Integer tmpId = dto.getIdProducto();
+
+		if(tmpId != null) {
+
+			Optional<Producto> optionalProducto = productoRepository.findById(tmpId);
+
+			if (optionalProducto.isPresent()) {
+
+
+				// Se aumenta el inventario del producto-1
+				Producto productoDB = optionalProducto.get();
+				Integer existenciasProducto = productoDB.getExistencias();
+				Integer nuevoSaldoExistencias = existenciasProducto + dto.getEntradasProducto();
+				productoDB.setExistencias( nuevoSaldoExistencias );
+				productoRepository.save(productoDB);
+				// Se aumenta el inventario del producto-2
+
+
+				// Se aumenta el saldo en el inventario-1
+				Inventario inventarioProducto = new Inventario();
+				inventarioProducto.setSaldoAnterior( existenciasProducto );
+				inventarioProducto.setEntradas( dto.getEntradasProducto() );
+				inventarioProducto.setSalidas( 0 );
+				inventarioProducto.setExistencia( nuevoSaldoExistencias );
+				inventarioRepository.save(inventarioProducto);
+				// Se aumenta el saldo en el inventario-2
+
+
+			}
+
+
+		}
+
+
+	}
 
 
 }
