@@ -11,13 +11,14 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 import { FacturaListComponent } from '../factura-list/factura-list.component';
+import { ClienteabonaListComponent } from '../clienteabona-list/clienteabona-list.component';
 
 @Component({
 	selector: 'app-usuarios-list',
 	standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
-		FacturaListComponent
+		FacturaListComponent, ClienteabonaListComponent
 	],
 	templateUrl: './usuarios-list.component.html',
 	styleUrl: './usuarios-list.component.css'

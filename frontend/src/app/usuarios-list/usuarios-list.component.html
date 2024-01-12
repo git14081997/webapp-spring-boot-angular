@@ -240,10 +240,8 @@
 
 
   <div class="row" *ngIf="verTablaCargosAbonos" >
-    <div class="col-3 mt-1">
-
-Tabla con cargos y abonos del cliente
-
+    <div class="col mt-2">
+      <app-clienteabona-list [idCliente]="objetoSeleccionado.id" />
     </div>
   </div>
 
