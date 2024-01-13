@@ -37,8 +37,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -88,6 +88,71 @@ public class FacturaController {
 
 
 
+	@Transactional
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "dev/{facturaid}")
+	public void registrarDevolucion(@PathVariable Integer facturaid){
+
+		// se registra la devolucion de mercaderia al inventario
+
+		Factura pedidoAnuladoPorDevolucion = facturaRepository.getReferenceById(facturaid);
+
+		List<FacturaDetalle> detallesFactura = facturaDetalleRepository.findByFactura(pedidoAnuladoPorDevolucion);
+
+for( FacturaDetalle detalleN : detallesFactura ){
+
+// actualizacion de existencias por devolucion de mercaderia-1
+Producto productoNDelPedido = detalleN.getProducto();
+Producto productoDB = productoRepository.getReferenceById(productoNDelPedido.getId());
+Integer hayEnDB = productoDB.getExistencias();
+Integer newExistenciaActual = hayEnDB + detalleN.getCantidadProductoVendido();
+productoDB.setExistencias( newExistenciaActual );
+productoRepository.save(productoDB);
+// actualizacion de existencias por devolucion de mercaderia-2
+
+
+
+
+// actualizacion de entradas del inventario por producto-1
+Inventario inventarioProductoN = new Inventario();
+inventarioProductoN.setFecha(new Date());
+
+inventarioProductoN.setProducto(productoDB);
+
+Inventario ultimoRegistroDelInventarioDelProducto = buscarUltimoRegistroDelInventarioDelProducto( productoDB.getId() );
+Integer saldoAnterior = ultimoRegistroDelInventarioDelProducto.getExistencia();
+
+inventarioProductoN.setSaldoAnterior(saldoAnterior);
+inventarioProductoN.setEntradas( detalleN.getCantidadProductoVendido() );
+inventarioProductoN.setSalidas(0);
+
+inventarioProductoN.setExistencia(
+	inventarioProductoN.getSaldoAnterior() + inventarioProductoN.getEntradas() - inventarioProductoN.getSalidas()
+);
+
+inventarioRepository.save(inventarioProductoN);
+// actualizacion de entradas del inventario por producto-2
+
+
+} // analizando detalles del pedido
+
+BigDecimal cero = new BigDecimal(0);
+
+pedidoAnuladoPorDevolucion.setTipoPago("D");
+
+pedidoAnuladoPorDevolucion.setGanancia(cero);
+pedidoAnuladoPorDevolucion.setIva(cero);
+pedidoAnuladoPorDevolucion.setTotal(cero);
+pedidoAnuladoPorDevolucion.setSubtotalSinIva(cero);
+
+pedidoAnuladoPorDevolucion.setFechaDevolucion(new Date());
+
+facturaRepository.save(pedidoAnuladoPorDevolucion);
+
+}
+
+
+
+
 
 	@Transactional
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -96,6 +161,7 @@ public class FacturaController {
 		/* Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class); */
 
 		Factura factura = new Factura(); // Factura o Pedido
+		factura.setFechaEmision(new Date());
 
 		BigDecimal cero = new BigDecimal(0);
 
@@ -120,7 +186,6 @@ public class FacturaController {
 
 		BigDecimal saldoPendiente = cliente.getPendienteDePago();
 		BigDecimal nuevoSaldoPendiente = saldoPendiente.add( pedidoDto.getTotal() );
-		cliente.setPendienteDePago(nuevoSaldoPendiente);
 
 		factura = facturaRepository.save(factura);
 		Integer idFactura = factura.getId();
@@ -130,45 +195,64 @@ public class FacturaController {
 
 
 
-		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
-		ClienteAbona cargosAbonosCliente = new ClienteAbona();
-		cargosAbonosCliente.setCliente(cliente);
-		cargosAbonosCliente.setCargos(pedidoDto.getTotal());
 
-		BigDecimal saldoAnterior = getUltimoRegistroSaldoActual( pedidoDto.getUsuarioId() );
-		BigDecimal nuevoSaldoActual = saldoAnterior.add( cargosAbonosCliente.getCargos() );
-
-		cargosAbonosCliente.setSaldoAnterior(saldoAnterior);
-		cargosAbonosCliente.setSaldo(nuevoSaldoActual);
-		cargosAbonosCliente.setDetalles("PEDIDO # " + idFactura );
-		cargosAbonosCliente.setFactura(factura);
-		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
-
-
-
-
-		if(pedidoDto.getTipoPago().equals("C") || pedidoDto.getTipoPago().equals("V")){
-			// Venta al credito o se deja en Visto pendiente de confirmar compra o devolucion
-			cargosAbonosCliente.setAbonos(cero);
+		if( pedidoDto.getTipoPago().equals("V") ){
+			// si se reduce del inventario
+			// se conserva una factura con tipo de pago V de Visto/Consignacion
+			// no genera cargos al cliente, ni ingresos o egresos de efectivo
+			// posteriormente se podrá registrar la devolucion del inventario
+			// posteriormente se podrá confirmar pedido y hacer los registros correspondientes
 		}
 
 
-		if(pedidoDto.getTipoPago().equals("E")){
-
-			cargosAbonosCliente.setAbonos(pedidoDto.getTotal());
-			cargosAbonosCliente.setSaldo(saldoAnterior);
 
 
-			IngresosEgresos ingresosEgresos = new IngresosEgresos();
-			ingresosEgresos.setDetalle("Pago en efectivo por pedido # " + idFactura );
-			ingresosEgresos.setIngresos( pedidoDto.getTotal() );
-			ingresosEgresos.setEgresos(cero);
-			ingresosEgresos.setFecha(new Date());
-			ingresosEgresosRepository.save(ingresosEgresos);
 
+
+		if(
+			pedidoDto.getTipoPago().equals("E") ||
+			pedidoDto.getTipoPago().equals("C")
+		){
+
+			// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
+			ClienteAbona cargosAbonosCliente = new ClienteAbona();
+			cargosAbonosCliente.setCliente(cliente);
+			cargosAbonosCliente.setCargos(pedidoDto.getTotal());
+
+			BigDecimal saldoAnterior = getUltimoRegistroSaldoActual( pedidoDto.getUsuarioId() );
+			BigDecimal nuevoSaldoActual = saldoAnterior.add( pedidoDto.getTotal() );
+
+			cargosAbonosCliente.setSaldoAnterior(saldoAnterior);
+			cargosAbonosCliente.setSaldo(nuevoSaldoActual);
+			cargosAbonosCliente.setDetalles("PEDIDO # " + idFactura );
+			cargosAbonosCliente.setFactura(factura);
+			// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
+
+
+			if(pedidoDto.getTipoPago().equals("E")){
+				cargosAbonosCliente.setAbonos(pedidoDto.getTotal());
+				cargosAbonosCliente.setSaldo(saldoAnterior);
+
+				IngresosEgresos ingresosEgresos = new IngresosEgresos();
+				ingresosEgresos.setDetalle("Pago en efectivo por pedido # " + idFactura );
+				ingresosEgresos.setIngresos( pedidoDto.getTotal() );
+				ingresosEgresos.setEgresos(cero);
+				ingresosEgresos.setFecha(new Date());
+				ingresosEgresosRepository.save(ingresosEgresos);
+
+			}
+
+
+			if(pedidoDto.getTipoPago().equals("C")){
+				cargosAbonosCliente.setAbonos(cero);
+				cliente.setPendienteDePago(nuevoSaldoPendiente);
+				usuarioRepository.save(cliente);
+			}
+
+
+			clienteAbonaRepository.save(cargosAbonosCliente);
 		}
 
-		clienteAbonaRepository.save(cargosAbonosCliente);
 
 
 
@@ -215,7 +299,7 @@ public class FacturaController {
 				facturaDetalleRepository.save(facturaDetalle);
 
 
-				// reduccion del inventario
+				// reduccion del inventario-1
 				Inventario inventario = new Inventario();
 				inventario.setEntradas(0);
 				inventario.setSalidas(detallePedidoDto.getCantidadProductoVendido());
@@ -240,6 +324,7 @@ public class FacturaController {
 				// Actualizacion del saldo de exitencias del producto
 				productoN.setExistencias(saldoActualExistencias);
 				productoRepository.save(productoN);
+				// reduccion del inventario-2
 
 
 			} // actualizar existencias del producto
@@ -254,6 +339,9 @@ public class FacturaController {
 
 		return idFactura;
 	}
+
+
+
 
 
 
@@ -374,6 +462,7 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 
 
+	@Transactional
 	private BigDecimal getUltimoRegistroSaldoActual(Integer usuarioId){
 
 		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
@@ -395,6 +484,115 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 		return ultimoRegistroCargosAbonos.getSaldo();
 	}
+
+
+
+
+
+
+
+
+
+
+	@Transactional
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "yes/{facturaid}")
+	public void confirmacionPedidoEnVisto(
+		@PathVariable Integer facturaid,
+		@RequestParam(required = false) BigDecimal descuento
+	) {
+
+		BigDecimal cero = new BigDecimal(0);
+
+		Factura facturaConfirmada = facturaRepository.getReferenceById(facturaid);
+
+		List<FacturaDetalle> detallesFacturaConfirmada = facturaDetalleRepository.findByFactura(facturaConfirmada);
+
+		Usuario cliente = usuarioRepository.getReferenceById(facturaConfirmada.getCliente().getId());
+
+		BigDecimal saldoPendiente = cliente.getPendienteDePago();
+		BigDecimal nuevoSaldoPendiente = saldoPendiente.add( facturaConfirmada.getTotal() );
+		cliente.setPendienteDePago( nuevoSaldoPendiente );
+		usuarioRepository.save(cliente);
+
+		facturaConfirmada.setTipoPago("C");
+		facturaConfirmada.setFechaEmision(new Date());
+		facturaRepository.save(facturaConfirmada);
+
+
+		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
+		ClienteAbona cargosAbonosCliente = new ClienteAbona();
+		cargosAbonosCliente.setCliente(cliente);
+		cargosAbonosCliente.setCargos(facturaConfirmada.getTotal());
+
+		BigDecimal saldoAnterior = getUltimoRegistroSaldoActual( facturaConfirmada.getCliente().getId() );
+		BigDecimal nuevoSaldoActual = saldoAnterior.add( facturaConfirmada.getTotal() );
+
+		cargosAbonosCliente.setSaldoAnterior(saldoAnterior);
+		cargosAbonosCliente.setSaldo(nuevoSaldoActual);
+		cargosAbonosCliente.setDetalles("PEDIDO # " + facturaConfirmada.getId() );
+		cargosAbonosCliente.setFactura(facturaConfirmada);
+		cargosAbonosCliente.setAbonos(cero);
+		clienteAbonaRepository.save(cargosAbonosCliente);
+
+		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
+
+
+
+
+		/*
+		// registrando descuento sobre ganancia
+
+		//        caso 0:
+		//        ganancia = 50;
+		//        descuento = 20;
+		//        newGanancia = ganancia - descuento;
+
+
+		//        caso 1:
+		//        ganancia = 50;
+		//        descuento = 50;
+		//        newGanancia = 0  Se recupera costo
+
+
+		//        caso 2:
+		//        ganancia = 50;
+		//        descuento = 200;
+		//        newGanancia < 0  throw new Error
+		//
+		//        se pierde toda la ganancia del pedido
+		//        y se pierde parcialmente el costoTotal del pedido
+		//
+		//        costoDelPedido -
+		//
+
+
+
+		BigDecimal costoDelPedido = facturaConfirmada.getCostoTotal();
+		BigDecimal gananciaPorFactura = facturaConfirmada.getGanancia();
+		BigDecimal diferencia = gananciaPorFactura.subtract( descuento );
+		BigDecimal
+		*/
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

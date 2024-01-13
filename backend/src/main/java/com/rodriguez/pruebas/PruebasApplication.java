@@ -14,14 +14,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @AutoConfiguration
 public class PruebasApplication /*implements CommandLineRunner*/ {
 
-	private static final Logger log = LoggerFactory.getLogger(PruebasApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(PruebasApplication.class);
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
 	public static void main(String[] args) {
-		log.info("API REST STARTED");
+		logger.info("An INFO Message");
+		logger.warn("A WARN Message");
+		logger.error("An ERROR Message");
+
 		SpringApplication.run(PruebasApplication.class, args);
 	}
 

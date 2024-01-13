@@ -1,15 +1,19 @@
 
 package com.rodriguez.pruebas.exceptionHandler;
 
+//
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+//
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Esta clase pretende gestionar las excepciones y mostrar ciertos detalles relevantes
@@ -21,19 +25,20 @@ import java.util.Map;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
+	//private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+
+	private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
+
+
 	@ExceptionHandler( Exception.class )
-	public ResponseEntity<Map<String,Object>> mostrarError(Exception exception, WebRequest webRequest){
+	public ResponseEntity<String> mostrarError(Exception exception, WebRequest webRequest){
 
-		Map<String,Object> respuesta = new HashMap<>();
+		logger.warn( "causa: " + exception.getCause().toString() );
 
-		respuesta.put("fecha", new Date());
-		respuesta.put("error", exception.getMessage() );
-		respuesta.put("causa", exception.getCause() );
-		respuesta.put("contextPath", webRequest.getContextPath() );
-		respuesta.put("localizedMessage", exception.getLocalizedMessage() );
-		respuesta.put("stackTrace", exception.getStackTrace() );
-
-		return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(exception.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
+
 
 }

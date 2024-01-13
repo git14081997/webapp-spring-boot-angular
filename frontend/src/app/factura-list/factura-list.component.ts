@@ -219,6 +219,14 @@ export class FacturaListComponent implements OnInit {
 					objetoN.tipoPagoDetalle = "Visto/Consignacion";
 				}
 
+				if(objetoN.tipoPago == 'D'){
+					objetoN.tipoPagoDetalle = "Devuelto";
+				}
+
+				if(objetoN.tipoPago == 'P'){
+					objetoN.tipoPagoDetalle = "Perdida";
+				}
+
 			}
 			/// procesarInfo N facturas
 

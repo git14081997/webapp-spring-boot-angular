@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * que use el patron determinado, en este caso cualquier endpoint que
  * empiece con /auth será necesario que venga con tokens para poder funcionar.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @Configuration

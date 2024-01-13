@@ -46,11 +46,13 @@ public class Factura implements Serializable {
 	// cliente.usuarioId = 1
 
 
-	@Column(name = "TIPO_PAGO", length = 8)
+	@Column(name = "TIPO_PAGO", length = 1)
 	private String tipoPago;
-	// Venta en E 'Efectivo' 8  Factura
-	// Venta al C 'Credito'  7  Factura sin pagar en el acto
-	// V          'Visto'    5  Posible perdida si no pagan
+	// Venta en E 'Efectivo'   Factura/Pedido pagado en efectivo
+	// Venta al C 'Credito'    Factura/Pedido sin pagar en el acto, se espera sea pagado en el futuro
+	// V          'Visto'      Posible perdida si no pagan, se agregaria como gasto
+	// D          'Devuelto'   Se registra la devolucion de mercaderia que se dejo en Visto/Consignacion
+	// P          'Perdida'    Mercaderia que en algun momento se dejo en Visto/Consignacion, no sera pagada ni recuperada
 
 
 	@Column( name = "COSTO_TOTAL", scale = 2, nullable = false )
@@ -74,5 +76,8 @@ public class Factura implements Serializable {
 
 	@Column( name = "NOMBRE_COMPLETO", nullable = false )
 	private String nombreCompleto;
+
+	@Column( name = "FECHA_DEVOLUCION", updatable = false )
+	private Date fechaDevolucion;
 
 }

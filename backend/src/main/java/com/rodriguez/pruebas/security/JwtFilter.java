@@ -15,10 +15,10 @@ public class JwtFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(
-			ServletRequest servletRequest,
-			ServletResponse servletResponse,
-			FilterChain filterChain) throws IOException, ServletException {
-
+		ServletRequest servletRequest,
+		ServletResponse servletResponse,
+		FilterChain filterChain
+	) throws IOException, ServletException {
 
 		TokenJwt tokenJwt = new TokenJwt();
 
@@ -31,7 +31,8 @@ public class JwtFilter extends GenericFilterBean {
 			response.setStatus(HttpServletResponse.SC_OK);
 			filterChain.doFilter(request, response);
 
-		} else {
+		}
+		else {
 
 			if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 
