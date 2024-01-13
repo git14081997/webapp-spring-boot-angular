@@ -67,8 +67,10 @@ public class ClienteAbonaController {
 	@Transactional
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer clienteAbona(
-			@RequestBody ClienteAbona clienteAbona,
-			@RequestParam(required = false) String descuento ){
+		@RequestBody ClienteAbona clienteAbona,
+		@RequestParam(required = false) String descuento,
+		@RequestParam(required = false) String info
+	){
 
 
 		//ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
@@ -97,6 +99,10 @@ public class ClienteAbonaController {
 		+ " de " + clienteResponsable.getNombreCompleto()
 		+ " ; Saldo anterior era: " + pendienteDePagoEnCliente
 		+ " ; Nuevo saldo pendiente de pago: " + nuevoSaldoPendienteEnCliente;
+
+		if(!info.isEmpty()){
+			detalleDelAbono += info;
+		}
 
 		// SE REGISTRA ABONO DEL CLIENTE-1
 		clienteAbona.setFecha(new Date());
