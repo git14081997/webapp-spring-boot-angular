@@ -28,13 +28,15 @@
 			<button class="btn btn-success btn-lg" (click)="consultarIE()">
 				Consultar
 			</button>
+			&nbsp;
+			<button class="btn btn-info btn-lg" (click)="verVentanaAgregarGasto()">
+				Agregar gasto
+			</button>
 	</div>
 </div>
 
 
-<br/><br/><br/><br/>
-
-<div class="row" style="border:4px solid red !important; " >
+<div class="row" style="margin-top:20px;margin-bottom:20px;" *ngIf="verAgregarGasto == 'S'" >
 
 	<div class="col-12 mt-4">
 		<div class="form-floating">
@@ -57,20 +59,18 @@
 			Registrar gasto
 		</button>
 	</div>
-
+	
 </div>
 
 
 
-<br/><br/><br/><br/>
-
 
 
 <div class="row">
-	<div class="col mt-2">
+	<div class="col mt-5">
 		<h3>Suma de ingresos: {{sumaIngresos}}</h3>
 	</div>
-	<div class="col mt-2">
+	<div class="col mt-5">
 		<h3>Suma de egresos: {{sumaEgresos}}</h3>
 	</div>
 </div>

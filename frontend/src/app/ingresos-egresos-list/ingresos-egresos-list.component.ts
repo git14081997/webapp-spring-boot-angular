@@ -1,7 +1,7 @@
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { formatoDeFecha } from '../libproyecto';
@@ -18,7 +18,17 @@ import { hostname } from '../hostname';
   templateUrl: './ingresos-egresos-list.component.html',
   styleUrl: './ingresos-egresos-list.component.css'
 })
-export class IngresosEgresosListComponent {
+export class IngresosEgresosListComponent implements OnInit {
+
+  ngOnInit(): void {
+    let fechaActual = new Date();
+
+    this.param.mes = fechaActual.getMonth() + 1 ;
+    this.param.anio = fechaActual.getFullYear() ;
+
+    this.consultarIE();
+
+  }
 
 	private http = inject(HttpClient);
 
@@ -36,7 +46,7 @@ export class IngresosEgresosListComponent {
   sumaEgresos:number = 0;
   param: any = {};
   formatoDeFecha = formatoDeFecha;
-
+  verAgregarGasto:string = 'N';
 
   consultarIE(){
     this.http.get<any>(
@@ -78,7 +88,14 @@ export class IngresosEgresosListComponent {
   }
 
 
-
+  verVentanaAgregarGasto(){
+    if(this.verAgregarGasto == 'S'){
+      this.verAgregarGasto = 'N';
+    }
+    else {
+      this.verAgregarGasto = 'S';
+    }
+  }
 
 
 }

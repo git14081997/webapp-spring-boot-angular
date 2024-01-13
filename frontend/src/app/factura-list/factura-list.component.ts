@@ -202,6 +202,26 @@ export class FacturaListComponent implements OnInit {
 		).subscribe((RESPONSE:any) => {
 			console.log(RESPONSE);
 			this.facturas = RESPONSE;
+			
+			/// procesarInfo N facturas
+			for( let objetoN of this.facturas ){
+				objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
+
+				if(objetoN.tipoPago == 'C'){
+					objetoN.tipoPagoDetalle = "Credito";
+				}
+
+				if(objetoN.tipoPago == 'E'){
+					objetoN.tipoPagoDetalle = "Efectivo";
+				}
+
+				if(objetoN.tipoPago == 'V'){
+					objetoN.tipoPagoDetalle = "Visto/Consignacion";
+				}
+
+			}
+			/// procesarInfo N facturas
+
 		});
 
 	}
