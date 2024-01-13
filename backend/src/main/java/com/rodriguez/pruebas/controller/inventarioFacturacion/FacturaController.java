@@ -536,49 +536,10 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
 
+	}
 
 
 
-		/*
-		// registrando descuento sobre ganancia
-
-		//        caso 0:
-		//        ganancia = 50;
-		//        descuento = 20;
-		//        newGanancia = ganancia - descuento;
-
-
-		//        caso 1:
-		//        ganancia = 50;
-		//        descuento = 50;
-		//        newGanancia = 0  Se recupera costo
-
-
-		//        caso 2:
-		//        ganancia = 50;
-		//        descuento = 200;
-		//        newGanancia < 0  throw new Error
-		//
-		//        se pierde toda la ganancia del pedido
-		//        y se pierde parcialmente el costoTotal del pedido
-		//
-		//        costoDelPedido -
-		//
-
-
-
-		BigDecimal costoDelPedido = facturaConfirmada.getCostoTotal();
-		BigDecimal gananciaPorFactura = facturaConfirmada.getGanancia();
-		BigDecimal diferencia = gananciaPorFactura.subtract( descuento );
-		BigDecimal
-		*/
-
-
-
-
-
-
-}
 
 
 

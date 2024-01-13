@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -65,7 +66,10 @@ public class ClienteAbonaController {
 
 	@Transactional
 	@PostMapping(  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer clienteAbona(@RequestBody ClienteAbona clienteAbona ){
+	public Integer clienteAbona(
+			@RequestBody ClienteAbona clienteAbona,
+			@RequestParam(required = false) String descuento ){
+
 
 		//ClienteAbona clienteAbona = MODEL_MAPPER.map(clienteAbonaDto, ClienteAbona.class);
 
@@ -83,11 +87,16 @@ public class ClienteAbonaController {
 		// Se reduce saldo pendiente de pago del Cliente-2
 
 
-		String detalleDelAbono = "Abono de " + valorPago
+		String abonoOrRebaja = "Abono de ";
+
+		if(descuento.equals("1")){
+			abonoOrRebaja = "Rebaja de";
+		}
+
+		String detalleDelAbono = abonoOrRebaja + valorPago
 		+ " de " + clienteResponsable.getNombreCompleto()
 		+ " ; Saldo anterior era: " + pendienteDePagoEnCliente
 		+ " ; Nuevo saldo pendiente de pago: " + nuevoSaldoPendienteEnCliente;
-
 
 		// SE REGISTRA ABONO DEL CLIENTE-1
 		clienteAbona.setFecha(new Date());
@@ -96,6 +105,7 @@ public class ClienteAbonaController {
 		clienteAbona.setSaldo( nuevoSaldoPendienteEnCliente );
 		clienteAbona = clienteAbonaRepository.save(clienteAbona);
 		// SE REGISTRA ABONO DEL CLIENTE-1
+
 
 
 		// Se agrega al historico de ingresos y egresos-1
