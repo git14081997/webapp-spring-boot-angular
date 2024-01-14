@@ -37,8 +37,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -450,9 +450,12 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 String sql = """
 SELECT FACTURA.* FROM INVENTARIO_FACTURACION.FACTURA left join INVENTARIO_FACTURACION.USUARIO
 on FACTURA.USUARIO_ID = USUARIO.ID
-WHERE USUARIO.ID = ? OR FACTURA.NOMBRE_COMPLETO LIKE ? OR
- USUARIO.NOMBRE_COMPLETO LIKE ? OR
- FACTURA.TIPO_PAGO LIKE ?
+WHERE
+ FACTURA.ID = ? OR
+ USUARIO.ID = ? OR
+ FACTURA.TIPO_PAGO LIKE ? OR
+ FACTURA.NOMBRE_COMPLETO LIKE ? OR
+ USUARIO.NOMBRE_COMPLETO LIKE ?
 ORDER BY FACTURA.FECHA_EMISION DESC
 """;
 
@@ -460,10 +463,14 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 		List<Factura> facturasDelCliente = jdbcTemplate.query(
 			sql, new BeanPropertyRowMapper<>(Factura.class),
-			nombreusuario, nombreusuario, patronDeBusqueda, nombreusuario
+			nombreusuario,
+			nombreusuario,
+			nombreusuario,
+			patronDeBusqueda, patronDeBusqueda
 		);
 		return facturasDelCliente;
 	}
+
 
 
 
@@ -503,10 +510,7 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 	@Transactional
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "yes/{facturaid}")
-	public void confirmacionPedidoEnVisto(
-		@PathVariable Integer facturaid,
-		@RequestParam(required = false) BigDecimal descuento
-	) {
+	public void confirmacionPedidoEnVisto(@PathVariable Integer facturaid) {
 
 		BigDecimal cero = new BigDecimal(0);
 

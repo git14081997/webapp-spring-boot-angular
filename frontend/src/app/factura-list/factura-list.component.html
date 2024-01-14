@@ -6,8 +6,12 @@
         Regresar
       </button>
       &nbsp;
-      <button class="btn btn-success btn-lg align-middle" (click)="pedidoDevuelto()" *ngIf="facturaSeleccionada.tipoPago == 'V'">
+      <button class="btn btn-warning btn-lg align-middle" (click)="pedidoDevuelto()" *ngIf="facturaSeleccionada.tipoPago == 'V'">
         Devuelto
+      </button>
+      &nbsp;
+      <button class="btn btn-success btn-lg align-middle" (click)="confirmarPedido()" *ngIf="facturaSeleccionada.tipoPago == 'V'">
+        Confirmado
       </button>
     </div>
   </div>

@@ -273,5 +273,23 @@ export class FacturaListComponent implements OnInit {
 
 	}
 
+
+
+
+	confirmarPedido(){
+		// mercaderia que fue dejada en consignacion/visto
+		// nos fue devuelta
+		this.http.post<any>(
+			hostname + '/api/factura/yes/' + this.facturaSeleccionada.id,
+			this.parametroServicio.headers
+		).subscribe((RESPONSE:any) => {
+			window.location.reload();
+		});
+
+	}
+
+
+
+
 	
 }
