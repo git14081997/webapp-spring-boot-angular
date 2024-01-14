@@ -4,7 +4,7 @@
 
 	<!-- clientes-encontrados -->
 	<div class="row">
-		<div class="col-12 mt-2">
+		<div class="col my-4">
 
 			<div class="h3">Cliente: {{ todoElPedido.usuarioNombre|| "" }}</div>
 
@@ -34,17 +34,17 @@
 	</div>
 
 	<div class="row">
-		<div class="col-12 mt-2">
+		<div class="col my-4">
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
-					<thead class="align-middle">
-						<tr class="align-middle">
-							<th class="bg-dark text-white" scope="col">Clientes encontrados</th>
+					<thead >
+						<tr >
+							<th  scope="col">Clientes encontrados</th>
 						</tr>
 					</thead>
-					<tbody class="align-middle">
-						<tr *ngFor="let clienteN of clientesEncontrados; index as ind " class="align-middle">
-							<td (click)="setClienteCompra(clienteN, ind )" class="align-middle">
+					<tbody >
+						<tr *ngFor="let clienteN of clientesEncontrados; index as ind " >
+							<td (click)="setClienteCompra(clienteN, ind )" >
 								{{ clienteN.nombre }} {{ clienteN.nombreDos || "" }} {{ clienteN.apellido || "" }} {{
 								clienteN.apellidoDos || "" }}
 							</td>
@@ -103,23 +103,23 @@
 
 	<!-- tabla-productos-encontrados -->
 	<div class="row">
-		<div class="col mt-2">
+		<div class="col my-4">
 			<div class="table-responsive">
 
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
-					<thead class="align-middle">
-						<tr class="align-middle">
-							<th class="bg-dark text-white" scope="col">ID</th>
-							<th class="bg-dark text-white" scope="col">Producto</th>
-							<th class="bg-dark text-white" scope="col">Existencias</th>
+					<thead >
+						<tr >
+							<th  scope="col">ID</th>
+							<th  scope="col">Producto</th>
+							<th  scope="col">Existencias</th>
 						</tr>
 					</thead>
-					<tbody class="align-middle">
-						<tr *ngFor="let objetoN of productosEncontrados; index as ind " class="align-middle">
+					<tbody >
+						<tr *ngFor="let objetoN of productosEncontrados; index as ind " >
 
-							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.id }}</td>
-							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.nombre }}</td>
-							<td (click)="agregarAlPedido(objetoN, ind )" class="align-middle">{{ objetoN.existencias }}</td>
+							<td (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.id }}</td>
+							<td (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.nombre }}</td>
+							<td (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.existencias }}</td>
 
 						</tr>
 					</tbody>
@@ -142,7 +142,7 @@
 
 
 	<div class="row">
-		<div class="col mt-5">
+		<div class="col my-5">
 			<div class="h3">Detalle del pedido</div>
 		</div>
 	</div>
@@ -150,23 +150,23 @@
 
 	<!-- tabla-detalle-pedido -->
 	<div class="row">
-		<div class="col mt-2">
+		<div class="col my-4">
 
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
 					<thead>
 						<tr>
 
-							<th scope="col" class="bg-dark text-white" style="width:54px !important;">&nbsp;</th>
-							<th scope="col" class="bg-dark text-white">Producto</th>
-							<th scope="col" class="bg-dark text-white">Precio</th>
-							<th scope="col" class="bg-dark text-white">Cantidad</th>
-							<th scope="col" class="bg-dark text-white">Subtotal por producto</th>
+							<th scope="col"  style="width:54px !important;">&nbsp;</th>
+							<th scope="col" >Producto</th>
+							<th scope="col" >Precio</th>
+							<th scope="col" >Cantidad</th>
+							<th scope="col" >Subtotal por producto</th>
 
 						</tr>
 					</thead>
-					<tbody class="align-middle">
-						<tr *ngFor="let objetoN of objetosPedido; index as ind " class="align-middle">
+					<tbody >
+						<tr *ngFor="let objetoN of objetosPedido; index as ind " >
 
 							<td>
 								<button class="btn btn-danger" (click)="quitarDelPedido(ind) ">
@@ -178,9 +178,9 @@
 								</button>
 							</td>
 
-							<td class="align-middle">{{ objetoN.nombre }}</td>
+							<td >{{ objetoN.nombre }}</td>
 
-							<td class="align-middle" style="width: 99px !important;">
+							<td  style="width: 99px !important;">
 								 {{ objetoN.precioVenta | currency: 'Q. ' }}
 								<input type="number" class="form-control" id="parametro-precioVenta" placeholder=""
 									[(ngModel)]="objetoN.precioVenta" min={{objetoN.precioVentaMin}}
@@ -189,14 +189,14 @@
 
 							</td>
 
-							<td class="align-middle" style="width: 99px !important;">
+							<td  style="width: 99px !important;">
 								<input type="number" class="form-control" id="parametro-cantidad" placeholder=""
 									[(ngModel)]="objetoN.cantidadProductoVendido" min="1" (change)="actualizarDetallePedido()">
 								<label for="parametro-cantidad" class="form-label"></label>
 							</td>
 
 
-							<td class="align-middle"> {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
+							<td > {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
 
 						</tr>
 					</tbody>
@@ -217,10 +217,10 @@
 
 	<div class="row">
 
-		<div class="col-2 my-4">
+		<div class="col my-4">
 			Tipo de Pedido
 			<select class="form-select form-select-lg" [(ngModel)]="todoElPedido.tipoPago"
-			style="min-width: 100% !important; width: max-content;border: 1px solid gray;">
+			style="min-width: 100% !important; width: max-content !important;border: 2px solid gray !important;">
 
 				<option *ngFor="let objetoN of tiposDePago" value={{objetoN.id}}>
 					{{objetoN.nombre}}
@@ -228,9 +228,13 @@
 
 			</select>
 		</div>
+	</div>
 
-		<div class="col-2 my-5">
-			<button class="btn btn-success btn-lg" (click)="guardarPedido()">
+	<div class="row">
+		<div class="col my-5">
+			<button class="btn btn-success btn-lg" (click)="guardarPedido()"
+			style="float: right !important;margin-left: 10px !important;"
+			>
 				Guardar
 			</button>
 		</div>

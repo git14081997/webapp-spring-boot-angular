@@ -57,6 +57,7 @@ export class UsuariosListComponent implements OnInit {
 	verAgregarAbono: boolean = false;
 	verTablaCargosAbonos: boolean = false;
 	verTablaFacturas: boolean = false;
+	esRebajaOrDescuento: boolean = false;
 
 	constructor() {
 		this.service = new PruebasService;
@@ -288,7 +289,6 @@ export class UsuariosListComponent implements OnInit {
 
 	}
 
-	esRebajaOrDescuento: boolean = false;
 
 	esRebaja(){
 		this.esRebajaOrDescuento = !this.esRebajaOrDescuento;

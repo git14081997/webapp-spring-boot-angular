@@ -14,3 +14,58 @@
 	color: #000000 !important;
 	border: 0px solid white !important;
 }
+
+
+table > thead > tr > th {
+background-color: #000000 !important;
+color: #ffffff !important;
+text-align: center !important;
+width: max-content !important;
+text-wrap: nowrap !important;
+padding-left: 27px !important;
+padding-right: 27px !important;
+}
+
+table > tbody > tr > td {
+	width: max-content !important;
+	text-align: center !important;
+	text-wrap: nowrap !important;
+}
+
+
+.homeLink {
+	display: block !important;
+	text-align: center !important;
+	margin-right: auto !important;
+	margin-left: auto !important;
+	margin-bottom: 27px !important;
+	text-decoration: none;
+	background-color: #001b33;
+	color: #00ffff !important;
+	padding: 27px !important;
+	font-family: Verdana, sans-serif;
+	font-size: 15px !important;
+	font-weight: bold !important;
+	border-radius: 27px !important;
+
+}
+
+.nav-item {
+	/*
+	background: red !important;
+	*/
+
+	padding-top: 27px !important;
+	padding-bottom: 27px !important;
+	font-size: 20px !important;
+	font-weight: bold !important;
+
+	text-align: center !important;
+	border-bottom: 2px solid black !important;
+	border-top: 2px solid black !important;
+
+}
+
+.navbar-brand {
+	font-size: 20px !important;
+}
