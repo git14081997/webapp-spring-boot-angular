@@ -62,16 +62,8 @@ export class ProductoListComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getPorPagina();
-    this.getCategorias();
 	}
 
-  getCategorias(){
-    this.getPaginadoCategorias(this.parametroServicio)
-      .subscribe((RESPONSE) => {
-        this.tmp = RESPONSE;
-        this.categoriasDisponibles = this.tmp.content;
-      });
-  }
 
 	setCantidadPorPag(){
 		this.pagina = 0;
@@ -179,28 +171,29 @@ export class ProductoListComponent implements OnInit {
 
 
 
-
+	
 	buscarEnDb(parametros: any){
 
-		let descripcion = parametros;
+		let enlace = hostname + this.parametroServicio.url + "/" + this.pagina + "/" + this.cantidad +"/buscar?nombre=" + parametros;
 
-		this.getPaginadoBuscando(
-			this.parametroServicio, 0, 20, descripcion
-		).subscribe((RESPONSE) => {
+		this.http.get<any>(enlace, this.parametroServicio.headers).subscribe((RESPONSE) => {
 
 			this.tmp = RESPONSE;
-
 			this.objetos = this.tmp.content;
 			this.paginasDisponibles = this.tmp.totalPages;
 			this.total = this.tmp.totalElements;
-
 			this.paginasDisponiblesArray = [];
+
 			for(let i = 0; i < this.paginasDisponibles; i++){
 				let newObj = { "numPagina": i };
 				this.paginasDisponiblesArray.push(newObj);
 			}
+
 		});
+
+
 	}
+
 
 	limpiarBusqueda(){
 		this.objetoSeleccionado.buscar = "";
@@ -209,20 +202,10 @@ export class ProductoListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
-	getPaginadoBuscando(parametro:ParametroServicio, 
-		pagina: number, cantidad: number,nombre: string): Observable<any> {
 
-		return this.http.get<any>(
-			hostname + parametro.url + "/" + pagina + "/" + cantidad +
-			"/buscar" + "?nombre="+nombre,
-			parametro.headers);
-	}
 
-	getPaginadoCategorias(parametro:ParametroServicio): Observable<any> {
-		return this.http.get<any>(
-      hostname + "/api/categoria" + "/" + 0 + "/" + 10,
-			parametro.headers);
-	}
+
+
 
 
 

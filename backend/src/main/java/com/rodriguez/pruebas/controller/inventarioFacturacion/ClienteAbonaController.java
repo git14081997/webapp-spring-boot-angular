@@ -91,18 +91,26 @@ public class ClienteAbonaController {
 
 		String abonoOrRebaja = "Abono de ";
 
-		if(descuento.equals("1")){
-			abonoOrRebaja = "Rebaja de";
+		if( descuento != null ){
+			if(descuento.equals("1")){
+				abonoOrRebaja = "Rebaja de";
+			}
 		}
+
 
 		String detalleDelAbono = abonoOrRebaja + valorPago
 		+ " de " + clienteResponsable.getNombreCompleto()
 		+ " ; Saldo anterior era: " + pendienteDePagoEnCliente
 		+ " ; Nuevo saldo pendiente de pago: " + nuevoSaldoPendienteEnCliente;
 
-		if(!info.isEmpty()){
-			detalleDelAbono += info;
+
+		if( info != null ){
+			if(!info.isEmpty()){
+				detalleDelAbono += info;
+			}
 		}
+
+
 
 		// SE REGISTRA ABONO DEL CLIENTE-1
 		clienteAbona.setFecha(new Date());

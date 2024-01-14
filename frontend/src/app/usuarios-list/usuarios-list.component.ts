@@ -110,13 +110,7 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 
-	eliminarPorID(id: number) {
-		this.service.deleteById(
-			this.parametroServicio, id
-		).subscribe((RESPONSE) => {
-			this.getPorPagina();
-		});
-	}
+
 
 
 	setPaginaCantidad(pagina: number, cantidad: number) {
@@ -266,8 +260,9 @@ export class UsuariosListComponent implements OnInit {
 			}
 		};
 
-		// enviar cliente y monto que abona
-		return this.http.post<any>(
+
+		
+		this.http.post<any>(
 			hostname + "/api/clienteabona",
 			logCargosAbonos,
 			this.parametroServicio.headers
@@ -278,6 +273,7 @@ export class UsuariosListComponent implements OnInit {
 			this.verAgregar = 'N';
 			this.verLista = 'S';
 			this.objetoSeleccionado = {};
+			window.location.reload();
 
 		});
 

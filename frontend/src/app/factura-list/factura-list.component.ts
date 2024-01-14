@@ -8,7 +8,6 @@ import { PruebasService } from '../pruebas/pruebas.service';
 import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 
 @Component({
@@ -25,8 +24,8 @@ export class FacturaListComponent implements OnInit {
 	private parametroServicio: ParametroServicio = {
 		url: "/api/factura",
 		headers: new HttpHeaders({
-			'Content-Type': 'application/json;charset=utf-8',
-			'Accept': 'application/json;charset=utf-8',
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
 			'Authorization': 'Bearer '
 		})
 	}
@@ -83,6 +82,7 @@ export class FacturaListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 			).subscribe((RESPONSE: any) => {
@@ -136,6 +136,7 @@ export class FacturaListComponent implements OnInit {
 		this.cantidad = cantidad;
 	}
 
+
 	verVentanaAgregar() {
 		this.facturaSeleccionada = {};
 		this.verLista = 'N';
@@ -143,11 +144,13 @@ export class FacturaListComponent implements OnInit {
 		this.crearOrActualizar = 'C';
 	}
 
+
 	verListado() {
 		this.verLista = 'S';
 		this.verEditable = 'N';
 		this.facturaSeleccionada = {};
 	}
+
 
 	agregar(parametros: any) {
 		this.service.post(
@@ -159,6 +162,7 @@ export class FacturaListComponent implements OnInit {
 			this.getPorPagina();
 		});
 	}
+
 
 	actualizar(parametros: any) {
 		this.service.put(
@@ -218,7 +222,6 @@ export class FacturaListComponent implements OnInit {
 				}
 
 			}
-			/// procesarInfo N facturas
 
 		});
 

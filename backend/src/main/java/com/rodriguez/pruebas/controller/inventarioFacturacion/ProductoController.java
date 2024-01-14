@@ -204,20 +204,20 @@ public class ProductoController {
 
 		try {
 
-			Integer idProducto = Integer.parseInt(nombre);
-
+			Integer productoId = Integer.parseInt(nombre);
 			return productoRepository.findByNombreContainingIgnoreCaseOrId(
-				pageable, nombre, idProducto
+					pageable, nombre, productoId
 			);
 
-		} catch (NumberFormatException numberFormatException){
+		} catch (NumberFormatException numberFormatException) {
+			return productoRepository.findByNombreContainingIgnoreCaseOrId(
+					pageable, nombre, null
+			);
 		}
 
-		return productoRepository.findByNombreContainingIgnoreCaseOrId(
-			pageable, nombre, null
-		);
-
 	}
+
+
 
 
 

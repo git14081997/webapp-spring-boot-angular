@@ -59,6 +59,8 @@ Log Inventario
 <table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
 <thead class="align-middle">
 <tr class="align-middle">
+
+<th class="bg-dark text-white" scope="col">ID</th>
 <th class="bg-dark text-white" scope="col">Nombre</th>
 <th class="bg-dark text-white" scope="col">Costo Unidad</th>
 <th class="bg-dark text-white" scope="col">Ganancia Q</th>
@@ -69,6 +71,7 @@ Log Inventario
 <tbody class="align-middle">
 <tr *ngFor="let objetoN of objetos" class="align-middle">
 
+<td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.id }}</td>
 <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.nombre }}</td>
 <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.costoUnidad | currency: 'Q. ' }}</td>
 <td (click)="actualizarSeleccionado(objetoN)" class="align-middle">{{ objetoN.ganancia | currency: 'Q. ' }}</td>
