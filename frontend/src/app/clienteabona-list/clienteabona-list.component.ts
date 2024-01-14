@@ -104,8 +104,14 @@ export class ClienteabonaListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+
 	actualizarSeleccionado(objetoN:any){
-		this.verDetalle = 'S';
+		if( this.verDetalle == 'N' ){
+			this.verDetalle = 'S';
+		} else {
+			this.verDetalle = 'N';
+		}
 	}
+
 
 }

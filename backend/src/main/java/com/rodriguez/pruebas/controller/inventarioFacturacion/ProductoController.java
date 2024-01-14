@@ -137,7 +137,7 @@ public class ProductoController {
 	 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Producto> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return productoRepository.findAll(pageable);
 	}
@@ -199,7 +199,7 @@ public class ProductoController {
 			@PathVariable Integer pagina, @PathVariable Integer cantidad,
 			@RequestParam(required = true) String nombre){
 
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
 		try {

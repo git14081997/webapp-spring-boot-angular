@@ -71,13 +71,13 @@ public class Factura implements Serializable {
 	private BigDecimal total;
 
 	@CreationTimestamp
-	@Column( name = "FECHA_EMISION", updatable = false )
+	@Column( name = "FECHA_EMISION" )
 	private Date fechaEmision;
 
 	@Column( name = "NOMBRE_COMPLETO", nullable = false )
 	private String nombreCompleto;
 
-	@Column( name = "FECHA_DEVOLUCION", updatable = false )
+	@Column( name = "FECHA_DEVOLUCION" )
 	private Date fechaDevolucion;
 
 }

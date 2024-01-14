@@ -96,7 +96,10 @@ public class FacturaController {
 
 		Factura pedidoAnuladoPorDevolucion = facturaRepository.getReferenceById(facturaid);
 
-		List<FacturaDetalle> detallesFactura = facturaDetalleRepository.findByFactura(pedidoAnuladoPorDevolucion);
+if(pedidoAnuladoPorDevolucion.getTipoPago().equals("V")){
+
+
+List<FacturaDetalle> detallesFactura = facturaDetalleRepository.findByFactura(pedidoAnuladoPorDevolucion);
 
 for( FacturaDetalle detalleN : detallesFactura ){
 
@@ -147,6 +150,8 @@ pedidoAnuladoPorDevolucion.setSubtotalSinIva(cero);
 pedidoAnuladoPorDevolucion.setFechaDevolucion(new Date());
 
 facturaRepository.save(pedidoAnuladoPorDevolucion);
+} // solo si es pedido/factura en Visto
+
 
 }
 
@@ -394,7 +399,7 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Factura> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return facturaRepository.findAll(pageable);
 	}
@@ -423,7 +428,7 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/{usuarioId}")
 	public Page<Factura> findByCliente(
 	@PathVariable Integer pagina, @PathVariable Integer cantidad, @PathVariable Integer usuarioId){
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return facturaRepository.findByCliente(pageable,usuarioId);
 	}
@@ -445,7 +450,9 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 String sql = """
 SELECT FACTURA.* FROM INVENTARIO_FACTURACION.FACTURA left join INVENTARIO_FACTURACION.USUARIO
 on FACTURA.USUARIO_ID = USUARIO.ID
-WHERE USUARIO.ID = ? OR FACTURA.NOMBRE_COMPLETO LIKE ? OR USUARIO.NOMBRE_COMPLETO LIKE ?
+WHERE USUARIO.ID = ? OR FACTURA.NOMBRE_COMPLETO LIKE ? OR
+ USUARIO.NOMBRE_COMPLETO LIKE ? OR
+ FACTURA.TIPO_PAGO LIKE ?
 ORDER BY FACTURA.FECHA_EMISION DESC
 """;
 
@@ -453,7 +460,7 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 		List<Factura> facturasDelCliente = jdbcTemplate.query(
 			sql, new BeanPropertyRowMapper<>(Factura.class),
-			nombreusuario, nombreusuario, patronDeBusqueda
+			nombreusuario, nombreusuario, patronDeBusqueda, nombreusuario
 		);
 		return facturasDelCliente;
 	}
@@ -505,6 +512,9 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 
 		Factura facturaConfirmada = facturaRepository.getReferenceById(facturaid);
 
+		if( facturaConfirmada.getTipoPago().equals("V") ){
+
+
 		List<FacturaDetalle> detallesFacturaConfirmada = facturaDetalleRepository.findByFactura(facturaConfirmada);
 
 		Usuario cliente = usuarioRepository.getReferenceById(facturaConfirmada.getCliente().getId());
@@ -535,6 +545,8 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 		clienteAbonaRepository.save(cargosAbonosCliente);
 
 		// SE AGREGA UN CARGO AL CLIENTE POR EL MONTO TOTAL
+		}
+
 
 	}
 

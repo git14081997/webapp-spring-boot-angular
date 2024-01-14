@@ -189,7 +189,7 @@ public class UsuarioController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return usuarioRepository.findAll(pageable);
 	}
@@ -216,7 +216,7 @@ public class UsuarioController {
 public Page<Usuario> findAllByNombreAndApellido(
 @PathVariable Integer pagina, @PathVariable Integer cantidad, @RequestParam(required = true) String nombre){
 
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
 		return usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable, nombre);

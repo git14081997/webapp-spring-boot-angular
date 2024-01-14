@@ -99,14 +99,22 @@ export class FacturaListComponent implements OnInit {
 					if(objetoN.tipoPago == 'C'){
 						objetoN.tipoPagoDetalle = "Credito";
 					}
-
+	
 					if(objetoN.tipoPago == 'E'){
 						objetoN.tipoPagoDetalle = "Efectivo";
 					}
-
+	
 					if(objetoN.tipoPago == 'V'){
 						objetoN.tipoPagoDetalle = "Visto/Consignacion";
 					}
+	
+					if(objetoN.tipoPago == 'D'){
+						objetoN.tipoPagoDetalle = "Devuelto";
+					}
+	
+					if(objetoN.tipoPago == 'P'){
+						objetoN.tipoPagoDetalle = "Perdida";
+					}	
 
 				}
 
@@ -179,10 +187,8 @@ export class FacturaListComponent implements OnInit {
 
 	actualizarSeleccionado(parametros: any) {
 		this.facturaSeleccionada = parametros;
-
 		this.verLista = 'N';
 		this.verEditable = 'S';
-		console.log(parametros);
 		this.getDetallePorFactura(parametros.id);
 	}
 
@@ -190,7 +196,7 @@ export class FacturaListComponent implements OnInit {
 	
 	buscarEnDb(nombreCliente: any){
 
-		return this.http.get<any>(
+		this.http.get<any>(
 			hostname + '/api/factura/nombre/' + nombreCliente,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE:any) => {
@@ -251,6 +257,21 @@ export class FacturaListComponent implements OnInit {
 
 	}
 
+
+
+
+
+	pedidoDevuelto(){
+		// mercaderia que fue dejada en consignacion/visto
+		// nos fue devuelta
+		this.http.post<any>(
+			hostname + '/api/factura/dev/' + this.facturaSeleccionada.id,
+			this.parametroServicio.headers
+		).subscribe((RESPONSE:any) => {
+			window.location.reload();
+		});
+
+	}
 
 	
 }
