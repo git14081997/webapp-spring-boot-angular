@@ -4,11 +4,9 @@ import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
-import { PruebasService } from '../pruebas/pruebas.service';
 import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 
 @Component({
@@ -33,6 +31,7 @@ export class ClienteabonaListComponent implements OnInit {
 
 	private http = inject(HttpClient);
 
+	objetoSeleccionado:any = {};
 	objetos: any[] = [];
 
 	pagina: number = 0;
@@ -48,6 +47,8 @@ export class ClienteabonaListComponent implements OnInit {
 
 	formatoDeFecha = formatoDeFecha;
 	
+	verDetalle = 'N';
+
 	constructor() {
 	}
 
@@ -103,5 +104,8 @@ export class ClienteabonaListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+	actualizarSeleccionado(objetoN:any){
+		this.verDetalle = 'S';
+	}
 
 }

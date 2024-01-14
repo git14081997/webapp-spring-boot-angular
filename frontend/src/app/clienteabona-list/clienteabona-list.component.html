@@ -10,13 +10,13 @@
 
               <th class="bg-dark text-white" scope="col">ID</th>
 
-              <th class="bg-dark text-white" scope="col">Saldo Anterior</th>
+              <th class="bg-dark text-white" scope="col"  *ngIf="verDetalle == 'N'" >Saldo Anterior</th>
 
-              <th class="bg-dark text-white" scope="col">Cargos</th>
+              <th class="bg-dark text-white" scope="col"  *ngIf="verDetalle == 'N'" >Cargos</th>
 
-              <th class="bg-dark text-white" scope="col">Abonos</th>
+              <th class="bg-dark text-white" scope="col"  *ngIf="verDetalle == 'N'" >Abonos</th>
 
-              <th class="bg-dark text-white" scope="col">Saldo</th>
+              <th class="bg-dark text-white" scope="col"  *ngIf="verDetalle == 'N'" >Saldo</th>
 
               <th class="bg-dark text-white" scope="col">Fecha</th>
 
@@ -27,13 +27,13 @@
           <tbody>
             <tr *ngFor="let objetoN of objetos">
 
-              <td class="align-middle">{{ objetoN.id }}</td>
-              <td class="align-middle">{{ objetoN.saldoAnterior }}</td>
-              <td class="align-middle">{{ objetoN.cargos }}</td>
-              <td class="align-middle">{{ objetoN.abonos }}</td>
-              <td class="align-middle">{{ objetoN.saldo }}</td>
-              <td class="align-middle">{{ formatoDeFecha(objetoN.fecha) }}</td>
-              <td class="align-middle">{{ objetoN.detalles }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldoAnterior }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.cargos }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.abonos }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldo }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
+              <td class="align-middle" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.detalles }}</td>
 
             </tr>
           </tbody>
@@ -41,11 +41,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
 
   <div class="row">
     <div class="col mt-2">
@@ -55,8 +50,8 @@
           <select class="form-select form-select-lg" (change)="this.setCantidadPorPag()" [(ngModel)]="cantidad"
             style="width: max-content;border: 1px solid gray;">
 
-            <option *ngFor="let num of opcionesCantidadPorPagina">
-              {{num}}
+            <option *ngFor="let cantidadPorPagina of opcionesCantidadPorPagina">
+            {{ cantidadPorPagina }}
             </option>
           </select>
 
@@ -74,7 +69,7 @@
 
           <li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
             <a class="page-link" href="#" (click)="this.getPorPaginaNum(paginaN.numPagina)">
-              {{paginaN.numPagina}}
+            {{paginaN.numPagina}}
             </a>
           </li>
 
@@ -90,5 +85,9 @@
       </nav>
     </div>
   </div>
+
+
+
+
 
 </div>

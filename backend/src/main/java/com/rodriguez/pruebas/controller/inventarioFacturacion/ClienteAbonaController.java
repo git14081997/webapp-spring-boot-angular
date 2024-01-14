@@ -93,7 +93,7 @@ public class ClienteAbonaController {
 
 		if( descuento != null ){
 			if(descuento.equals("1")){
-				abonoOrRebaja = "Rebaja de";
+				abonoOrRebaja = "Rebaja de ";
 			}
 		}
 
@@ -105,9 +105,7 @@ public class ClienteAbonaController {
 
 
 		if( info != null ){
-			if(!info.isEmpty()){
-				detalleDelAbono += info;
-			}
+			detalleDelAbono += " " + info;
 		}
 
 

@@ -261,9 +261,18 @@ export class UsuariosListComponent implements OnInit {
 		};
 
 
+		let enlace = hostname + "/api/clienteabona";
+
+		if( this.esRebajaOrDescuento ){
+			enlace += "?descuento=1&";
+		}
 		
+		if( this.objetoSeleccionado.info != "" ){
+			enlace += "info=" + this.objetoSeleccionado.info;
+		}
+
 		this.http.post<any>(
-			hostname + "/api/clienteabona",
+			enlace,
 			logCargosAbonos,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE) => {
@@ -279,6 +288,19 @@ export class UsuariosListComponent implements OnInit {
 
 	}
 
+	esRebajaOrDescuento: boolean = false;
 
+	esRebaja(){
+		this.esRebajaOrDescuento = !this.esRebajaOrDescuento;
+	}
+
+	formatoBool(varBoolean:boolean): string {
+		if(varBoolean){
+			return "Sí";
+		}
+		else {
+			return "No";
+		}
+	}
 
 }

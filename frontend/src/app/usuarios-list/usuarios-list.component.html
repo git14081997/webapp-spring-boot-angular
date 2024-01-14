@@ -208,12 +208,30 @@
   </div>
 
 
+
   <div class="row" *ngIf="verAgregarAbono" >
+
+    <p class="my-3" ></p>
+
     <div class="col-3 mt-2">
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-control-lg" id="parametro-abono" placeholder=""
           [(ngModel)]="objetoSeleccionado.abono">
-        <label for="parametro-abono" class="form-label">Monto que abona:</label>
+        <label for="parametro-abono" class="form-label">Monto:</label>
+      </div>
+    </div>
+    <div class="col-2 mt-2">
+      <p (click)="esRebaja()" class="h5" >
+        Es Descuento: {{formatoBool(esRebajaOrDescuento)}}
+      </p>
+    </div>
+  </div>
+  <div class="row" *ngIf="verAgregarAbono" >
+    <div class="col-3 mt-2">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control form-control-lg" id="parametro-info" placeholder=""
+          [(ngModel)]="objetoSeleccionado.info">
+        <label for="parametro-info" class="form-label">Información:</label>
       </div>
     </div>
     <div class="col-2 mt-2">
@@ -222,6 +240,7 @@
       </button>
     </div>
   </div>
+
 
 
 
