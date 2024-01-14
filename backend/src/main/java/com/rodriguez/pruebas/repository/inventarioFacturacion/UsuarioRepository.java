@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository("usuarioRepository")
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-	Page<Usuario> findByNombreCompletoContainingIgnoreCase(Pageable pageable, String nombre);
+	Page<Usuario> findByNombreCompletoContainingIgnoreCaseOrId(Pageable pageable, String nombre, Integer usuarioId);
 
 
 	/*

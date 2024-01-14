@@ -219,8 +219,20 @@ public Page<Usuario> findAllByNombreAndApellido(
 		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		return usuarioRepository.findByNombreCompletoContainingIgnoreCase(pageable, nombre);
+		try {
+			Integer usuarioId = Integer.parseInt(nombre);
+			return usuarioRepository.findByNombreCompletoContainingIgnoreCaseOrId(
+				pageable, nombre, usuarioId
+			);
+		}
+		catch (NumberFormatException numberFormatException){
+			return usuarioRepository.findByNombreCompletoContainingIgnoreCaseOrId(
+				pageable, nombre, null
+			);
+		}
 	}
+
+
 
 
 
