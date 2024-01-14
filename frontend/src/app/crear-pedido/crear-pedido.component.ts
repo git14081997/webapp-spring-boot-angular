@@ -5,13 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
-import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 import { IVA } from '../impuestos';
-import { stringify } from 'querystring';
 
 @Component({
 selector: 'app-crear-pedido',
@@ -63,10 +60,10 @@ this.parametros.buscar = "";
 this.productosEncontrados = [];
 }
 
+
 getPaginadoBuscando(nombre: string) {
 return this.http.get<any>(
-hostname + '/api/producto' + "/" + 0 + "/" + 20 +
-"/buscar" + "?nombre="+nombre,
+hostname + '/api/producto/0/20/buscar?nombre=' + nombre,
 this.parametroServicio.headers).subscribe((RESPONSE:any) => {
 this.productosEncontrados = RESPONSE.content;
 for(let productoN of this.productosEncontrados){

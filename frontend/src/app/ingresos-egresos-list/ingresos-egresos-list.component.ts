@@ -81,8 +81,9 @@ export class IngresosEgresosListComponent implements OnInit {
       logEgresoDetalle,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE) => {
-      this.consultarIE();
+      this.verAgregarGasto = 'N';
       this.param = {};
+      this.consultarIE();
     });
 
   }

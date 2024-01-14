@@ -1,12 +1,12 @@
 <!-- INICIO-PAG -->
 
-<div class="container-fluid mt-5">
+<div class="container-fluid">
 
 <!-- clientes-encontrados -->
 <div class="row">
 <div class="col-12 mt-2">
 
-	<div class="h3">Cliente que compra: {{ todoElPedido.usuarioNombre|| "" }}</div>
+	<div class="h3">Cliente: {{ todoElPedido.usuarioNombre|| "" }}</div>
 
 	<div class="input-group mb-3">
 
@@ -66,7 +66,7 @@
 	<!-- busqueda-de-productos -->
 	<div class="row">
 
-		<div class="col-12 mt-3">
+		<div class="col-12 mt-2">
 			<div class="input-group mb-3">
 
 				<span class="input-group-text">
@@ -90,12 +90,16 @@
 
 	</div>
 
+
+
+
+
 	<!-- tabla-productos-encontrados -->
 	<div class="row">
 		<div class="col mt-2">
 			<div class="table-responsive">
 
-				<table class="table table-lg table-borderless table-striped">
+				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
 					<thead class="align-middle">
 						<tr class="align-middle">
 							<th class="bg-dark text-white" scope="col">Hay</th>
@@ -135,7 +139,7 @@
 
 	<!-- tabla-detalle-pedido -->
 	<div class="row">
-		<div class="col mt-1">
+		<div class="col mt-2">
 			
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped">

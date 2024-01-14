@@ -202,16 +202,23 @@ public class ProductoController {
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		Page<Producto> resultado = productoRepository.findByNombreContainingIgnoreCase(pageable, nombre);
+		try {
 
-		/*
-		resultado.forEach( resultadoN -> {
-			resultadoN.setImagen(null);
-		});
-		*/
-		return resultado;
+			Integer idProducto = Integer.parseInt(nombre);
+
+			return productoRepository.findByNombreContainingIgnoreCaseOrId(
+				pageable, nombre, idProducto
+			);
+
+		} catch (NumberFormatException numberFormatException){
+		}
+
+		return productoRepository.findByNombreContainingIgnoreCaseOrId(
+			pageable, nombre, null
+		);
 
 	}
+
 
 
 

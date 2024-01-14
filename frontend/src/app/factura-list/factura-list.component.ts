@@ -130,16 +130,6 @@ export class FacturaListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
-	/*
-	eliminarPorID(id: number) {
-		this.service.deleteById(
-			this.parametroServicio, id
-		).subscribe((RESPONSE) => {
-			this.getPorPagina();
-		});
-	}
-	*/
-
 
 	setPaginaCantidad(pagina: number, cantidad: number) {
 		this.pagina = pagina;
@@ -185,7 +175,7 @@ export class FacturaListComponent implements OnInit {
 
 	actualizarSeleccionado(parametros: any) {
 		this.facturaSeleccionada = parametros;
-		//this.crearOrActualizar = 'A';
+
 		this.verLista = 'N';
 		this.verEditable = 'S';
 		console.log(parametros);
@@ -200,10 +190,10 @@ export class FacturaListComponent implements OnInit {
 			hostname + '/api/factura/nombre/' + nombreCliente,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE:any) => {
-			console.log(RESPONSE);
+
+			
 			this.facturas = RESPONSE;
 			
-			/// procesarInfo N facturas
 			for( let objetoN of this.facturas ){
 				objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
 
@@ -242,22 +232,6 @@ export class FacturaListComponent implements OnInit {
 		this.cantidad = this.opcionesCantidadPorPagina[0];
 		this.getPorPagina();
 	}
-
-	/*
-	getPaginadoBuscando(parametro:ParametroServicio, 
-		pagina: number, cantidad: number,descripcion: string): Observable<any> {
-
-		return this.http.get<any>(
-			hostname + parametro.url + "/" + pagina + "/" + cantidad +
-			"/buscar" + "?descripcion="+descripcion,
-			parametro.headers);
-	}
-	*/
-
-
-
-
-
 
 
 	getDetallePorFactura(facturaId:number) {
