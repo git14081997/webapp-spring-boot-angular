@@ -22,7 +22,7 @@ export class PruebasComponent implements OnInit {
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json;charset=utf-8',
 			'Accept': 'application/json',
-			'Authorization': 'Bearer '
+			'Authorization': 'Bearer ' + localStorage.getItem('token')
 		})
 	}
 

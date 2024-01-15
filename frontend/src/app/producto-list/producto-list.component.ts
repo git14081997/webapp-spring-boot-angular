@@ -28,7 +28,7 @@ export class ProductoListComponent implements OnInit {
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem("personal-token")
+			'Authorization': 'Bearer ' + localStorage.getItem('token')
 		})
 	}
 

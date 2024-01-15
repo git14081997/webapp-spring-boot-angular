@@ -30,7 +30,7 @@ export class UsuariosListComponent implements OnInit {
 		headers: new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
-			'Authorization': 'Bearer '
+			'Authorization': 'Bearer ' + localStorage.getItem('token')
 		})
 	}
 
