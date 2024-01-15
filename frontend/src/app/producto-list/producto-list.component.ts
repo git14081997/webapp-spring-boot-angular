@@ -44,11 +44,13 @@ export class ProductoListComponent implements OnInit {
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
-	cantidad: number = 10;
 	total: number = 1;
-	opcionesCantidadPorPagina = [10, 25, 50, 100];
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
+
+	opcionesCantidadPorPagina = [1, 25, 50, 100];
+	cantidad: number = this.opcionesCantidadPorPagina[0];
+
 
 	tmp:any;
   categoriasDisponibles:any[] = [];
