@@ -2,15 +2,8 @@
 
   <div class="row">
     <div class="col my-4">
-      <button class="btn btn-success btn-lg align-middle" 
-      (click)="verVentanaAgregar()" *ngIf="verLista == 'S'"
-      style="float: right !important;margin-left: 10px !important;">
-        Agregar
-      </button>
-      <button class="btn btn-info btn-lg align-middle" (click)="verListado()" *ngIf="verLista == 'N'"
-      style="float: right !important;margin-left: 10px !important;">
-        Regresar
-      </button>
+      <button class="btn btn-success btn-lg align-middle btn-derecha" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">Agregar</button>
+      <button class="btn btn-info btn-lg align-middle btn-derecha" (click)="verListado()" *ngIf="verLista == 'N'">Regresar</button>
     </div>
   </div>
 
@@ -46,28 +39,19 @@
   <div class="row" *ngIf="verLista == 'S'">
     <div class="col my-4">
       <div class="table-responsive">
-
         <table class="table table-striped table-lg table-borderless" style="border-bottom: 2px solid black !important;">
           <thead>
             <tr>
-              <th  scope="col">ID</th>
-
-              <th  scope="col">Nombre</th>
-
-              <th  scope="col">Pendiente de pago</th>
-
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Pendiente de pago</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let objetoN of objetos">
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.nombre }} {{
-                objetoN.nombreDos || "" }} {{ objetoN.apellido || "" }} {{ objetoN.apellidoDos || "" }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.pendienteDePago | currency: 'Q. ' }}</td>
-
+              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre }} {{ objetoN.nombreDos || "" }} {{ objetoN.apellido || "" }} {{ objetoN.apellidoDos || "" }}</td>
+              <td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.pendienteDePago | currency: 'Q. ' }}</td>
             </tr>
           </tbody>
         </table>
@@ -156,11 +140,11 @@
   <div class="row">
     <div class="col my-4">
       <div class="mb-3">
-        <button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'"
+        <button class="btn btn-success btn-lg btn-derecha" *ngIf="crearOrActualizar == 'C'"
           (click)="agregar(this.objetoSeleccionado)">
           Guardar
         </button>
-        <button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'"
+        <button class="btn btn-warning btn-lg btn-derecha" *ngIf="crearOrActualizar == 'A'"
           (click)="actualizar(this.objetoSeleccionado)">
           Actualizar
         </button>
@@ -180,15 +164,15 @@
 <div class="container-fluid" *ngIf="verEditable == 'S'">
   <div class="row">
     <div class="col my-4">
-        <button class="btn btn-success btn-lg" (click)="mostrarCargosAbonos()">
+        <button class="btn btn-success btn-lg btn-derecha" (click)="mostrarCargosAbonos()">
           Ver Cargos y Abonos
         </button>
         &nbsp;
-        <button class="btn btn-success btn-lg" (click)="mostrarFacturas()">
+        <button class="btn btn-success btn-lg btn-derecha" (click)="mostrarFacturas()">
           Ver Facturas
         </button>
         &nbsp;
-        <button class="btn btn-success btn-lg" (click)="mostrarAgregarAbono()">
+        <button class="btn btn-success btn-lg btn-derecha" (click)="mostrarAgregarAbono()">
           Agregar abono
         </button>
     </div>
@@ -222,7 +206,7 @@
       </div>
     </div>
     <div class="col-2 my-4">
-      <button class="btn btn-warning btn-lg" (click)="agregarAbono()">
+      <button class="btn btn-warning btn-lg btn-derecha" (click)="agregarAbono()">
         Guardar
       </button>
     </div>

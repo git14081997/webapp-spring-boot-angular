@@ -4,24 +4,14 @@
 <div class="row">
 <div class="col my-4">
 
-<button class="btn btn-success btn-lg align-middle" 
-(click)="verVentanaAgregar()" *ngIf="verLista == 'S'"
-style="float: right !important;margin-left: 10px !important;"
->
-Agregar
-</button>
+<button class="btn btn-success btn-lg align-middle btn-derecha" 
+(click)="verVentanaAgregar()" *ngIf="verLista == 'S'">Agregar</button>
 
-<button class="btn btn-info btn-lg align-middle" (click)="verListado()" *ngIf="verLista == 'N'"
-style="float: right !important;margin-left: 10px !important;"
->
-Regresar
-</button>
+<button class="btn btn-info btn-lg align-middle btn-derecha" (click)="verListado()" *ngIf="verLista == 'N'"
+>Regresar</button>
 &nbsp;
-<button class="btn btn-dark btn-lg align-middle" (click)="verVentanaInventario()"
- *ngIf="verLista == 'N' && verAgregar == 'N'" style="float: right !important;margin-left: 10px !important;"
- >
-Log Inventario
-</button>
+<button class="btn btn-dark btn-lg align-middle btn-derecha" (click)="verVentanaInventario()"
+ *ngIf="verLista == 'N' && verAgregar == 'N'">Log Inventario</button>
 
 </div>
 </div><!-- botones -->
@@ -179,19 +169,13 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 <div class="row">
 <div class="col my-4">
 <div class="mb-3">
-<button class="btn btn-success btn-lg" 
+<button class="btn btn-success btn-lg btn-derecha" 
 *ngIf="crearOrActualizar == 'C'" 
-(click)="agregar(this.objetoSeleccionado)"
-style="float: right !important;margin-left: 10px !important;">
-Guardar
-</button>
-<button class="btn btn-warning btn-lg" 
+(click)="agregar(this.objetoSeleccionado)">Guardar</button>
+
+<button class="btn btn-warning btn-lg btn-derecha" 
 *ngIf="crearOrActualizar == 'A'" 
-(click)="actualizar(this.objetoSeleccionado)"
-style="float: right !important;margin-left: 10px !important;"
->
-Actualizar
-</button>
+(click)="actualizar(this.objetoSeleccionado)">Actualizar</button>
 
 </div>
 </div>
@@ -213,23 +197,17 @@ Actualizar
 
 <div class="row">
 <div class="col my-4">
-	<button class="btn btn-success btn-lg" 
-	(click)="agregarAlInventario(this.objetoSeleccionado)"
-	style="float: right !important;margin-left: 10px !important;"
-	>
-	Agregar al inventario
-	</button>
+	<button class="btn btn-success btn-lg btn-derecha" 
+	(click)="agregarAlInventario(this.objetoSeleccionado)">Agregar al inventario</button>
+
 </div>
 </div>
-
-
 
 </div><!-- editar -->
 
 
 <!-- agregar -->
 <div class="container-fluid" *ngIf="verAgregar == 'S'">
-
 
 <div class="row">
 
@@ -280,16 +258,11 @@ Actualizar
 <div class="row">
 <div class="col my-4">
 
-<button class="btn btn-success btn-lg" *ngIf="crearOrActualizar == 'C'"
-(click)="agregar(this.objetoSeleccionado)"
-style="float: right !important;margin-left: 10px !important;"
->Guardar
-</button>
-<button class="btn btn-warning btn-lg" *ngIf="crearOrActualizar == 'A'"
-(click)="actualizar(this.objetoSeleccionado)"
-style="float: right !important;margin-left: 10px !important;"
->Actualizar
-</button>
+<button class="btn btn-success btn-lg btn-derecha" *ngIf="crearOrActualizar == 'C'"
+(click)="agregar(this.objetoSeleccionado)">Guardar</button>
+
+<button class="btn btn-warning btn-lg btn-derecha" *ngIf="crearOrActualizar == 'A'"
+(click)="actualizar(this.objetoSeleccionado)">Actualizar</button>
 
 </div>
 </div>
@@ -308,34 +281,29 @@ style="float: right !important;margin-left: 10px !important;"
 <div class="row">
 <div class="col my-4">
 	<div class="table-responsive">
-
-	<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
+	<table class="table table-lg table-borderless table-striped">
 		<thead>
-		<tr >
+		<tr>
 		<th scope="col">ID</th>
 		<th scope="col">Saldo Anterior</th>
 		<th scope="col">Entradas</th>
 		<th scope="col">Salidas</th>
 		<th scope="col">Existencias</th>
 		<th scope="col">Fecha</th>
-
 		</tr>
 		</thead>
-		<tbody >
-		<tr *ngFor="let objetoN of regInventario" >
-		
+		<tbody>
+		<tr *ngFor="let objetoN of regInventario">
 		<td >{{ objetoN.id }}</td>
 		<td >{{ objetoN.saldoAnterior }}</td>
 		<td >{{ objetoN.entradas }}</td>
 		<td >{{ objetoN.salidas }}</td>
 		<td >{{ objetoN.existencia }}</td>
 		<td >{{ formatoDeFecha(objetoN.fecha) }}</td>
-
 		</tr>
 		</tbody>
 		</table>
 	</div>
-
 </div>
 </div>
 </div><!-- registros-inventario-por-producto -->
