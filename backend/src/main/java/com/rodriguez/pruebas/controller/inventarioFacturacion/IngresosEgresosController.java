@@ -73,7 +73,7 @@ public class IngresosEgresosController {
 
 		String sql = """
 			SELECT INGRESOS_EGRESOS.* FROM INVENTARIO_FACTURACION.INGRESOS_EGRESOS
-			WHERE YEAR(FECHA) = ? AND MONTH(FECHA) = ?
+			WHERE YEAR(FECHA) = ? AND MONTH(FECHA) = ? ORDER BY ID DESC
 		""";
 
 		return jdbcTemplate.query(

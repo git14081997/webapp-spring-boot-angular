@@ -69,10 +69,10 @@
 
 <div class="row text-center">
 	<div class="col my-4">
-		<h3>Suma de ingresos: {{sumaIngresos}}</h3>
+		<h3>Suma de ingresos: {{ dosDecimales(sumaIngresos) }}</h3>
 	</div>
 	<div class="col my-4">
-		<h3>Suma de egresos: {{sumaEgresos}}</h3>
+		<h3>Suma de egresos: {{ dosDecimales(sumaEgresos) }}</h3>
 	</div>
 </div>
 
@@ -85,20 +85,20 @@
 			<table class="table table-striped table-lg table-borderless">
 				<thead>
 					<tr>
-						<th  scope="col">ID</th>
-						<th  scope="col">Ingreso</th>
-						<th  scope="col">Egreso</th>
-						<th  scope="col">Fecha</th>
-						<th  scope="col">Detalle</th>
+						<th scope="col" class="text-nowrap">ID</th>
+						<th scope="col" class="text-nowrap">Ingreso</th>
+						<th scope="col" class="text-nowrap">Egreso</th>
+						<th scope="col" class="text-nowrap">Fecha</th>
+						<th scope="col" class="text-nowrap">Detalle</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let objetoN of registrosIngresosEgresos">
-						<td >{{ objetoN.id }}</td>
-						<td >{{ objetoN.ingresos | currency: 'Q. ' }}</td>
-						<td >{{ objetoN.egresos | currency: 'Q. '  }}</td>
-						<td >{{ formatoDeFecha(objetoN.fecha) }}</td>
-						<td >{{ objetoN.detalle }}</td>
+						<td class="text-nowrap">{{ objetoN.id }}</td>
+						<td class="text-nowrap">{{ objetoN.ingresos | currency: 'Q. ' }}</td>
+						<td class="text-nowrap">{{ objetoN.egresos | currency: 'Q. '  }}</td>
+						<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
+						<td class="text-nowrap">{{ objetoN.detalle }}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -1,5 +1,7 @@
 
-export { getMesLetras, formatoDeFecha };
+export { 
+  getMesLetras, formatoDeFecha, dosDecimales 
+};
 
 const getMesLetras = (mes: number): string => {
   let mesEnLetras = "";
@@ -70,3 +72,6 @@ const formatoDeFecha = (campoFecha: any): string => {
 }
 
 
+const dosDecimales = ( xnumber: number ): number => {
+  return Number(xnumber.toFixed(2));
+}

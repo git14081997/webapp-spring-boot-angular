@@ -251,7 +251,7 @@ export class UsuariosListComponent implements OnInit {
 
 	}
 
-	agregarAbono(){
+	agregarAbono(): number {
 
 		let logCargosAbonos:any = {
 			cargos: 0,
@@ -261,31 +261,28 @@ export class UsuariosListComponent implements OnInit {
 			}
 		};
 
-
 		let enlace = hostname + "/api/clienteabona";
 
+		if( this.esRebajaOrDescuento && this.objetoSeleccionado.info != ""  && this.objetoSeleccionado.info != undefined){
+			enlace += "?descuento=1&info=" + this.objetoSeleccionado.info;
+			this.enviarAbono(enlace,logCargosAbonos);
+			return 0;
+		}
+
 		if( this.esRebajaOrDescuento ){
-			enlace += "?descuento=1&";
-		}
-		
-		if( this.objetoSeleccionado.info != "" ){
-			enlace += "info=" + this.objetoSeleccionado.info;
+			enlace += "?descuento=1";
+			this.enviarAbono(enlace,logCargosAbonos);
+			return 0;
 		}
 
-		this.http.post<any>(
-			enlace,
-			logCargosAbonos,
-			this.parametroServicio.headers
-		).subscribe((RESPONSE) => {
-			console.log(RESPONSE);
+		if( this.objetoSeleccionado.info != "" && this.objetoSeleccionado.info != undefined ){
+			enlace += "?info=" + this.objetoSeleccionado.info;
+			this.enviarAbono(enlace,logCargosAbonos);
+			return 0;
+		}
 
-			this.verEditable = 'N';
-			this.verAgregar = 'N';
-			this.verLista = 'S';
-			this.objetoSeleccionado = {};
-			window.location.reload();
-
-		});
+		this.enviarAbono(enlace,logCargosAbonos);
+		return 0;
 
 	}
 
@@ -301,6 +298,16 @@ export class UsuariosListComponent implements OnInit {
 		else {
 			return "No";
 		}
+	}
+
+	enviarAbono(enlace:string, logCargosAbonos:any ){
+		this.http.post<any>(enlace, logCargosAbonos, this.parametroServicio.headers).subscribe((RESPONSE) => {
+			this.verEditable = 'N';
+			this.verAgregar = 'N';
+			this.verLista = 'S';
+			this.objetoSeleccionado = {};
+			window.location.reload();
+		});		
 	}
 
 }

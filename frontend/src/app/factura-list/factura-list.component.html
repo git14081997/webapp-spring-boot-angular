@@ -43,39 +43,34 @@
     <div class="col my-4">
       <div class="table-responsive">
 
-        <table class="table table-striped table-lg table-borderless"  style="border-bottom: 2px solid black !important;">
+        <table class="table table-striped table-lg table-borderless">
           <thead>
             <tr>
 
-              <th  scope="col">Nó. Factura</th>
-              <th  scope="col">Cliente</th>
-              <th  scope="col">Tipo Pedido</th>
-              <th  scope="col">Ganancia</th>
-              <th  scope="col">Subtotal sin IVA</th>
-              <th  scope="col">IVA</th>
-              <th  scope="col">Total</th>
-              <th  scope="col">Fecha</th>
-              <th  scope="col">Fecha Devolución</th>
+              <th class="text-nowrap"scope="col">Nó. Factura</th>
+              <th class="text-nowrap" scope="col">Cliente</th>
+              <th class="text-nowrap" scope="col">Tipo Pedido</th>
+              <th class="text-nowrap" scope="col">Ganancia</th>
+              <th class="text-nowrap" scope="col">Subtotal sin IVA</th>
+              <th class="text-nowrap" scope="col">IVA</th>
+              <th class="text-nowrap" scope="col">Total</th>
+              <th class="text-nowrap" scope="col">Fecha</th>
+              <th class="text-nowrap" scope="col">Fecha Devolución</th>
 
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let objetoN of facturas">
 
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.nombreCompleto | uppercase }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.tipoPagoDetalle | uppercase }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.ganancia | currency: 'Q. ' }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.subtotalSinIva | currency: 'Q. ' }}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.iva | currency: 'Q. ' }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.total  | currency: 'Q. '}}</td>
-
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fechaEmision) }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fechaDevolucion) }}</td>
-
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.nombreCompleto | uppercase }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.tipoPagoDetalle | uppercase }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.ganancia | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.subtotalSinIva | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.iva | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.total  | currency: 'Q. '}}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fechaEmision) }}</td>
+              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fechaDevolucion) }}</td>
 
             </tr>
           </tbody>
@@ -123,30 +118,30 @@
 
       <div class="table-responsive">
 
-        <table class="table table-striped table-lg table-borderless" style="border-bottom: 2px solid black !important;">
+        <table class="table table-striped table-lg table-borderless">
           <thead>
             <tr>
 
-              <th  scope="col">Producto Vendido</th>
-              <th  scope="col">Cantidad</th>
-              <th  scope="col">Precio Vendido</th>
-              <th  scope="col">Subtotal</th>
-              <th  scope="col">IVA</th>
-              <th  scope="col">Costo</th>
-              <th  scope="col">Ganancia</th>
+              <th class="text-nowrap" scope="col">Producto Vendido</th>
+              <th class="text-nowrap" scope="col">Cantidad</th>
+              <th class="text-nowrap" scope="col">Precio Vendido</th>
+              <th class="text-nowrap" scope="col">Subtotal</th>
+              <th class="text-nowrap" scope="col">IVA</th>
+              <th class="text-nowrap" scope="col">Costo</th>
+              <th class="text-nowrap" scope="col">Ganancia</th>
 
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let detalleN of detallesPorFactura">
 
-              <td >{{ detalleN.nombreProducto | uppercase }}</td>
-              <td >{{ detalleN.cantidadProductoVendido }}</td>
-              <td >{{ detalleN.precioVentaPorProducto | currency: 'Q. ' }}</td>
-              <td >{{ detalleN.subtotalPorProducto  | currency: 'Q. ' }}</td>
-              <td >{{ detalleN.ivaDelSubtotalPorProducto  | currency: 'Q. ' }}</td>
-              <td >{{ detalleN.costoDelSubtotalPorProducto  | currency: 'Q. ' }}</td>
-              <td >{{ detalleN.gananciaDelSubtotalPorProducto  | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" >{{ detalleN.nombreProducto | uppercase }}</td>
+              <td class="text-nowrap" >{{ detalleN.cantidadProductoVendido }}</td>
+              <td class="text-nowrap" >{{ detalleN.precioVentaPorProducto | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" >{{ detalleN.subtotalPorProducto  | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" >{{ detalleN.ivaDelSubtotalPorProducto  | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" >{{ detalleN.costoDelSubtotalPorProducto  | currency: 'Q. ' }}</td>
+              <td class="text-nowrap" >{{ detalleN.gananciaDelSubtotalPorProducto  | currency: 'Q. ' }}</td>
 
             </tr>
           </tbody>

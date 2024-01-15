@@ -36,15 +36,15 @@
 	<div class="row">
 		<div class="col my-4">
 			<div class="table-responsive">
-				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
-					<thead >
-						<tr >
-							<th  scope="col">Clientes encontrados</th>
+				<table class="table table-lg table-borderless table-striped">
+					<thead>
+						<tr>
+							<th class="text-nowrap" scope="col">Clientes encontrados</th>
 						</tr>
 					</thead>
-					<tbody >
+					<tbody>
 						<tr *ngFor="let clienteN of clientesEncontrados; index as ind " >
-							<td (click)="setClienteCompra(clienteN, ind )" >
+							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap" >
 								{{ clienteN.nombre }} {{ clienteN.nombreDos || "" }} {{ clienteN.apellido || "" }} {{
 								clienteN.apellidoDos || "" }}
 							</td>
@@ -109,17 +109,17 @@
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
 					<thead >
 						<tr >
-							<th  scope="col">ID</th>
-							<th  scope="col">Producto</th>
-							<th  scope="col">Existencias</th>
+							<th class="text-nowrap" scope="col">ID</th>
+							<th class="text-nowrap" scope="col">Producto</th>
+							<th class="text-nowrap" scope="col">Existencias</th>
 						</tr>
 					</thead>
 					<tbody >
 						<tr *ngFor="let objetoN of productosEncontrados; index as ind " >
 
-							<td (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.id }}</td>
-							<td (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.nombre }}</td>
-							<td (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.existencias }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.id }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.nombre }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.existencias }}</td>
 
 						</tr>
 					</tbody>
@@ -153,22 +153,22 @@
 		<div class="col my-4">
 
 			<div class="table-responsive">
-				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
+				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
 
-							<th scope="col"  style="width:54px !important;">&nbsp;</th>
-							<th scope="col" >Producto</th>
-							<th scope="col" >Precio</th>
-							<th scope="col" >Cantidad</th>
-							<th scope="col" >Subtotal por producto</th>
+							<th scope="col" class="text-nowrap"  style="width:54px !important;">&nbsp;</th>
+							<th scope="col" class="text-nowrap" >Producto</th>
+							<th scope="col" class="text-nowrap" >Precio</th>
+							<th scope="col" class="text-nowrap" >Cantidad</th>
+							<th scope="col" class="text-nowrap" >Subtotal por producto</th>
 
 						</tr>
 					</thead>
 					<tbody >
 						<tr *ngFor="let objetoN of objetosPedido; index as ind " >
 
-							<td>
+							<td class="text-nowrap" >
 								<button class="btn btn-danger btn-lg" (click)="quitarDelPedido(ind) ">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 										class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -178,9 +178,9 @@
 								</button>
 							</td>
 
-							<td >{{ objetoN.nombre }}</td>
+							<td class="text-nowrap" >{{ objetoN.nombre }}</td>
 
-							<td  style="width: 99px !important;">
+							<td class="text-nowrap">
 								 {{ objetoN.precioVenta | currency: 'Q. ' }}
 								<input type="number" class="form-control" id="parametro-precioVenta" placeholder=""
 									[(ngModel)]="objetoN.precioVenta" min={{objetoN.precioVentaMin}}
@@ -189,14 +189,14 @@
 
 							</td>
 
-							<td  style="width: 99px !important;">
+							<td class="text-nowrap" >
 								<input type="number" class="form-control" id="parametro-cantidad" placeholder=""
 									[(ngModel)]="objetoN.cantidadProductoVendido" min="1" (change)="actualizarDetallePedido()">
 								<label for="parametro-cantidad" class="form-label"></label>
 							</td>
 
 
-							<td > {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
+							<td class="text-nowrap" > {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
 
 						</tr>
 					</tbody>
@@ -204,7 +204,7 @@
 			</div>
 
 
-			<div class="h3">
+			<div class="h3 text-nowrap">
 				{{ todoElPedido.subtotal | currency: 'Q. ' || 0 }} Subtotal<br />
 				{{ todoElPedido.iva | currency: 'Q. ' || 0 }} IVA<br />
 				{{ todoElPedido.total | currency: 'Q. ' || 0 }} Total

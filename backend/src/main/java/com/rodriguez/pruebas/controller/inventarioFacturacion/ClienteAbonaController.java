@@ -69,7 +69,7 @@ public class ClienteAbonaController {
 	public Integer clienteAbona(
 		@RequestBody ClienteAbona clienteAbona,
 		@RequestParam(required = false) String descuento,
-		@RequestParam(required = false) String info
+		@RequestParam(required = false, defaultValue = "") String info
 	){
 
 
@@ -105,7 +105,9 @@ public class ClienteAbonaController {
 
 
 		if( info != null ){
-			detalleDelAbono += " " + info;
+			if( !info.isEmpty() ){
+				detalleDelAbono += " " + info;
+			}
 		}
 
 

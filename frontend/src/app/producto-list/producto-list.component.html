@@ -47,28 +47,28 @@
 <div class="col my-4">
 	<div class="table-responsive">
 
-<table class="table table-lg table-borderless table-striped " style="border-bottom: 2px solid black !important;">
+<table class="table table-lg table-borderless table-striped ">
 <thead>
 <tr>
 
-<th scope="col">ID</th>
-<th scope="col">Nombre</th>
-<th scope="col">Costo Unidad</th>
-<th scope="col">Ganancia Q</th>
-<th scope="col">Precio Venta Q</th>
-<th scope="col">Existencias</th>
+<th class="text-nowrap" scope="col">ID</th>
+<th class="text-nowrap" scope="col">Nombre</th>
+<th class="text-nowrap" scope="col">Costo Unidad</th>
+<th class="text-nowrap" scope="col">Ganancia Q</th>
+<th class="text-nowrap" scope="col">Precio Venta Q</th>
+<th class="text-nowrap" scope="col">Existencias</th>
 
 </tr>
 </thead>
 <tbody>
 <tr *ngFor="let objetoN of objetos">
 
-<td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
-<td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre }}</td>
-<td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.costoUnidad | currency: 'Q. ' }}</td>
-<td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.ganancia | currency: 'Q. ' }}</td>
-<td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.precioVenta | currency: 'Q. ' }}</td>
-<td (click)="actualizarSeleccionado(objetoN)">{{ objetoN.existencias }}</td>
+<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
+<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre | uppercase }}</td>
+<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.costoUnidad | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.ganancia | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.precioVenta | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.existencias }}</td>
 
 </tr>
 </tbody>
@@ -284,22 +284,22 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 	<table class="table table-lg table-borderless table-striped">
 		<thead>
 		<tr>
-		<th scope="col">ID</th>
-		<th scope="col">Saldo Anterior</th>
-		<th scope="col">Entradas</th>
-		<th scope="col">Salidas</th>
-		<th scope="col">Existencias</th>
-		<th scope="col">Fecha</th>
+		<th  class="text-nowrap" scope="col">ID</th>
+		<th  class="text-nowrap" scope="col">Saldo Anterior</th>
+		<th  class="text-nowrap" scope="col">Entradas</th>
+		<th  class="text-nowrap" scope="col">Salidas</th>
+		<th  class="text-nowrap" scope="col">Existencias</th>
+		<th  class="text-nowrap" scope="col">Fecha</th>
 		</tr>
 		</thead>
 		<tbody>
 		<tr *ngFor="let objetoN of regInventario">
-		<td >{{ objetoN.id }}</td>
-		<td >{{ objetoN.saldoAnterior }}</td>
-		<td >{{ objetoN.entradas }}</td>
-		<td >{{ objetoN.salidas }}</td>
-		<td >{{ objetoN.existencia }}</td>
-		<td >{{ formatoDeFecha(objetoN.fecha) }}</td>
+		<td class="text-nowrap" >{{ objetoN.id }}</td>
+		<td class="text-nowrap" >{{ objetoN.saldoAnterior }}</td>
+		<td class="text-nowrap" >{{ objetoN.entradas }}</td>
+		<td class="text-nowrap" >{{ objetoN.salidas }}</td>
+		<td class="text-nowrap" >{{ objetoN.existencia }}</td>
+		<td class="text-nowrap" >{{ formatoDeFecha(objetoN.fecha) }}</td>
 		</tr>
 		</tbody>
 		</table>

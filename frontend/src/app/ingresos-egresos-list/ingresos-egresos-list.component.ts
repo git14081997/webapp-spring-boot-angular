@@ -8,6 +8,7 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
+import { dosDecimales } from '../libproyecto';
 
 @Component({
   selector: 'app-ingresos-egresos-list',
@@ -27,6 +28,7 @@ export class IngresosEgresosListComponent implements OnInit {
   sumaEgresos:number = 0;
   param: any = {};
   formatoDeFecha = formatoDeFecha;
+  dosDecimales = dosDecimales;
   verAgregarGasto:string = 'N';
 
   private parametroServicio: ParametroServicio = {

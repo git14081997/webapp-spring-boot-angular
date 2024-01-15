@@ -19,21 +19,22 @@ table {
 	border-bottom: 2px solid black !important;
 }
 
-table > thead > tr > th {
+table > thead > tr > th, th {
+text-wrap: nowrap !important;
 background-color: #000000 !important;
 color: #ffffff !important;
 text-align: center !important;
 width: max-content !important;
-text-wrap: nowrap !important;
 padding-left: 27px !important;
 padding-right: 27px !important;
 }
 
-table > tbody > tr > td {
-	width: max-content !important;
-	text-align: center !important;
-	text-wrap: nowrap !important;
+table > tbody > tr > td, td  {
+text-wrap: nowrap !important;
+width: max-content !important;
+text-align: center !important;
 }
+
 
 .nav-item {
 	padding-top: 27px !important;
@@ -53,7 +54,7 @@ table > tbody > tr > td {
 }
 
 .img-center {
-	width: 50% !important;
+	width: 90% !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
 }

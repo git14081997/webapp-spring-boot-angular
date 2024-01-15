@@ -8,26 +8,26 @@
           <thead>
             <tr>
 
-              <th scope="col">ID</th>
-              <th scope="col" *ngIf="verDetalle == 'N'" >Saldo Anterior</th>
-              <th scope="col" *ngIf="verDetalle == 'N'" >Cargos</th>
-              <th scope="col" *ngIf="verDetalle == 'N'" >Abonos</th>
-              <th scope="col" *ngIf="verDetalle == 'N'" >Saldo</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">Detalles</th>
+              <th class="text-nowrap" scope="col">ID</th>
+              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Saldo Anterior</th>
+              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Cargos</th>
+              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Abonos</th>
+              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Saldo</th>
+              <th class="text-nowrap" scope="col">Fecha</th>
+              <th class="text-nowrap" scope="col">Detalles</th>
 
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let objetoN of objetos">
 
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldoAnterior }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.cargos }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.abonos }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldo }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
-              <td (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.detalles }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldoAnterior }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.cargos }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.abonos }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldo }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
+              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.detalles }}</td>
 
             </tr>
           </tbody>
