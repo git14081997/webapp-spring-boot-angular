@@ -1,10 +1,11 @@
-<!-- INICIO-PAG -->
-
+<!-- container-fluid -->
 <div class="container-fluid">
 
-	<!-- clientes-encontrados -->
+	<!-- row -->
 	<div class="row">
-		<div class="col my-4">
+
+		<!-- clientes-encontrados -->
+		<div class="col my-2">
 
 			<div class="h3">Cliente: {{ todoElPedido.usuarioNombre|| "" }}</div>
 
@@ -28,48 +29,54 @@
 							d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
 					</svg>
 				</button>
-			</div>
-		</div>
+			</div><!-- buscar-cliente -->
+		</div><!-- clientes-encontrados -->
 
-	</div>
 
-	<div class="row">
-		<div class="col my-4">
+
+
+		<div class="col my-2">
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
+							<th class="text-nowrap" scope="col">ID Cliente</th>
 							<th class="text-nowrap" scope="col">Clientes encontrados</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let clienteN of clientesEncontrados; index as ind " >
-							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap" >
+						<tr *ngFor="let clienteN of clientesEncontrados; index as ind ">
+
+							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap">
+								{{ clienteN.id }}
+							</td>
+
+							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap">
 								{{ clienteN.nombre }} {{ clienteN.nombreDos || "" }} {{ clienteN.apellido || "" }} {{
 								clienteN.apellidoDos || "" }}
 							</td>
+
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</div>
-
-
-
-	<!-- clientes-encontrados -->
-	<br /><br /><br />
 
 
 
 
 
+		<!-- clientes-encontrados -->
+		<br /><br /><br />
 
 
 
-	<!-- busqueda-de-productos -->
-	<div class="row">
 
+
+
+
+
+		<!-- busqueda-de-productos -->
 		<div class="col-12 mt-2">
 			<div class="input-group mb-3">
 
@@ -95,44 +102,38 @@
 
 		</div>
 
-	</div>
 
 
 
-
-
-	<!-- tabla-productos-encontrados -->
-	<div class="row">
+		<!-- tabla-productos-encontrados -->
 		<div class="col my-4">
 			<div class="table-responsive">
 
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
-					<thead >
-						<tr >
+					<thead>
+						<tr>
 							<th class="text-nowrap" scope="col">ID</th>
 							<th class="text-nowrap" scope="col">Producto</th>
 							<th class="text-nowrap" scope="col">Existencias</th>
 						</tr>
 					</thead>
-					<tbody >
-						<tr *ngFor="let objetoN of productosEncontrados; index as ind " >
+					<tbody>
+						<tr *ngFor="let objetoN of productosEncontrados; index as ind ">
 
-							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.id }}</td>
-							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.nombre }}</td>
-							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" >{{ objetoN.existencias }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )">{{ objetoN.id }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )">{{ objetoN.nombre }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )">{{ objetoN.existencias }}</td>
 
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</div>
-	<!-- tabla-productos-encontrados -->
-
-	<!-- busqueda-de-productos -->
-	<br /><br /><br />
+		<!-- tabla-productos-encontrados -->
 
 
+		<!-- busqueda-de-productos -->
+		<br /><br /><br />
 
 
 
@@ -141,34 +142,31 @@
 
 
 
-	<div class="row">
-		<div class="col my-5">
+
+
+
+
+
+		<!-- tabla-detalle-pedido -->
+		<div class="col-12 my-4">
 			<div class="h3">Detalle del pedido</div>
-		</div>
-	</div>
-
-
-	<!-- tabla-detalle-pedido -->
-	<div class="row">
-		<div class="col my-4">
-
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
 
-							<th scope="col" class="text-nowrap"  style="width:54px !important;">&nbsp;</th>
-							<th scope="col" class="text-nowrap" >Producto</th>
-							<th scope="col" class="text-nowrap" >Precio</th>
-							<th scope="col" class="text-nowrap" >Cantidad</th>
-							<th scope="col" class="text-nowrap" >Subtotal por producto</th>
+							<th scope="col" class="text-nowrap" style="width:54px !important;">&nbsp;</th>
+							<th scope="col" class="text-nowrap">Producto</th>
+							<th scope="col" class="text-nowrap">Precio</th>
+							<th scope="col" class="text-nowrap">Cantidad</th>
+							<th scope="col" class="text-nowrap">Subtotal por producto</th>
 
 						</tr>
 					</thead>
-					<tbody >
-						<tr *ngFor="let objetoN of objetosPedido; index as ind " >
+					<tbody>
+						<tr *ngFor="let objetoN of objetosPedido; index as ind ">
 
-							<td class="text-nowrap" >
+							<td class="text-nowrap">
 								<button class="btn btn-danger btn-lg" (click)="quitarDelPedido(ind) ">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 										class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -178,10 +176,10 @@
 								</button>
 							</td>
 
-							<td class="text-nowrap" >{{ objetoN.nombre }}</td>
+							<td class="text-nowrap">{{ objetoN.nombre }}</td>
 
 							<td class="text-nowrap">
-								 {{ objetoN.precioVenta | currency: 'Q. ' }}
+								{{ objetoN.precioVenta | currency: 'Q. ' }}
 								<input type="number" class="form-control" id="parametro-precioVenta" placeholder=""
 									[(ngModel)]="objetoN.precioVenta" min={{objetoN.precioVentaMin}}
 									(change)="validarNewPrecioVenta(objetoN)">
@@ -189,14 +187,14 @@
 
 							</td>
 
-							<td class="text-nowrap" >
+							<td class="text-nowrap">
 								<input type="number" class="form-control" id="parametro-cantidad" placeholder=""
 									[(ngModel)]="objetoN.cantidadProductoVendido" min="1" (change)="actualizarDetallePedido()">
 								<label for="parametro-cantidad" class="form-label"></label>
 							</td>
 
 
-							<td class="text-nowrap" > {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
+							<td class="text-nowrap"> {{ objetoN.subtotalPorProducto | currency: 'Q. ' }}</td>
 
 						</tr>
 					</tbody>
@@ -211,16 +209,16 @@
 			</div>
 
 		</div>
-	</div>
-	<!-- tabla-detalle-pedido -->
+		<!-- tabla-detalle-pedido -->
 
 
-	<div class="row">
 
-		<div class="col my-4">
+
+
+		<div class="col-12 my-4">
 			Tipo de Pedido
 			<select class="form-select form-select-lg" [(ngModel)]="todoElPedido.tipoPago"
-			style="min-width: 100% !important; width: max-content !important;border: 2px solid gray !important;">
+				style="min-width: 100% !important; width: max-content !important;border: 2px solid gray !important;">
 
 				<option *ngFor="let objetoN of tiposDePago" value={{objetoN.id}}>
 					{{objetoN.nombre}}
@@ -228,33 +226,21 @@
 
 			</select>
 		</div>
-	</div>
 
-	<div class="row">
-		<div class="col my-5">
-			<button class="btn btn-success btn-lg btn-derecha" (click)="guardarPedido()">
+
+		<div class="col-12 my-5">
+			<button class="btn btn-dark btn-lg btn-100" (click)="guardarPedido()">
 				Guardar
 			</button>
 		</div>
 
-	</div>
-
-<br/><br/><br/><br/>
-<br/><br/><br/><br/>
-
-
-
-
-	
-</div>
+		<br /><br /><br /><br />
+		<br /><br /><br /><br />
 
 
 
 
 
+	</div><!-- row -->
 
-
-
-
-
-<!-- FIN-PAG -->
+</div><!-- container-fluid -->
