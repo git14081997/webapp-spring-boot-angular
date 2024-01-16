@@ -2,18 +2,21 @@
 <div class="container-fluid">
 
 <div class="row">
-	<div class="col my-4">
-		<div class="form-floating mb-3">
+
+	<div class="col-12 my-2">
+		&nbsp;
+	</div>
+
+	<div class="col-12 my-2">
+		<div class="form-floating">
 			<input type="text" class="form-control form-control-lg" id="parametro-anio" placeholder=""
 				[(ngModel)]="param.anio">
 			<label for="parametro-anio" class="form-label">Año (número):</label>
 		</div>
 	</div>
-</div>
 
-	<div class="row">
-	<div class="col my-4">
-		<div class="form-floating mb-3">
+	<div class="col-12 my-2">
+		<div class="form-floating ">
 			<input type="text" class="form-control form-control-lg" id="parametro-mes" placeholder=""
 				[(ngModel)]="param.mes">
 			<label for="parametro-mes" class="form-label">Mes (número):</label>
@@ -22,21 +25,22 @@
 </div>
 
 <div class="row">
-	<div class="col my-4">
-			<button class="btn btn-success btn-lg btn-derecha" (click)="consultarIE()">
+	<div class="col-12 my-2">
+			<button class="btn btn-dark btn-lg btn-100" (click)="consultarIE()">
 				Consultar
 			</button>
-			&nbsp;
-			<button class="btn btn-info btn-lg btn-derecha" (click)="verVentanaAgregarGasto()">
+		</div>
+			<div class="col-12 my-2">
+				<button class="btn btn-dark btn-lg btn-100" (click)="verVentanaAgregarGasto()">
 				Agregar gasto
 			</button>
-	</div>
+			</div>
 </div>
 
 
 <div class="row" *ngIf="verAgregarGasto == 'S'" >
 
-	<div class="col my-4">
+	<div class="col my-2">
 		<div class="form-floating">
 			<input type="text" class="form-control form-control-lg" id="parametro-gasto" placeholder=""
 				[(ngModel)]="param.egresos">
@@ -46,7 +50,7 @@
 </div>
 
 <div class="row" *ngIf="verAgregarGasto == 'S'" >
-	<div class="col my-4">
+	<div class="col my-2">
 		<div class="form-floating">
 			<input type="text" class="form-control form-control-lg" id="parametro-detalle" placeholder=""
 				[(ngModel)]="param.detalle">
@@ -56,8 +60,8 @@
 </div>
 
 <div class="row" *ngIf="verAgregarGasto == 'S'" >
-	<div class="col my-4 mb-4">
-		<button class="btn btn-info btn-lg btn-derecha" (click)="addGasto()">
+	<div class="col-12 my-4 mb-4">
+		<button class="btn btn-dark btn-lg btn-100" (click)="addGasto()">
 			Registrar gasto
 		</button>
 	</div>

@@ -288,8 +288,10 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 
 <!-- paginacion -->
 <div class="container-fluid" *ngIf=" verLista == 'S' || verInventario == 'S'">
+
 <div class="row">
-	<div class="col my-5">
+
+	<div class="col-12 my-2">
 		<label>Cantidad por página</label>
 		<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
 				<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
@@ -297,14 +299,15 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 				</option>
 			</select>
 	</div>
-</div>
-<div class="row">
-	<div class="col my-2 mx-1">
+
+	<div class="col-12 my-2">
 		<span>Páginas</span>
 	</div>
+
 </div>
+
 <div class="row d-flex flex-wrap align-items-start align-content-start">
-	<div class="col">
+	<div class="col-12">
 	<span *ngFor="let paginaN of paginasDisponiblesArray">
 		<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
 			{{paginaN.numPagina}}

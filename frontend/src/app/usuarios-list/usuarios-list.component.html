@@ -1,9 +1,16 @@
 <div class="container-fluid">
 
 <div class="row">
-<div class="col my-4">
-<button class="btn btn-success btn-lg align-middle btn-derecha" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">Agregar</button>
-<button class="btn btn-info btn-lg align-middle btn-derecha" (click)="verListado()" *ngIf="verLista == 'N'">Regresar</button>
+	
+	<div class="col-12 my-2">
+		&nbsp;
+	</div>
+
+<div class="col-12 my-2">
+<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">Agregar</button>
+</div>
+<div class="col-12 my-2">
+<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()" *ngIf="verLista == 'N'">Regresar</button>
 </div>
 </div>
 
@@ -62,9 +69,6 @@ placeholder="Buscar" [(ngModel)]="objetoSeleccionado.buscar" maxlength="20"
 
 
 
-<p>
-	paginacion
-</p>
 
 
 </div>
@@ -143,86 +147,58 @@ Actualizar
 <div class="container-fluid" *ngIf="verEditable == 'S'">
 
 <div class="row">
-<div class="col my-4">
-<button class="btn btn-success btn-lg btn-derecha" (click)="mostrarCargosAbonos()">
+<div class="col-12 my-2">
+<button class="btn btn-dark btn-lg btn-100" (click)="mostrarCargosAbonos()">
 Ver Cargos y Abonos
 </button>
 </div>
-</div>
 
-<div class="row">
-<div class="col my-4">
-<button class="btn btn-success btn-lg btn-derecha" (click)="mostrarFacturas()">
+<div class="col-12 my-2">
+<button class="btn btn-dark btn-lg btn-100" (click)="mostrarFacturas()">
 Ver Facturas
 </button>
 </div>
-</div>
 
-<div class="row">
-<div class="col my-4">
-<button class="btn btn-success btn-lg btn-derecha" (click)="mostrarAgregarAbono()">
+<div class="col-12 my-2">
+<button class="btn btn-dark btn-lg btn-100" (click)="mostrarAgregarAbono()">
 Agregar abono
 </button>
 </div>
 </div>
 
 
+<div *ngIf="verAgregarAbono" >
+	<div class="row">
 
-<div class="row" *ngIf="verAgregarAbono" >
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-abono" placeholder=""
-[(ngModel)]="objetoSeleccionado.abono" required >
-<label for="parametro-abono" class="form-label">Monto:</label>
-</div>
-</div>
-</div>
+		<div class="col-12 my-2">
+			<div class="form-floating mb-3">
+			<input type="text" class="form-control form-control-lg" id="parametro-abono" placeholder=""
+			[(ngModel)]="objetoSeleccionado.abono" required >
+			<label for="parametro-abono" class="form-label">Monto:</label>
+			</div>
+			</div>
 
-<div class="row" *ngIf="verAgregarAbono" >
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-info" placeholder=""
-[(ngModel)]="objetoSeleccionado.info">
-<label for="parametro-info" class="form-label">Información:</label>
-</div>
-</div>
-</div>
+			<div class="col-12 my-2">
+				<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-info" placeholder=""
+				[(ngModel)]="objetoSeleccionado.info">
+				<label for="parametro-info" class="form-label">Información:</label>
+				</div>
+				</div>
 
-<div class="row" *ngIf="verAgregarAbono" >
-<div class="col my-4">
-<p (click)="esRebaja()" class="h5" >
-Es Descuento: {{formatoBool(esRebajaOrDescuento)}}
-</p>
-</div>
-</div>
+				<div class="col-12 my-2">
+					<p (click)="esRebaja()" class="h5" >
+					Es Descuento: {{formatoBool(esRebajaOrDescuento)}}
+					</p>
+					</div>
 
-<div class="row" *ngIf="verAgregarAbono" >
-<div class="col my-4">
-<button class="btn btn-warning btn-lg btn-derecha" (click)="agregarAbono()">
-Guardar
-</button>
-</div>
-</div>
-
-
-
-
-
-
-
-
-<div class="row" *ngIf="verTablaCargosAbonos" >
-<div class="col my-4">
-<app-clienteabona-list [idCliente]="objetoSeleccionado.id" />
-</div>
-</div>
-
-
-
-<div class="row" *ngIf="verTablaFacturas" >
-<div class="col my-4">
-<app-factura-list [idCliente]="objetoSeleccionado.id" />
-</div>
+					<div class="col-12 my-2">
+						<button class="btn btn-dark btn-lg btn-100" (click)="agregarAbono()">
+						Guardar
+						</button>
+						</div>
+				
+	</div>
 </div>
 
 
@@ -236,3 +212,10 @@ Guardar
 
 
 
+
+
+
+
+<app-clienteabona-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaCargosAbonos" />
+
+<app-factura-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaFacturas" />

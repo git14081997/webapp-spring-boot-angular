@@ -134,17 +134,27 @@ export class UsuariosListComponent implements OnInit {
 
 	verVentanaEditar() {
 		this.objetoSeleccionado = {};
+
 		this.verLista = 'N';
 		this.verAgregar = 'N';
 		this.verEditable = 'S';
+		this.verAgregarAbono = false;
+		this.verTablaCargosAbonos = false;
+		this.verTablaFacturas = false;
+
 		this.crearOrActualizar = 'A';
 	}
 
 
 	verListado() {
+
 		this.verLista = 'S';
 		this.verEditable = 'N';
 		this.verAgregar = 'N';
+		this.verAgregarAbono = false;
+		this.verTablaCargosAbonos = false;
+		this.verTablaFacturas = false;
+
 		this.objetoSeleccionado = {};
 	}
 
@@ -172,9 +182,14 @@ export class UsuariosListComponent implements OnInit {
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
 		this.crearOrActualizar = 'A';
+
 		this.verLista = 'N';
 		this.verEditable = 'S';
 		this.verAgregar = 'N';
+		this.verAgregarAbono = false;
+		this.verTablaCargosAbonos = false;
+		this.verTablaFacturas = false;
+
 	}
 
 
@@ -304,10 +319,16 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 	enviarAbono(enlace:string, logCargosAbonos:any ){
-		this.http.post<any>(enlace, logCargosAbonos, this.parametroServicio.headers).subscribe((RESPONSE) => {
+		this.http.post<any>(enlace, logCargosAbonos, this.parametroServicio.headers).subscribe(() => {
+
 			this.verEditable = 'N';
 			this.verAgregar = 'N';
 			this.verLista = 'S';
+			this.verAgregarAbono = false;
+			this.verTablaCargosAbonos = false;
+			this.verTablaFacturas = false;
+	
+
 			this.objetoSeleccionado = {};
 			window.location.reload();
 		});		
