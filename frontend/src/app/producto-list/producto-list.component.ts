@@ -8,17 +8,14 @@ import { PruebasService } from '../pruebas/pruebas.service';
 import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
-import { IVA } from '../impuestos';
-import { PaginasDisponiblesComponent } from '../paginas-disponibles/paginas-disponibles.component';
 
 @Component({
   selector: 'app-producto-list',
   standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
-		PaginasDisponiblesComponent
+		
 	],
   templateUrl: './producto-list.component.html',
   styleUrl: './producto-list.component.css'
@@ -34,193 +31,106 @@ export class ProductoListComponent implements OnInit {
 		})
 	}
 
-	urlGetPaginado = hostname + this.parametroServicio.url;
-
 	private http = inject(HttpClient);
 	service: PruebasService;
+
 	parametros: any = {};
 	objetoSeleccionado: any = {};
 	objetos: any[] = [];
+	tmp:any;
+
 	verLista: string = 'S';
 	verEditable: string = 'N';
 	verAgregar: string = 'N';
 	verInventario:string = 'N';
+	
 	crearOrActualizar: string = 'C';
-
-
-
-	tmp:any;
-  categoriasDisponibles:any[] = [];
 	formatoDeFecha = formatoDeFecha;
+	
+	/* variables de paginacion */
+	enlaceActual: string = this.parametroServicio.url;
+	paramActual: string = "";
+	opcionesCantidadPorPagina = [1, 2, 25, 50, 100];
+	pagina: number = 0;
+	cantidad: number = this.opcionesCantidadPorPagina[0];
+	paginasDisponibles: number = 0;
+	paginasDisponiblesArray: any[] = [];
+	total: number = 0;
+	/* variables de paginacion */
 
-	regInventario: any[] = [];
 
 	constructor() {
 		this.service = new PruebasService;
 	}
 
 	ngOnInit(): void {
-		this.getPaginadoSinParametros();
+		this.getPorPagina(this.enlaceActual);
 	}
-
-
-
-
-	/*
-
-		pagina: number = 0;
-	total: number = 1;
-	paginasDisponibles :number = 1;
-	paginasDisponiblesArray: any[] = [];
-
-	opcionesCantidadPorPagina = [1, 25, 50, 100];
-	cantidad: number = this.opcionesCantidadPorPagina[0];
-
-
-		setCantidadPorPag(){
-		this.pagina = 0;
-		this.getPorPagina();
-	}
-
-
-
-
-
-		getPorPagina() {
-		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
-			).subscribe((RESPONSE: any) => {
-
-				this.tmp = RESPONSE;
-
-				this.objetos = this.tmp.content;
-				this.paginasDisponibles = this.tmp.totalPages;
-				this.total = this.tmp.totalElements;
-
-				for( let objetoN of this.objetos ){
-					objetoN.fechaAdquisicionn = formatoDeFecha( objetoN.fechaAdquisicion );
-				}
-
-				this.paginasDisponiblesArray = [];
-				for(let i = 0; i < this.paginasDisponibles; i++){
-					let newObj = { "numPagina": i };
-					this.paginasDisponiblesArray.push(newObj);
-				}
-
-			});
-	}
-
-
-
-
-
-	getPorPaginaNum(numPagina:number) {
-		if(numPagina >= this.paginasDisponibles ){
-			numPagina = this.paginasDisponibles - 1;
-		}
-		if(numPagina <= 0){
-			numPagina = 0;
-		}
-		this.pagina = numPagina;
-		this.getPorPagina();
-	}
-
-
-
-	eliminarPorID(id: number) {
-		this.service.deleteById(
-			this.parametroServicio, id
-		).subscribe((RESPONSE) => {
-			this.getPorPagina();
-		});
-	}
-
-
-
-		setPaginaCantidad(pagina: number, cantidad: number) {
-		this.pagina = pagina;
-		this.cantidad = cantidad;
-	}
-
-
-
-
-	*/
-
 
 
 	verVentanaAgregar() {
-		this.objetoSeleccionado = {};
+
+		this.enlaceActual = this.parametroServicio.url;
+		this.paramActual = "";
+
+		this.verAgregar = 'S';
 		this.verLista = 'N';
 		this.verEditable = 'N';
-		this.verAgregar = 'S';
-		this.crearOrActualizar = 'C';
-	}
-
-	verVentanaEditar() {
-		this.objetoSeleccionado = {};
-		this.verLista = 'N';
-		this.verEditable = 'S';
-		this.verAgregar = 'N';
-		this.crearOrActualizar = 'A';
 		this.verInventario = 'N';
 
+		this.crearOrActualizar = 'C';
+		this.objetoSeleccionado = {};
 	}
 
+
+	verVentanaEditar() {
+
+		this.enlaceActual = this.parametroServicio.url;
+		this.paramActual = "";
+
+		this.verEditable = 'S';
+		this.verLista = 'N';
+		this.verAgregar = 'N';
+		this.verInventario = 'N';
+
+		this.crearOrActualizar = 'A';
+
+		this.objetoSeleccionado = {};
+
+	}
+
+
 	verListado() {
+
 		this.verLista = 'S';
 		this.verEditable = 'N';
 		this.verAgregar = 'N';
 		this.verInventario = 'N';
+
 		this.objetoSeleccionado = {};
+		
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+		this.enlaceActual = this.parametroServicio.url;
+		this.paramActual = "";
+		this.getPorPagina(this.enlaceActual);
+
 	}
 
-	agregar(parametros: any) {
-		this.service.post(this.parametroServicio,parametros).subscribe(() => {
+	agregar() {
+		this.service.post(this.parametroServicio,this.objetoSeleccionado).subscribe(() => {
 			this.verListado(); window.location.reload();
 		});
 	}
 
-	actualizar(parametros: any) {
-
-		let tmpCategoria:any = {};
-    tmpCategoria.id = parametros.categoriaId;
-    parametros.categoria = tmpCategoria;
-
-		this.service.put(this.parametroServicio,parametros).subscribe(() => {
+	actualizar() {
+		this.service.put(this.parametroServicio, this.objetoSeleccionado).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
-			this.objetoSeleccionado = {};
+			delete this.objetoSeleccionado;
 			window.location.reload();
 		});
 	}
-
-	
-	buscarEnDb(parametros: any){
-		let enlace = hostname + this.parametroServicio.url + "/" + 0 + "/" + 50 +"/buscar?nombre=" + parametros;
-		this.http.get<any>(enlace, this.parametroServicio.headers).subscribe((RESPONSE) => {
-			this.tmp = RESPONSE;
-			this.objetos = this.tmp.content;
-			delete this.tmp;
-		});
-	}
-
-
-	getPaginadoSinParametros(){
-		let enlace = hostname + this.parametroServicio.url + "/" + 0 + "/" + 50;
-		this.http.get<any>(enlace, this.parametroServicio.headers).subscribe((RESPONSE) => {
-			this.tmp = RESPONSE;
-			this.objetos = this.tmp.content;
-			delete this.tmp;
-		});
-	}
-
-
-	limpiarBusqueda(){
-		this.objetoSeleccionado.buscar = "";
-		this.objetos = [];
-		delete this.objetoSeleccionado;
-	}
-
 
 	cargarImagen(objetoN:any){
 
@@ -230,7 +140,7 @@ export class ProductoListComponent implements OnInit {
 		this.tmp = new FormData();
 		this.tmp.append("fileImagen",objetoN.target.files[0]);
 
-		let enlaceTemp = hostname + "/api/producto/" + this.objetoSeleccionado.id;
+		let enlaceTemp = hostname + "/api/producto" +"/"+ this.objetoSeleccionado.id;
 		this.http.put<any>(enlaceTemp, this.tmp, this.parametroServicio.headers).subscribe(() => {
 			this.verLista = 'S'; this.verEditable = 'N';
 		});
@@ -245,7 +155,6 @@ export class ProductoListComponent implements OnInit {
 			this.objetoSeleccionado.srcImagen = imagenN;
 		});
 		*/
-
 		
 	}
 
@@ -253,8 +162,11 @@ export class ProductoListComponent implements OnInit {
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
 		this.crearOrActualizar = 'A';
-		this.verLista = 'N';
+
 		this.verEditable = 'S';
+		this.verLista = 'N';
+		this.verAgregar = 'N';
+		this.verInventario = 'N';
 	}
 
 
@@ -265,7 +177,7 @@ export class ProductoListComponent implements OnInit {
 			entradasProducto: unObjeto.nuevasUnidades
 		};
 
-		let enlaceTemp = hostname + "/api/producto/add";
+		let enlaceTemp = hostname + this.parametroServicio.url + "/add";
 
 		this.http.post<any>(enlaceTemp, info,	this.parametroServicio.headers).subscribe(() => {
 			this.verLista = 'S';
@@ -276,19 +188,82 @@ export class ProductoListComponent implements OnInit {
 	}
 
 
-	verVentanaInventario(){
-		let enlaceTemp = hostname + "/api/inventario/" +	0 + "/" + 50 + "/" + this.objetoSeleccionado.id;
-		this.http.get<any>(enlaceTemp, this.parametroServicio.headers).subscribe(( RESPONSE ) => {
-			this.tmp = RESPONSE;
-			this.regInventario = this.tmp.content;
-			delete this.tmp;
-		});
+	buscarEnDb(parametros: any){
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[ (this.opcionesCantidadPorPagina.length - 1) ];
+		this.enlaceActual = this.parametroServicio.url;
+		this.paramActual = "/buscar?nombre=" + parametros;
+		this.getPorPagina(this.enlaceActual);
+		this.paramActual = "";
+	}
 
-		this.verLista = 'N';
-		this.verEditable = 'N';
-		this.verInventario = 'S';		
+
+	limpiarBusqueda(){
+		this.objetoSeleccionado.buscar = "";
+
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+		this.enlaceActual = this.parametroServicio.url;
+		this.paramActual = "";
+		this.getPorPagina(this.enlaceActual);
 
 	}
 
+
+	verVentanaInventario(){
+		this.verLista = 'N';
+		this.verEditable = 'N';
+		this.verInventario = 'S';
+
+		this.enlaceActual = "/api/inventario";
+		this.paramActual = "/" + this.objetoSeleccionado.id;
+
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+		this.getPorPagina(this.enlaceActual);
+
+	}
+
+
+
+
+
+	/* metodos para paginacion */
+	actualizarContadores(pagDisponibles: number, total: number){
+		this.paginasDisponibles = pagDisponibles;
+		this.total = total;
+		this.paginasDisponiblesArray = [];
+		for (let i = 0; i < this.paginasDisponibles; i++) {
+			let newObj = { "numPagina": i };
+			this.paginasDisponiblesArray.push(newObj);
+		}
+	}
+
+  setCantidadPorPag() {
+    this.pagina = 0;
+    this.getPorPagina(this.enlaceActual);
+  }
+
+  getPorPaginaNum(numPagina: number) {
+    if (numPagina >= this.paginasDisponibles) {
+      numPagina = this.paginasDisponibles - 1;
+    }
+    if (numPagina <= 0) {
+      numPagina = 0;
+    }
+    this.pagina = numPagina;
+    this.getPorPagina(this.enlaceActual);
+  }
+
+
+	getPorPagina(urlAlRecurso: string) {
+    let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad + this.paramActual;
+    this.http.get<any>(urlGetPaginado, this.parametroServicio.headers).subscribe((RESPONSE: any) => {
+      this.tmp = RESPONSE;
+			this.objetos = this.tmp.content;
+			this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
+    });
+  }
+	/* metodos para paginacion */
 
 }

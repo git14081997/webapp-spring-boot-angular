@@ -20,13 +20,13 @@ export class PaginasDisponiblesComponent {
   @Input() urlGetPaginado!: string;
 
   param: ParametroServicio = {
-		url: this.urlGetPaginado,
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem('token')
-		})
-	};
+    url: this.urlGetPaginado,
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    })
+  };
 
   private http = inject(HttpClient);
   opcionesCantidadPorPagina = [1, 2, 25, 50, 100];
@@ -35,52 +35,52 @@ export class PaginasDisponiblesComponent {
   paginasDisponibles: number = 0;
   paginasDisponiblesArray: any[] = [];
   total: number = 0;
-	tmp:any;
+  tmp: any;
 
-	setCantidadPorPag(){
-		this.pagina = 0;
-		this.getPorPagina(this.pagina, this.cantidad);
-	}
+  setCantidadPorPag() {
+    this.pagina = 0;
+    this.getPorPagina(this.pagina, this.cantidad);
+  }
 
-  getPorPagina(pagina: number, cantidad: number){
+  getPorPagina(pagina: number, cantidad: number) {
 
     let urlTempGetPaginado = hostname + this.param.url + "/" + pagina + "/" + cantidad;
 
-		this.http.get<any>(
-      urlTempGetPaginado, 
+    this.http.get<any>(
+      urlTempGetPaginado,
       this.param.headers
     ).subscribe((RESPONSE: any) => {
 
-				this.tmp = RESPONSE;
+      this.tmp = RESPONSE;
 
-				this.paginasDisponibles = this.tmp.totalPages;
-				this.total = this.tmp.totalElements;
+      this.paginasDisponibles = this.tmp.totalPages;
+      this.total = this.tmp.totalElements;
 
-				this.paginasDisponiblesArray = [];
+      this.paginasDisponiblesArray = [];
 
-				for(let i = 0; i < this.paginasDisponibles; i++){
-					let newObj = { "numPagina": i };
-					this.paginasDisponiblesArray.push(newObj);
-				}
+      for (let i = 0; i < this.paginasDisponibles; i++) {
+        let newObj = { "numPagina": i };
+        this.paginasDisponiblesArray.push(newObj);
+      }
 
-        delete this.tmp;
-        this.tmp = {};
+      delete this.tmp;
+      this.tmp = {};
 
-			});
+    });
   }
 
 
 
-	getPorPaginaNum(numPagina:number) {
-		if(numPagina >= this.paginasDisponibles ){
-			numPagina = this.paginasDisponibles - 1;
-		}
-		if(numPagina <= 0){
-			numPagina = 0;
-		}
-		this.pagina = numPagina;
-		this.getPorPagina(this.pagina, this.cantidad);
-	}
+  getPorPaginaNum(numPagina: number) {
+    if (numPagina >= this.paginasDisponibles) {
+      numPagina = this.paginasDisponibles - 1;
+    }
+    if (numPagina <= 0) {
+      numPagina = 0;
+    }
+    this.pagina = numPagina;
+    this.getPorPagina(this.pagina, this.cantidad);
+  }
 
 
 }
