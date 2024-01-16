@@ -1,48 +1,70 @@
 <div class="container-fluid">
+<div class="row">
 
-  <div class="row">
-    <div class="col my-4">
-      <div class="table-responsive">
-
-        <table class="table table-striped table-lg table-borderless" style="border-bottom: 2px solid black !important;">
-          <thead>
-            <tr>
-
-              <th class="text-nowrap" scope="col">ID</th>
-              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Saldo Anterior</th>
-              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Cargos</th>
-              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Abonos</th>
-              <th class="text-nowrap" scope="col" *ngIf="verDetalle == 'N'" >Saldo</th>
-              <th class="text-nowrap" scope="col">Fecha</th>
-              <th class="text-nowrap" scope="col">Detalles</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let objetoN of objetos">
-
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldoAnterior }}</td>
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.cargos }}</td>
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.abonos }}</td>
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)"  *ngIf="verDetalle == 'N'" >{{ objetoN.saldo }}</td>
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
-              <td  class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.detalles }}</td>
-
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-
-
-  <p>
-    paginacion
-  </p>
-    
-
-
-
+<div class="col-12 my-2">
+<div class="table-responsive">
+<table class="table table-striped table-lg table-borderless">
+<thead>
+<tr>
+<th class="text-nowrap" scope="col">ID</th>
+<th class="text-nowrap" scope="col">Saldo Anterior</th>
+<th class="text-nowrap" scope="col">Cargos</th>
+<th class="text-nowrap" scope="col">Abonos</th>
+<th class="text-nowrap" scope="col">Saldo</th>
+<th class="text-nowrap" scope="col">Fecha</th>
+<th class="text-nowrap" scope="col">Detalles</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let objetoN of objetos">
+<td class="text-nowrap">{{ objetoN.id }}</td>
+<td class="text-nowrap">{{ objetoN.saldoAnterior | currency: 'Q. ' }}</td>
+<td class="text-nowrap">{{ objetoN.cargos | currency: 'Q. ' }}</td>
+<td class="text-nowrap">{{ objetoN.abonos | currency: 'Q. ' }}</td>
+<td class="text-nowrap">{{ objetoN.saldo | currency: 'Q. ' }}</td>
+<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
+<td class="text-nowrap">{{ objetoN.detalles }}</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+
+
+<!-- paginacion -->
+<div>
+
+<div class="col-12 my-2">
+<div class="container">
+<div class="row">
+<div class="col-12 my-2">
+<label>Cantidad por página</label>
+<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+{{ cantidadPorPag }}
+</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-12 my-2">
+<div class="container">
+<span>Páginas</span>
+<div class="row d-flex flex-wrap align-items-start align-content-start">
+<div class="col-12 my-2">
+<span *ngFor="let paginaN of paginasDisponiblesArray">
+<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
+{{paginaN.numPagina}}
+</a>
+</span>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- paginacion -->
+
+</div><!-- row -->
+</div><!-- container-fluid -->

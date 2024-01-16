@@ -50,7 +50,7 @@ export class ProductoListComponent implements OnInit {
 	/* variables de paginacion */
 	enlaceActual: string = this.parametroServicio.url;
 	paramActual: string = "";
-	opcionesCantidadPorPagina = [50, 100];
+	opcionesCantidadPorPagina = [1,50, 100];
 	pagina: number = 0;
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 	paginasDisponibles: number = 0;

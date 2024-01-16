@@ -31,88 +31,71 @@ export class ClienteabonaListComponent implements OnInit {
 	}
 
 	private http = inject(HttpClient);
-
 	objetoSeleccionado:any = {};
 	objetos: any[] = [];
-
-	pagina: number = 0;
-	total: number = 1;
-	opcionesCantidadPorPagina = [50, 100];
-	cantidad: number = this.opcionesCantidadPorPagina[0];
-	paginasDisponibles :number = 1;
-	paginasDisponiblesArray: any[] = [];
-
 	tmp:any;
-
 	@Input() idCliente: string = "";
-
 	formatoDeFecha = formatoDeFecha;
-	
-	verDetalle = 'N';
 
+	/* variables de paginacion */
+	enlaceActual: string = this.parametroServicio.url;
+	paramActual: string = "";
+	opcionesCantidadPorPagina = [1,50, 100];
+	pagina: number = 0;
+	cantidad: number = this.opcionesCantidadPorPagina[0];
+	paginasDisponibles: number = 0;
+	paginasDisponiblesArray: any[] = [];
+	total: number = 0;
+	/* variables de paginacion */
+
+		
 	constructor() {
 	}
 
 	ngOnInit(): void {
-		this.getPorPagina();
-	}
-	
-	getPorPagina() {
-		
-		this.http.get( hostname + this.parametroServicio.url +
-			"/" + this.pagina + "/" + this.cantidad +
-			"/" + this.idCliente,
-			this.parametroServicio.headers
-		).subscribe((RESPONSE: any) => {
-
-				this.tmp = RESPONSE;
-
-				this.objetos = this.tmp.content;
-				this.paginasDisponibles = this.tmp.totalPages;
-				this.total = this.tmp.totalElements;
-
-				this.paginasDisponiblesArray = [];
-				for(let i = 0; i < this.paginasDisponibles; i++){
-					let newObj = { "numPagina": i };
-					this.paginasDisponiblesArray.push(newObj);
-				}
-
-			});
+		this.paramActual = "/" + this.idCliente;
+		this.getPorPagina(this.enlaceActual);
 	}
 
-
-
-
-	getPorPaginaNum(numPagina:number) {
-		if(numPagina >= this.paginasDisponibles ){
-			numPagina = this.paginasDisponibles - 1;
-		}
-		if(numPagina <= 0){
-			numPagina = 0;
-		}
-		this.pagina = numPagina;
-		this.getPorPagina();
-	}
-
-
-	setPaginaCantidad(pagina: number, cantidad: number) {
-		this.pagina = pagina;
-		this.cantidad = cantidad;
-	}
-
-	setCantidadPorPag(){
-		this.pagina = 0;
-		this.getPorPagina();
-	}
-
-
-	actualizarSeleccionado(objetoN:any){
-		if( this.verDetalle == 'N' ){
-			this.verDetalle = 'S';
-		} else {
-			this.verDetalle = 'N';
+	/* metodos para paginacion */
+	actualizarContadores(pagDisponibles: number, total: number){
+		this.paginasDisponibles = pagDisponibles;
+		this.total = total;
+		this.paginasDisponiblesArray = [];
+		for (let i = 0; i < this.paginasDisponibles; i++) {
+			let newObj = { "numPagina": i };
+			this.paginasDisponiblesArray.push(newObj);
 		}
 	}
+
+  setCantidadPorPag() {
+    this.pagina = 0;
+    this.getPorPagina(this.enlaceActual);
+  }
+
+  getPorPaginaNum(numPagina: number) {
+    if (numPagina >= this.paginasDisponibles) {
+      numPagina = this.paginasDisponibles - 1;
+    }
+    if (numPagina <= 0) {
+      numPagina = 0;
+    }
+    this.pagina = numPagina;
+    this.getPorPagina(this.enlaceActual);
+  }
+
+
+	getPorPagina(urlAlRecurso: string) {
+    let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad + this.paramActual;
+    this.http.get<any>(urlGetPaginado, this.parametroServicio.headers).subscribe((RESPONSE: any) => {
+      this.tmp = RESPONSE;
+			this.objetos = this.tmp.content;
+			this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
+    });
+  }
+	/* metodos para paginacion */
+
+
 
 
 }
