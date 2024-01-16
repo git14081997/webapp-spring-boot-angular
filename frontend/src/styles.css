@@ -60,3 +60,20 @@ text-align: center !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
 }
+
+.paginaN {
+	border: 2px solid gray !important;
+	width: max-content !important;
+	border-radius: 20px !important;
+	margin: 0px !important;
+	font-size: 20px !important;
+	padding: 18px !important;
+	text-decoration: none;
+	color: #000000 !important;
+}
+
+.form-select {
+	border: 2px solid gray !important;
+	width: max-content !important;
+	border-radius: 20px !important;
+}

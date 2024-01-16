@@ -79,35 +79,7 @@
 </div><!-- ver-lista -->
 
 
-
-<!-- paginador -->
-<div class="row" *ngIf="verLista == 'S'">
-<div class="col my-4">
-<nav>
-<ul class="pagination pagination-lg justify-content-center">
-
-<select class="form-select form-select-lg" (change)="this.setCantidadPorPag()" [(ngModel)]="cantidad"
-style="border: 2px solid gray !important;width: max-content !important;border-radius: 20px !important;"
->
-
-<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
-{{ cantidadPorPag }}
-</option>
-</select>
-
-&nbsp;&nbsp;&nbsp;
-
-<li class="page-item" *ngFor="let paginaN of paginasDisponiblesArray">
-<a class="page-link "  (click)="this.getPorPaginaNum(paginaN.numPagina)" style="border: 2px solid gray !important;width: max-content !important;border-radius: 20px !important;">
-{{paginaN.numPagina}}
-</a>
-</li>
-
-</ul>
-</nav>
-</div>
-</div><!-- paginador -->
-
+<app-paginas-disponibles [urlGetPaginado]="urlGetPaginado" />
 
 </div>
 

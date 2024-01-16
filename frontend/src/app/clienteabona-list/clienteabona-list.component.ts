@@ -8,12 +8,14 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
+import { PaginasDisponiblesComponent } from '../paginas-disponibles/paginas-disponibles.component';
 
 @Component({
   selector: 'app-clienteabona-list',
   standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
+		PaginasDisponiblesComponent
 	],
   templateUrl: './clienteabona-list.component.html',
   styleUrl: './clienteabona-list.component.css'

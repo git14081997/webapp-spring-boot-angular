@@ -11,12 +11,14 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 import { IVA } from '../impuestos';
+import { PaginasDisponiblesComponent } from '../paginas-disponibles/paginas-disponibles.component';
 
 @Component({
   selector: 'app-producto-list',
   standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
+		PaginasDisponiblesComponent
 	],
   templateUrl: './producto-list.component.html',
   styleUrl: './producto-list.component.css'
@@ -32,6 +34,8 @@ export class ProductoListComponent implements OnInit {
 		})
 	}
 
+	urlGetPaginado = hostname + this.parametroServicio.url;
+
 	private http = inject(HttpClient);
 	service: PruebasService;
 	parametros: any = {};
@@ -43,13 +47,6 @@ export class ProductoListComponent implements OnInit {
 	verInventario:string = 'N';
 	crearOrActualizar: string = 'C';
 
-	pagina: number = 0;
-	total: number = 1;
-	paginasDisponibles :number = 1;
-	paginasDisponiblesArray: any[] = [];
-
-	opcionesCantidadPorPagina = [1, 25, 50, 100];
-	cantidad: number = this.opcionesCantidadPorPagina[0];
 
 
 	tmp:any;
@@ -63,16 +60,33 @@ export class ProductoListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getPorPagina();
+		this.getPaginadoSinParametros();
 	}
 
 
-	setCantidadPorPag(){
+
+
+	/*
+
+		pagina: number = 0;
+	total: number = 1;
+	paginasDisponibles :number = 1;
+	paginasDisponiblesArray: any[] = [];
+
+	opcionesCantidadPorPagina = [1, 25, 50, 100];
+	cantidad: number = this.opcionesCantidadPorPagina[0];
+
+
+		setCantidadPorPag(){
 		this.pagina = 0;
 		this.getPorPagina();
 	}
 
-	getPorPagina() {
+
+
+
+
+		getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 			).subscribe((RESPONSE: any) => {
 
@@ -95,6 +109,10 @@ export class ProductoListComponent implements OnInit {
 			});
 	}
 
+
+
+
+
 	getPorPaginaNum(numPagina:number) {
 		if(numPagina >= this.paginasDisponibles ){
 			numPagina = this.paginasDisponibles - 1;
@@ -106,6 +124,8 @@ export class ProductoListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
+
+
 	eliminarPorID(id: number) {
 		this.service.deleteById(
 			this.parametroServicio, id
@@ -114,10 +134,19 @@ export class ProductoListComponent implements OnInit {
 		});
 	}
 
-	setPaginaCantidad(pagina: number, cantidad: number) {
+
+
+		setPaginaCantidad(pagina: number, cantidad: number) {
 		this.pagina = pagina;
 		this.cantidad = cantidad;
 	}
+
+
+
+
+	*/
+
+
 
 	verVentanaAgregar() {
 		this.objetoSeleccionado = {};
@@ -147,10 +176,8 @@ export class ProductoListComponent implements OnInit {
 
 	agregar(parametros: any) {
 		this.service.post(this.parametroServicio,parametros).subscribe(() => {
-			this.verListado();
-			this.getPorPagina();
+			this.verListado(); window.location.reload();
 		});
-		
 	}
 
 	actualizar(parametros: any) {
@@ -159,10 +186,7 @@ export class ProductoListComponent implements OnInit {
     tmpCategoria.id = parametros.categoriaId;
     parametros.categoria = tmpCategoria;
 
-		this.service.put(
-			this.parametroServicio,
-			parametros
-		).subscribe(() => {
+		this.service.put(this.parametroServicio,parametros).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
 			this.objetoSeleccionado = {};
@@ -170,49 +194,32 @@ export class ProductoListComponent implements OnInit {
 		});
 	}
 
-
-
-
 	
 	buscarEnDb(parametros: any){
-
-		let enlace = hostname + this.parametroServicio.url + "/" + this.pagina + "/" + this.cantidad +"/buscar?nombre=" + parametros;
-
+		let enlace = hostname + this.parametroServicio.url + "/" + 0 + "/" + 50 +"/buscar?nombre=" + parametros;
 		this.http.get<any>(enlace, this.parametroServicio.headers).subscribe((RESPONSE) => {
-
 			this.tmp = RESPONSE;
 			this.objetos = this.tmp.content;
-			this.paginasDisponibles = this.tmp.totalPages;
-			this.total = this.tmp.totalElements;
-			this.paginasDisponiblesArray = [];
-
-			for(let i = 0; i < this.paginasDisponibles; i++){
-				let newObj = { "numPagina": i };
-				this.paginasDisponiblesArray.push(newObj);
-			}
-
+			delete this.tmp;
 		});
+	}
 
 
+	getPaginadoSinParametros(){
+		let enlace = hostname + this.parametroServicio.url + "/" + 0 + "/" + 50;
+		this.http.get<any>(enlace, this.parametroServicio.headers).subscribe((RESPONSE) => {
+			this.tmp = RESPONSE;
+			this.objetos = this.tmp.content;
+			delete this.tmp;
+		});
 	}
 
 
 	limpiarBusqueda(){
 		this.objetoSeleccionado.buscar = "";
-		this.pagina = 0;
-		this.cantidad = this.opcionesCantidadPorPagina[0];
-		this.getPorPagina();
+		this.objetos = [];
+		delete this.objetoSeleccionado;
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 	cargarImagen(objetoN:any){
@@ -223,16 +230,11 @@ export class ProductoListComponent implements OnInit {
 		this.tmp = new FormData();
 		this.tmp.append("fileImagen",objetoN.target.files[0]);
 
-		this.http.put<any>(
-			hostname + "/api/producto/" + this.objetoSeleccionado.id, 
-			this.tmp, 
-			this.parametroServicio.headers
-		).subscribe(() => {
+		let enlaceTemp = hostname + "/api/producto/" + this.objetoSeleccionado.id;
+		this.http.put<any>(enlaceTemp, this.tmp, this.parametroServicio.headers).subscribe(() => {
+			this.verLista = 'S'; this.verEditable = 'N';
+		});
 
-			this.verLista = 'S';
-			this.verEditable = 'N';
-
-		});	
 
 				/* proximamente se podra traer una imagen y mostrarla
 		// getImagenProducto
@@ -248,22 +250,12 @@ export class ProductoListComponent implements OnInit {
 	}
 
 
-
-
-
-
-
-
-
 	actualizarSeleccionado(parametros: any) {
 		this.objetoSeleccionado = parametros;
 		this.crearOrActualizar = 'A';
 		this.verLista = 'N';
 		this.verEditable = 'S';
 	}
-
-
-	
 
 
 	agregarAlInventario(unObjeto:any){
@@ -273,9 +265,9 @@ export class ProductoListComponent implements OnInit {
 			entradasProducto: unObjeto.nuevasUnidades
 		};
 
-		this.http.post<any>(
-			hostname + "/api/producto/add", info,	this.parametroServicio.headers
-		).subscribe(() => {
+		let enlaceTemp = hostname + "/api/producto/add";
+
+		this.http.post<any>(enlaceTemp, info,	this.parametroServicio.headers).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
 			window.location.reload();
@@ -285,21 +277,12 @@ export class ProductoListComponent implements OnInit {
 
 
 	verVentanaInventario(){
-
-		let paginaInventario = "0";
-		let cantidadInventario = "50";
-
-		console.log( this.objetoSeleccionado.id );
-
-		this.http.get<any>(
-			hostname + "/api/inventario/" +	paginaInventario + "/" + cantidadInventario +
-			"/" + this.objetoSeleccionado.id,
-			this.parametroServicio.headers
-		).subscribe(( RESPONSE ) => {
+		let enlaceTemp = hostname + "/api/inventario/" +	0 + "/" + 50 + "/" + this.objetoSeleccionado.id;
+		this.http.get<any>(enlaceTemp, this.parametroServicio.headers).subscribe(( RESPONSE ) => {
 			this.tmp = RESPONSE;
 			this.regInventario = this.tmp.content;
+			delete this.tmp;
 		});
-
 
 		this.verLista = 'N';
 		this.verEditable = 'N';
