@@ -4,18 +4,22 @@
 <div class="row">
 <div class="col my-4">
 
-<button class="btn btn-success btn-lg align-middle btn-derecha" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
+<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
 Agregar
 </button>
-<button class="btn btn-info btn-lg align-middle btn-derecha" (click)="verListado()" *ngIf="verLista == 'N'">
+<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()" *ngIf="verLista == 'N'">
 Regresar
 </button>
-&nbsp;
-<button class="btn btn-dark btn-lg align-middle btn-derecha" (click)="verVentanaInventario()" *ngIf="verLista == 'N' && verAgregar == 'N'">
-Log Inventario
-</button>
 </div>
-</div><!-- botones -->
+</div>
+<div class="row">
+	<div class="col my-4">
+		<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaInventario()" *ngIf="verLista == 'N' && verAgregar == 'N'">
+			Log Inventario
+		</button>
+	</div>
+</div>
+<!-- botones -->
 
 
 
@@ -141,11 +145,11 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 <div class="row">
 <div class="col my-4">
 <div class="mb-3">
-<button class="btn btn-success btn-lg btn-derecha" 
+<button class="btn btn-dark btn-lg btn-100" 
 *ngIf="crearOrActualizar == 'C'" 
 (click)="agregar()">Guardar</button>
 
-<button class="btn btn-warning btn-lg btn-derecha" 
+<button class="btn btn-dark btn-lg btn-100" 
 *ngIf="crearOrActualizar == 'A'" 
 (click)="actualizar()">Actualizar</button>
 
@@ -169,7 +173,7 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 
 <div class="row">
 <div class="col my-4">
-	<button class="btn btn-success btn-lg btn-derecha" 
+	<button class="btn btn-dark btn-lg btn-100" 
 	(click)="agregarAlInventario(this.objetoSeleccionado)">Agregar al inventario</button>
 
 </div>
@@ -285,18 +289,13 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 <!-- paginacion -->
 <div class="container-fluid" *ngIf=" verLista == 'S' || verInventario == 'S'">
 <div class="row">
-	<div class="col-11 my-5">
-		&nbsp;
-	</div>
-	<div class="col-1 my-4">
-		<div class="btn-derecha">
-			<span class="text-nowrap">Cantidad por página:</span>
-			<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+	<div class="col my-5">
+		<label>Cantidad por página</label>
+		<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
 				<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
 					{{ cantidadPorPag }}
 				</option>
 			</select>
-		</div>
 	</div>
 </div>
 <div class="row">
@@ -304,12 +303,14 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 		<span>Páginas</span>
 	</div>
 </div>
-<div class="row align-items-start flex-nowrap" style="overflow-x: scroll !important;">
-	<div class="col my-4" *ngFor="let paginaN of paginasDisponiblesArray">
-		<a class="paginaN flex-nowrap" (click)="getPorPaginaNum(paginaN.numPagina)">
+<div class="row d-flex flex-wrap align-items-start align-content-start">
+	<div class="col">
+	<span *ngFor="let paginaN of paginasDisponiblesArray">
+		<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
 			{{paginaN.numPagina}}
 		</a>
-	</div>
+	</span>
+</div>
 </div>
 </div>
 <!-- paginacion -->

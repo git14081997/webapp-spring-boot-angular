@@ -39,25 +39,28 @@ export class UsuariosListComponent implements OnInit {
 	parametros: any = {};
 	objetoSeleccionado: any = {};
 	objetos: any[] = [];
+
 	verLista: string = 'S';
+	verAgregar: string = 'N';
 	verEditable: string = 'N';
+
+	verAgregarAbono: boolean = false;
+	verTablaCargosAbonos: boolean = false;
+	verTablaFacturas: boolean = false;
+	esRebajaOrDescuento: boolean = false;
+
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
 	total: number = 1;
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
-
-	opcionesCantidadPorPagina = [1, 25, 50, 100];
+	opcionesCantidadPorPagina = [50, 100];
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 
 	tmp:any;
-	verAgregar: string = 'N';
 
-	verAgregarAbono: boolean = false;
-	verTablaCargosAbonos: boolean = false;
-	verTablaFacturas: boolean = false;
-	esRebajaOrDescuento: boolean = false;
+
 
 	constructor() {
 		this.service = new PruebasService;

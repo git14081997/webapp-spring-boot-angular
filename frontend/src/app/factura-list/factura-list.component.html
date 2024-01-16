@@ -1,13 +1,19 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col my-4">
-      <button class="btn btn-info btn-lg align-middle btn-derecha" (click)="verListado()" *ngIf="verLista == 'N'">Regresar</button>
-      &nbsp;
-      <button class="btn btn-warning btn-lg align-middle btn-derecha" (click)="pedidoDevuelto()" *ngIf="facturaSeleccionada.tipoPago == 'V'">Devuelto</button>
-      &nbsp;
-      <button class="btn btn-success btn-lg align-middle btn-derecha" (click)="confirmarPedido()" *ngIf="facturaSeleccionada.tipoPago == 'V'">Confirmado</button>
+
+    <div class="col-12 my-2">
+      <button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()" *ngIf="verLista == 'N'">Regresar</button>
     </div>
+
+    <div class="col-12 my-2">
+      <button class="btn btn-dark btn-lg align-middle btn-100" (click)="pedidoDevuelto()" *ngIf="facturaSeleccionada.tipoPago == 'V'">Devuelto</button>
+    </div>
+
+    <div class="col-12 my-2">
+      <button class="btn btn-dark btn-lg align-middle btn-100" (click)="confirmarPedido()" *ngIf="facturaSeleccionada.tipoPago == 'V'">Confirmado</button>
+    </div>
+
   </div>
 
 

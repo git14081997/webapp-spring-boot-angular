@@ -63,17 +63,22 @@ text-align: center !important;
 
 .paginaN {
 	border: 2px solid gray !important;
-	width: max-content !important;
-	border-radius: 20px !important;
+	border-radius: 45% !important;
 	margin: 0px !important;
-	font-size: 20px !important;
-	padding: 18px !important;
+	margin-left: 20px !important;
+	font-size: 27px !important;
+	padding: 0px 10px !important;
 	text-decoration: none;
 	color: #000000 !important;
+	text-align: left !important;
 }
 
 .form-select {
 	border: 2px solid gray !important;
-	width: max-content !important;
+	width: 100% !important;
 	border-radius: 20px !important;
+}
+
+.btn-100 {
+	width: 100% !important;
 }

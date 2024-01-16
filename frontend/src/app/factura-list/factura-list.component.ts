@@ -40,18 +40,18 @@ export class FacturaListComponent implements OnInit {
 	parametros: any = {};
 	facturaSeleccionada: any = {};
 	facturas: any[] = [];
+
 	verLista: string = 'S';
 	verEditable: string = 'N';
+
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
 	total: number = 1;
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
-
-	opcionesCantidadPorPagina = [1, 25, 50, 100];
+	opcionesCantidadPorPagina = [50, 100];
 	cantidad: number = this.opcionesCantidadPorPagina[0];
-
 
 	tmp:any;
 
