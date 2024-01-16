@@ -1,17 +1,15 @@
 <div class="container-fluid">
 
 <div class="row">
-	
-	<div class="col-12 my-2">
-		&nbsp;
-	</div>
 
-<div class="col-12 my-2">
-<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">Agregar</button>
+<div class="col-12 my-2" *ngIf="verLista == 'S'">
+<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaAgregar()" >Agregar</button>
 </div>
-<div class="col-12 my-2">
-<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()" *ngIf="verLista == 'N'">Regresar</button>
+
+<div class="col-12 my-2" *ngIf="verLista == 'N'">
+<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()" >Regresar</button>
 </div>
+
 </div>
 
 
@@ -19,9 +17,9 @@
 
 <div class="row" *ngIf="verLista == 'S'" >
 
-<div class="col my-4">
+<div class="col my-2">
 <div class="input-group mb-3">
-<span class="input-group-text">
+<span class="input-group-text bg-dark text-white">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
 </svg>
@@ -77,65 +75,55 @@ placeholder="Buscar" [(ngModel)]="objetoSeleccionado.buscar" maxlength="20"
 
 
 <!-- agregar -->
-<div class="container-fluid" *ngIf="verAgregar == 'S'">
+<div *ngIf="verAgregar == 'S'">
 
-<div class="row">
-<div class="col my-4">
+<div class="col-12 my-2">
 <div class="form-floating mb-3">
 <input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
 [(ngModel)]="objetoSeleccionado.nombre">
 <label for="parametro-nombre" class="form-label">Nombre:</label>
 </div>
 </div>
-</div>
 
-<div class="row">
-<div class="col my-4">
-<div class="form-floating mb-3">
+<div class="col-12 my-2">
+<div class="form-floating">
 <input type="text" class="form-control form-control-lg" id="parametro-nombreDos" placeholder=""
 [(ngModel)]="objetoSeleccionado.nombreDos">
 <label for="parametro-nombreDos" class="form-label">Segundo nombre:</label>
 </div>
 </div>
-</div>
 
-
-<div class="row">
-<div class="col my-4">
-<div class="form-floating mb-3">
+<div class="col-12 my-2">
+<div class="form-floating">
 <input type="text" class="form-control form-control-lg" id="parametro-apellido" placeholder=""
 [(ngModel)]="objetoSeleccionado.apellido">
 <label for="parametro-apellido" class="form-label">Apellido:</label>
 </div>
 </div>
-</div>
 
-<div class="row">
-<div class="col my-4">
-<div class="form-floating mb-3">
+<div class="col-12 my-2">
+<div class="form-floating">
 <input type="text" class="form-control form-control-lg" id="parametro-apellidoDos" placeholder=""
 [(ngModel)]="objetoSeleccionado.apellidoDos">
 <label for="parametro-apellidoDos" class="form-label">Segundo Apellido:</label>
 </div>
 </div>
-</div>
 
-<div class="row">
-<div class="col my-4">
-<div class="mb-3">
-<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'C'"
+<div class="col-12 my-2"  *ngIf="crearOrActualizar == 'C'">
+<button class="btn btn-dark btn-lg btn-100"
 (click)="agregar(this.objetoSeleccionado)">
 Guardar
 </button>
-<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'A'"
+</div>
+
+<div class="col-12 my-2" *ngIf="crearOrActualizar == 'A'">
+<button class="btn btn-dark btn-lg btn-100" 
 (click)="actualizar(this.objetoSeleccionado)">
 Actualizar
 </button>
 </div>
-</div>
-</div>
 
-</div>
+</div><!-- agregar -->
 
 
 

@@ -23,7 +23,7 @@
 
     <div class="col my-2">
       <div class="input-group mb-3">
-        <span class="input-group-text">
+        <span class="input-group-text bg-dark text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
             viewBox="0 0 16 16">
             <path
@@ -33,7 +33,7 @@
         <input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar"
           [(ngModel)]="facturaSeleccionada.buscar" maxlength="20" (change)="buscarEnDb(facturaSeleccionada.buscar)">
 
-        <button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
+        <button class="btn btn-dark btn-lg " (click)="limpiarBusqueda()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
             viewBox="0 0 16 16">
             <path

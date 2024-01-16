@@ -1,86 +1,94 @@
 <div class="container-fluid">
 
-<!-- botones -->
-<div class="row">
-<div class="col my-4">
+	<div class="row">
 
-<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaAgregar()" *ngIf="verLista == 'S'">
-Agregar
-</button>
-<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()" *ngIf="verLista == 'N'">
-Regresar
-</button>
-</div>
-</div>
-<div class="row">
-	<div class="col my-4">
-		<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaInventario()" *ngIf="verLista == 'N' && verAgregar == 'N'">
-			Log Inventario
-		</button>
+		<!-- botones -->
+		<div class="col-12 my-2" *ngIf="verLista == 'S'">
+			<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaAgregar()">Agregar</button>
+		</div>
+
+		<div class="col-12 my-2" *ngIf="verLista == 'N'">
+			<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verListado()">Regresar</button>
+		</div>
+
+		<div class="col-12 my-2" *ngIf="verLista == 'N' && verAgregar == 'N'">
+			<button class="btn btn-dark btn-lg align-middle btn-100" (click)="verVentanaInventario()">
+				Log Inventario
+			</button>
+		</div>
+
 	</div>
-</div>
-<!-- botones -->
+	<!-- botones -->
 
 
 
 
-<!-- busqueda -->
-<div class="row" *ngIf="verLista == 'S'">
-<div class="col my-4">
-<div class="input-group mb-3">
-<span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-</svg>
-</span>
-<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar"
-[(ngModel)]="objetoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(objetoSeleccionado.buscar)">
-<button class="btn btn-dark btn-lg " (click)="limpiarBusqueda()">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
-<path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
-</svg>
-</button></div></div>
-</div><!-- busqueda -->
+	<!-- busqueda -->
+	<div class="row" *ngIf="verLista == 'S'">
+		<div class="col my-4">
+			<div class="input-group mb-3">
+				<span class="input-group-text bg-dark text-white">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+						viewBox="0 0 16 16">
+						<path
+							d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+					</svg>
+				</span>
+				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar"
+					[(ngModel)]="objetoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(objetoSeleccionado.buscar)">
+				<button class="btn btn-dark btn-lg " (click)="limpiarBusqueda()">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
+						viewBox="0 0 16 16">
+						<path
+							d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div><!-- busqueda -->
 
 
 
 
 
 
-<!-- ver-lista -->
-<div class="row" *ngIf="verLista == 'S'">
-<div class="col my-4">
-<div class="table-responsive">
-<table class="table table-lg table-borderless table-striped">
-<thead>
-<tr>
+	<!-- ver-lista -->
+	<div class="row" *ngIf="verLista == 'S'">
+		<div class="col my-4">
+			<div class="table-responsive">
+				<table class="table table-lg table-borderless table-striped">
+					<thead>
+						<tr>
 
-<th class="text-nowrap" scope="col">ID</th>
-<th class="text-nowrap" scope="col">Nombre</th>
-<th class="text-nowrap" scope="col">Costo Unidad</th>
-<th class="text-nowrap" scope="col">Ganancia Q</th>
-<th class="text-nowrap" scope="col">Precio Venta Q</th>
-<th class="text-nowrap" scope="col">Existencias</th>
+							<th class="text-nowrap" scope="col">ID</th>
+							<th class="text-nowrap" scope="col">Nombre</th>
+							<th class="text-nowrap" scope="col">Costo Unidad</th>
+							<th class="text-nowrap" scope="col">Ganancia Q</th>
+							<th class="text-nowrap" scope="col">Precio Venta Q</th>
+							<th class="text-nowrap" scope="col">Existencias</th>
 
-</tr>
-</thead>
-<tbody>
-<tr *ngFor="let objetoN of objetos">
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let objetoN of objetos">
 
-<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
-<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre | uppercase }}</td>
-<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.costoUnidad | currency: 'Q. ' }}</td>
-<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.ganancia | currency: 'Q. ' }}</td>
-<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.precioVenta | currency: 'Q. ' }}</td>
-<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.existencias }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre | uppercase }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.costoUnidad | currency: 'Q. '
+								}}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.ganancia | currency: 'Q. ' }}
+							</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.precioVenta | currency: 'Q. '
+								}}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.existencias }}</td>
 
-</tr>
-</tbody>
-</table>
-</div>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-</div>
-</div><!-- ver-lista -->
+		</div>
+	</div><!-- ver-lista -->
 
 
 
@@ -92,41 +100,41 @@ Regresar
 <!-- editar -->
 <div class="container-fluid" *ngIf="verEditable == 'S'">
 
-<div class="row">
+	<div class="row">
 
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
-[(ngModel)]="objetoSeleccionado.nombre" required>
-<label for="parametro-nombre" class="form-label">Nombre:</label>
-</div>
-</div>
-
-</div>
-
-
-<div class="row">
-	<div class="col my-4">
-		<div class="form-floating mb-3">
-		<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
-		[(ngModel)]="objetoSeleccionado.costoUnidad">
-		<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
+		<div class="col my-4">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
+					[(ngModel)]="objetoSeleccionado.nombre" required>
+				<label for="parametro-nombre" class="form-label">Nombre:</label>
+			</div>
 		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col my-4">
-		<div class="form-floating mb-3">
-			<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
-			[(ngModel)]="objetoSeleccionado.ganancia">
-			<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
-		</div>
+
 	</div>
 
-</div>
+
+	<div class="row">
+		<div class="col my-4">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
+					[(ngModel)]="objetoSeleccionado.costoUnidad">
+				<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col my-4">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
+					[(ngModel)]="objetoSeleccionado.ganancia">
+				<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
+			</div>
+		</div>
+
+	</div>
 
 
-<!-- proximamente se podrá adjuntar una imagen por producto
+	<!-- proximamente se podrá adjuntar una imagen por producto
 <div class="row">
 <div class="col my-4">
 <div class="form-floating mb-3">
@@ -142,42 +150,40 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 -->
 
 
-<div class="row">
-<div class="col my-4">
-<div class="mb-3">
-<button class="btn btn-dark btn-lg btn-100" 
-*ngIf="crearOrActualizar == 'C'" 
-(click)="agregar()">Guardar</button>
+	<div class="row">
+		<div class="col my-4">
+			<div class="mb-3">
+				<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'C'"
+					(click)="agregar()">Guardar</button>
 
-<button class="btn btn-dark btn-lg btn-100" 
-*ngIf="crearOrActualizar == 'A'" 
-(click)="actualizar()">Actualizar</button>
+				<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'A'"
+					(click)="actualizar()">Actualizar</button>
 
-</div>
-</div>
-</div>
-
-
-
-
-
-<div class="row">
-<div class="col my-4">
-	<div class="form-floating mb-3">
-		<input type="number" class="form-control form-control-lg" id="parametro-nuevasUnidades" placeholder=""
-		[(ngModel)]="objetoSeleccionado.nuevasUnidades">
-		<label for="parametro-nuevasUnidades" class="form-label">Nuevas unidades:</label>
+			</div>
+		</div>
 	</div>
-</div>
-</div>
 
-<div class="row">
-<div class="col my-4">
-	<button class="btn btn-dark btn-lg btn-100" 
-	(click)="agregarAlInventario(this.objetoSeleccionado)">Agregar al inventario</button>
 
-</div>
-</div>
+
+
+
+	<div class="row">
+		<div class="col my-4">
+			<div class="form-floating mb-3">
+				<input type="number" class="form-control form-control-lg" id="parametro-nuevasUnidades" placeholder=""
+					[(ngModel)]="objetoSeleccionado.nuevasUnidades">
+				<label for="parametro-nuevasUnidades" class="form-label">Nuevas unidades:</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col my-4">
+			<button class="btn btn-dark btn-lg btn-100" (click)="agregarAlInventario(this.objetoSeleccionado)">Agregar al
+				inventario</button>
+
+		</div>
+	</div>
 
 </div><!-- editar -->
 
@@ -185,63 +191,53 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 <!-- agregar -->
 <div class="container-fluid" *ngIf="verAgregar == 'S'">
 
-<div class="row">
+	<div class="row">
 
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
-[(ngModel)]="objetoSeleccionado.nombre" required>
-<label for="parametro-nombre" class="form-label">Nombre:</label>
-</div>
-</div>
-</div>
+		<div class="col-12 my-2">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
+					[(ngModel)]="objetoSeleccionado.nombre" required>
+				<label for="parametro-nombre" class="form-label">Nombre:</label>
+			</div>
+		</div>
 
-<div class="row">
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-existencias" placeholder=""
-[(ngModel)]="objetoSeleccionado.existencias">
-<label for="parametro-existencias" class="form-label">Existencias (Número Entero):</label>
-</div>
-</div>
+		<div class="col-12 my-2">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-existencias" placeholder=""
+					[(ngModel)]="objetoSeleccionado.existencias">
+				<label for="parametro-existencias" class="form-label">Existencias (Número Entero):</label>
+			</div>
+		</div>
 
-</div>
+		<div class="col-12 my-2">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
+					[(ngModel)]="objetoSeleccionado.costoUnidad">
+				<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
+			</div>
+		</div>
 
+		<div class="col-12 my-2">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
+					[(ngModel)]="objetoSeleccionado.ganancia">
+				<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
+			</div>
+		</div>
 
-<div class="row">
-
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
-[(ngModel)]="objetoSeleccionado.costoUnidad">
-<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
-</div>
-</div>
-</div>
-
-<div class="row">
-<div class="col my-4">
-<div class="form-floating mb-3">
-<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
-[(ngModel)]="objetoSeleccionado.ganancia">
-<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
-</div>
-</div>
-
-</div>
+	</div>
 
 
-<div class="row">
-<div class="col my-4">
+	<div class="row">
+		<div class="col-12 my-2">
 
-<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'C'"
-(click)="agregar()">Guardar</button>
+			<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'C'" (click)="agregar()">Guardar</button>
 
-<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'A'"
-(click)="actualizar()">Actualizar</button>
+			<button class="btn btn-dark btn-lg btn-100" *ngIf="crearOrActualizar == 'A'"
+				(click)="actualizar()">Actualizar</button>
 
-</div>
-</div>
+		</div>
+	</div>
 
 
 </div><!-- agregar -->
@@ -254,34 +250,34 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 
 <!-- registros-inventario-por-producto -->
 <div class="container-fluid" *ngIf="verInventario == 'S'">
-<div class="row">
-<div class="col my-4">
-	<div class="table-responsive">
-	<table class="table table-lg table-borderless table-striped">
-		<thead>
-		<tr>
-		<th  class="text-nowrap" scope="col">ID</th>
-		<th  class="text-nowrap" scope="col">Saldo Anterior</th>
-		<th  class="text-nowrap" scope="col">Entradas</th>
-		<th  class="text-nowrap" scope="col">Salidas</th>
-		<th  class="text-nowrap" scope="col">Existencias</th>
-		<th  class="text-nowrap" scope="col">Fecha</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr *ngFor="let objetoN of objetos">
-		<td class="text-nowrap" >{{ objetoN.id }}</td>
-		<td class="text-nowrap" >{{ objetoN.saldoAnterior }}</td>
-		<td class="text-nowrap" >{{ objetoN.entradas }}</td>
-		<td class="text-nowrap" >{{ objetoN.salidas }}</td>
-		<td class="text-nowrap" >{{ objetoN.existencia }}</td>
-		<td class="text-nowrap" >{{ formatoDeFecha(objetoN.fecha) }}</td>
-		</tr>
-		</tbody>
-		</table>
+	<div class="row">
+		<div class="col my-4">
+			<div class="table-responsive">
+				<table class="table table-lg table-borderless table-striped">
+					<thead>
+						<tr>
+							<th class="text-nowrap" scope="col">ID</th>
+							<th class="text-nowrap" scope="col">Saldo Anterior</th>
+							<th class="text-nowrap" scope="col">Entradas</th>
+							<th class="text-nowrap" scope="col">Salidas</th>
+							<th class="text-nowrap" scope="col">Existencias</th>
+							<th class="text-nowrap" scope="col">Fecha</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let objetoN of objetos">
+							<td class="text-nowrap">{{ objetoN.id }}</td>
+							<td class="text-nowrap">{{ objetoN.saldoAnterior }}</td>
+							<td class="text-nowrap">{{ objetoN.entradas }}</td>
+							<td class="text-nowrap">{{ objetoN.salidas }}</td>
+							<td class="text-nowrap">{{ objetoN.existencia }}</td>
+							<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-</div>
-</div>
 </div><!-- registros-inventario-por-producto -->
 
 
@@ -289,31 +285,31 @@ id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
 <!-- paginacion -->
 <div class="container-fluid" *ngIf=" verLista == 'S' || verInventario == 'S'">
 
-<div class="row">
+	<div class="row">
 
-	<div class="col-12 my-2">
-		<label>Cantidad por página</label>
-		<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+		<div class="col-12 my-2">
+			<label>Cantidad por página</label>
+			<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
 				<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
 					{{ cantidadPorPag }}
 				</option>
 			</select>
+		</div>
+
+		<div class="col-12 my-2">
+			<span>Páginas</span>
+		</div>
+
 	</div>
 
-	<div class="col-12 my-2">
-		<span>Páginas</span>
+	<div class="row d-flex flex-wrap align-items-start align-content-start">
+		<div class="col-12">
+			<span *ngFor="let paginaN of paginasDisponiblesArray">
+				<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
+					{{paginaN.numPagina}}
+				</a>
+			</span>
+		</div>
 	</div>
-
-</div>
-
-<div class="row d-flex flex-wrap align-items-start align-content-start">
-	<div class="col-12">
-	<span *ngFor="let paginaN of paginasDisponiblesArray">
-		<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
-			{{paginaN.numPagina}}
-		</a>
-	</span>
-</div>
-</div>
 </div>
 <!-- paginacion -->
