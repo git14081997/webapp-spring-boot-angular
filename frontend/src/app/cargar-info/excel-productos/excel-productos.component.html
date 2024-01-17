@@ -1,1 +1,22 @@
-<p>excel-productos works!</p>
+<div class="container-fluid">
+<div class="row">
+
+<div class="col-12 my-2">
+	<div class="h4">
+		Subir información Productos
+	</div>
+</div>
+
+<div class="col-12 my-2">
+	<input type="file" name="files[]" multiple id="jsonFile" accept=".xlsx" (change)="onFileChange($event)" />
+</div>
+
+<div class="col-12 my-2">
+	<button class="btn btn-dark btn-lg align-middle btn-100" (click)="upProductos()">
+		Guardar
+	</button>
+</div>
+
+
+</div><!-- row -->
+</div><!-- container-fluid -->

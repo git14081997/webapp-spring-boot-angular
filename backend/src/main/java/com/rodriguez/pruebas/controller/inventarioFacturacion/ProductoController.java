@@ -28,8 +28,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -309,6 +315,87 @@ public class ProductoController {
 
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@Transactional
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "upload")
+	public void readFileExcel(
+		@RequestParam("fileExcel") MultipartFile fileExcel
+	){
+
+		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
+
+		log.warn("Inicio de lectura de archivo en excel para cargar info en DB");
+
+
+		List<String> list = new ArrayList<String>();
+
+		// Create a DataFormatter to format and get each cell's value as String
+		DataFormatter dataFormatter = new DataFormatter();
+
+		// Create the Workbook
+		try {
+			workbook = WorkbookFactory.create(new File(EXCEL_FILE_PATH));
+		} catch (EncryptedDocumentException | IOException e) {
+			e.printStackTrace();
+		}
+
+		// Retrieving the number of sheets in the Workbook
+		System.out.println("-------Workbook has '" + workbook.getNumberOfSheets() + "' Sheets-----");
+
+		// Getting the Sheet at index zero
+		Sheet sheet = workbook.getSheetAt(0);
+
+		// Getting number of columns in the Sheet
+		int noOfColumns = sheet.getRow(0).getLastCellNum();
+		System.out.println("-------Sheet has '"+noOfColumns+"' columns------");
+
+		// Using for-each loop to iterate over the rows and columns
+		for (Row row : sheet) {
+			for (Cell cell : row) {
+				String cellValue = dataFormatter.formatCellValue(cell);
+				list.add(cellValue);
+			}
+		}
+
+		// filling excel data and creating list as List<Invoice>
+		List<Producto> invList = createList(list, noOfColumns);
+
+		// Closing the workbook
+		try {
+			workbook.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+//		return invList;
+
+
+
+
+
+
+
+
+	}
+
+
+
+
 
 
 }
