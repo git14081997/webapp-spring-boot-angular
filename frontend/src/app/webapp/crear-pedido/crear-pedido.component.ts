@@ -7,8 +7,8 @@ import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../hostname';
-import { IVA } from '../impuestos';
+import { hostname } from '../../hostname';
+import { IVA } from '../../impuestos';
 
 @Component({
 selector: 'app-crear-pedido',

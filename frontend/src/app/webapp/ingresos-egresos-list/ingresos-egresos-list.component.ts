@@ -4,11 +4,11 @@ import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
-import { formatoDeFecha } from '../libproyecto';
+import { formatoDeFecha } from '../../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../hostname';
-import { dosDecimales } from '../libproyecto';
+import { hostname } from '../../hostname';
+import { dosDecimales } from '../../libproyecto';
 
 @Component({
   selector: 'app-ingresos-egresos-list',

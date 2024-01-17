@@ -1,14 +1,14 @@
 
 import { Routes } from '@angular/router';
-import { PruebasComponent } from './pruebas/pruebas.component';
-import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
-import { ClienteabonaListComponent } from './clienteabona-list/clienteabona-list.component';
-import { FacturaListComponent } from './factura-list/factura-list.component';
-import { ProductoListComponent } from './producto-list/producto-list.component';
-import { CrearPedidoComponent } from './crear-pedido/crear-pedido.component';
-import { InicioComponent } from './inicio/inicio.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { IngresosEgresosListComponent } from './ingresos-egresos-list/ingresos-egresos-list.component';
+import { PruebasComponent } from './webapp/pruebas/pruebas.component';
+import { UsuariosListComponent } from './webapp/usuarios-list/usuarios-list.component';
+import { ClienteabonaListComponent } from './webapp/clienteabona-list/clienteabona-list.component';
+import { FacturaListComponent } from './webapp/factura-list/factura-list.component';
+import { ProductoListComponent } from './webapp/producto-list/producto-list.component';
+import { CrearPedidoComponent } from './webapp/crear-pedido/crear-pedido.component';
+import { InicioComponent } from './basic/inicio/inicio.component';
+import { PagenotfoundComponent } from './basic/pagenotfound/pagenotfound.component';
+import { IngresosEgresosListComponent } from './webapp/ingresos-egresos-list/ingresos-egresos-list.component';
 
 export const routes: Routes = [
 

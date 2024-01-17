@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
-import { formatoDeFecha } from '../libproyecto';
+import { formatoDeFecha } from '../../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { hostname } from '../hostname';
+import { hostname } from '../../hostname';
 import { FacturaListComponent } from '../factura-list/factura-list.component';
 import { ClienteabonaListComponent } from '../clienteabona-list/clienteabona-list.component';
 

@@ -4,10 +4,10 @@ import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ParametroServicio } from '../pruebas/ParametroServicio';
-import { formatoDeFecha } from '../libproyecto';
+import { formatoDeFecha } from '../../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../hostname';
+import { hostname } from '../../hostname';
 
 @Component({
   selector: 'app-clienteabona-list',
