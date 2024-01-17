@@ -8,6 +8,13 @@ import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepo
 import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import lombok.AllArgsConstructor;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -334,7 +341,8 @@ public class ProductoController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "upload")
 	public void readFileExcel(
 		@RequestParam("fileExcel") MultipartFile fileExcel
-	){
+	) throws EncryptedDocumentException, IOException
+	{
 
 		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
 
@@ -347,21 +355,19 @@ public class ProductoController {
 		DataFormatter dataFormatter = new DataFormatter();
 
 		// Create the Workbook
-		try {
-			workbook = WorkbookFactory.create(new File(EXCEL_FILE_PATH));
-		} catch (EncryptedDocumentException | IOException e) {
-			e.printStackTrace();
-		}
+		Workbook workbook = WorkbookFactory.create(new File("excelProductos"));
+
+
 
 		// Retrieving the number of sheets in the Workbook
-		System.out.println("-------Workbook has '" + workbook.getNumberOfSheets() + "' Sheets-----");
+		log.warn("Workbook has '" + workbook.getNumberOfSheets() + "' Sheets ");
 
 		// Getting the Sheet at index zero
 		Sheet sheet = workbook.getSheetAt(0);
 
 		// Getting number of columns in the Sheet
 		int noOfColumns = sheet.getRow(0).getLastCellNum();
-		System.out.println("-------Sheet has '"+noOfColumns+"' columns------");
+		log.warn("Sheet has '"+noOfColumns+"' columns ");
 
 		// Using for-each loop to iterate over the rows and columns
 		for (Row row : sheet) {
@@ -375,23 +381,47 @@ public class ProductoController {
 		List<Producto> invList = createList(list, noOfColumns);
 
 		// Closing the workbook
-		try {
-			workbook.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		workbook.close();
 
 //		return invList;
-
-
-
-
-
-
-
-
 	}
+
+
+
+
+	private List<Producto> createList(List<String> excelData, int noOfColumns) {
+
+		ArrayList<Producto> productoList = new ArrayList<>();
+
+		int i = noOfColumns;
+
+		do {
+			Producto productoN = new Producto();
+
+
+			productoN.setNombre( excelData.get(i) );
+
+			productoN.setCostoUnidad( new BigDecimal( excelData.get( i + 1) ));
+
+			productoN.setPrecioVenta( new BigDecimal( excelData.get(i + 2) ));
+
+			BigDecimal ganancia = productoN.getPrecioVenta().subtract(productoN.getCostoUnidad());
+			productoN.setGanancia( ganancia );
+
+//			productoN.setName(excelData.get(i));
+//			productoN.setAmount(Double.valueOf(excelData.get(i + 1)));
+//			productoN.setNumber(excelData.get(i + 2));
+//			productoN.setReceivedDate(excelData.get(i + 3));
+
+			productoList.add( productoN );
+			i = i + (noOfColumns);
+
+		} while (i < excelData.size());
+
+		return productoList;
+	}
+
+
 
 
 

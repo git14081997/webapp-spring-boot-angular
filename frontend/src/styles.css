@@ -35,14 +35,6 @@ width: max-content !important;
 text-align: center !important;
 }
 
-
-.nav-item {
-}
-
-.navbar-brand {
-	font-size: 20px !important;
-}
-
 .btn-derecha {
 	float: right !important;
 	margin-left: 10px !important;
@@ -74,4 +66,9 @@ text-align: center !important;
 
 .btn-100 {
 	width: 100% !important;
+}
+
+.nav-item {
+}
+.navbar-brand {
 }
