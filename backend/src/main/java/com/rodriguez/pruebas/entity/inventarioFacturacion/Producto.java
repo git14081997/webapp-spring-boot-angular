@@ -68,43 +68,6 @@ public class Producto implements Serializable {
 	private Date fechaAdquisicion;
 
 
-	@Column( name = "ESTADO", length = 1)
-	private String estado; // A Activo I Inactivo
-	// A activo, es no ha sido "borrado"
-	// I Inactivo, es que ya fue "borrado".
-
-
-
-
-
-	//@Column( name = "GENERO",length = 1)
-	//private String genero;
-
-
-	//@Column( name = "EDAD",length = 1)
-	//private String edad;
-
-
-	//@Column( name = "TALLA")
-	//private String talla;
-
-
-	//@Column( name = "LARGO", scale = 2)
-	//private BigDecimal largo;
-
-
-	//@Column( name = "ANCHO", scale = 2)
-	//private BigDecimal ancho;
-
-
-	//@Column( name = "PROFUNDIDAD", scale = 2)
-	//private BigDecimal profundidad;
-
-
-	//@Column( name = "COLOR")
-	//private String color;
-
-
 	//@CreationTimestamp
 	//@Column( name = "FECHA_CREADO", updatable = false)
 	//private Date fechaCreado;

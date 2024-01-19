@@ -8,7 +8,11 @@
 </div>
 
 <div class="col-12 my-2">
-	<input type="file" name="files[]" multiple id="jsonFile" accept=".xlsx" (change)="onFileChange($event)" />
+<input type="file" accept=".xlsx" (change)="onFileChange($event)" />
+</div>
+
+<div class="col-12 my-2">
+	<p>Hay {{ productos.length }} registros en este archivo </p>
 </div>
 
 <div class="col-12 my-2">
@@ -16,6 +20,12 @@
 		Guardar
 	</button>
 </div>
+
+<div class="col-12 my-2">
+	<p>Registros recibidos: {{ servidor.recibio || 0 }}</p><br/>
+	<p>Registros guardados: {{ servidor.guardo || 0 }}</p>
+</div>
+
 
 
 </div><!-- row -->

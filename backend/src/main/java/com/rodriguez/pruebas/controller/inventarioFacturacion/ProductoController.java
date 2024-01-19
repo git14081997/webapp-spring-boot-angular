@@ -8,13 +8,6 @@ import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepo
 import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import lombok.AllArgsConstructor;
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,14 +30,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -84,20 +77,17 @@ public class ProductoController {
 
 		producto.setId(null);
 
-		producto.setEstado("A"); // A Activo or I Inactivo
-
 		BigDecimal costo = producto.getCostoUnidad();
 		BigDecimal ganancia = producto.getGanancia();
 
 		BigDecimal precioVenta =  costo.add(ganancia);
 
 		producto.setPrecioVenta(precioVenta);
-		// precio de venta Sin IVA
-		// el IVA se pondrá al realizar/registrar venta/pedido
 
 		producto.setFechaAdquisicion(new Date());
 
 		producto = productoRepository.save(producto);
+
 
 
 		Inventario inventario = new Inventario();
@@ -339,87 +329,38 @@ public class ProductoController {
 
 	@Transactional
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "upload")
-	public void readFileExcel(
-		@RequestParam("fileExcel") MultipartFile fileExcel
-	) throws EncryptedDocumentException, IOException
+	public ResponseEntity<Map<String,String>> readFileExcel(@RequestBody List<Producto> productos)
 	{
-
 		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
 
-		log.warn("Inicio de lectura de archivo en excel para cargar info en DB");
+
+		Integer registrosEnExcel = productos.size();
+
+		Integer registrosGuardados = 0;
 
 
-		List<String> list = new ArrayList<String>();
+		for( Producto productoN : productos )
+		{
 
-		// Create a DataFormatter to format and get each cell's value as String
-		DataFormatter dataFormatter = new DataFormatter();
-
-		// Create the Workbook
-		Workbook workbook = WorkbookFactory.create(new File("excelProductos"));
-
-
-
-		// Retrieving the number of sheets in the Workbook
-		log.warn("Workbook has '" + workbook.getNumberOfSheets() + "' Sheets ");
-
-		// Getting the Sheet at index zero
-		Sheet sheet = workbook.getSheetAt(0);
-
-		// Getting number of columns in the Sheet
-		int noOfColumns = sheet.getRow(0).getLastCellNum();
-		log.warn("Sheet has '"+noOfColumns+"' columns ");
-
-		// Using for-each loop to iterate over the rows and columns
-		for (Row row : sheet) {
-			for (Cell cell : row) {
-				String cellValue = dataFormatter.formatCellValue(cell);
-				list.add(cellValue);
+			Integer tempId = null;
+			tempId = this.save(productoN);
+			if( tempId != null )
+			{
+				registrosGuardados++;
 			}
 		}
 
-		// filling excel data and creating list as List<Invoice>
-		List<Producto> invList = createList(list, noOfColumns);
+		Map<String,String> respuesta = new HashMap<>();
 
-		// Closing the workbook
-		workbook.close();
+		respuesta.put("in", registrosEnExcel.toString());
+		respuesta.put("out", registrosGuardados.toString());
 
-//		return invList;
+		return new ResponseEntity<>(respuesta, HttpStatus.OK);
 	}
 
 
 
 
-	private List<Producto> createList(List<String> excelData, int noOfColumns) {
-
-		ArrayList<Producto> productoList = new ArrayList<>();
-
-		int i = noOfColumns;
-
-		do {
-			Producto productoN = new Producto();
-
-
-			productoN.setNombre( excelData.get(i) );
-
-			productoN.setCostoUnidad( new BigDecimal( excelData.get( i + 1) ));
-
-			productoN.setPrecioVenta( new BigDecimal( excelData.get(i + 2) ));
-
-			BigDecimal ganancia = productoN.getPrecioVenta().subtract(productoN.getCostoUnidad());
-			productoN.setGanancia( ganancia );
-
-//			productoN.setName(excelData.get(i));
-//			productoN.setAmount(Double.valueOf(excelData.get(i + 1)));
-//			productoN.setNumber(excelData.get(i + 2));
-//			productoN.setReceivedDate(excelData.get(i + 3));
-
-			productoList.add( productoN );
-			i = i + (noOfColumns);
-
-		} while (i < excelData.size());
-
-		return productoList;
-	}
 
 
 
