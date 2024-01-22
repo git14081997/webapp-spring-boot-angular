@@ -27,7 +27,7 @@ export class ExcelProductosComponent implements OnInit
 			{
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem('token')
+			'Authorization': 'Bearer '
 			}
 		)
 	}
@@ -44,6 +44,17 @@ export class ExcelProductosComponent implements OnInit
 		//localStorage.clear();
 		//localStorage.setItem("token", "fas9df79asf79as8f79as8f7d9as87f9sa");
 
+this.buscarToken();
+
+	}
+
+
+	servidor: any = {};
+	temporal:any;
+
+
+	buscarToken()
+	{
 		let tokenSesion: string = localStorage.getItem('token') || "";
 
 		if( tokenSesion.length > 0 )
@@ -65,16 +76,12 @@ export class ExcelProductosComponent implements OnInit
 			'Authorization': tokenSesion
 			}
 		);
+	} // buscarToken 
 
-	}
 
-
-	servidor: any = {};
-	temporal:any;
 
 	upProductos()
 	{
-
 
 		let enlaceTemp: string = hostname + this.parametroServicio.url + '/upload';
 
@@ -140,6 +147,43 @@ this.archivoLeido = true;
 
 } // onFileChange
 
+
+
+
+
+
 	
+upUsuarios()
+{
+
+	let enlaceTemp: string = hostname + "/api/usuario" + '/upload';
+
+	this.http.post<any>(
+		enlaceTemp,
+		this.productos,	
+		this.parametroServicio.headers)
+	.subscribe((RESPONSE:any) => 
+	{
+
+		this.productos = [];
+		
+		console.log("Response inicio");
+		this.temporal = RESPONSE;
+		console.log(RESPONSE);
+
+		this.servidor.recibio = this.temporal.in;
+		this.servidor.guardo = this.temporal.out;
+
+		console.log("Response fin");
+
+	});
+
+	console.log("Se carga la información de productos a la base de datos !");
 
 }
+
+
+
+	
+
+} // componente 

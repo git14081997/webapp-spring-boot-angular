@@ -15,8 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +28,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -134,10 +141,25 @@ public class UsuarioController {
 			dto.setPendienteDePago(cero);
 
 			ClienteAbona clienteAbona = new ClienteAbona();
-			clienteAbona.setSaldo(cero);
-			clienteAbona.setSaldoAnterior(cero);
+
+
+
+			BigDecimal pendienteDePago = dto.getPendienteDePago();
+			if( pendienteDePago.compareTo(cero) > 0 )
+			{
+				clienteAbona.setSaldoAnterior(pendienteDePago);
+			}
+			else
+			{
+				clienteAbona.setSaldoAnterior(cero);
+			}
+
+
 			clienteAbona.setCargos(cero);
 			clienteAbona.setAbonos(cero);
+
+			clienteAbona.setSaldo(cero);
+
 			clienteAbona.setDetalles("Saldo inicial");
 			clienteAbona.setFactura(null);
 
@@ -233,6 +255,44 @@ public Page<Usuario> findAllByNombreAndApellido(
 	}
 
 
+
+
+
+
+
+
+
+
+	@Transactional
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "upload")
+	public ResponseEntity<Map<String,String>> readFileExcel(@RequestBody List<Usuario> usuarios)
+	{
+		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
+
+
+		Integer registrosEnExcel = usuarios.size();
+
+		Integer registrosGuardados = 0;
+
+
+		for( Usuario usuarioN : usuarios )
+		{
+
+			Integer tempId = null;
+			tempId = this.save(usuarioN);
+			if( tempId != null )
+			{
+				registrosGuardados++;
+			}
+		}
+
+		Map<String,String> respuesta = new HashMap<>();
+
+		respuesta.put("in", registrosEnExcel.toString());
+		respuesta.put("out", registrosGuardados.toString());
+
+		return new ResponseEntity<>(respuesta, HttpStatus.OK);
+	}
 
 
 
