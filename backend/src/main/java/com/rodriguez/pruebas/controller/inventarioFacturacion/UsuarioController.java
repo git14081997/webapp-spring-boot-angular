@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,9 +65,9 @@ public class UsuarioController {
 
 
 
-/*
+
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public void update(@RequestBody Usuario dto){
+	public void updateComentarios(@RequestBody Usuario dto){
 
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(dto.getId());
 
@@ -74,43 +75,42 @@ public class UsuarioController {
 
 			Usuario usuarioDB = usuarioOptional.get();
 
-			String nombreDos = dto.getNombreDos();
-			if( nombreDos != null ){
-				if( nombreDos.length() > 1 ){
-
-					usuarioDB.setNombreDos(nombreDos);
-
+			String comentarios = dto.getComentarios();
+			if( comentarios != null ){
+				if( comentarios.length() > 1 ){
+					usuarioDB.setComentarios(comentarios);
 				}
 			}
 
-
+			/*
+			String nombreDos = dto.getNombreDos();
+			if( nombreDos != null ){
+				if( nombreDos.length() > 1 ){
+					usuarioDB.setNombreDos(nombreDos);
+				}
+			}
 
 			String apellido = dto.getApellido();
 			if( apellido != null ){
 				if( apellido.length() > 1 ){
-
 					usuarioDB.setApellido(apellido);
-
 				}
 			}
-
-
 
 			String apellidoDos = dto.getApellidoDos();
 			if( apellidoDos != null ){
 				if( apellidoDos.length() > 1 ){
-
 					usuarioDB.setApellidoDos(apellidoDos);
-
 				}
 			}
 
+			*/
 
 			usuarioRepository.save(usuarioDB);
 		}
 
 	}
-*/
+
 
 
 

@@ -54,6 +54,8 @@ public class Usuario implements Serializable {
 	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
 	private BigDecimal pendienteDePago;
 
+	@Column( name = "COMENTARIOS", length = 512 )
+	private String comentarios;
 
 	//@Column( name = "INFORMACION_ADICIONAL")
 	//private String informacionAdicional;
