@@ -140,7 +140,10 @@ public class UsuarioController {
 
 
 			BigDecimal pendienteDePago = dto.getPendienteDePago();
-			dto.setPendienteDePago(cero);
+			if( pendienteDePago == null){
+				pendienteDePago = cero;
+			}
+
 			ClienteAbona clienteAbona = new ClienteAbona();
 
 			if( pendienteDePago.compareTo(cero) > 0 )

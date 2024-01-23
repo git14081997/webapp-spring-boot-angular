@@ -183,6 +183,26 @@
 		</button>
 	</div>
 
+	<div class="col-12 my-2">
+		&nbsp;
+	</div>
+
+	<div class="col-12 my-2">
+		<div class="form-floating mb-3">
+			<input type="text" class="form-control form-control-lg" id="parametro-info" placeholder=""
+				[(ngModel)]="objetoSeleccionado.info">
+			<label for="parametro-info" class="form-label">Información:</label>
+		</div>
+	</div>
+
+	<div class="col-12 my-2">
+		<button class="btn btn-dark btn-lg btn-100" (click)="updateComentario()">
+			Guardar Comentarios
+		</button>
+	</div>
+
+
+
 </div><!-- agregarAbono -->
 
 

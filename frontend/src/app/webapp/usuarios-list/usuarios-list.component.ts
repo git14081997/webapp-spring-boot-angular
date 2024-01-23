@@ -340,4 +340,9 @@ export class UsuariosListComponent implements OnInit {
 		});		
 	}
 
+
+	updateComentario(){
+		
+	}
+
 }
