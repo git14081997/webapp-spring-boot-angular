@@ -3,34 +3,27 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ParametroServicio } from '../pruebas/ParametroServicio';
-import { formatoDeFecha } from '../../libproyecto';
+import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../../hostname';
+import { hostname } from '../hostname';
+import { buscarToken } from '../libproyecto';
 
 @Component({
   selector: 'app-clienteabona-list',
   standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
-		
 	],
   templateUrl: './clienteabona-list.component.html',
   styleUrl: './clienteabona-list.component.css'
 })
 export class ClienteabonaListComponent implements OnInit {
 
-	private parametroServicio: ParametroServicio = {
-		url: "/api/clienteabona",
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem('token')
-		})
-	}
+	parametroServicio: any = {};
+	getToken = buscarToken;
 
-	private http = inject(HttpClient);
+	http = inject(HttpClient);
 	objetoSeleccionado:any = {};
 	objetos: any[] = [];
 	tmp:any;
@@ -38,7 +31,7 @@ export class ClienteabonaListComponent implements OnInit {
 	formatoDeFecha = formatoDeFecha;
 
 	/* variables de paginacion */
-	enlaceActual: string = this.parametroServicio.url;
+	enlaceActual: string = "";
 	paramActual: string = "";
 	opcionesCantidadPorPagina = [1,50, 100];
 	pagina: number = 0;
@@ -48,11 +41,19 @@ export class ClienteabonaListComponent implements OnInit {
 	total: number = 0;
 	/* variables de paginacion */
 
-		
-	constructor() {
-	}
-
 	ngOnInit(): void {
+
+		this.parametroServicio.url = "/api/clienteabona";
+		this.parametroServicio.headers = new HttpHeaders(
+		{
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+		'Authorization': this.getToken()
+		}
+		);
+
+		this.enlaceActual = this.parametroServicio.url;
+
 		this.paramActual = "/" + this.idCliente;
 		this.getPorPagina(this.enlaceActual);
 	}
@@ -94,8 +95,5 @@ export class ClienteabonaListComponent implements OnInit {
     });
   }
 	/* metodos para paginacion */
-
-
-
 
 }

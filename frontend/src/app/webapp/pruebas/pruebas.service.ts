@@ -2,8 +2,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ParametroServicio } from './ParametroServicio';
-import { hostname } from '../../hostname';
+import { ParametroServicio } from '../ParametroServicio';
+import { hostname } from '../hostname';
 
 @Injectable({
 	providedIn: 'root'

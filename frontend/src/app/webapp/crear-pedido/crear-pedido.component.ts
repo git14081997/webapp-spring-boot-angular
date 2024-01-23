@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../../hostname';
-import { IVA } from '../../impuestos';
+import { hostname } from '../hostname';
+import { IVA } from '../impuestos';
+import { buscarToken } from '../libproyecto';
 
 @Component({
 selector: 'app-crear-pedido',
@@ -21,24 +21,13 @@ styleUrl: './crear-pedido.component.css'
 })
 export class CrearPedidoComponent implements OnInit {
 
-private parametroServicio: ParametroServicio = {
-url: "/api/factura",
-headers: new HttpHeaders({
-'Content-Type': 'application/json',
-'Accept': 'application/json',
-'Authorization': 'Bearer ' + localStorage.getItem('token')
-})
-}
-
-private http = inject(HttpClient);
+http = inject(HttpClient);
 service: PruebasService;
 parametros: any = {};
 productoSeleccionado: any = {};
 productosEncontrados: any[] = [];
 objetosPedido: any[] = [];
-
 todoElPedido:any = {};
-
 clientesEncontrados: any[] = [];
 
 tiposDePago: any[] = [
@@ -47,12 +36,24 @@ tiposDePago: any[] = [
 	{ "id": "V", "nombre": "Visto" },
 ];
 
+parametroServicio: any = {};
+getToken = buscarToken;
 
 constructor() {
 this.service = new PruebasService;
 }
 
 ngOnInit(): void {
+
+	this.parametroServicio.url = "/api/factura";
+	this.parametroServicio.headers = new HttpHeaders(
+	{
+	'Content-Type': 'application/json',
+	'Accept': 'application/json',
+	'Authorization': this.getToken()
+	}
+	);
+
 }
 
 limpiarBusqueda(){

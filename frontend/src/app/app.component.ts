@@ -2,16 +2,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { PruebasComponent } from './webapp/pruebas/pruebas.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule, RouterOutlet, PruebasComponent,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+	selector: 'app-root',
+	standalone: true,
+	imports: [
+		CommonModule, RouterOutlet,
+	],
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.css'
 })
-export class AppComponent {  
+export class AppComponent {
+	author:string = "Franklin Enrique Rodriguez Revolorio"
 }

@@ -1,6 +1,5 @@
 
 import { Routes } from '@angular/router';
-import { PruebasComponent } from './webapp/pruebas/pruebas.component';
 import { UsuariosListComponent } from './webapp/usuarios-list/usuarios-list.component';
 import { ClienteabonaListComponent } from './webapp/clienteabona-list/clienteabona-list.component';
 import { FacturaListComponent } from './webapp/factura-list/factura-list.component';
@@ -9,8 +8,7 @@ import { CrearPedidoComponent } from './webapp/crear-pedido/crear-pedido.compone
 import { InicioComponent } from './basic/inicio/inicio.component';
 import { PagenotfoundComponent } from './basic/pagenotfound/pagenotfound.component';
 import { IngresosEgresosListComponent } from './webapp/ingresos-egresos-list/ingresos-egresos-list.component';
-import { ExcelProductosComponent } from './cargar-info/excel-productos/excel-productos.component';
-import { ExcelClientesComponent } from './cargar-info/excel-clientes/excel-clientes.component';
+import { ExcelProductosComponent } from './webapp/excel-productos/excel-productos.component';
 
 export const routes: Routes = [
 { path: '', component: InicioComponent, title: 'Inicio',},

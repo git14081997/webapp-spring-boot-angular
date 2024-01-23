@@ -1,56 +1,73 @@
 
-export { 
-  getMesLetras, formatoDeFecha, dosDecimales 
+export 
+{ 
+  getMesLetras, formatoDeFecha, dosDecimales,
+  buscarToken
 };
 
-const getMesLetras = (mes: number): string => {
+const getMesLetras = (mes: number): string => 
+{
   let mesEnLetras = "";
-  if (mes == 1) {
+  if (mes == 1) 
+  {
     mesEnLetras = "ENERO";
   }
-  if (mes == 2) {
+  if (mes == 2) 
+  {
     mesEnLetras = "FEBRERO";
   }
-  if (mes == 3) {
+  if (mes == 3) 
+  {
     mesEnLetras = "MARZO";
   }
 
-  if (mes == 4) {
+  if (mes == 4) 
+  {
     mesEnLetras = "ABRIL";
   }
-  if (mes == 5) {
+  if (mes == 5) 
+  {
     mesEnLetras = "MAYO";
   }
-  if (mes == 6) {
+  if (mes == 6) 
+  {
     mesEnLetras = "JUNIO";
   }
 
-  if (mes == 7) {
+  if (mes == 7) 
+  {
     mesEnLetras = "JULIO";
   }
-  if (mes == 8) {
+  if (mes == 8) 
+  {
     mesEnLetras = "AGOSTO";
   }
-  if (mes == 9) {
+  if (mes == 9) 
+  {
     mesEnLetras = "SEPTIEMBRE";
   }
 
-  if (mes == 10) {
+  if (mes == 10) 
+  {
     mesEnLetras = "OCTUBRE";
   }
-  if (mes == 11) {
+  if (mes == 11) 
+  {
     mesEnLetras = "NOVIEMBRE";
   }
-  if (mes == 12) {
+  if (mes == 12) 
+  {
     mesEnLetras = "DICIEMBRE";
   }
   return mesEnLetras;
 }
 
 
-const formatoDeFecha = (campoFecha: any): string => {
+const formatoDeFecha = (campoFecha: any): string => 
+{
 
-  if (campoFecha == null) {
+  if (campoFecha == null)
+  {
     return "";
   }
 
@@ -60,10 +77,12 @@ const formatoDeFecha = (campoFecha: any): string => {
   let dia = fechaString.getDate();
 
   let diaTxt = "";
-  if (dia < 10) {
+  if (dia < 10)
+  {
     diaTxt = "0" + dia;
   }
-  else {
+  else
+  {
     diaTxt = "" + dia;
   }
 
@@ -72,6 +91,22 @@ const formatoDeFecha = (campoFecha: any): string => {
 }
 
 
-const dosDecimales = ( xnumber: number ): number => {
+const dosDecimales = ( xnumber: number ): number => 
+{
   return Number(xnumber.toFixed(2));
 }
+
+
+const buscarToken = (): string =>
+{
+  let tokenSesion: string = localStorage.getItem('token') || "";
+  if( tokenSesion.length > 2 )
+  {
+    return "Bearer " + tokenSesion;
+  }
+  else
+  {
+    return "";
+  }
+}
+

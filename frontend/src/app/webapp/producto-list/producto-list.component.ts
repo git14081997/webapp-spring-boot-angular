@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
-import { formatoDeFecha } from '../../libproyecto';
+import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../../hostname';
+import { hostname } from '../hostname';
+import { buscarToken } from '../libproyecto';
 
 @Component({
   selector: 'app-producto-list',
@@ -22,38 +22,37 @@ import { hostname } from '../../hostname';
 })
 export class ProductoListComponent implements OnInit {
 
-	private parametroServicio: ParametroServicio = {
-		url: "/api/producto",
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem('token')
-		})
-	}
+	parametroServicio: any = {};
+	http = inject(HttpClient);
 
-	private http = inject(HttpClient);
 	service: PruebasService;
-
 	parametros: any = {};
+
 	objetoSeleccionado: any = {};
 	objetos: any[] = [];
-	tmp:any;
 
+	tmp:any;
 	verLista: string = 'S';
+
 	verEditable: string = 'N';
 	verAgregar: string = 'N';
+
 	verInventario:string = 'N';
-	
 	crearOrActualizar: string = 'C';
+
 	formatoDeFecha = formatoDeFecha;
+	getToken = buscarToken;
 	
 	/* variables de paginacion */
 	enlaceActual: string = this.parametroServicio.url;
 	paramActual: string = "";
+
 	opcionesCantidadPorPagina = [1,50, 100];
 	pagina: number = 0;
+
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 	paginasDisponibles: number = 0;
+
 	paginasDisponiblesArray: any[] = [];
 	total: number = 0;
 	/* variables de paginacion */
@@ -64,6 +63,14 @@ export class ProductoListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
+		this.parametroServicio.url = "/api/producto";
+		this.parametroServicio.headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+			'Authorization': this.getToken()
+		});
+
 		this.getPorPagina(this.enlaceActual);
 	}
 

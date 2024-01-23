@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ParametroServicio } from '../pruebas/ParametroServicio';
+import { ParametroServicio } from '../ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
-import { formatoDeFecha } from '../../libproyecto';
+import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { hostname } from '../../hostname';
+import { hostname } from '../hostname';
 import { FacturaListComponent } from '../factura-list/factura-list.component';
 import { ClienteabonaListComponent } from '../clienteabona-list/clienteabona-list.component';
+import { buscarToken } from '../libproyecto';
 
 @Component({
 	selector: 'app-usuarios-list',
@@ -25,42 +26,38 @@ import { ClienteabonaListComponent } from '../clienteabona-list/clienteabona-lis
 })
 export class UsuariosListComponent implements OnInit {
 
-	private parametroServicio: ParametroServicio = {
-		url: "/api/usuario",
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem('token')
-		})
-	}
+	parametroServicio: any = {};
+	http = inject(HttpClient);
 
-	private http = inject(HttpClient);
 	service: PruebasService;
 	parametros: any = {};
+
 	objetoSeleccionado: any = {};
 	objetos: any[] = [];
 
 	verLista: string = 'S';
 	verAgregar: string = 'N';
-	verEditable: string = 'N';
 
+	verEditable: string = 'N';
 	verAgregarAbono: boolean = false;
+
 	verTablaCargosAbonos: boolean = false;
 	verTablaFacturas: boolean = false;
-	esRebajaOrDescuento: boolean = false;
 
+	esRebajaOrDescuento: boolean = false;
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
 	total: number = 1;
+
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
+
 	opcionesCantidadPorPagina = [50, 100];
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 
 	tmp:any;
-
-
+	getToken = buscarToken;
 
 	constructor() {
 		this.service = new PruebasService;
@@ -68,6 +65,15 @@ export class UsuariosListComponent implements OnInit {
 
 	
 	ngOnInit(): void {
+
+		this.parametroServicio.url = "/api/usuario";
+		this.parametroServicio.headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+			'Authorization': this.getToken()
+		});
+
+
 		this.getPorPagina();
 	}
 

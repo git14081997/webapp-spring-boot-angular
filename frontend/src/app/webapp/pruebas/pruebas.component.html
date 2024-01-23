@@ -1,9 +1,0 @@
-<div class="container-fluid"><div class="row"><div class="col-12 mt-3">
-<select class="form-select form-select-lg"
-  style="min-width: 100% !important; width: max-content;border: 1px solid gray;" 
-  (change)="this.hacerAlgo()" 
-  [(ngModel)]="parametros.usuarioId" >
-<option *ngFor="let objetoN of objetos" value={{objetoN.id}} >
-{{objetoN.nombre}} {{objetoN.apellido || ""}}
-</option></select>
-</div></div></div>

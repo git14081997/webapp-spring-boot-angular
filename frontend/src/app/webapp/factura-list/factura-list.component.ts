@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ParametroServicio } from '../pruebas/ParametroServicio';
 import { PruebasService } from '../pruebas/pruebas.service';
-import { formatoDeFecha } from '../../libproyecto';
+import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { hostname } from '../../hostname';
+import { hostname } from '../hostname';
+import { buscarToken } from '../libproyecto';
 
 @Component({
   selector: 'app-factura-list',
@@ -21,52 +21,54 @@ import { hostname } from '../../hostname';
 })
 export class FacturaListComponent implements OnInit {
 
-	private parametroServicio: ParametroServicio = {
-		url: "/api/factura",
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Authorization': 'Bearer ' + localStorage.getItem('token')
-		})
-	}
+	parametroServicio: any = {}
 
-	private parametroServicioDetallefacturas: ParametroServicio = {
-		url: "/api/facturadetalle",
-		headers: this.parametroServicio.headers
-	}
-
-	private http = inject(HttpClient);
+	http = inject(HttpClient);
 	service: PruebasService;
+
 	parametros: any = {};
 	facturaSeleccionada: any = {};
+
 	facturas: any[] = [];
-
 	verLista: string = 'S';
-	verEditable: string = 'N';
 
+	verEditable: string = 'N';
 	crearOrActualizar: string = 'C';
 
 	pagina: number = 0;
 	total: number = 1;
+
 	paginasDisponibles :number = 1;
 	paginasDisponiblesArray: any[] = [];
+
 	opcionesCantidadPorPagina = [50, 100];
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 
 	tmp:any;
-
 	formatoDeFecha = formatoDeFecha;
 
 	@Input() idCliente: string = "";
-
 	detallesPorFactura: any[] = [];
+
+	getToken = buscarToken;
 
 	constructor() {
 		this.service = new PruebasService;
 	}
-
 	
 	ngOnInit(): void {
+
+		// "/api/factura"
+		// "/api/facturadetalle"
+
+		this.parametroServicio.url = "/api/factura";
+		this.parametroServicio.headers = new HttpHeaders(
+		{
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+		'Authorization': this.getToken()
+		}
+		);
 
 		if( this.idCliente == "" ){
 			this.getPorPagina();
@@ -76,8 +78,6 @@ export class FacturaListComponent implements OnInit {
 		}
 
 	}
-
-
 
 	setCantidadPorPag(){
 		this.pagina = 0;
@@ -193,8 +193,6 @@ export class FacturaListComponent implements OnInit {
 		this.verEditable = 'S';
 		this.getDetallePorFactura(parametros.id);
 	}
-
-
 	
 	buscarEnDb(nombreCliente: any){
 
@@ -234,8 +232,6 @@ export class FacturaListComponent implements OnInit {
 		});
 
 	}
-	
-	
 
 	limpiarBusqueda(){
 		this.facturaSeleccionada.buscar = "";
@@ -244,54 +240,31 @@ export class FacturaListComponent implements OnInit {
 		this.getPorPagina();
 	}
 
-
 	getDetallePorFactura(facturaId:number) {
-
-		let enlace = this.parametroServicioDetallefacturas.url + "/" + facturaId;
-		this.parametroServicioDetallefacturas.url = enlace;
-
-		this.service.getAll(this.parametroServicioDetallefacturas)
-			.subscribe((RESPONSE: any) => {
-				this.detallesPorFactura = RESPONSE;
-			}
-		);
-
-
+		let enlaceFacturaDetalle = this.parametroServicio.url + "detalle/" + facturaId;
+		this.http.get<any>( enlaceFacturaDetalle, this.parametroServicio.headers)
+		.subscribe((RESPONSE:any) => {
+			this.detallesPorFactura = RESPONSE;
+		});
 	}
 
-
-
-
-
 	pedidoDevuelto(){
-		// mercaderia que fue dejada en consignacion/visto
-		// nos fue devuelta
 		this.http.post<any>(
 			hostname + '/api/factura/dev/' + this.facturaSeleccionada.id,
 			this.parametroServicio.headers
-		).subscribe((RESPONSE:any) => {
+		).subscribe(() => {
 			window.location.reload();
 		});
 
 	}
 
-
-
-
 	confirmarPedido(){
-		// mercaderia que fue dejada en consignacion/visto
-		// nos fue devuelta
 		this.http.post<any>(
 			hostname + '/api/factura/yes/' + this.facturaSeleccionada.id,
 			this.parametroServicio.headers
-		).subscribe((RESPONSE:any) => {
+		).subscribe(() => {
 			window.location.reload();
 		});
-
 	}
-
-
-
-
 	
 }
