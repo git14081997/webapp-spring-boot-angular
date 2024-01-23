@@ -91,22 +91,13 @@ this.buscarToken();
 			this.parametroServicio.headers)
 		.subscribe((RESPONSE:any) => 
 		{
-
-			this.productos = [];
-			
-			console.log("Response inicio");
+			this.productos = [];			
 			this.temporal = RESPONSE;
-			console.log(RESPONSE);
-
 			this.servidor.recibio = this.temporal.in;
 			this.servidor.guardo = this.temporal.out;
-
-			console.log("Response fin");
-
+			alert("Productos guardados :" + this.servidor.guardo );
+			window.location.href = "/productos";
 		});
-
-		console.log("Se carga la información de productos a la base de datos !");
-
 	}
 
 
@@ -164,21 +155,13 @@ upUsuarios()
 		this.parametroServicio.headers)
 	.subscribe((RESPONSE:any) => 
 	{
-
 		this.productos = [];
-		
-		console.log("Response inicio");
 		this.temporal = RESPONSE;
-		console.log(RESPONSE);
-
 		this.servidor.recibio = this.temporal.in;
 		this.servidor.guardo = this.temporal.out;
-
-		console.log("Response fin");
-
+		alert("Usuarios guardados :" + this.servidor.guardo );
+		window.location.href = "/usuarios";
 	});
-
-	console.log("Se carga la información de productos a la base de datos !");
 
 }
 

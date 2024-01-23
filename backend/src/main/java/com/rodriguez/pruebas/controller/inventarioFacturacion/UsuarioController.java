@@ -138,20 +138,20 @@ public class UsuarioController {
 					dto.getNombre() + " " + dto.getNombreDos() + " " + dto.getApellido() + " " + dto.getApellidoDos()
 			);
 
-			dto.setPendienteDePago(cero);
-
-			ClienteAbona clienteAbona = new ClienteAbona();
-
-
 
 			BigDecimal pendienteDePago = dto.getPendienteDePago();
+			dto.setPendienteDePago(cero);
+			ClienteAbona clienteAbona = new ClienteAbona();
+
 			if( pendienteDePago.compareTo(cero) > 0 )
 			{
 				clienteAbona.setSaldoAnterior(pendienteDePago);
+				dto.setPendienteDePago(pendienteDePago);
 			}
 			else
 			{
 				clienteAbona.setSaldoAnterior(cero);
+				dto.setPendienteDePago(cero);
 			}
 
 
