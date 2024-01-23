@@ -1,4 +1,10 @@
 
+create database inventario_facturacion;
+use inventario_facturacion;
+
+
+
+
 CREATE USER 'userapi'@'localhost' IDENTIFIED BY 'contrasena';
 -- GRANT ALL PRIVILEGES ON INVENTARIO_FACTURACION.* TO 'userapi'@'localhost';
 -- FLUSH PRIVILEGES;
