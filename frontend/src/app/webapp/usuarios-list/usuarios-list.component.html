@@ -182,10 +182,14 @@
 		<div class="h5 my-5">
 			Saldo pendiente:<br/>
 			{{ objetoSeleccionado.pendienteDePago | currency: 'Q. ' }}
-			<br/><br/><br/>
-			{{ objetoSeleccionado.comentarios || "Sin comentarios" }}
 		</div>
 	</div>
+	<div class="col-12 my-4">
+		<label for="parametro-comentarios-lectura" class="form-label">Comentarios:</label>
+		<textarea class="form-control form-control-lg" id="parametro-comentarios-lectura" rows="9"
+		 [(ngModel)]="objetoSeleccionado.comentarios" placeholder="" [readonly] readonly disabled ></textarea>
+	</div>
+
 
 	<div class="col-12 my-2">
 		&nbsp;
@@ -267,7 +271,7 @@
 
 	<div class="col-12 my-2">
 			<label for="parametro-comentarios" class="form-label">Comentarios ({{objetoSeleccionado.comentarios?.length || 0 }} /511):</label>
-			<textarea class="form-control form-control-lg" id="exampleFormControlTextarea1" rows="9"
+			<textarea class="form-control form-control-lg" id="parametro-comentarios" rows="9"
 			 [(ngModel)]="objetoSeleccionado.comentarios" placeholder="" ></textarea>
 	</div>
 
