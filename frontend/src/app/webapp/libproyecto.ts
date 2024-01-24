@@ -99,17 +99,11 @@ const dosDecimales = ( xnumber: number ): number =>
 
 const buscarToken = (): string =>
 {
-  let tokenSesion: string = localStorage.getItem('token') || "";
-  if( tokenSesion.length > 2 )
-  {
-    return "Bearer " + tokenSesion;
-  }
-  else
-  {
-    return "";
-  }
+  // no funciona localStorage
+  //let tokenSesion: string = localStorage.getItem('token') || "";
+  return "Bearer ";
 }
 
 
-const cantidadPorPagina = [1, 2, 50, 100, 200];
+const cantidadPorPagina:number[] = [1, 2, 50, 100, 200];
 

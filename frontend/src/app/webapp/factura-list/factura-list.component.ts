@@ -47,13 +47,13 @@ export class FacturaListComponent implements OnInit {
 	paramActual: string = "";
 
 	opcionesCantidadPorPagina = cantidadPorPagina;
-	pagina: number = 1;
+	pagina: number = 0; // 0 es la primer pagina
 
 	cantidad: number = this.opcionesCantidadPorPagina[0];
-	paginasDisponibles: number = 1;
+	paginasDisponibles: number = 0;
 
 	paginasDisponiblesArray: any[] = [];
-	total: number = 1;
+	total: number = 0;
 	/* variables de paginacion */
 
 	constructor() {
@@ -76,9 +76,11 @@ export class FacturaListComponent implements OnInit {
 		this.enlaceActual = this.parametroServicio.url;
 
 		if( this.idCliente == "" ){
+			this.pagina = 0;
 			this.getPorPagina(this.enlaceActual);
 		}
 		else {
+			this.pagina = 0;
 			this.buscarEnDb( this.idCliente );
 		}
 
@@ -171,7 +173,7 @@ export class FacturaListComponent implements OnInit {
 			this.facturas = RESPONSE;
 			this.formatoTexto();
 
-			this.actualizarContadores(1,this.facturas.length);
+			this.actualizarContadores(0,this.facturas.length);
 			this.paginasDisponiblesArray = [];
 			for (let i = 0; i < this.paginasDisponibles; i++) {
 				let newObj = { "numPagina": i };
@@ -253,14 +255,13 @@ export class FacturaListComponent implements OnInit {
 	
 	
 		getPorPagina(urlAlRecurso: string) {
-			let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad; //+ this.paramActual;
+			let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad;
 			this.http.get<any>(urlGetPaginado, this.parametroServicio.headers).subscribe((RESPONSE: any) => {
 				this.tmp = RESPONSE;
 				this.facturas = this.tmp.content;
 				this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
-
 				this.formatoTexto();
-
+				this.tmp = {};
 			});
 		}
 		/* metodos para paginacion */

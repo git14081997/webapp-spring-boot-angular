@@ -36,7 +36,7 @@
 					</svg>
 				</span>
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar"
-					[(ngModel)]="objetoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(objetoSeleccionado.buscar)">
+					[(ngModel)]="productoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(productoSeleccionado.buscar)">
 				<button class="btn btn-dark btn-lg " (click)="limpiarBusqueda()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
 						viewBox="0 0 16 16">
@@ -67,16 +67,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let objetoN of objetos">
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombre | uppercase }}</td>
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.costoUnidad | currency: 'Q. '
+						<tr *ngFor="let productoN of productos">
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.id }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.nombre | uppercase }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.costoUnidad | currency: 'Q. '
 								}}</td>
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.ganancia | currency: 'Q. ' }}
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.ganancia | currency: 'Q. ' }}
 							</td>
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.precioVenta | currency: 'Q. '
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.precioVenta | currency: 'Q. '
 								}}</td>
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.existencias }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.existencias }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -90,7 +90,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
-						[(ngModel)]="objetoSeleccionado.nombre" required>
+						[(ngModel)]="productoSeleccionado.nombre" required>
 					<label for="parametro-nombre" class="form-label">Nombre:</label>
 				</div>
 			</div>
@@ -98,7 +98,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
-						[(ngModel)]="objetoSeleccionado.costoUnidad">
+						[(ngModel)]="productoSeleccionado.costoUnidad">
 					<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
 				</div>
 			</div>
@@ -108,7 +108,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
-						[(ngModel)]="objetoSeleccionado.ganancia">
+						[(ngModel)]="productoSeleccionado.ganancia">
 					<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
 				</div>
 			</div>
@@ -124,13 +124,13 @@
 			<div class="col-12 my-2">
 				<div class="form-floating">
 					<input type="number" class="form-control form-control-lg" id="parametro-nuevasUnidades" placeholder=""
-						[(ngModel)]="objetoSeleccionado.nuevasUnidades">
+						[(ngModel)]="productoSeleccionado.nuevasUnidades">
 					<label for="parametro-nuevasUnidades" class="form-label">Nuevas unidades:</label>
 				</div>
 			</div>
 
 			<div class="col-12 my-2">
-				<button class="btn btn-dark btn-lg btn-100" (click)="agregarAlInventario(this.objetoSeleccionado)">
+				<button class="btn btn-dark btn-lg btn-100" (click)="agregarAlInventario(this.productoSeleccionado)">
 					Agregar al inventario
 				</button>
 			</div>
@@ -140,7 +140,7 @@
 	<div class="col-12 my-2">
 	<div class="form-floating">
 	<input type="file" accept="image/*" (change)="cargarImagen($event)" class="form-control form-control-lg"
-	id="parametro-imagen" placeholder="" [(ngModel)]="objetoSeleccionado.imagen">
+	id="parametro-imagen" placeholder="" [(ngModel)]="productoSeleccionado.imagen">
 	<label for="parametro-imagen" class="form-label">Imagen:</label>
 	</div>
 	</div>
@@ -159,7 +159,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
-						[(ngModel)]="objetoSeleccionado.nombre" required>
+						[(ngModel)]="productoSeleccionado.nombre" required>
 					<label for="parametro-nombre" class="form-label">Nombre:</label>
 				</div>
 			</div>
@@ -167,7 +167,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-existencias" placeholder=""
-						[(ngModel)]="objetoSeleccionado.existencias">
+						[(ngModel)]="productoSeleccionado.existencias">
 					<label for="parametro-existencias" class="form-label">Existencias (Número Entero):</label>
 				</div>
 			</div>
@@ -175,7 +175,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-costoUnidad" placeholder=""
-						[(ngModel)]="objetoSeleccionado.costoUnidad">
+						[(ngModel)]="productoSeleccionado.costoUnidad">
 					<label for="parametro-costoUnidad" class="form-label">Costo Por Unidad ( Q ):</label>
 				</div>
 			</div>
@@ -183,7 +183,7 @@
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-ganancia" placeholder=""
-						[(ngModel)]="objetoSeleccionado.ganancia">
+						[(ngModel)]="productoSeleccionado.ganancia">
 					<label for="parametro-ganancia" class="form-label">Ganancia ( Q ):</label>
 				</div>
 			</div>
@@ -223,13 +223,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let objetoN of objetos">
-							<td class="text-nowrap">{{ objetoN.id }}</td>
-							<td class="text-nowrap">{{ objetoN.saldoAnterior }}</td>
-							<td class="text-nowrap">{{ objetoN.entradas }}</td>
-							<td class="text-nowrap">{{ objetoN.salidas }}</td>
-							<td class="text-nowrap">{{ objetoN.existencia }}</td>
-							<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
+						<tr *ngFor="let productoN of productos">
+							<td class="text-nowrap">{{ productoN.id }}</td>
+							<td class="text-nowrap">{{ productoN.saldoAnterior }}</td>
+							<td class="text-nowrap">{{ productoN.entradas }}</td>
+							<td class="text-nowrap">{{ productoN.salidas }}</td>
+							<td class="text-nowrap">{{ productoN.existencia }}</td>
+							<td class="text-nowrap">{{ formatoDeFecha(productoN.fecha) }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -238,7 +238,7 @@
 
 
 		<!-- paginacion -->
-		<div *ngIf=" verLista == 'S' || verInventario == 'S'">
+		<div *ngIf="verLista == 'S' || verInventario == 'S'">
 
 			<div class="col-12 my-2">
 				<div class="container">

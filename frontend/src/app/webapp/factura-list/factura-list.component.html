@@ -96,39 +96,41 @@
     </div>
   </div>
 
-  <!-- paginacion -->
-  <!-- paginacion-1 -->
-  <div class="row" *ngIf="verLista == 'S'">
+		<!-- paginacion -->
+		<div *ngIf="verLista == 'S'">
 
-    <div class="col-12 my-5">
-      <label>Cantidad por página</label>
-      <select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
-        <option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
-          {{ cantidadPorPag }}
-        </option>
-      </select>
-    </div>
+			<div class="col-12 my-2">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 my-2">
+							<label>Cantidad por página</label>
+							<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+								<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+									{{ cantidadPorPag }}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
 
+			<div class="col-12 my-2">
+				<div class="container">
+					<span>Páginas</span>
+					<div class="row d-flex flex-wrap align-items-start align-content-start">
+						<div class="col-12 my-2">
+							<span *ngFor="let paginaN of paginasDisponiblesArray">
+								<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
+									{{paginaN.numPagina}}
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-    <div class="col-12 my-2 mx-1">
-      <span>Páginas</span>
-    </div>
-
-  </div>
-
-  <!-- paginacion-2 -->
-  <div class="row d-flex flex-wrap align-items-start align-content-start" *ngIf="verLista == 'S'">
-
-    <div class="col-12">
-      <span *ngFor="let paginaN of paginasDisponiblesArray">
-        <a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
-          {{paginaN.numPagina}}
-        </a>
-      </span>
-    </div>
-
-  </div><!-- paginacion-2 -->
-  <!-- paginacion -->
+		</div>
+		<!-- paginacion -->
 
 
 

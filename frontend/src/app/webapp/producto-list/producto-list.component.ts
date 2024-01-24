@@ -28,8 +28,8 @@ export class ProductoListComponent implements OnInit {
 	service: PruebasService;
 	parametros: any = {};
 
-	objetoSeleccionado: any = {};
-	objetos: any[] = [];
+	productoSeleccionado: any = {};
+	productos: any[] = [];
 
 	tmp:any;
 	verLista: string = 'S';
@@ -89,7 +89,7 @@ export class ProductoListComponent implements OnInit {
 		this.verInventario = 'N';
 
 		this.crearOrActualizar = 'C';
-		this.objetoSeleccionado = {};
+		this.productoSeleccionado = {};
 	}
 
 
@@ -105,7 +105,7 @@ export class ProductoListComponent implements OnInit {
 
 		this.crearOrActualizar = 'A';
 
-		this.objetoSeleccionado = {};
+		this.productoSeleccionado = {};
 
 	}
 
@@ -117,7 +117,7 @@ export class ProductoListComponent implements OnInit {
 		this.verAgregar = 'N';
 		this.verInventario = 'N';
 
-		this.objetoSeleccionado = {};
+		this.productoSeleccionado = {};
 		
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
@@ -128,16 +128,16 @@ export class ProductoListComponent implements OnInit {
 	}
 
 	agregar() {
-		this.service.post(this.parametroServicio,this.objetoSeleccionado).subscribe(() => {
+		this.service.post(this.parametroServicio,this.productoSeleccionado).subscribe(() => {
 			this.verListado(); window.location.reload();
 		});
 	}
 
 	actualizar() {
-		this.service.put(this.parametroServicio, this.objetoSeleccionado).subscribe(() => {
+		this.service.put(this.parametroServicio, this.productoSeleccionado).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
-			delete this.objetoSeleccionado;
+			delete this.productoSeleccionado;
 			window.location.reload();
 		});
 	}
@@ -150,7 +150,7 @@ export class ProductoListComponent implements OnInit {
 		this.tmp = new FormData();
 		this.tmp.append("fileImagen",objetoN.target.files[0]);
 
-		let enlaceTemp = hostname + "/api/producto" +"/"+ this.objetoSeleccionado.id;
+		let enlaceTemp = hostname + "/api/producto" +"/"+ this.productoSeleccionado.id;
 		this.http.put<any>(enlaceTemp, this.tmp, this.parametroServicio.headers).subscribe(() => {
 			this.verLista = 'S'; this.verEditable = 'N';
 		});
@@ -170,7 +170,7 @@ export class ProductoListComponent implements OnInit {
 
 
 	actualizarSeleccionado(parametros: any) {
-		this.objetoSeleccionado = parametros;
+		this.productoSeleccionado = parametros;
 		this.crearOrActualizar = 'A';
 
 		this.verEditable = 'S';
@@ -209,7 +209,7 @@ export class ProductoListComponent implements OnInit {
 
 
 	limpiarBusqueda(){
-		this.objetoSeleccionado.buscar = "";
+		this.productoSeleccionado.buscar = "";
 
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
@@ -226,7 +226,7 @@ export class ProductoListComponent implements OnInit {
 		this.verInventario = 'S';
 
 		this.enlaceActual = "/api/inventario";
-		this.paramActual = "/" + this.objetoSeleccionado.id;
+		this.paramActual = "/" + this.productoSeleccionado.id;
 
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
@@ -270,7 +270,7 @@ export class ProductoListComponent implements OnInit {
     let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad + this.paramActual;
     this.http.get<any>(urlGetPaginado, this.parametroServicio.headers).subscribe((RESPONSE: any) => {
       this.tmp = RESPONSE;
-			this.objetos = this.tmp.content;
+			this.productos = this.tmp.content;
 			this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
     });
   }
