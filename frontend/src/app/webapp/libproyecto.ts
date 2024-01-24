@@ -2,7 +2,7 @@
 export 
 { 
   getMesLetras, formatoDeFecha, dosDecimales,
-  buscarToken
+  buscarToken, cantidadPorPagina
 };
 
 const getMesLetras = (mes: number): string => 
@@ -109,4 +109,7 @@ const buscarToken = (): string =>
     return "";
   }
 }
+
+
+const cantidadPorPagina = [1, 2, 50, 100, 200];
 

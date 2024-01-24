@@ -7,7 +7,7 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
-import { buscarToken } from '../libproyecto';
+import { buscarToken, cantidadPorPagina } from '../libproyecto';
 
 @Component({
   selector: 'app-clienteabona-list',
@@ -33,7 +33,7 @@ export class ClienteabonaListComponent implements OnInit {
 	/* variables de paginacion */
 	enlaceActual: string = "";
 	paramActual: string = "";
-	opcionesCantidadPorPagina = [1,50, 100];
+	opcionesCantidadPorPagina = cantidadPorPagina;
 	pagina: number = 0;
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 	paginasDisponibles: number = 0;
@@ -58,6 +58,7 @@ export class ClienteabonaListComponent implements OnInit {
 		this.getPorPagina(this.enlaceActual);
 	}
 
+	
 	/* metodos para paginacion */
 	actualizarContadores(pagDisponibles: number, total: number){
 		this.paginasDisponibles = pagDisponibles;

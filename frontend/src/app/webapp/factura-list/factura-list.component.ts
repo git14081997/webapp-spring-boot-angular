@@ -8,7 +8,7 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
-import { buscarToken } from '../libproyecto';
+import { buscarToken, cantidadPorPagina } from '../libproyecto';
 
 @Component({
   selector: 'app-factura-list',
@@ -22,35 +22,39 @@ import { buscarToken } from '../libproyecto';
 export class FacturaListComponent implements OnInit {
 
 	parametroServicio: any = {}
-
 	http = inject(HttpClient);
+
 	service: PruebasService;
-
 	parametros: any = {};
+
 	facturaSeleccionada: any = {};
-
 	facturas: any[] = [];
+
 	verLista: string = 'S';
-
 	verEditable: string = 'N';
+
 	crearOrActualizar: string = 'C';
-
-	pagina: number = 0;
-	total: number = 1;
-
-	paginasDisponibles :number = 1;
-	paginasDisponiblesArray: any[] = [];
-
-	opcionesCantidadPorPagina = [50, 100];
-	cantidad: number = this.opcionesCantidadPorPagina[0];
-
 	tmp:any;
+
 	formatoDeFecha = formatoDeFecha;
-
 	@Input() idCliente: string = "";
-	detallesPorFactura: any[] = [];
 
+	detallesPorFactura: any[] = [];
 	getToken = buscarToken;
+
+	/* variables de paginacion */
+	enlaceActual: string = "";
+	paramActual: string = "";
+
+	opcionesCantidadPorPagina = cantidadPorPagina;
+	pagina: number = 1;
+
+	cantidad: number = this.opcionesCantidadPorPagina[0];
+	paginasDisponibles: number = 1;
+
+	paginasDisponiblesArray: any[] = [];
+	total: number = 1;
+	/* variables de paginacion */
 
 	constructor() {
 		this.service = new PruebasService;
@@ -69,9 +73,10 @@ export class FacturaListComponent implements OnInit {
 		'Authorization': this.getToken()
 		}
 		);
+		this.enlaceActual = this.parametroServicio.url;
 
 		if( this.idCliente == "" ){
-			this.getPorPagina();
+			this.getPorPagina(this.enlaceActual);
 		}
 		else {
 			this.buscarEnDb( this.idCliente );
@@ -79,71 +84,32 @@ export class FacturaListComponent implements OnInit {
 
 	}
 
-	setCantidadPorPag(){
-		this.pagina = 0;
-		this.getPorPagina();
-	}
 
+	formatoTexto(){
+		for( let objetoN of this.facturas ){
+			objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
 
-	getPorPagina() {
-		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
-			).subscribe((RESPONSE: any) => {
+			if(objetoN.tipoPago == 'C'){
+				objetoN.tipoPagoDetalle = "Credito";
+			}
 
-				this.tmp = RESPONSE;
+			if(objetoN.tipoPago == 'E'){
+				objetoN.tipoPagoDetalle = "Efectivo";
+			}
 
-				this.facturas = this.tmp.content;
-				this.paginasDisponibles = this.tmp.totalPages;
-				this.total = this.tmp.totalElements;
+			if(objetoN.tipoPago == 'V'){
+				objetoN.tipoPagoDetalle = "Visto/Consignacion";
+			}
 
-				for( let objetoN of this.facturas ){
-					objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
+			if(objetoN.tipoPago == 'D'){
+				objetoN.tipoPagoDetalle = "Devuelto";
+			}
 
-					if(objetoN.tipoPago == 'C'){
-						objetoN.tipoPagoDetalle = "Credito";
-					}
-	
-					if(objetoN.tipoPago == 'E'){
-						objetoN.tipoPagoDetalle = "Efectivo";
-					}
-	
-					if(objetoN.tipoPago == 'V'){
-						objetoN.tipoPagoDetalle = "Visto/Consignacion";
-					}
-	
-					if(objetoN.tipoPago == 'D'){
-						objetoN.tipoPagoDetalle = "Devuelto";
-					}
-	
-					if(objetoN.tipoPago == 'P'){
-						objetoN.tipoPagoDetalle = "Perdida";
-					}	
+			if(objetoN.tipoPago == 'P'){
+				objetoN.tipoPagoDetalle = "Perdida";
+			}	
 
-				}
-
-				this.paginasDisponiblesArray = [];
-				for(let i = 0; i < this.paginasDisponibles; i++){
-					let newObj = { "numPagina": i };
-					this.paginasDisponiblesArray.push(newObj);
-				}
-
-			});
-	}
-
-	getPorPaginaNum(numPagina:number) {
-		if(numPagina >= this.paginasDisponibles ){
-			numPagina = this.paginasDisponibles - 1;
 		}
-		if(numPagina <= 0){
-			numPagina = 0;
-		}
-		this.pagina = numPagina;
-		this.getPorPagina();
-	}
-
-
-	setPaginaCantidad(pagina: number, cantidad: number) {
-		this.pagina = pagina;
-		this.cantidad = cantidad;
 	}
 
 
@@ -169,7 +135,7 @@ export class FacturaListComponent implements OnInit {
 		).subscribe(() => {
 			this.verLista = 'S';
 			this.verEditable = 'N';
-			this.getPorPagina();
+			this.getPorPagina(this.enlaceActual);
 		});
 	}
 
@@ -194,52 +160,37 @@ export class FacturaListComponent implements OnInit {
 		this.getDetallePorFactura(parametros.id);
 	}
 	
+
 	buscarEnDb(nombreCliente: any){
 
 		this.http.get<any>(
-			hostname + '/api/factura/nombre/' + nombreCliente,
+			hostname + this.parametroServicio.url + '/nombre/' + nombreCliente,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE:any) => {
-
 			
 			this.facturas = RESPONSE;
-			
-			for( let objetoN of this.facturas ){
-				objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
+			this.formatoTexto();
 
-				if(objetoN.tipoPago == 'C'){
-					objetoN.tipoPagoDetalle = "Credito";
-				}
-
-				if(objetoN.tipoPago == 'E'){
-					objetoN.tipoPagoDetalle = "Efectivo";
-				}
-
-				if(objetoN.tipoPago == 'V'){
-					objetoN.tipoPagoDetalle = "Visto/Consignacion";
-				}
-
-				if(objetoN.tipoPago == 'D'){
-					objetoN.tipoPagoDetalle = "Devuelto";
-				}
-
-				if(objetoN.tipoPago == 'P'){
-					objetoN.tipoPagoDetalle = "Perdida";
-				}
-
+			this.actualizarContadores(1,this.facturas.length);
+			this.paginasDisponiblesArray = [];
+			for (let i = 0; i < this.paginasDisponibles; i++) {
+				let newObj = { "numPagina": i };
+				this.paginasDisponiblesArray.push(newObj);
 			}
 
 		});
 
 	}
 
+
 	limpiarBusqueda(){
 		this.facturaSeleccionada.buscar = "";
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
-		this.getPorPagina();
+		this.getPorPagina(this.enlaceActual);
 	}
 
+	
 	getDetallePorFactura(facturaId:number) {
 		let enlaceFacturaDetalle = this.parametroServicio.url + "detalle/" + facturaId;
 		this.http.get<any>( enlaceFacturaDetalle, this.parametroServicio.headers)
@@ -248,23 +199,70 @@ export class FacturaListComponent implements OnInit {
 		});
 	}
 
+
 	pedidoDevuelto(){
 		this.http.post<any>(
-			hostname + '/api/factura/dev/' + this.facturaSeleccionada.id,
+			hostname + this.parametroServicio.url + '/dev/' + this.facturaSeleccionada.id,
 			this.parametroServicio.headers
 		).subscribe(() => {
 			window.location.reload();
 		});
 
 	}
+
 
 	confirmarPedido(){
 		this.http.post<any>(
-			hostname + '/api/factura/yes/' + this.facturaSeleccionada.id,
+			hostname + this.parametroServicio.url + '/yes/' + this.facturaSeleccionada.id,
 			this.parametroServicio.headers
 		).subscribe(() => {
 			window.location.reload();
 		});
 	}
+
 	
+
+
+
+		/* metodos para paginacion */
+		actualizarContadores(pagDisponibles: number, total: number){
+			this.paginasDisponibles = pagDisponibles;
+			this.total = total;
+			this.paginasDisponiblesArray = [];
+			for (let i = 0; i < this.paginasDisponibles; i++) {
+				let newObj = { "numPagina": i };
+				this.paginasDisponiblesArray.push(newObj);
+			}
+		}
+	
+		setCantidadPorPag() {
+			this.pagina = 0;
+			this.getPorPagina(this.enlaceActual);
+		}
+	
+		getPorPaginaNum(numPagina: number) {
+			if (numPagina >= this.paginasDisponibles) {
+				numPagina = this.paginasDisponibles - 1;
+			}
+			if (numPagina <= 0) {
+				numPagina = 0;
+			}
+			this.pagina = numPagina;
+			this.getPorPagina(this.enlaceActual);
+		}
+	
+	
+		getPorPagina(urlAlRecurso: string) {
+			let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad; //+ this.paramActual;
+			this.http.get<any>(urlGetPaginado, this.parametroServicio.headers).subscribe((RESPONSE: any) => {
+				this.tmp = RESPONSE;
+				this.facturas = this.tmp.content;
+				this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
+
+				this.formatoTexto();
+
+			});
+		}
+		/* metodos para paginacion */
+
 }

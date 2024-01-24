@@ -8,7 +8,7 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
-import { buscarToken } from '../libproyecto';
+import { buscarToken, cantidadPorPagina } from '../libproyecto';
 
 @Component({
   selector: 'app-producto-list',
@@ -44,10 +44,10 @@ export class ProductoListComponent implements OnInit {
 	getToken = buscarToken;
 	
 	/* variables de paginacion */
-	enlaceActual: string = this.parametroServicio.url;
+	enlaceActual: string = "";
 	paramActual: string = "";
 
-	opcionesCantidadPorPagina = [1,50, 100];
+	opcionesCantidadPorPagina = cantidadPorPagina;
 	pagina: number = 0;
 
 	cantidad: number = this.opcionesCantidadPorPagina[0];
@@ -70,6 +70,9 @@ export class ProductoListComponent implements OnInit {
 			'Accept': 'application/json',
 			'Authorization': this.getToken()
 		});
+
+		this.enlaceActual = this.parametroServicio.url;
+
 
 		this.getPorPagina(this.enlaceActual);
 	}

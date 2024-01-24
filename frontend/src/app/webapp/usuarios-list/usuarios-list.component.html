@@ -60,6 +60,7 @@
 					</tbody>
 				</table>
 			</div>
+
 		</div>
 
 		
@@ -67,6 +68,41 @@
 
 
 
+		<!-- paginacion -->
+		<div *ngIf="verLista == 'S'">
+
+			<div class="col-12 my-2">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 my-2">
+							<label>Cantidad por página</label>
+							<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+								<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+									{{ cantidadPorPag }}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 my-2">
+				<div class="container">
+					<span>Páginas</span>
+					<div class="row d-flex flex-wrap align-items-start align-content-start">
+						<div class="col-12 my-2">
+							<span *ngFor="let paginaN of paginasDisponiblesArray">
+								<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
+									{{paginaN.numPagina}}
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- paginacion -->
 
 
 
@@ -74,6 +110,10 @@
 
 <!-- agregar -->
 <div *ngIf="verAgregar == 'S'">
+
+	<div class="col-12 my-5">
+		&nbsp;
+	</div>
 
 	<div class="col-12 my-2">
 		<div class="form-floating mb-3">
@@ -130,6 +170,27 @@
 <!-- editar verOpciones -->
 <div *ngIf="verEditable == 'S'">
 
+	<div class="col-12 my-2">
+		&nbsp;
+	</div>
+
+	<div class="col-12 my-2">
+		<div class="h1 text-center">
+			{{ objetoSeleccionado.nombreCompleto }}
+		</div>
+		<br/>
+		<div class="h5 my-5">
+			Saldo pendiente:<br/>
+			{{ objetoSeleccionado.pendienteDePago | currency: 'Q. ' }}
+			<br/><br/><br/>
+			{{ objetoSeleccionado.comentarios || "Sin comentarios" }}
+		</div>
+	</div>
+
+	<div class="col-12 my-2">
+		&nbsp;
+	</div>
+
 
 	<div class="col-12 my-2">
 		<button class="btn btn-dark btn-lg btn-100" (click)="mostrarCargosAbonos()">
@@ -149,11 +210,23 @@
 		</button>
 	</div>
 
+	<div class="col-12 my-2">
+		<button class="btn btn-dark btn-lg btn-100" (click)="mostrarEditarComentario()">
+			Editar comentario
+		</button>
+	</div>
+
+
+
 </div>
 
 
 <!-- agregarAbono -->
 <div *ngIf="verAgregarAbono">
+
+	<div class="col-12 my-5">
+		&nbsp;
+	</div>
 
 	<div class="col-12 my-2">
 		<div class="form-floating mb-3">
@@ -171,7 +244,7 @@
 		</div>
 	</div>
 
-	<div class="col-12 my-2">
+	<div class="col-12 my-4">
 		<p (click)="esRebaja()" class="h5">
 			Es Descuento: {{formatoBool(esRebajaOrDescuento)}}
 		</p>
@@ -183,16 +256,19 @@
 		</button>
 	</div>
 
-	<div class="col-12 my-2">
+</div><!-- agregarAbono -->
+
+
+
+<div *ngIf="verEditarcomentario == 'S'">
+	<div class="col-12 my-5">
 		&nbsp;
 	</div>
 
 	<div class="col-12 my-2">
-		<div class="form-floating mb-3">
-			<input type="text" class="form-control form-control-lg" id="parametro-info" placeholder=""
-				[(ngModel)]="objetoSeleccionado.info">
-			<label for="parametro-info" class="form-label">Información:</label>
-		</div>
+			<label for="parametro-comentarios" class="form-label">Comentarios ({{objetoSeleccionado.comentarios?.length || 0 }} /511):</label>
+			<textarea class="form-control form-control-lg" id="exampleFormControlTextarea1" rows="9"
+			 [(ngModel)]="objetoSeleccionado.comentarios" placeholder="" ></textarea>
 	</div>
 
 	<div class="col-12 my-2">
@@ -200,11 +276,13 @@
 			Guardar Comentarios
 		</button>
 	</div>
+</div>
 
 
 
-</div><!-- agregarAbono -->
-
+<div class="col-12 my-5" *ngIf=" verTablaCargosAbonos || verTablaFacturas   " >
+	&nbsp;
+</div>
 
 <app-clienteabona-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaCargosAbonos" />
 

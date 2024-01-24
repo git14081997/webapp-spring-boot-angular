@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { hostname } from '../hostname';
 import { FacturaListComponent } from '../factura-list/factura-list.component';
 import { ClienteabonaListComponent } from '../clienteabona-list/clienteabona-list.component';
-import { buscarToken } from '../libproyecto';
+import { buscarToken, cantidadPorPagina } from '../libproyecto';
 
 @Component({
 	selector: 'app-usuarios-list',
@@ -39,31 +39,40 @@ export class UsuariosListComponent implements OnInit {
 	verAgregar: string = 'N';
 
 	verEditable: string = 'N';
+	verEditarcomentario: string = 'N';
+
 	verAgregarAbono: boolean = false;
-
 	verTablaCargosAbonos: boolean = false;
+
 	verTablaFacturas: boolean = false;
-
 	esRebajaOrDescuento: boolean = false;
+
 	crearOrActualizar: string = 'C';
+	tmp: any;
 
+	/* variables de paginacion */
+	enlaceActual: string = "";
+	paramActual: string = "";
+
+	opcionesCantidadPorPagina = cantidadPorPagina;
 	pagina: number = 0;
-	total: number = 1;
 
-	paginasDisponibles :number = 1;
-	paginasDisponiblesArray: any[] = [];
-
-	opcionesCantidadPorPagina = [50, 100];
 	cantidad: number = this.opcionesCantidadPorPagina[0];
+	paginasDisponibles: number = 0;
 
-	tmp:any;
+	paginasDisponiblesArray: any[] = [];
+	total: number = 0;
+	/* variables de paginacion */
+
+
+
 	getToken = buscarToken;
 
 	constructor() {
 		this.service = new PruebasService;
 	}
 
-	
+
 	ngOnInit(): void {
 
 		this.parametroServicio.url = "/api/usuario";
@@ -78,7 +87,7 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 
-	setCantidadPorPag(){
+	setCantidadPorPag() {
 		this.pagina = 0;
 		this.getPorPagina();
 	}
@@ -86,41 +95,38 @@ export class UsuariosListComponent implements OnInit {
 
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
-			).subscribe((RESPONSE: any) => {
+		).subscribe((RESPONSE: any) => {
 
-				this.tmp = RESPONSE;
+			this.tmp = RESPONSE;
 
-				this.objetos = this.tmp.content;
-				this.paginasDisponibles = this.tmp.totalPages;
-				this.total = this.tmp.totalElements;
+			this.objetos = this.tmp.content;
+			this.paginasDisponibles = this.tmp.totalPages;
+			this.total = this.tmp.totalElements;
 
-				for( let objetoN of this.objetos ){
-					objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
-				}
+			for (let objetoN of this.objetos) {
+				objetoN.cumpleanoss = formatoDeFecha(objetoN.cumpleanos);
+			}
 
-				this.paginasDisponiblesArray = [];
-				for(let i = 0; i < this.paginasDisponibles; i++){
-					let newObj = { "numPagina": i };
-					this.paginasDisponiblesArray.push(newObj);
-				}
+			this.paginasDisponiblesArray = [];
+			for (let i = 0; i < this.paginasDisponibles; i++) {
+				let newObj = { "numPagina": i };
+				this.paginasDisponiblesArray.push(newObj);
+			}
 
-			});
+		});
 	}
 
 
-	getPorPaginaNum(numPagina:number) {
-		if(numPagina >= this.paginasDisponibles ){
+	getPorPaginaNum(numPagina: number) {
+		if (numPagina >= this.paginasDisponibles) {
 			numPagina = this.paginasDisponibles - 1;
 		}
-		if(numPagina <= 0){
+		if (numPagina <= 0) {
 			numPagina = 0;
 		}
 		this.pagina = numPagina;
 		this.getPorPagina();
 	}
-
-
-
 
 
 	setPaginaCantidad(pagina: number, cantidad: number) {
@@ -157,6 +163,8 @@ export class UsuariosListComponent implements OnInit {
 		this.verLista = 'S';
 		this.verEditable = 'N';
 		this.verAgregar = 'N';
+		this.verEditarcomentario = 'N';
+
 		this.verAgregarAbono = false;
 		this.verTablaCargosAbonos = false;
 		this.verTablaFacturas = false;
@@ -166,7 +174,7 @@ export class UsuariosListComponent implements OnInit {
 
 
 	agregar(parametros: any) {
-		this.service.post(this.parametroServicio,parametros).subscribe(() => {
+		this.service.post(this.parametroServicio, parametros).subscribe(() => {
 			this.verListado();
 			this.getPorPagina();
 		});
@@ -175,13 +183,9 @@ export class UsuariosListComponent implements OnInit {
 
 	actualizar(parametros: any) {
 		this.service.put(this.parametroServicio, parametros).subscribe(() => {
-
-			this.verListado();
 			this.objetoSeleccionado = {};
-			window.location.reload();	
-
+			window.location.reload();
 		});
-
 	}
 
 
@@ -192,6 +196,7 @@ export class UsuariosListComponent implements OnInit {
 		this.verLista = 'N';
 		this.verEditable = 'S';
 		this.verAgregar = 'N';
+		this.verEditarcomentario = 'N';
 		this.verAgregarAbono = false;
 		this.verTablaCargosAbonos = false;
 		this.verTablaFacturas = false;
@@ -199,14 +204,14 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 
-	buscarEnDb(parametros: any){
+	buscarEnDb(parametros: any) {
 
 		let arrayRes = parametros.split(" ");
 
 		let nombre = arrayRes[0];
 		let apellido = "";
-		if( arrayRes.length > 1 ){
-			apellido = arrayRes[1];	
+		if (arrayRes.length > 1) {
+			apellido = arrayRes[1];
 		}
 
 		this.getPaginadoBuscando(this.parametroServicio, 0, 20, nombre).subscribe((RESPONSE) => {
@@ -217,12 +222,12 @@ export class UsuariosListComponent implements OnInit {
 			this.paginasDisponibles = this.tmp.totalPages;
 			this.total = this.tmp.totalElements;
 
-			for( let objetoN of this.objetos ){
-				objetoN.cumpleanoss = formatoDeFecha( objetoN.cumpleanos );
+			for (let objetoN of this.objetos) {
+				objetoN.cumpleanoss = formatoDeFecha(objetoN.cumpleanos);
 			}
 
 			this.paginasDisponiblesArray = [];
-			for(let i = 0; i < this.paginasDisponibles; i++){
+			for (let i = 0; i < this.paginasDisponibles; i++) {
 				let newObj = { "numPagina": i };
 				this.paginasDisponiblesArray.push(newObj);
 			}
@@ -231,7 +236,7 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 
-	limpiarBusqueda(){
+	limpiarBusqueda() {
 		this.objetoSeleccionado.buscar = "";
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
@@ -240,44 +245,58 @@ export class UsuariosListComponent implements OnInit {
 
 
 	getPaginadoBuscando(
-		parametro:ParametroServicio,
-		pagina: number, 
+		parametro: ParametroServicio,
+		pagina: number,
 		cantidad: number,
 		nombre: string): Observable<any> {
-			
-			return this.http.get<any>(
-				hostname + parametro.url + "/" + pagina + "/" + cantidad +
-				"/buscar" + "?nombre="+nombre, parametro.headers
-			);
+
+		return this.http.get<any>(
+			hostname + parametro.url + "/" + pagina + "/" + cantidad +
+			"/buscar" + "?nombre=" + nombre, parametro.headers
+		);
 	}
 
 
 
 
-	mostrarCargosAbonos(){
+	mostrarCargosAbonos() {
 		this.verAgregarAbono = false;
 		this.verTablaCargosAbonos = true;
 		this.verTablaFacturas = false;
 
-		console.log(this.objetoSeleccionado);
+		this.verEditable = 'S';
+		this.verEditarcomentario = 'N';
+		this.verAgregar = 'N';
+		this.verLista = 'N';
+
 	}
 
-	mostrarAgregarAbono(){
+	mostrarAgregarAbono() {
 		this.verAgregarAbono = true;
 		this.verTablaCargosAbonos = false;
 		this.verTablaFacturas = false;
+
+		this.verEditable = 'S';
+		this.verEditarcomentario = 'N';
+		this.verAgregar = 'N';
+		this.verLista = 'N';
+
 	}
 
-	mostrarFacturas(){
+	mostrarFacturas() {
+		this.verEditable = 'S';
+		this.verTablaFacturas = true;
 		this.verAgregarAbono = false;
 		this.verTablaCargosAbonos = false;
-		this.verTablaFacturas = true;
-
+		this.verEditarcomentario = 'N';
+		this.verAgregar = 'N';
+		this.verLista = 'N';
 	}
+
 
 	agregarAbono(): number {
 
-		let logCargosAbonos:any = {
+		let logCargosAbonos: any = {
 			cargos: 0,
 			abonos: this.objetoSeleccionado.abono,
 			cliente: {
@@ -287,36 +306,36 @@ export class UsuariosListComponent implements OnInit {
 
 		let enlace = hostname + "/api/clienteabona";
 
-		if( this.esRebajaOrDescuento && this.objetoSeleccionado.info != ""  && this.objetoSeleccionado.info != undefined){
+		if (this.esRebajaOrDescuento && this.objetoSeleccionado.info != "" && this.objetoSeleccionado.info != undefined) {
 			enlace += "?descuento=1&info=" + this.objetoSeleccionado.info;
-			this.enviarAbono(enlace,logCargosAbonos);
+			this.enviarAbono(enlace, logCargosAbonos);
 			return 0;
 		}
 
-		if( this.esRebajaOrDescuento ){
+		if (this.esRebajaOrDescuento) {
 			enlace += "?descuento=1";
-			this.enviarAbono(enlace,logCargosAbonos);
+			this.enviarAbono(enlace, logCargosAbonos);
 			return 0;
 		}
 
-		if( this.objetoSeleccionado.info != "" && this.objetoSeleccionado.info != undefined ){
+		if (this.objetoSeleccionado.info != "" && this.objetoSeleccionado.info != undefined) {
 			enlace += "?info=" + this.objetoSeleccionado.info;
-			this.enviarAbono(enlace,logCargosAbonos);
+			this.enviarAbono(enlace, logCargosAbonos);
 			return 0;
 		}
 
-		this.enviarAbono(enlace,logCargosAbonos);
+		this.enviarAbono(enlace, logCargosAbonos);
 		return 0;
 
 	}
 
 
-	esRebaja(){
+	esRebaja() {
 		this.esRebajaOrDescuento = !this.esRebajaOrDescuento;
 	}
 
-	formatoBool(varBoolean:boolean): string {
-		if(varBoolean){
+	formatoBool(varBoolean: boolean): string {
+		if (varBoolean) {
 			return "Sí";
 		}
 		else {
@@ -324,25 +343,39 @@ export class UsuariosListComponent implements OnInit {
 		}
 	}
 
-	enviarAbono(enlace:string, logCargosAbonos:any ){
+	enviarAbono(enlace: string, logCargosAbonos: any) {
 		this.http.post<any>(enlace, logCargosAbonos, this.parametroServicio.headers).subscribe(() => {
 
+			this.verEditarcomentario = 'N';
 			this.verEditable = 'N';
 			this.verAgregar = 'N';
 			this.verLista = 'S';
 			this.verAgregarAbono = false;
 			this.verTablaCargosAbonos = false;
 			this.verTablaFacturas = false;
-	
 
 			this.objetoSeleccionado = {};
 			window.location.reload();
-		});		
+		});
 	}
 
 
-	updateComentario(){
-		
+	mostrarEditarComentario() {
+		this.verEditarcomentario = 'S';
+		this.verEditable = 'S';
+		this.verAgregar = 'N';
+		this.verLista = 'N';
+		this.verAgregarAbono = false;
+		this.verTablaCargosAbonos = false;
+		this.verTablaFacturas = false;
+
+	}
+
+
+	updateComentario() {
+		this.service.put(this.parametroServicio, this.objetoSeleccionado).subscribe(() => {
+			window.location.reload();
+		});
 	}
 
 }
