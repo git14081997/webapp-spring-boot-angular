@@ -75,12 +75,15 @@ export class FacturaListComponent implements OnInit {
 		);
 		this.enlaceActual = this.parametroServicio.url;
 
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+
 		if( this.idCliente == "" ){
-			this.pagina = 0;
+			console.log('este metodo esta fallando 1...');
 			this.getPorPagina(this.enlaceActual);
 		}
 		else {
-			this.pagina = 0;
+			console.log('este metodo esta fallando 2...');
 			this.buscarEnDb( this.idCliente );
 		}
 
@@ -244,6 +247,7 @@ export class FacturaListComponent implements OnInit {
 	
 		getPorPaginaNum(numPagina: number) {
 			if (numPagina >= this.paginasDisponibles) {
+				console.log("posible falla en get facturas ")
 				numPagina = this.paginasDisponibles - 1;
 			}
 			if (numPagina <= 0) {
@@ -261,7 +265,6 @@ export class FacturaListComponent implements OnInit {
 				this.facturas = this.tmp.content;
 				this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
 				this.formatoTexto();
-				this.tmp = {};
 			});
 		}
 		/* metodos para paginacion */

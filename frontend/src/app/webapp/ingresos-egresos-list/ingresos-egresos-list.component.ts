@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
 import { dosDecimales } from '../libproyecto';
-import { buscarToken } from '../libproyecto';
+import { buscarToken, moneda } from '../libproyecto';
 
 @Component({
 	selector: 'app-ingresos-egresos-list',
@@ -35,6 +35,8 @@ export class IngresosEgresosListComponent implements OnInit {
 	
 	parametroServicio: any = {};
 	getToken = buscarToken;
+
+	monedaActual = moneda;
 
 	ngOnInit(): void {
 
