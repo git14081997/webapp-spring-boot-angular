@@ -37,6 +37,7 @@ export class IngresosEgresosListComponent implements OnInit {
 	getToken = buscarToken;
 
 	monedaActual = moneda;
+	verHistorico:boolean = true;
 
 	ngOnInit(): void {
 
@@ -89,11 +90,13 @@ export class IngresosEgresosListComponent implements OnInit {
 	verVentanaAgregarGasto(){
 		if(this.verAgregarGasto == 'S'){
 			this.verAgregarGasto = 'N';
+			this.verHistorico = !this.verHistorico;
 		}
 		else {
 			this.verAgregarGasto = 'S';
+			this.verHistorico = !this.verHistorico;
 		}
 	}
 
-
+	
 }

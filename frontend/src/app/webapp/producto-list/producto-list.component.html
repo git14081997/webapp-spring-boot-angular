@@ -26,7 +26,7 @@
 
 
 		<!-- busqueda -->
-		<div class="col-12 my-2" *ngIf="verLista == 'S'">
+		<div class="col-12 my-2 limit-max" *ngIf="verLista == 'S'">
 			<div class="input-group">
 				<span class="input-group-text bg-dark text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
@@ -87,6 +87,10 @@
 		<!-- editar -->
 		<div *ngIf="verEditable == 'S'">
 
+			<div class="col-12 my-4">
+				&nbsp;
+			</div>
+
 			<div class="col-12 my-2">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control form-control-lg" id="parametro-nombre" placeholder=""
@@ -121,6 +125,10 @@
 				<button class="btn btn-dark btn-lg btn-100" (click)="actualizar()">Actualizar</button>
 			</div>
 
+			<div class="col-12 my-4">
+				&nbsp;
+			</div>
+
 			<div class="col-12 my-2">
 				<div class="form-floating">
 					<input type="number" class="form-control form-control-lg" id="parametro-nuevasUnidades" placeholder=""
@@ -133,6 +141,10 @@
 				<button class="btn btn-dark btn-lg btn-100" (click)="agregarAlInventario(this.productoSeleccionado)">
 					Agregar al inventario
 				</button>
+			</div>
+
+			<div class="col-12 my-5">
+				&nbsp;
 			</div>
 
 			<!-- 
@@ -154,6 +166,9 @@
 
 
 		<!-- agregar -->
+		<div class="col-12 my-2">
+			&nbsp;
+		</div>
 		<div *ngIf="verAgregar == 'S'">
 
 			<div class="col-12 my-2">
@@ -207,9 +222,13 @@
 
 
 
+		<div class="col-12 my-4"  *ngIf="verInventario == 'S'">
+			&nbsp;
+		</div>
 
 		<!-- registros-inventario-por-producto -->
 		<div class="col-12 my-2" *ngIf="verInventario == 'S'">
+
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
@@ -240,11 +259,11 @@
 		<!-- paginacion -->
 		<div *ngIf="verLista == 'S' || verInventario == 'S'">
 
-			<div class="col-12 my-2">
-				<div class="container">
+			<div class="col-12 my-2 limit-max-2">
+				<div class="container-fluid">
 					<div class="row">
-						<div class="col-12 my-2">
-							<label>Cantidad por página</label>
+						<div class="col-12 my-2  ">
+							<label>Cantidad</label>
 							<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
 								<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
 									{{ cantidadPorPag }}
@@ -256,7 +275,7 @@
 			</div>
 
 			<div class="col-12 my-2">
-				<div class="container">
+				<div class="container-fluid">
 					<span>Páginas</span>
 					<div class="row d-flex flex-wrap align-items-start align-content-start">
 						<div class="col-12 my-2">
@@ -275,4 +294,5 @@
 
 
 	</div><!-- row -->
+
 </div><!-- container-fluid -->

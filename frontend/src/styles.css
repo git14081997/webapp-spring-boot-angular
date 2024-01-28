@@ -10,6 +10,25 @@
 }
 */
 
+* {
+box-sizing: border-box !important;
+}
+
+html, body {
+	height: 100% !important;
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+body {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.btn-dark {
+	background-color: #000000 !important;
+	color: #ffffff !important;
+}
+
 .page-link {
 	color: #000000 !important;
 	border: 0px solid white !important;
@@ -23,7 +42,7 @@ table > thead > tr > th, th {
 text-wrap: nowrap !important;
 background-color: #000000 !important;
 color: #ffffff !important;
-text-align: center !important;
+text-align: left !important;
 width: max-content !important;
 padding-left: 27px !important;
 padding-right: 27px !important;
@@ -32,46 +51,84 @@ padding-right: 27px !important;
 table > tbody > tr > td, td  {
 text-wrap: nowrap !important;
 width: max-content !important;
-text-align: center !important;
-}
-
-.btn-derecha {
-	float: right !important;
-	margin-left: 10px !important;
+text-align: left !important;
 }
 
 .img-center {
 	width: 90% !important;
-	margin-left: auto !important;
-	margin-right: auto !important;
 }
 
 .paginaN {
-	border: 2px solid gray !important;
-	border-radius: 45% !important;
-	margin: 0px !important;
-	margin-left: 20px !important;
+	border: 2px solid black !important;
+	border-radius: 20% !important;
+	margin: 9px !important;
 	font-size: 27px !important;
-	padding: 0px 10px !important;
+	padding: 10px !important;
 	text-decoration: none;
 	color: #000000 !important;
-	text-align: left !important;
+	background-color: white !important;
+	text-align: center !important;
 }
 
 .form-select {
-	border: 2px solid gray !important;
+	border: 2px solid black !important;
 	width: 100% !important;
 	border-radius: 20px !important;
 }
-
+.input-group, .input-group span, .input-group input, .input-group button {
+	border: 2px solid black !important;
+	border-radius: 0px !important;
+}
 .btn-100 {
 	width: 100% !important;
 }
 
-.nav-item {
-}
-.navbar-brand {
+.container-fluid, .container, .col-12, body {
+	background-color: lightseagreen !important;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/*
+@media only screen and (min-width: 600px) {
+	.container-fluid, .col-12 {
+		width: 500px !important;
+  }
+}
+
+
+
+
+
+@media only screen and (min-width: 600px) {	
+	.btn-100 {
+		width: fit-content !important;
+		float: right !important;
+		margin-left: 10px !important;
+	}
+}
+
+
+
+
+@media only screen and (min-width: 600px) {
+	#navbarSupportedContent{
+		overflow: scroll !important;
+		height: 110px !important;
+	}
+	.nav-link{
+		text-wrap: nowrap !important;
+	}
+}
+
+
+.limit-max {
+	width: 500px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+.limit-max-2 {
+	width: 128px !important;
+	float: right !important;
+}
+*/
+

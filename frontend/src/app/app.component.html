@@ -1,11 +1,6 @@
-
-<nav class="navbar navbar-expand-lg" style="border-bottom: 2px solid black !important" >
-
-  <div class="container-fluid">
-
-    <a class="navbar-brand" href="/">
-      Inicio
-    </a>
+<div class="container-fluid">
+<nav class="navbar navbar-expand-lg" >
+    <a href="/" class="navbar-brand">Inicio</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" >
@@ -15,18 +10,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-2">
 
-        <li class="nav-item"><a href="/registrar-venta" class="nav-link active">Registrar Pedido</a></li>
-        <li class="nav-item"><a href="/facturas" class="nav-link active">Todos los Pedidos</a></li>
+
+        <li class="nav-item"><a href="/registrar-venta" class="nav-link active">Hacer pedido</a></li>
+        <li class="nav-item"><a href="/facturas" class="nav-link active">Ver pedidos</a></li>
         <li class="nav-item"><a href="/productos" class="nav-link active">Productos</a></li>        
         <li class="nav-item"><a href="/usuarios" class="nav-link active">Clientes</a></li>
-        <li class="nav-item"><a href="/ie" class="nav-link active">Ingresos y Egresos</a></li>
+        <li class="nav-item"><a href="/ie" class="nav-link active">Balance</a></li>
         <li class="nav-item"><a href="/upload" class="nav-link active">Subir</a></li>
+        <li class="nav-item"><a href="/" class="nav-link active">Inicio</a></li>
         
       </ul>
     </div>
 
-  </div>
 </nav>
+</div>
+
+<br/><br/>
 
 <router-outlet></router-outlet>
 

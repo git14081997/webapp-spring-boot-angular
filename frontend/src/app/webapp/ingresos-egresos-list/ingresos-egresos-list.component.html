@@ -4,10 +4,6 @@
 <div class="row">
 
 	<div class="col-12 my-2">
-		&nbsp;
-	</div>
-
-	<div class="col-12 my-2">
 		<div class="form-floating">
 			<input type="text" class="form-control form-control-lg" id="parametro-anio" placeholder=""
 				[(ngModel)]="param.anio">
@@ -22,69 +18,85 @@
 			<label for="parametro-mes" class="form-label">Mes (número):</label>
 		</div>
 	</div>
-</div>
 
-<div class="row">
+	
 	<div class="col-12 my-2">
 			<button class="btn btn-dark btn-lg btn-100" (click)="consultarIE()">
 				Consultar
 			</button>
-		</div>
-			<div class="col-12 my-2">
-				<button class="btn btn-dark btn-lg btn-100" (click)="verVentanaAgregarGasto()">
-				Agregar gasto
-			</button>
-			</div>
+	</div>
+
+	<div class="col-12 my-2">
+		<button class="btn btn-dark btn-lg btn-100" (click)="verVentanaAgregarGasto()">
+			Agregar gasto
+		</button>
+	</div>
+
+
+	
+
+<div class="col-12 my-2"  *ngIf="verAgregarGasto == 'S'" >
+	&nbsp;
 </div>
 
 
-<div class="row" *ngIf="verAgregarGasto == 'S'" >
 
-	<div class="col my-2">
-		<div class="form-floating">
-			<input type="text" class="form-control form-control-lg" id="parametro-gasto" placeholder=""
-				[(ngModel)]="param.egresos">
-			<label for="parametro-gasto" class="form-label">Monto del gasto:</label>
-		</div>
+<div class="col-12 my-2" *ngIf="verAgregarGasto == 'S'">
+	<div class="form-floating">
+		<input type="text" class="form-control form-control-lg" id="parametro-gasto" placeholder=""
+			[(ngModel)]="param.egresos">
+		<label for="parametro-gasto" class="form-label">Monto del gasto:</label>
 	</div>
 </div>
 
-<div class="row" *ngIf="verAgregarGasto == 'S'" >
-	<div class="col my-2">
-		<div class="form-floating">
-			<input type="text" class="form-control form-control-lg" id="parametro-detalle" placeholder=""
-				[(ngModel)]="param.detalle">
-			<label for="parametro-detalle" class="form-label">Detalle:</label>
-		</div>
+
+
+
+<div class="col-12 my-2" *ngIf="verAgregarGasto == 'S'">
+	<div class="form-floating">
+		<input type="text" class="form-control form-control-lg" id="parametro-detalle" placeholder=""
+			[(ngModel)]="param.detalle">
+		<label for="parametro-detalle" class="form-label">Detalle:</label>
 	</div>
 </div>
 
-<div class="row" *ngIf="verAgregarGasto == 'S'" >
-	<div class="col-12 my-4 mb-4">
+	
+
+
+	<div class="col-12 my-4 mb-4" *ngIf="verAgregarGasto == 'S'">
 		<button class="btn btn-dark btn-lg btn-100" (click)="addGasto()">
 			Registrar gasto
 		</button>
 	</div>
-</div>
+
+	
 
 
 
 
+<div *ngIf="verHistorico">
 
-<div class="row text-center">
-	<div class="col my-4">
-		<h3>Suma de ingresos: {{ monedaActual }} {{ dosDecimales(sumaIngresos) }}</h3>
+	<div class="col-12 my-4">
+		&nbsp;
 	</div>
-	<div class="col my-4">
-		<h3>Suma de egresos: {{ monedaActual }} {{ dosDecimales(sumaEgresos) }}</h3>
+
+	<div class="col-12 my-4">
+		<h3>
+			Ingresos {{ monedaActual }} {{ dosDecimales(sumaIngresos) }}
+		</h3>
+	</div>
+
+	<div class="col-12 my-4">
+		<h3>
+			Egresos {{ monedaActual }} {{ dosDecimales(sumaEgresos) }}
+		</h3>
 	</div>
 </div>
 
 
 
 <!-- HISTORIAL-POR-ANIO-MES -->
-<div class="row">
-	<div class="col my-4">
+<div class="col-12 my-4" *ngIf="verHistorico" >
 		<div class="table-responsive">
 			<table class="table table-striped table-lg table-borderless">
 				<thead>
@@ -102,22 +114,15 @@
 						<td class="text-nowrap">{{ objetoN.ingresos | currency: 'Q. ' }}</td>
 						<td class="text-nowrap">{{ objetoN.egresos | currency: 'Q. '  }}</td>
 						<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
-						<td class="text-nowrap">{{ objetoN.detalle }}</td>
+						<td class="text-nowrap" style="text-align: left !important;">{{ objetoN.detalle }}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</div>
 </div>
 <!-- HISTORIAL-POR-ANIO-MES -->
 
 
-<br/><br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
 <br/><br/><br/>
