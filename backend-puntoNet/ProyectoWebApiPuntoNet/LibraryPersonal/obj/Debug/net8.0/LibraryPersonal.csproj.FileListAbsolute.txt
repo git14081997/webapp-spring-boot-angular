@@ -1,0 +1,14 @@
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net8.0\LibraryPersonal.deps.json
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net8.0\LibraryPersonal.runtimeconfig.json
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net8.0\LibraryPersonal.dll
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net8.0\LibraryPersonal.pdb
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.csproj.AssemblyReference.cache
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.AssemblyInfoInputs.cache
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.AssemblyInfo.cs
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.csproj.CoreCompileInputs.cache
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.dll
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\refint\LibraryPersonal.dll
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.pdb
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\LibraryPersonal.genruntimeconfig.cache
+E:\PROYECTOS\webapi\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net8.0\ref\LibraryPersonal.dll

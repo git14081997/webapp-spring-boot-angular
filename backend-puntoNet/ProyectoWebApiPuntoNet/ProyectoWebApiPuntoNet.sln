@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProyectoWebApiPuntoNet", "ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet.csproj", "{0771C7EE-279E-4C6F-B83B-174FBEFA65EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryPersonal", "LibraryPersonal\LibraryPersonal.csproj", "{A009D613-7359-46A7-83CB-D2890FB4BF7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0771C7EE-279E-4C6F-B83B-174FBEFA65EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0771C7EE-279E-4C6F-B83B-174FBEFA65EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0771C7EE-279E-4C6F-B83B-174FBEFA65EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0771C7EE-279E-4C6F-B83B-174FBEFA65EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A009D613-7359-46A7-83CB-D2890FB4BF7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A009D613-7359-46A7-83CB-D2890FB4BF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A009D613-7359-46A7-83CB-D2890FB4BF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A009D613-7359-46A7-83CB-D2890FB4BF7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22CDBCAE-DB65-4E02-9BE4-E0D0C84E1886}
+	EndGlobalSection
+EndGlobal
