@@ -7,11 +7,11 @@
 		<!-- clientes-encontrados -->
 		<div class="col-12 my-2">
 
-			<div class="h3">Cliente: {{ todoElPedido.usuarioNombre|| "" }}</div>
+			<div class="h3">Cliente: {{ todoElPedido.usuarioNombre || "" }}</div>
 
 			<div class="input-group mb-3">
 
-				<span class="input-group-text">
+				<span class="input-group-text bg-dark text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
 						viewBox="0 0 16 16">
 						<path
@@ -22,7 +22,7 @@
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar cliente"
 					[(ngModel)]="parametros.buscarCliente" maxlength="20" (change)="getClientes(parametros.buscarCliente)">
 
-				<button class="btn btn-secondary btn-lg " (click)="limpiarBusquedaClientes()">
+				<button class="btn btn-dark btn-lg " (click)="limpiarBusquedaClientes()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
 						viewBox="0 0 16 16">
 						<path
@@ -80,7 +80,7 @@
 		<div class="col-12 mt-2">
 			<div class="input-group mb-3">
 
-				<span class="input-group-text">
+				<span class="input-group-text bg-dark text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
 						viewBox="0 0 16 16">
 						<path
@@ -91,7 +91,7 @@
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar producto"
 					[(ngModel)]="parametros.buscar" maxlength="20" (change)="getPaginadoBuscando(parametros.buscar)">
 
-				<button class="btn btn-secondary btn-lg " (click)="limpiarBusqueda()">
+				<button class="btn btn-dark btn-lg " (click)="limpiarBusqueda()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
 						viewBox="0 0 16 16">
 						<path
@@ -106,7 +106,7 @@
 
 
 		<!-- tabla-productos-encontrados -->
-		<div class="col my-4">
+		<div class="col-12 my-4">
 			<div class="table-responsive">
 
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
@@ -217,13 +217,10 @@
 
 		<div class="col-12 my-4">
 			Tipo de Pedido
-			<select class="form-select form-select-lg" [(ngModel)]="todoElPedido.tipoPago"
-				style="min-width: 100% !important; width: max-content !important;border: 2px solid gray !important;">
-
+			<select class="form-select form-select-lg" [(ngModel)]="todoElPedido.tipoPago">
 				<option *ngFor="let objetoN of tiposDePago" value={{objetoN.id}}>
 					{{objetoN.nombre}}
 				</option>
-
 			</select>
 		</div>
 
