@@ -1,4 +1,2 @@
 .DS_Store
-Dockerfiles/api-java/app1.jar
-Dockerfiles/httpd
-backend/pruebas-0.0.1-SNAPSHOT.jar
+*/.DS_Store
