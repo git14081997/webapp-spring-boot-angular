@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sMpnyHSIXd3liDrdj0hJDobBiFFQETaACOzBta/m7BU=",
+  "Hash": "3h54RMe2p2q3Nmx3X2WclZRVXNll9gSSZ11YafYl03k=",
   "Source": "ProyectoWebApiPuntoNet",
   "BasePath": "_content/ProyectoWebApiPuntoNet",
   "Mode": "Default",
@@ -47,10 +47,10 @@
       "OriginalItemSpec": "C:\\Users\\user9\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.1\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoWebApiPuntoNet.styles.css",
+      "Identity": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoWebApiPuntoNet.styles.css",
       "SourceId": "ProyectoWebApiPuntoNet",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ProyectoWebApiPuntoNet",
       "RelativePath": "ProyectoWebApiPuntoNet.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoWebApiPuntoNet.styles.css"
+      "OriginalItemSpec": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoWebApiPuntoNet.styles.css"
     }
   ]
 }

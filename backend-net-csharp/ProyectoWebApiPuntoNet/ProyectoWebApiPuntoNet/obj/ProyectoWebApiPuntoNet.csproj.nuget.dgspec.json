@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj": {}
+    "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj": {}
   },
   "projects": {
-    "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj": {
+    "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj",
+        "projectUniqueName": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj",
         "projectName": "LibraryPersonal",
-        "projectPath": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj",
+        "projectPath": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj",
         "packagesPath": "C:\\Users\\user9\\.nuget\\packages\\",
-        "outputPath": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\LibraryPersonal\\obj\\",
+        "outputPath": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\LibraryPersonal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user9\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -37,18 +37,18 @@
         }
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[7.0.15, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[7.0.15, )"
             }
           },
           "imports": [
@@ -67,36 +67,36 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj": {
+    "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj",
+        "projectUniqueName": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj",
         "projectName": "ProyectoWebApiPuntoNet",
-        "projectPath": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj",
+        "projectPath": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet.csproj",
         "packagesPath": "C:\\Users\\user9\\.nuget\\packages\\",
-        "outputPath": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\",
+        "outputPath": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\ProyectoWebApiPuntoNet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user9\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj": {
-                "projectPath": "E:\\PROYECTOS\\webapi\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj"
+              "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj": {
+                "projectPath": "E:\\repo\\webapp-spring-boot-angular\\backend-net-csharp\\ProyectoWebApiPuntoNet\\LibraryPersonal\\LibraryPersonal.csproj"
               }
             }
           }
@@ -108,30 +108,18 @@
         }
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
-              "target": "Package",
-              "version": "[8.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.1, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[7.0.15, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.1, )"
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[7.0.15, )"
             },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
@@ -161,7 +149,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
