@@ -1,10 +1,12 @@
 
-Proyecto completo
-API REST con Spring boot y Angular.
+# API REST
+### Java 17 y Spring Boot 3
 
-Para un Sistema para registrar productos, clientes, ventas al credito o en efectivo.
-Tambien llevará el control de los ingresos y egresos y sus totales por mes.
-
-Tambien las entradas y salidas de productos
-y los cargos y abonos para llevar el control de ventas y pagos del cliente.
-
+### Dependencias:
+1. spring-boot-starter-data-jpa
+2. spring-boot-starter-web
+3. mysql-connector-j
+4. lombok
+5. spring-boot-starter-test
+6. modelmapper
+7. jjwt
