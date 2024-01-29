@@ -7,7 +7,7 @@ namespace ProyectoWebApiPuntoNet.Service
 {
 
 
- public class PersonaService : IPersonaService
+ public class PersonaService : IService<Persona>
  {
 
 
@@ -19,27 +19,31 @@ namespace ProyectoWebApiPuntoNet.Service
   }
 
 
-  List<Persona> IPersonaService.getAll()
-  {
-
-   throw new NotImplementedException();
-  }
-
-
-  Persona IPersonaService.getById(int id)
+  List<Persona> IService<Persona>.getAll()
   {
    throw new NotImplementedException();
   }
 
 
-  int IPersonaService.post(Persona persona)
+
+
+  Persona IService<Persona>.getById(int id)
   {
-   return 0;
+   throw new NotImplementedException();
   }
 
 
-  void IPersonaService.put(Persona persona)
+
+  int IService<Persona>.post(Persona persona)
   {
+   throw new NotImplementedException();
+  }
+
+
+
+  void IService<Persona>.put(Persona persona)
+  {
+   throw new NotImplementedException();
   }
 
 

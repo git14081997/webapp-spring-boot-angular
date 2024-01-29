@@ -1386,7 +1386,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.15"
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.15",
+          "MySql.EntityFrameworkCore": "8.0.0"
         },
         "compile": {
           "bin/placeholder/LibraryPersonal.dll": {}

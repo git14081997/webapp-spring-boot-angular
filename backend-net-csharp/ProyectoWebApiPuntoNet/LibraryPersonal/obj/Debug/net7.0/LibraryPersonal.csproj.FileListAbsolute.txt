@@ -1,0 +1,15 @@
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net7.0\LibraryPersonal.deps.json
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net7.0\LibraryPersonal.runtimeconfig.json
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net7.0\LibraryPersonal.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\bin\Debug\net7.0\LibraryPersonal.pdb
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.csproj.AssemblyReference.cache
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.GeneratedMSBuildEditorConfig.editorconfig
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.AssemblyInfoInputs.cache
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.AssemblyInfo.cs
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.csproj.CoreCompileInputs.cache
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.sourcelink.json
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\refint\LibraryPersonal.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.pdb
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\LibraryPersonal.genruntimeconfig.cache
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\LibraryPersonal\obj\Debug\net7.0\ref\LibraryPersonal.dll
