@@ -1,2 +1,2 @@
-# Proyecto fullstack
-## Spring boot, Angular
+Proyecto fullstack
+Web app con Spring boot y Angular
