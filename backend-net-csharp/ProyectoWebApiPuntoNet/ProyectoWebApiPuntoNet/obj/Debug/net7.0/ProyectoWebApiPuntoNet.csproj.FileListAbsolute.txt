@@ -89,3 +89,7 @@ E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\Pro
 E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\obj\Debug\net7.0\ProyectoWebApiPuntoNet.pdb
 E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\obj\Debug\net7.0\ProyectoWebApiPuntoNet.genruntimeconfig.cache
 E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\obj\Debug\net7.0\ref\ProyectoWebApiPuntoNet.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\bin\Debug\net7.0\Newtonsoft.Json.dll
+E:\repo\webapp-spring-boot-angular\backend-net-csharp\ProyectoWebApiPuntoNet\ProyectoWebApiPuntoNet\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll

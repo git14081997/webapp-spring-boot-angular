@@ -1,4 +1,7 @@
 ﻿
+// https://www.youtube.com/watch?v=OuiExAqVapk
+// 1.33.00
+
 using LibraryPersonal.Dto;
 using LibraryPersonal.Entity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,17 +37,20 @@ namespace ProyectoWebApiPuntoNet.Controllers
 
 
   [HttpPost]
-  [ProducesResponseType( StatusCodes.Status201Created ) ]
+  [ProducesResponseType(StatusCodes.Status201Created)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  [ProducesResponseType(StatusCodes.Status500InternalServerError )]
-  public async Task<ActionResult<Usuario>> PostPersona( [FromBody] UsuarioDto newUsuario)
+  [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+  public async Task<ActionResult<Usuario>> PostPersona([FromBody] UsuarioDto newUsuario)
   {
 
-   if ( newUsuario == null )
+
+   if (newUsuario == null || !ModelState.IsValid )
    {
     return BadRequest(newUsuario);
+    return BadRequest(ModelState);
    }
 
+   
    if (newUsuario.Id != null)
    {
     return StatusCode( StatusCodes.Status500InternalServerError);

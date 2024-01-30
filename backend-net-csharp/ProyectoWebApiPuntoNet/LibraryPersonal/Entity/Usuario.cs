@@ -1,4 +1,7 @@
 ﻿
+// https://www.youtube.com/watch?v=OuiExAqVapk
+// 1.33.00
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +19,7 @@ namespace LibraryPersonal.Entity
 
   [Required( ErrorMessage = "Nombre requerido")]
   //[RegularExpression("^[a-zA-Z0-9]")]
+  [MaxLength(255)]
   public string Nombre { get; set; }
 
 
