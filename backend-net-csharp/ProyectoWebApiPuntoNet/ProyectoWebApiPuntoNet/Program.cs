@@ -35,16 +35,15 @@ namespace ProyectoWebApiPuntoNet
 			string? _conString = _laConfig.GetConnectionString("conexionMysql");
 
    builder.Services.AddDbContext<DbZeroContext>(options => {
-    // sql server
-    //options.UseSqlServer("conexionSqlServer");
-    //
+    // Microsoft SQL Server
+    options.UseSqlServer("conexionSqlServer");
+    // Microsoft SQL Server
 
+    // MYSQL
+    // options.UseMySQL(_conString);
+    // MYSQL
 
-    // mysql
-    options.UseMySQL(_conString);
-    
-   
-}
+   }
    );
 
 

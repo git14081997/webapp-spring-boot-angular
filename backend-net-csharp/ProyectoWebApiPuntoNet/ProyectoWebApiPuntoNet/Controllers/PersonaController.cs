@@ -1,4 +1,5 @@
 ﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LibraryPersonal.Entity;
 using ProyectoWebApiPuntoNet.DBContext;
+using LibraryPersonal.Dto;
 
 
 //  content-type: text/plain; charset=utf-8 
@@ -15,26 +17,39 @@ using ProyectoWebApiPuntoNet.DBContext;
 
 namespace ProyectoWebApiPuntoNet.Controllers
 {
+
+
  [Route("api/[controller]")]
  [ApiController]
  public class PersonaController : ControllerBase
  {
+
+
   private readonly DbZeroContext _context;
+
 
   public PersonaController(DbZeroContext context)
   {
    _context = context;
   }
 
+
   // GET: api/Persona
   [HttpGet]
+  [ProducesResponseType( StatusCodes.Status200OK )]
   public async Task<ActionResult<IEnumerable<Persona>>> GetTPersona()
   {
    return await _context.TPersona.ToListAsync();
+
+   // unaLista.FirstOrDefault( itemN => itemN.id == paramId ) 
+
   }
+
+
 
   // GET: api/Persona/5
   [HttpGet("{id}")]
+  //[HttpGet("id:int")]
   public async Task<ActionResult<Persona>> GetPersona(int id)
   {
    var persona = await _context.TPersona.FindAsync(id);
@@ -45,7 +60,14 @@ namespace ProyectoWebApiPuntoNet.Controllers
    }
 
    return persona;
+   // return ControllerBase.Ok(persona);
+   // return NoContent();
+   // return BadRequest();
+   // return NotFound();
+
   }
+
+
 
   // PUT: api/Persona/5
   // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -78,6 +100,9 @@ namespace ProyectoWebApiPuntoNet.Controllers
    return NoContent();
   }
 
+
+
+
   // POST: api/Persona
   // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
   [HttpPost]
@@ -88,6 +113,9 @@ namespace ProyectoWebApiPuntoNet.Controllers
 
    return CreatedAtAction("GetPersona", new { id = persona.Id }, persona);
   }
+
+
+
 
   // DELETE: api/Persona/5
   [HttpDelete("{id}")]
@@ -105,6 +133,8 @@ namespace ProyectoWebApiPuntoNet.Controllers
    return NoContent();
   }
 
+
+
   private bool PersonaExists(int id)
   {
    return _context.TPersona.Any(e => e.Id == id);
@@ -121,6 +151,7 @@ namespace ProyectoWebApiPuntoNet.Controllers
     Altura = todoItem.Altura,
     FechaNacimiento = todoItem.FechaNacimiento
  };
+
 
  } // class 
 } // namespace 
