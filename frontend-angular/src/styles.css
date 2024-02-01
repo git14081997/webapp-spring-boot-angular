@@ -84,7 +84,8 @@ text-align: left !important;
 }
 
 .container-fluid, .container, .col-12, body {
-	background-color: lightseagreen !important;
+	background-color: #ffffff !important;
+	color: #000000;
 }
 
 
