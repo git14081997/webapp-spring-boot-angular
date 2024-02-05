@@ -28,10 +28,10 @@ import java.math.BigDecimal;
 @Table( name = "USUARIO", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
 public class Usuario implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Id
+	@Id
 	@Column( name = "ID", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
@@ -39,8 +39,8 @@ public class Usuario implements Serializable {
 	@Column( name = "NOMBRE_COMPLETO")
 	private String nombreCompleto;
 
-    @Column( name = "NOMBRE", nullable = false, updatable = false)
-    private String nombre;
+	@Column( name = "NOMBRE", nullable = false, updatable = false)
+	private String nombre;
 
 	@Column( name = "NOMBRE_DOS")
 	private String nombreDos;

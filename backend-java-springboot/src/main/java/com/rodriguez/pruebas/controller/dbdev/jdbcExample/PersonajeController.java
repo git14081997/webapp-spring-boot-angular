@@ -1,27 +1,40 @@
 
-package com.rodriguez.pruebas.repository.inventarioFacturacion;
+package com.rodriguez.pruebas.controller.dbdev.jdbcExample;
 
 import com.rodriguez.pruebas.entity.dbdev.jdbcExample.Personaje;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpecialRepository {
+/**
+ * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
+ *
+ * @Author Franklin Rodriguez
+ * @version 0.0.1
+ */
+@RestController
+@CrossOrigin
+@AllArgsConstructor
+@RequestMapping("api/personaje")
+public class PersonajeController {
 
-	private static final Logger log = LoggerFactory.getLogger(SpecialRepository.class);
-
+	private static final Logger log = LoggerFactory.getLogger(PersonajeController.class);
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -32,7 +45,7 @@ public class SpecialRepository {
 		String sql = "SELECT * FROM DBDEV.PERSONAJE WHERE ID = ?";
 		Personaje personaje = null;
 		personaje =
-				jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<>(Personaje.class),id);
+		jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<>(Personaje.class),id);
 		return personaje;
 	}
 
@@ -41,7 +54,7 @@ public class SpecialRepository {
 	public void save(@RequestBody Personaje personajeDto ){
 		String sql = "insert into DBDEV.PERSONAJE (nombre, puntos, fecha_guardado) values(?,?,?)";
 		jdbcTemplate.update(sql,
-				personajeDto.getNombre(), personajeDto.getPuntos(),personajeDto.getFechaGuardado()
+			personajeDto.getNombre(), personajeDto.getPuntos(),personajeDto.getFechaGuardado()
 		);
 	}
 
@@ -50,8 +63,8 @@ public class SpecialRepository {
 	public void update(@RequestBody Personaje personajeDto){
 		String sql = "update DBDEV.PERSONAJE set nombre=?, puntos=?, fecha_guardado=? where id=?";
 		jdbcTemplate.update(sql,
-				personajeDto.getNombre(), personajeDto.getPuntos(),
-				personajeDto.getFechaGuardado(), personajeDto.getId()
+			personajeDto.getNombre(), personajeDto.getPuntos(),
+			personajeDto.getFechaGuardado(), personajeDto.getId()
 		);
 	}
 
@@ -104,26 +117,26 @@ jdbcTemplate.execute(sql2);
 
 
 // ejemplo de insercion multiple
-		int cantidadInsert = 0;
-		List<String> nombresDB = new ArrayList<>();
+int cantidadInsert = 0;
+List<String> nombresDB = new ArrayList<>();
 
-		nombresDB.add("juan");
-		nombresDB.add("jenny");
-		nombresDB.add("maria");
-		nombresDB.add("pedro");
-		nombresDB.add("marie");
-		nombresDB.add("juana");
-		nombresDB.add("cindy");
+nombresDB.add("juan");
+nombresDB.add("jenny");
+nombresDB.add("maria");
+nombresDB.add("pedro");
+nombresDB.add("marie");
+nombresDB.add("juana");
+nombresDB.add("cindy");
 
-		cantidadInsert = nombresDB.size();
+cantidadInsert = nombresDB.size();
 
-		String sqlTemp = "INSERT INTO DBDEV.PERSONAJE(NOMBRE) VALUES ('";
+String sqlTemp = "INSERT INTO DBDEV.PERSONAJE(NOMBRE) VALUES ('";
 
-		for( int contadorI = 0; contadorI < cantidadInsert; contadorI++ ){
+for( int contadorI = 0; contadorI < cantidadInsert; contadorI++ ){
 
-			jdbcTemplate.execute(sqlTemp + ((String) nombresDB.get(contadorI)) + "')");
+	jdbcTemplate.execute(sqlTemp + ((String) nombresDB.get(contadorI)) + "')");
 
-		} /* for */
+} /* for */
 // ejemplo de insercion multiple
 
 
@@ -139,7 +152,8 @@ jdbcTemplate.execute(sql2);
 
 
 
-	}
+}
+
 
 
 

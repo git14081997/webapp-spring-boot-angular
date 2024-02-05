@@ -5,8 +5,8 @@ import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
+import com.rodriguez.pruebas.service.inventarioFacturacion.IUsuarioService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +45,6 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-@NoArgsConstructor
 @RequestMapping("api/usuario")
 public class UsuarioController {
 
@@ -63,6 +61,12 @@ public class UsuarioController {
 	@Autowired
 	private ClienteAbonaRepository clienteAbonaRepository;
 
+
+	private final IUsuarioService usuarioService;
+
+	public UsuarioController(IUsuarioService usuarioService){
+		this.usuarioService = usuarioService;
+	}
 
 
 

@@ -1,7 +1,7 @@
 
 package com.rodriguez.pruebas;
 
-import com.rodriguez.pruebas.controller.manyToOne.ArtistaController;
+import com.rodriguez.pruebas.controller.dbdev.manyToOne.ArtistaController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
