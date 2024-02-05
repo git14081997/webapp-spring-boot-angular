@@ -9,17 +9,9 @@ package com.rodriguez.pruebas.config;
 public class SecurityConfig { // extends WebSecurityConfigurerAdapter {
 
 /*
-
- @Bean
- PasswordEncoder passwordEncoder(){
-  return new BCryptPasswordEncoder();
- }
-
-
-	*/
-
-
-
-	
-
-}
+	@Bean
+	PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
+*/
+} // class

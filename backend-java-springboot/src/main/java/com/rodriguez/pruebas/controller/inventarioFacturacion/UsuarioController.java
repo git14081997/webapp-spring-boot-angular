@@ -5,8 +5,9 @@ import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
-import com.rodriguez.pruebas.service.inventarioFacturacion.IUsuarioService;
+import com.rodriguez.pruebas.service.inventarioFacturacion.UsuarioService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +46,11 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
+@NoArgsConstructor
 @RequestMapping("api/usuario")
 public class UsuarioController {
 
-	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UsuarioController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
@@ -62,16 +64,7 @@ public class UsuarioController {
 	private ClienteAbonaRepository clienteAbonaRepository;
 
 	@Autowired
-	private IUsuarioService iUsuarioService;
-
-	/*
-	private final IUsuarioService usuarioService;
-
-	public UsuarioController(IUsuarioService usuarioService){
-		this.usuarioService = usuarioService;
-	}
-	*/
-
+	private UsuarioService usuarioService;
 
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)

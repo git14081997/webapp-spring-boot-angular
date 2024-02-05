@@ -7,5 +7,9 @@ import org.springframework.stereotype.Service;
 public class UsuarioService implements IUsuarioService {
 
 
+	@Override
+	public void reglasDeNegocio() {
+		System.out.println("something ...");
+	}
 
-}
+} // class

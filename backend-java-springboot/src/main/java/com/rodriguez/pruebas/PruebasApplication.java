@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
 @AutoConfiguration
-public class PruebasApplication /*implements CommandLineRunner*/ {
+public class PruebasApplication /* implements CommandLineRunner */ {
 
 	private static final Logger logger = LoggerFactory.getLogger(PruebasApplication.class);
 
@@ -21,9 +21,8 @@ public class PruebasApplication /*implements CommandLineRunner*/ {
 
 
 	public static void main(String[] args) {
-		logger.info("An INFO Message");
-		logger.warn("A WARN Message");
-		logger.error("An ERROR Message");
+
+		logger.info("App working ...");
 
 		SpringApplication.run(PruebasApplication.class, args);
 	}

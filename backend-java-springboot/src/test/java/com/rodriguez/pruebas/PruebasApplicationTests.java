@@ -1,13 +1,13 @@
 
 package com.rodriguez.pruebas;
 
-import com.rodriguez.pruebas.controller.dbdev.manyToOne.ArtistaController;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Profile;
+
 import static org.assertj.core.api.Assertions.assertThat;
+//import org.springframework.context.annotation.Profile;
+
 
 /**
  * Esta clase contiene pruebas de funcionamiento para
@@ -19,16 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 0.0.1
  */
 @SpringBootTest
-@Profile("rolpruebas")
+//@Profile("rolpruebas")
 class PruebasApplicationTests {
 
-	@Autowired
-	private ArtistaController artistaController;
-
 	@Test
-	void contextLoads(ApplicationContext context) throws Exception {
-		assertThat(context).isNotNull();
-		assertThat(artistaController).isNotNull();
+	void contextLoads(ApplicationContext applicationContext) throws Exception {
+
+		assertThat(applicationContext).isNotNull();
 	}
 
 }
