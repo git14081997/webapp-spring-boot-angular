@@ -24,7 +24,7 @@ public class SwaggerConfiig {
 		.apiInfo(getApiInfo());
 	} // api
 
-	
+
 	private ApiInfo getApiInfo(){
 		return new ApiInfo(
 		"Nombre del api rest",

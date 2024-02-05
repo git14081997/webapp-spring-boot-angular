@@ -61,12 +61,16 @@ public class UsuarioController {
 	@Autowired
 	private ClienteAbonaRepository clienteAbonaRepository;
 
+	@Autowired
+	private IUsuarioService iUsuarioService;
 
+	/*
 	private final IUsuarioService usuarioService;
 
 	public UsuarioController(IUsuarioService usuarioService){
 		this.usuarioService = usuarioService;
 	}
+	*/
 
 
 
