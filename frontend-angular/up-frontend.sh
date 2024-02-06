@@ -1,3 +1,6 @@
 #!/bin/sh
-sudo npm start
+rm -rf dist
+npm install
+npm run build
+npm start
 exit 0;
