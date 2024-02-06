@@ -1,2 +1,9 @@
 Proyecto fullstack
 con Spring boot y Angular
+
+Requisitos:
+	mariadb-server
+	apache2
+	openjdk-17-jre
+	openjdk-17-jdk
+
