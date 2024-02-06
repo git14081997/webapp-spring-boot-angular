@@ -20,6 +20,7 @@ import java.math.BigDecimal;
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @RequestMapping("noapi/pruebas")
 public class PruebasController {

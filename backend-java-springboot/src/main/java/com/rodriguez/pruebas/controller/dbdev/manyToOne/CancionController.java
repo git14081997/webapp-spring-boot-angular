@@ -5,6 +5,7 @@ import com.rodriguez.pruebas.dto.dbdev.manyToOne.CancionDto;
 import com.rodriguez.pruebas.entity.dbdev.manyToOne.Cancion;
 import com.rodriguez.pruebas.repository.dbdev.manyToOne.CancionRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +31,14 @@ import java.util.Optional;
 /**
  * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 //@RequiredArgsConstructor
 @RequestMapping("/api/cancion")
 public class CancionController {
@@ -55,46 +57,43 @@ public class CancionController {
 	private JdbcTemplate jdbcTemplate;
 
 
-	@ResponseBody
-	@PostMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
-	public Integer save(@RequestBody CancionDto cancionDto ){
+
+
+	@PostMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer save(@RequestBody CancionDto cancionDto )
+	{
 		Cancion cancion = MODEL_MAPPER.map(cancionDto,Cancion.class);
 		cancion = cancionRepository.save(cancion);
 		return cancion.getId();
 	}
 
-	@ResponseBody
-	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public Cancion findById(@PathVariable Integer id){
+
+
+	@GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public Cancion findById(@PathVariable Integer id)
+	{
 		Optional<Cancion> resultado = cancionRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
+
 	/*
-	@ResponseBody
-	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	) public List<Cancion> findAll(){
-        return cancionService.findAll();
-    }
+	@GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Cancion> findAll()
+	{
+	        return cancionService.findAll();
+	}
 	*/
 
 
-	@ResponseBody
-	@DeleteMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public void delete(@PathVariable Integer id){
+
+	@DeleteMapping(	consumes = MediaType.ALL_VALUE,	produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public void delete(@PathVariable Integer id)
+	{
 		cancionRepository.deleteById(id);
 	}
+
+
 
 	/**
 	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
@@ -103,18 +102,13 @@ public class CancionController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Cancion> resultados encontrados.
 	 */
-	@ResponseBody
-	@GetMapping(
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE,
-			value = "{pagina}/{cantidad}"
-	) public Page<Cancion> findAll(
-			@PathVariable Integer pagina,
-			@PathVariable Integer cantidad){
-
+	@GetMapping( consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
+	public Page<Cancion> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad)
+	{
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return cancionRepository.findAll(pageable);
 	}
+
 
 }

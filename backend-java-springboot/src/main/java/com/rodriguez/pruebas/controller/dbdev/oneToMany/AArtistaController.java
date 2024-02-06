@@ -5,6 +5,7 @@ import com.rodriguez.pruebas.dto.dbdev.oneToMany.AArtistaDto;
 import com.rodriguez.pruebas.entity.dbdev.oneToMany.AArtista;
 import com.rodriguez.pruebas.repository.dbdev.oneToMany.AArtistaRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,20 +23,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 /**
  * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 //@RequiredArgsConstructor
 @RequestMapping("api/aartista")
 public class AArtistaController {
@@ -50,36 +51,34 @@ public class AArtistaController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@ResponseBody
-	@PostMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
-	public Integer save(@RequestBody AArtistaDto aArtistaDto ){
+
+	@PostMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Integer save(@RequestBody AArtistaDto aArtistaDto )
+	{
 		AArtista aArtista = MODEL_MAPPER.map(aArtistaDto,AArtista.class);
 		aArtista = aArtistaRepository.save(aArtista);
 		return aArtista.getId();
 	}
 
-	@ResponseBody
-	@GetMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public AArtista findById(@PathVariable Integer id){
+
+
+
+	@GetMapping( consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public AArtista findById(@PathVariable Integer id)
+	{
 		Optional<AArtista> resultado = aArtistaRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
 
-	@ResponseBody
-	@DeleteMapping(
-		consumes = MediaType.APPLICATION_JSON_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE,
-		value = "{id}"
-	) public void delete(@PathVariable Integer id){
+
+
+	@DeleteMapping( consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	public void delete(@PathVariable Integer id)
+	{
 		aArtistaRepository.deleteById(id);
 	}
+
 
 
 	/**
@@ -89,18 +88,13 @@ public class AArtistaController {
 	 * @param cantidad maxima por pagina.
 	 * @return Page<AArtista> resultados encontrados.
 	 */
-	@ResponseBody
-	@GetMapping(
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE,
-			value = "{pagina}/{cantidad}"
-	) public Page<AArtista> findAll(
-			@PathVariable Integer pagina,
-			@PathVariable Integer cantidad){
-
+	@GetMapping( consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}" )
+	public Page<AArtista> findAll( @PathVariable Integer pagina, @PathVariable Integer cantidad )
+	{
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return aArtistaRepository.findAll(pageable);
 	}
+
 
 }

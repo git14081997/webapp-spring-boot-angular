@@ -3,6 +3,7 @@ package com.rodriguez.pruebas.controller.dbdev.jdbcExample;
 
 import com.rodriguez.pruebas.entity.dbdev.jdbcExample.Personaje;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,14 @@ import java.util.List;
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
+@NoArgsConstructor
 @RequestMapping("api/personaje")
 public class PersonajeController {
 

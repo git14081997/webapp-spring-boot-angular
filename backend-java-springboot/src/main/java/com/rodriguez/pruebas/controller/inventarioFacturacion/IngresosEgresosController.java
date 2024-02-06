@@ -31,6 +31,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("api/ie")

@@ -34,6 +34,7 @@ import java.util.UUID;
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("api/archivo")

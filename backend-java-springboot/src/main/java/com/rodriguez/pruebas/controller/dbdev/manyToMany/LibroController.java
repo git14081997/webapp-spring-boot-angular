@@ -5,6 +5,7 @@ import com.rodriguez.pruebas.dto.dbdev.manyToMany.LibroDto;
 import com.rodriguez.pruebas.entity.dbdev.manyToMany.Libro;
 import com.rodriguez.pruebas.repository.dbdev.manyToMany.LibroRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +31,14 @@ import java.util.Optional;
 /**
  * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 //@RequiredArgsConstructor
 @RequestMapping("/api/libro")
 public class LibroController {

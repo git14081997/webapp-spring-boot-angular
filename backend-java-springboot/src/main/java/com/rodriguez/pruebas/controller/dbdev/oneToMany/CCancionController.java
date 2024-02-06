@@ -5,6 +5,7 @@ import com.rodriguez.pruebas.dto.dbdev.oneToMany.CCancionDto;
 import com.rodriguez.pruebas.entity.dbdev.oneToMany.CCancion;
 import com.rodriguez.pruebas.repository.dbdev.oneToMany.CCancionRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,19 +25,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
  * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 //@RequiredArgsConstructor
 @RequestMapping("/api/ccancion")
 public class CCancionController {

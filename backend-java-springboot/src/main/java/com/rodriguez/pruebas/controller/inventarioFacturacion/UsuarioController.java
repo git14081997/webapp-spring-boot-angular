@@ -2,10 +2,10 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
+import com.rodriguez.pruebas.service.inventarioFacturacion.IUsuarioService;
 import com.rodriguez.pruebas.service.inventarioFacturacion.UsuarioService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -31,12 +31,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 
 /**
  * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
@@ -46,6 +44,7 @@ import java.util.Optional;
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("api/usuario")
@@ -65,7 +64,7 @@ public class UsuarioController {
 	private ClienteAbonaRepository clienteAbonaRepository;
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private IUsuarioService usuarioService;
 
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -179,27 +178,30 @@ public class UsuarioController {
 
 
 
-/**
-* Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
-*
-* @param pagina consultada.
-* @param cantidad maxima por pagina.
-* @return Page<Usuario> resultados encontrados.
-*/
-@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
-public Page<Usuario> findAllByNombreAndApellido(
-@PathVariable Integer pagina, @PathVariable Integer cantidad, @RequestParam(required = true) String nombre){
+	/**
+	* Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	*
+	* @param pagina consultada.
+	* @param cantidad maxima por pagina.
+	* @return Page<Usuario> resultados encontrados.
+	*/
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/buscar")
+	public Page<Usuario> findAllByNombreAndApellido(
+	@PathVariable Integer pagina, @PathVariable Integer cantidad, @RequestParam(required = true) String nombre)
+	{
 
 		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 
-		try {
+		try
+		{
 			Integer usuarioId = Integer.parseInt(nombre);
 			return usuarioRepository.findByNombreCompletoContainingIgnoreCaseOrId(
 				pageable, nombre, usuarioId
 			);
 		}
-		catch (NumberFormatException numberFormatException){
+		catch (NumberFormatException numberFormatException)
+		{
 			return usuarioRepository.findByNombreCompletoContainingIgnoreCaseOrId(
 				pageable, nombre, null
 			);

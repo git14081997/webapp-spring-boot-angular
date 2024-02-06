@@ -30,11 +30,12 @@ import java.util.Optional;
 /**
  * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("/api/escritor")

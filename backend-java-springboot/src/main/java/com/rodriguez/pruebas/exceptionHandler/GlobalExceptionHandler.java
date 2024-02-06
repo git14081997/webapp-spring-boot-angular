@@ -16,18 +16,27 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @author Franklin Rodriguez
  * @version 0.0.1
  */
-@ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+//@ControllerAdvice
+public class GlobalExceptionHandler // extends ResponseEntityExceptionHandler
+{
 
+	// SE DESHABILITA MANUALMENTE TEMPORALMENTE
+
+/*
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
 	@ExceptionHandler( Exception.class )
-	public ResponseEntity<String> mostrarError(Exception exception, WebRequest webRequest){
+	public ResponseEntity<String> mostrarError(Exception exception, WebRequest webRequest)
+	{
 
 		logger.warn( "causa: " + exception.getCause().toString() );
 
-		return new ResponseEntity<>(exception.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+		//return new ResponseEntity<>(exception.getCause().toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(exception.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
 	}
 
+
+*/
 }

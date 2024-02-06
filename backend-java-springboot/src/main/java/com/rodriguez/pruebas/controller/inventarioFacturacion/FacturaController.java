@@ -53,6 +53,7 @@ import java.util.Optional;
  */
 @RestController
 @CrossOrigin
+//@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("api/factura")
