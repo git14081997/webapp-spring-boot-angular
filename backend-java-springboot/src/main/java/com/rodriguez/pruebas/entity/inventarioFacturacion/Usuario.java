@@ -36,29 +36,27 @@ public class Usuario implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-	@Column( name = "NOMBRE_COMPLETO")
+	@Column( name = "NOMBRE_COMPLETO", nullable = true)
 	private String nombreCompleto;
 
 	@Column( name = "NOMBRE", nullable = false, updatable = false)
 	private String nombre;
 
-	@Column( name = "NOMBRE_DOS")
+	@Column( name = "NOMBRE_DOS", nullable = true)
 	private String nombreDos;
 
-	@Column( name = "APELLIDO")
+	@Column( name = "APELLIDO", nullable = true)
 	private String apellido;
 
-	@Column( name = "APELLIDO_DOS")
+	@Column( name = "APELLIDO_DOS", nullable = true)
 	private String apellidoDos;
 
-	@Column( name = "PENDIENTE_DE_PAGO", scale = 2)
+	@Column( name = "PENDIENTE_DE_PAGO", scale = 2, nullable = false)
 	private BigDecimal pendienteDePago;
 
-	@Column( name = "COMENTARIOS", length = 512 )
+	@Column( name = "COMENTARIOS", length = 512, nullable = true )
 	private String comentarios;
 
-	//@Column( name = "INFORMACION_ADICIONAL")
-	//private String informacionAdicional;
 
 	//@Column( name = "TELEFONO", length = 20, unique = true)
 	//@Column( name = "TELEFONO")
@@ -68,6 +66,7 @@ public class Usuario implements Serializable {
 	//@Column( name = "CORREO", unique = true, nullable = false)
 	//@Column( name = "CORREO")
 	//private String correo;
+
 
 	//@Column( name = "CONTRASENA")
 	//private String contrasena;

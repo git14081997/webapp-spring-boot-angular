@@ -1,6 +1,7 @@
 
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
+import com.rodriguez.pruebas.dto.inventarioFacturacion.UsuarioDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
@@ -117,66 +118,13 @@ public class UsuarioController {
 
 
 
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody Usuario dto ){
-
-		BigDecimal cero = new BigDecimal(0);
-
-		Integer usuarioId = dto.getId();
-		if(null == usuarioId){
-
-			if(dto.getNombreDos() == null){
-				dto.setNombreDos("");
-			}
-			if(dto.getApellido() == null){
-				dto.setApellido("");
-			}
-			if(dto.getApellidoDos() == null){
-				dto.setApellidoDos("");
-			}
-
-			dto.setNombreCompleto(
-					dto.getNombre() + " " + dto.getNombreDos() + " " + dto.getApellido() + " " + dto.getApellidoDos()
-			);
-
-
-			BigDecimal pendienteDePago = dto.getPendienteDePago();
-			if( pendienteDePago == null){
-				pendienteDePago = cero;
-			}
-
-			ClienteAbona clienteAbona = new ClienteAbona();
-
-			if( pendienteDePago.compareTo(cero) > 0 )
-			{
-				clienteAbona.setSaldoAnterior(pendienteDePago);
-				dto.setPendienteDePago(pendienteDePago);
-			}
-			else
-			{
-				clienteAbona.setSaldoAnterior(cero);
-				dto.setPendienteDePago(cero);
-			}
-
-
-			clienteAbona.setCargos(cero);
-			clienteAbona.setAbonos(cero);
-
-			clienteAbona.setSaldo(cero);
-
-			clienteAbona.setDetalles("Saldo inicial");
-			clienteAbona.setFactura(null);
-
-			dto = usuarioRepository.save(dto);
-
-			clienteAbona.setCliente( dto );
-			clienteAbonaRepository.save(clienteAbona);
-
-			return dto.getId();
-		}
-
-		return -1;
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<Integer> save(@RequestBody UsuarioDto dto )
+	{
+		Integer usuarioId = usuarioService.guardar(dto);
+		return new ResponseEntity<>(usuarioId, HttpStatus.CREATED);
 	}
+
 
 
 
@@ -269,31 +217,19 @@ public Page<Usuario> findAllByNombreAndApellido(
 
 	@Transactional
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "upload")
-	public ResponseEntity<Map<String,String>> readFileExcel(@RequestBody List<Usuario> usuarios)
+	public ResponseEntity<Map<String,String>> saveN(@RequestBody List<UsuarioDto> usuarios)
 	{
-		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
-
-
-		Integer registrosEnExcel = usuarios.size();
-
-		Integer registrosGuardados = 0;
-
-
-		for( Usuario usuarioN : usuarios )
+		int procesados = 0;
+		for( UsuarioDto usuarioN : usuarios )
 		{
-
-			Integer tempId = null;
-			tempId = this.save(usuarioN);
-			if( tempId != null )
-			{
-				registrosGuardados++;
-			}
+			save(usuarioN);
+			procesados++;
 		}
 
 		Map<String,String> respuesta = new HashMap<>();
 
-		respuesta.put("in", registrosEnExcel.toString());
-		respuesta.put("out", registrosGuardados.toString());
+		respuesta.put( "in", usuarios.size() + "" );
+		respuesta.put( "out", procesados + "" );
 
 		return new ResponseEntity<>(respuesta, HttpStatus.OK);
 	}
