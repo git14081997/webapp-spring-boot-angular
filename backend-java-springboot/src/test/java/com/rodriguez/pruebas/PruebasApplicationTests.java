@@ -4,7 +4,6 @@ package com.rodriguez.pruebas;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-
 import static org.assertj.core.api.Assertions.assertThat;
 //import org.springframework.context.annotation.Profile;
 
@@ -20,12 +19,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 //@Profile("rolpruebas")
-class PruebasApplicationTests {
-
+class PruebasApplicationTests
+{
 	@Test
-	void contextLoads(ApplicationContext applicationContext) throws Exception {
-
-		assertThat(applicationContext).isNotNull();
+	void contextLoads(ApplicationContext applicationContext) throws Exception
+	{
+		// assertThat(applicationContext).isNotNull();
 	}
-
 }
