@@ -10,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class TopbarComponent
 {
+
+  cambiarMenu()
+  {
+    localStorage.setItem('menu', '1');
+  }
+
+
 }

@@ -1,7 +1,7 @@
 <div class="container">
 	<nav class="navbar navbar-expand-sm navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-expand-xxl  rounded  border " aria-label="mynavbar1" >
 		<div class="container-fluid">
-			<a href="/" class="navbar-brand">LOGO</a>
+			<a href="/" class="navbar-brand" (click)="cambiarMenu()">LOGO</a>
 			<button class="navbar-toggler" type="button" 
 			data-bs-toggle="collapse" 
 			data-bs-target="#mynavbar1"
@@ -12,6 +12,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar1" style >
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
+					<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
 					<li class="nav-item"><a class="nav-link" href="/registrar-venta">Hacer pedido</a></li>
 					<li class="nav-item"><a class="nav-link" href="/facturas" >Ver pedidos</a></li>
 					<li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>        
