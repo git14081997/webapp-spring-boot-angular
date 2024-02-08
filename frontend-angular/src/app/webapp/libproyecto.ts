@@ -106,6 +106,6 @@ const buscarToken = (): string =>
 }
 
 
-const cantidadPorPagina:number[] = [1, 2, 10, 50, 100, 200];
+const cantidadPorPagina:number[] = [50, 100, 200];
 
 const moneda = 'Q. ';
