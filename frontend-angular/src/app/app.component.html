@@ -1,33 +1,22 @@
 
-<div class="container">
-<nav class="navbar navbar-expand-sm navbar-expand-md navbar-expand-lg navbar-expand-xl navbar-expand-xxl  rounded  border " aria-label="mynavbar1" >
-  <div class="container-fluid">
-    <a href="/" class="navbar-brand">Inicio</a>
-    <button class="navbar-toggler" type="button" 
-    data-bs-toggle="collapse" 
-    data-bs-target="#mynavbar1"
-    aria-controls="mynavbar1"
-    aria-expanded="false"
-    aria-label="Toggle navigation" >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mynavbar1" style >
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item"><a class="nav-link" href="/registrar-venta">Hacer pedido</a></li>
-        <li class="nav-item"><a class="nav-link" href="/facturas" >Ver pedidos</a></li>
-        <li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>        
-        <li class="nav-item"><a class="nav-link" href="/usuarios" >Clientes</a></li>
-        <li class="nav-item"><a class="nav-link" href="/ie" >Balance</a></li>
-        <li class="nav-item"><a class="nav-link" href="/upload" >Subir info</a></li>  
-      </ul>
+<!-- izquierda 20, derecha 80 -->
+<div class=" mt-2 pb-3" *ngIf="menuActual == '1'">
+  <div class="d-grid gap-1" style="grid-template-columns: 1fr 2fr;">
+    <div class="bg-body-tertiary border rounded-3">
+      <app-sidebar />
+    </div>
+    <div class="bg-body-tertiary border rounded-3">
+      <router-outlet></router-outlet>
     </div>
   </div>
-</nav>
 </div>
+<!-- izquierda 20, derecha 80 -->
 
-<br/><br/>
 
-<div class="container-fluid">
+
+<div class="" *ngIf="menuActual == '0'" >
+  <app-topbar />
+  <br/><br/>
   <router-outlet></router-outlet>
 </div>
 
