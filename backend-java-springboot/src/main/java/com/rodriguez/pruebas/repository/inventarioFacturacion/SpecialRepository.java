@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository(value = "specialRepository")
 public class SpecialRepository {
 
 	private static final Logger log = LoggerFactory.getLogger(SpecialRepository.class);
@@ -31,29 +33,40 @@ public class SpecialRepository {
 	public Personaje findById(@PathVariable Integer id){
 		String sql = "SELECT * FROM DBDEV.PERSONAJE WHERE ID = ?";
 		Personaje personaje = null;
-		personaje =
-				jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<>(Personaje.class),id);
+		personaje = jdbcTemplate.queryForObject(
+			sql,
+			new BeanPropertyRowMapper<>(Personaje.class),
+			id
+		);
 		return personaje;
 	}
+
 
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public void save(@RequestBody Personaje personajeDto ){
 		String sql = "insert into DBDEV.PERSONAJE (nombre, puntos, fecha_guardado) values(?,?,?)";
 		jdbcTemplate.update(sql,
-				personajeDto.getNombre(), personajeDto.getPuntos(),personajeDto.getFechaGuardado()
+			personajeDto.getNombre(),
+			personajeDto.getPuntos(),
+			personajeDto.getFechaGuardado()
 		);
 	}
+
 
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public void update(@RequestBody Personaje personajeDto){
 		String sql = "update DBDEV.PERSONAJE set nombre=?, puntos=?, fecha_guardado=? where id=?";
-		jdbcTemplate.update(sql,
-				personajeDto.getNombre(), personajeDto.getPuntos(),
-				personajeDto.getFechaGuardado(), personajeDto.getId()
+		jdbcTemplate.update(
+			sql,
+			personajeDto.getNombre(),
+			personajeDto.getPuntos(),
+			personajeDto.getFechaGuardado(),
+			personajeDto.getId()
 		);
 	}
+
 
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,11 +76,13 @@ public class SpecialRepository {
 	}
 
 
+
 	@DeleteMapping(value = "{id}")
 	public void delete(@PathVariable Integer id){
 		String sql = "delete from DBDEV.PERSONAJE where id=?";
 		jdbcTemplate.update(sql, id);
 	}
+
 
 
 	// nombre=Chris&edad=25
@@ -76,7 +91,11 @@ public class SpecialRepository {
 	public List<Personaje> findAllByName(@RequestParam(name = "nombre") String nombre){
 		String sql = "SELECT * FROM DBDEV.PERSONAJE WHERE NOMBRE LIKE ?";
 		String patronDeBusqueda = "%" + nombre + "%";
-		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Personaje.class), patronDeBusqueda);
+		return jdbcTemplate.query(
+			sql,
+			new BeanPropertyRowMapper<>(Personaje.class),
+			patronDeBusqueda
+		);
 	}
 
 

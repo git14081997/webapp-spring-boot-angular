@@ -6,7 +6,6 @@ import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
 import com.rodriguez.pruebas.service.inventarioFacturacion.IUsuarioService;
-import com.rodriguez.pruebas.service.inventarioFacturacion.UsuarioService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -27,7 +27,7 @@ public class ArtistaService implements IArtistaService {
 
 
 	@Autowired
-    private ArtistaRepository artistaRepository;
+	private ArtistaRepository artistaRepository;
 
 	@Autowired
 	private CancionRepository cancionRepository;
