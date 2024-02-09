@@ -1,17 +1,37 @@
+
+
 <!-- container-fluid -->
 <div class="container">
 
 	<!-- row -->
 	<div class="row">
 
-		<!-- clientes-encontrados -->
+		<div class="col-12 my-2">
+			<h1>Guardar venta</h1>
+		</div>
+
+		<div class="col-12 my-2">
+
+			<div class="accordion" id="accordionExample">
+
+				<!-- paso-1 -->
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							#1 Seleccionar cliente
+						</button>
+					</h2>
+					<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+
+									<!-- clientes-encontrados -->
 		<div class="col-12 my-2">
 
 			<div class="h3">Cliente: {{ todoElPedido.usuarioNombre || "" }}</div>
 
 			<div class="input-group mb-3">
 
-				<span class="input-group-text bg-dark text-white">
+				<span class="input-group-text text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
 						viewBox="0 0 16 16">
 						<path
@@ -22,7 +42,7 @@
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar cliente"
 					[(ngModel)]="parametros.buscarCliente" maxlength="20" (change)="getClientes(parametros.buscarCliente)">
 
-				<button class="btn btn-dark btn-lg " (click)="limpiarBusquedaClientes()">
+				<button class="btn btn-lg text-white bg-dark" (click)="limpiarBusquedaClientes()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
 						viewBox="0 0 16 16">
 						<path
@@ -30,10 +50,7 @@
 					</svg>
 				</button>
 			</div><!-- buscar-cliente -->
-		</div><!-- clientes-encontrados -->
-
-
-
+		</div>
 
 		<div class="col-12 my-2">
 			<div class="table-responsive">
@@ -61,19 +78,24 @@
 				</table>
 			</div>
 		</div>
-
-
-
-
-
 		<!-- clientes-encontrados -->
-		<br /><br /><br />
+
+						</div>
+					</div>
+				</div>
+				<!-- paso-1 -->
 
 
 
-
-
-
+				<!-- paso-2 -->
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							#2 Seleccionar productos
+						</button>
+					</h2>
+					<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
 
 
 		<!-- busqueda-de-productos -->
@@ -91,7 +113,7 @@
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar producto"
 					[(ngModel)]="parametros.buscar" maxlength="20" (change)="getPaginadoBuscando(parametros.buscar)">
 
-				<button class="btn btn-dark btn-lg " (click)="limpiarBusqueda()">
+				<button class="btn bg-dark text-white btn-lg " (click)="limpiarBusqueda()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
 						viewBox="0 0 16 16">
 						<path
@@ -133,6 +155,33 @@
 
 
 		<!-- busqueda-de-productos -->
+
+						</div>
+					</div>
+				</div>
+				<!-- paso-2 -->
+
+
+
+
+
+			</div>
+
+		</div>
+
+
+
+
+
+		<br /><br /><br />
+
+
+
+
+
+
+
+
 		<br /><br /><br />
 
 

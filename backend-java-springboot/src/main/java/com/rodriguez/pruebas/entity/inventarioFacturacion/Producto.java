@@ -30,17 +30,17 @@ import java.util.Date;
 @Table( name = "PRODUCTO", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
 public class Producto implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Id
+	@Id
 	@Column( name = "ID", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
 
-    @Column( name = "NOMBRE", nullable = false, unique = true, length = 512)
-    private String nombre;
+	@Column( name = "NOMBRE", nullable = false, unique = true, length = 512, updatable = false )
+	private String nombre;
 
 
 	@Column( name = "COSTO_UNIDAD", scale = 2, nullable = false)

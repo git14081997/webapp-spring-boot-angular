@@ -80,39 +80,60 @@ this.actualizarDetallePedido();
 }
 
 
-agregarAlPedido(objetoN:any, index:number){
-
-if(objetoN.cantidadProductoVendido == undefined){
-objetoN.cantidadProductoVendido = 1;
-}
+agregarAlPedido(objetoN:any, index:number)
+{
 
 objetoN.productoId = objetoN.id;
 
+if( objetoN.existencias > 0)
+{
+
+	if(objetoN.cantidadProductoVendido == undefined)
+	{
+		objetoN.cantidadProductoVendido = 1;
+	}
+
 // se agrega al pedido
 this.objetosPedido.push(objetoN);
-
 // se quita de resultados previos
 this.productosEncontrados.splice(index, 1);
-
 this.actualizarDetallePedido();
-
+} // if existencias > 0
+else
+{
+	confirm("No hay existencias de este producto en el inventario !");
 }
 
+} // agregarAlPedido
 
 
-guardarPedido(){
 
-this.todoElPedido.usuarioId = Number(this.todoElPedido.usuarioId );
+guardarPedido()
+{
 
-this.actualizarDetallePedido();
+	if( this.todoElPedido.usuarioId != undefined || this.todoElPedido.usuarioId != null )
+	{
 
-this.service.post(this.parametroServicio,this.todoElPedido).subscribe((facturaN) => {
-		let facturaId = facturaN.id;
-		facturaId = JSON.stringify(facturaId);
-		localStorage.setItem('id', facturaId );
-		window.location.href = '/facturas';
+		this.todoElPedido.usuarioId = Number(this.todoElPedido.usuarioId );
+
+		this.actualizarDetallePedido();
+
+		this.service.post(this.parametroServicio,this.todoElPedido).subscribe((facturaN) => {
+				let facturaId = facturaN.id;
+				facturaId = JSON.stringify(facturaId);
+				localStorage.setItem('id', facturaId );
+				window.location.href = '/facturas';
+			}
+		);
+
+
+
+	} // verificacion/validacion de los detalles para el pedido 
+
+	else
+	{
+		alert("Selecciona el cliente !");
 	}
-);
 
 
 }
@@ -126,7 +147,8 @@ return Number(xnumber.toFixed(2));
 
 
 
-actualizarDetallePedido(){
+actualizarDetallePedido()
+{
 
 this.todoElPedido.costoTotal = 0;
 this.todoElPedido.ganancia = 0;
@@ -134,9 +156,18 @@ this.todoElPedido.iva = 0;
 this.todoElPedido.subtotal = 0;
 this.todoElPedido.total = 0;
 
-if( this.objetosPedido.length > 0 ){
+if( this.objetosPedido.length > 0 )
+{
 
-for(let productoPedido of this.objetosPedido ){
+
+for(let productoPedido of this.objetosPedido )
+{
+
+	if( productoPedido.cantidadProductoVendido > productoPedido.existencias )
+	{
+		productoPedido.cantidadProductoVendido = productoPedido.existencias;
+		//alert("Solo tienes y puedes vender: "+ productoPedido.existencias + " unidades del producto " + productoPedido.nombre );
+	} // si cantidadProductoVendido > productoPedido.existencias
 
 productoPedido.precioVentaPorProducto = this.dosDecimales(productoPedido.precioVenta );
 
@@ -156,8 +187,6 @@ this.todoElPedido.ganancia += productoPedido.gananciaDelSubtotalPorProducto;
 
 productoPedido.nombreProducto = productoPedido.nombre;
 
-///
-
 this.todoElPedido.total += this.dosDecimales(productoPedido.subtotalPorProducto );
 
 productoPedido.ivaDelSubtotalPorProducto =  
@@ -176,8 +205,6 @@ else {
 this.todoElPedido.detalle = null;
 
 }
-
-console.log(this.todoElPedido);
 
 }
 
