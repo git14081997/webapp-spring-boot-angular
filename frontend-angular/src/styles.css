@@ -23,11 +23,21 @@ html, body {
 	padding: 0px !important;
 }
 
+
 body {
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-family: 'Roboto', sans-serif !important;
   height: 100vh !important;
   width: 100% !important;
 }
+
+
+div, p, h1, a, li {
+	font-family: 'Roboto', sans-serif !important;
+}
+
+
+
+
 
 
 .btn-dark {
@@ -39,6 +49,9 @@ body {
 	/*
 	padding: 0px 0px !important;
 	*/
+}
+.btn-100 {
+	width: 99% !important;
 }
 
 
@@ -85,16 +98,14 @@ text-align: left !important;
 
 .form-select {
 	border: 2px solid black !important;
-	width: 100% !important;
+	width: 99% !important;
 	border-radius: 20px !important;
 }
 .input-group, .input-group span, .input-group input, .input-group button {
 	border: 2px solid black !important;
 	border-radius: 0px !important;
 }
-.btn-100 {
-	width: 100% !important;
-}
+
 
 
 

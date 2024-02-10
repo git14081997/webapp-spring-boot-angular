@@ -4,37 +4,59 @@
 <div class="row">
 
 <div class="col-12 my-2">
-	<div class="h4">
-		Subir información Productos
+	<div class="h1">
+		Guardar registros desde archivo excel
 	</div>
 </div>
 
-<div class="col-12 my-2">
-<input type="file" accept=".xlsx" (change)="onFileChange($event)" />
-</div>
 
 <div class="col-12 my-2">
-	<p>Hay {{ productos.length }} registros en este archivo </p>
-</div>
-
-<div class="col-12 my-5">
-	<button class="btn btn-dark btn-lg align-middle btn-100" (click)="upProductos()">
-		Guardar Productos
-	</button>
+	<br />
+	<div class="container">
+		Seleccionar archivo excel con la información:
+		<input type="file" accept=".xlsx" (change)="onFileChange($event)" class="btn btn-dark btn-lg align-middle btn-100" />
+	</div>
 </div>
 
 
-<div class="col-12 my-5">
-	<button class="btn btn-dark btn-lg align-middle btn-100" (click)="upUsuarios()">
-		Guardar Clientes
-	</button>
-</div>
 
 <div class="col-12 my-2">
-	<p>Registros recibidos: {{ servidor.recibio || 0 }}</p><br/>
-	<p>Registros guardados: {{ servidor.guardo || 0 }}</p>
+	<br />
+	<div class="container my-2 border p-3 border-primary rounded">
+		<div>
+			Se necesita un archivo excel con 4 columnas, y deben tener los siguientes nombres:<br/>
+			nombre, costoUnidad, ganancia y existencias.<br/>
+			Los nombres de los productos no pueden repetirse.<br/>
+			El costoUnidad y ganancia son números con decimales,<br/>
+			pero las existencias son números enteros.
+		</div>
+		<br/>
+		<button class="btn btn-dark btn-lg align-middle btn-100" (click)="upProductos()">
+			Guardar Productos
+		</button>
+	</div>
 </div>
 
+
+<div class="col-12 my-2">
+	<br />
+	<div class="container my-2 border p-3 border-primary rounded">
+		<div>
+			<div>
+				Se necesita un archivo excel con 5 columnas, y deben tener los siguientes nombres:<br/>
+				nombre, nombreDos, apellido, apellidoDos y pendienteDePago.<br/>
+				Solo la columna "nombre" y pendienteDePago son datos obligatorios.<br/>
+				La columna "pendienteDePago" contiene números con decimales,<br/>
+				pero las otras columnas aceptan texto.
+			</div>
+			<br/>
+			<button class="btn btn-dark btn-lg align-middle btn-100" (click)="upUsuarios()">
+				Guardar Clientes
+			</button>
+		</div>
+	</div>
+
+</div>
 
 
 </div><!-- row -->

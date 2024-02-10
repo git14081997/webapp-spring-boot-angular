@@ -43,46 +43,47 @@ public class FacturaDetalle implements Serializable {
 	private Factura factura;
 	// factura.facturaId
 
-	@Column(name = "CANTIDAD_PRODUCTO_VENDIDO", nullable = false )
+	@Column(name = "cantidad_producto_vendido", nullable = false )
 	private Integer cantidadProductoVendido;
 
-	@Column(name = "PRECIO_VENTA_POR_PRODUCTO", scale = 2, nullable = false )
+	@Column(name = "precio_venta_por_producto", scale = 2, nullable = false )
 	private BigDecimal precioVentaPorProducto;
 
 
 
 
-	@Column(name = "SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "subtotal_por_producto", scale = 2)
 	private BigDecimal subtotalPorProducto; // cantidadProductoVendido * precioVentaPorProducto
 
 
-	@Column(name = "IVA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "iva_del_subtotal_por_producto", scale = 2)
 	private BigDecimal ivaDelSubtotalPorProducto; //subtotalPorProducto * 0.12 or 0.05
 
 
-
-	@Column(name = "COSTO_UNIDAD", scale = 2)
+	@Column(name = "costo_unidad", scale = 2)
 	private BigDecimal costoUnidad;
 
-	@Column(name = "COSTO_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
+
+	@Column(name = "costo_del_subtotal_por_producto", scale = 2)
 	private BigDecimal costoDelSubtotalPorProducto; // costoUnidad * cantidadProductoVendido
 
 
 
 
-	@Column(name = "GANANCIA_UNIDAD", scale = 2)
+	@Column(name = "ganancia_unidad", scale = 2)
 	private BigDecimal gananciaUnidad;
 
-	@Column(name = "GANANCIA_DEL_SUBTOTAL_POR_PRODUCTO", scale = 2)
+	@Column(name = "ganancia_del_subtotal_por_producto", scale = 2)
 	private BigDecimal gananciaDelSubtotalPorProducto; // gananciaUnidad * cantidadProductoVendido
 
 
 	@ManyToOne
-	@JoinColumn(name = "PRODUCTO_ID")
+	@JoinColumn(name = "producto_id")
 	private Producto producto;
 	// producto.productoId
 
-	@Column( name = "NOMBRE_PRODUCTO")
+
+	@Column( name = "nombre_producto")
 	private String nombreProducto;
 
 }

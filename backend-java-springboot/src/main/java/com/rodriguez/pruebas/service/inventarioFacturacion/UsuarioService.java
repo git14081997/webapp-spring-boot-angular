@@ -69,7 +69,15 @@ public class UsuarioService implements IUsuarioService {
 
 		clienteAbona.setCargos(cero);
 		clienteAbona.setAbonos(cero);
-		clienteAbona.setSaldo(cero);
+
+
+		BigDecimal saldoActual = new BigDecimal(0);
+		saldoActual = saldoActual.add(clienteAbona.getCargos());
+		saldoActual = saldoActual.subtract( clienteAbona.getAbonos() );
+		clienteAbona.setSaldo( saldoActual );
+
+		dto.setPendienteDePago( saldoActual );
+
 
 		clienteAbona.setDetalles("Saldo inicial");
 		clienteAbona.setFactura(null);

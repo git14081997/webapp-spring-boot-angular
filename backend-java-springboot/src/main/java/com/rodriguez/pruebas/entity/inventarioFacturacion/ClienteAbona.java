@@ -29,43 +29,42 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "CLIENTE_ABONA", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "cliente_abona", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class ClienteAbona implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Id
-	@Column( name = "ID", unique = true)
+	@Id
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO_ID")
+	@JoinColumn(name = "usuario_id")
 	private Usuario cliente;
 
 	@ManyToOne
-	@JoinColumn(name = "FACTURA_ID")
+	@JoinColumn(name = "factura_id")
 	private Factura factura;
 
-	@Column( name = "SALDO_ANTERIOR", scale = 2)
-	private BigDecimal saldoAnterior; // saldo historico
+	@Column( name = "saldo_anterior", scale = 2)
+	private BigDecimal saldoAnterior;
 
-	@Column( name = "CARGOS", scale = 2)
-	private BigDecimal cargos; // cliente compro al credito
+	@Column( name = "cargos", scale = 2)
+	private BigDecimal cargos;
 
-	@Column( name = "ABONOS", scale = 2)
-	private BigDecimal abonos; // cliente paga parcial o totalmente su deuda por compras Al Credito
+	@Column( name = "abonos", scale = 2)
+	private BigDecimal abonos;
 
-	@Column( name = "SALDO", scale = 2)
-	private BigDecimal saldo; // saldo actual, que cliente pagará eventualmente
+	@Column( name = "saldo", scale = 2)
+	private BigDecimal saldo;
 
 	@CreationTimestamp
-	@Column( name = "FECHA")
+	@Column( name = "fecha")
 	private Date fecha;
 
-	@Column(name = "DETALLES", length = 512)
+	@Column(name = "detalles", length = 512)
 	private String detalles;
-
 
 }

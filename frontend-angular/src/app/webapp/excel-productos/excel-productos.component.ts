@@ -9,8 +9,7 @@ import { buscarToken } from '../libproyecto';
 	selector: 'app-excel-productos',
 	standalone: true,
 	imports: [],
-	templateUrl: './excel-productos.component.html',
-	styleUrl: './excel-productos.component.css'
+	templateUrl: './excel-productos.component.html'
 })
 export class ExcelProductosComponent implements OnInit
 {
@@ -101,12 +100,8 @@ upUsuarios()
 
 	let enlaceTemp: string = hostname + "/api/usuario" + '/upload';
 
-	this.http.post<any>(
-		enlaceTemp,
-		this.productos,	
-		this.parametroServicio.headers)
-	.subscribe((RESPONSE:any) => 
-	{
+	this.http.post<any>( enlaceTemp, this.productos,	
+		this.parametroServicio.headers).subscribe((RESPONSE:any) => {
 		this.productos = [];
 		this.temporal = RESPONSE;
 		this.servidor.recibio = this.temporal.in;

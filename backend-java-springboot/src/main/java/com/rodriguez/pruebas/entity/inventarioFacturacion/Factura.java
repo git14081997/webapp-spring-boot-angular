@@ -29,55 +29,47 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "FACTURA", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "factura", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class Factura implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Id
-	@Column( name = "ID", unique = true)
+	@Id
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO_ID")
+	@JoinColumn(name = "usuario_id")
 	private Usuario cliente;
-	// cliente.usuarioId = 1
 
-
-	@Column(name = "TIPO_PAGO", length = 1)
+	@Column(name = "tipo_pago", length = 1)
 	private String tipoPago;
-	// Venta en E 'Efectivo'   Factura/Pedido pagado en efectivo
-	// Venta al C 'Credito'    Factura/Pedido sin pagar en el acto, se espera sea pagado en el futuro
-	// V          'Visto'      Posible perdida si no pagan, se agregaria como gasto
-	// D          'Devuelto'   Se registra la devolucion de mercaderia que se dejo en Visto/Consignacion
-	// P          'Perdida'    Mercaderia que en algun momento se dejo en Visto/Consignacion, no sera pagada ni recuperada
 
-
-	@Column( name = "COSTO_TOTAL", scale = 2, nullable = false )
+	@Column( name = "costo_total", scale = 2, nullable = false )
 	private BigDecimal costoTotal;
 
-	@Column( name = "GANANCIA", scale = 2, nullable = false )
+	@Column( name = "ganancia", scale = 2, nullable = false )
 	private BigDecimal ganancia;
 
-	@Column( name = "IVA", scale = 2, nullable = false )
+	@Column( name = "iva", scale = 2, nullable = false )
 	private BigDecimal iva;
 
-	@Column( name = "SUBTOTAL_SIN_IVA", scale = 2, nullable = false )
+	@Column( name = "subtotal_sin_iva", scale = 2, nullable = false )
 	private BigDecimal subtotalSinIva;
 
-	@Column( name = "TOTAL", scale = 2, nullable = false )
+	@Column( name = "total", scale = 2, nullable = false )
 	private BigDecimal total;
 
 	@CreationTimestamp
-	@Column( name = "FECHA_EMISION" )
+	@Column( name = "fecha_emision" )
 	private Date fechaEmision;
 
-	@Column( name = "NOMBRE_COMPLETO", nullable = false )
+	@Column( name = "nombre_completo", nullable = false )
 	private String nombreCompleto;
 
-	@Column( name = "FECHA_DEVOLUCION" )
+	@Column( name = "fecha_devolucion" )
 	private Date fechaDevolucion;
 
 }
