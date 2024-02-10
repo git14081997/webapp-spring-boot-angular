@@ -1,27 +1,20 @@
 
-create database inventario_facturacion;
-use inventario_facturacion;
+create user 'noroot'@'localhost' identified by 'esUnSecreto';
+create user 'noroot'@'%'         identified by 'esUnSecreto';
 
--- crear usuario en db
-CREATE USER 'userapi'@'localhost' IDENTIFIED BY 'contrasena';
-CREATE USER 'userapi'@'%' IDENTIFIED BY 'esUnSecreto';
+grant all privileges on inventario_facturacion.* to 'noroot'@'localhost';
+grant all            on inventario_facturacion.* to 'noroot'@'%';
+flush privileges;
 
+grant select,insert,update on inventario_facturacion.* to 'noroot'@'localhost';
+grant select,insert,update on inventario_facturacion.* to 'noroot'@'%';
 
--- dar todos los permisos
-GRANT ALL PRIVILEGES ON INVENTARIO_FACTURACION.* TO 'userapi'@'localhost';
-GRANT ALL            ON dbdev.*                  TO 'userapi'@'%';
-FLUSH PRIVILEGES;
+revoke all on inventario_facturacion.* from 'noroot'@'localhost';
+revoke all on inventario_facturacion.* from 'noroot'@'%';
 
--- dar permisos minimos
-GRANT SELECT,INSERT,UPDATE ON INVENTARIO_FACTURACION.* TO 'userapi'@'localhost';
+drop user 'noroot'@'localhost';
+drop user 'noroot'@'%';
 
--- quitar permisos al usuario
-REVOKE ALL PRIVILEGES ON     *.* FROM 'nombre_usuario'@'localhost';
-REVOKE ALL            ON dbdev.* FROM 'userapi'@'%';
-
--- borrar un usuario
-DROP USER ‘nombre_usuario’@‘localhost’;
-
--- ver permisos del usuario
-SHOW GRANTS FOR 'nombre_usuario'@'localhost';
+show grants for 'noroot'@'localhost';
+show grants for 'noroot'@'%';
 
