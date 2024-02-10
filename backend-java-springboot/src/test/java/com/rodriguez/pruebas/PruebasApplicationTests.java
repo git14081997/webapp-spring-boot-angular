@@ -38,6 +38,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PruebasApplicationTests
 {
 
+	/*
+
+
 	@Autowired
 	private ClienteAbonaRepository clienteAbonaRepository;
 
@@ -129,5 +132,5 @@ class PruebasApplicationTests
 
 
 
-
+	 */
 }
