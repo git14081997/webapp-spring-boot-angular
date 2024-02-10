@@ -27,44 +27,44 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "PRODUCTO", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "producto", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class Producto implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column( name = "ID", unique = true)
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
 
-	@Column( name = "NOMBRE", nullable = false, unique = true, length = 512, updatable = false )
+	@Column( name = "nombre", nullable = false, unique = true, length = 512, updatable = false )
 	private String nombre;
 
 
-	@Column( name = "COSTO_UNIDAD", scale = 2, nullable = false)
+	@Column( name = "costo_unidad", scale = 2, nullable = false)
 	private BigDecimal costoUnidad;
 
 
-	@Column( name = "GANANCIA", scale = 2, nullable = false)
+	@Column( name = "ganancia", scale = 2, nullable = false)
 	private BigDecimal ganancia;
 
 
-	@Column( name = "PRECIO_VENTA", scale = 2, nullable = false)
+	@Column( name = "precio_venta", scale = 2, nullable = false)
 	private BigDecimal precioVenta; // Sin IVA, el IVA se pondrá al registrar venta
 
 
-	@Column( name = "EXISTENCIAS", nullable = false )
+	@Column( name = "existencias", nullable = false )
 	private Integer existencias;
 
 
 	@UpdateTimestamp
-	@Column( name = "FECHA_MODIFICADO")
+	@Column( name = "fecha_modificado")
 	private Date fechaModificado;
 
 
-	@Column( name = "FECHA_ADQUISICION")
+	@Column( name = "fecha_adquisicion")
 	private Date fechaAdquisicion;
 
 

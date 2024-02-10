@@ -18,7 +18,5 @@ cd $ORIGIN
 ORIGIN=$HOME/all/repos/fullstack/backend-java-springboot/target/pruebas-0.0.1-SNAPSHOT.jar
 scp -p -r $ORIGIN root@$SERVIDOR_DESTINO:/root
 
-ORIGIN=$HOME/all/repos/fullstack/backend-java-springboot/target/pruebas-0.0.1-SNAPSHOT.jar.original
-scp -p -r $ORIGIN root@$SERVIDOR_DESTINO:/root
 
 exit 0;

@@ -28,43 +28,43 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "INVENTARIO", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "inventario", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class Inventario implements Serializable {
 
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 
-    @Id
-	@Column( name = "ID", unique = true)
+	@Id
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
 
 	@ManyToOne
-	@JoinColumn(name = "PRODUCTO_ID")
+	@JoinColumn(name = "producto_id")
 	private Producto producto;
 
 
-	@Column( name = "SALDO_ANTERIOR")
+	@Column( name = "saldo_anterior")
 	private Integer saldoAnterior;
 
 
-	@Column( name = "ENTRADAS")
+	@Column( name = "entradas")
 	private Integer entradas;
 
 
-	@Column( name = "SALIDAS")
+	@Column( name = "salidas")
 	private Integer salidas;
 
 
-	@Column( name = "EXISTENCIA")
+	@Column( name = "existencia")
 	private Integer existencia;
 
 
 	@CreationTimestamp
-	@Column( name = "FECHA")
+	@Column( name = "fecha")
 	private Date fecha;
 
 

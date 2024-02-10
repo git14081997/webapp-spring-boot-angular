@@ -27,28 +27,28 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "INGRESOS_EGRESOS", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "ingresos_egresos", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class IngresosEgresos implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Id
-	@Column( name = "ID", unique = true)
+	@Id
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-	@Column( name = "INGRESOS", scale = 2)
+	@Column( name = "ingresos", scale = 2)
 	private BigDecimal ingresos;
 
-	@Column( name = "EGRESOS", scale = 2)
+	@Column( name = "egresos", scale = 2)
 	private BigDecimal egresos;
 
 	@CreationTimestamp
-	@Column( name = "FECHA")
+	@Column( name = "fecha")
 	private Date fecha;
 
-	@Column( name = "DETALLE", length = 512)
+	@Column( name = "detalle", length = 512)
 	private String detalle;
 
 }

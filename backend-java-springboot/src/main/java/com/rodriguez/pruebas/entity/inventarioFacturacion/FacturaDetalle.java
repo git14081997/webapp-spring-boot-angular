@@ -27,19 +27,19 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "FACTURA_DETALLE", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "factura_detalle", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class FacturaDetalle implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ID", unique = true)
+	@Column(name = "id", unique = true)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "FACTURA_ID")
+	@JoinColumn(name = "factura_id")
 	private Factura factura;
 	// factura.facturaId
 

@@ -27,24 +27,24 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "IMAGEN_PRODUCTO", schema = "INVENTARIO_FACTURACION", catalog = "INVENTARIO_FACTURACION")
+@Table( name = "imagen_producto", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class ImagenProducto implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column( name = "ID", unique = true)
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-	@Column(name = "ARCHIVO", columnDefinition="LONGBLOB")
+	@Column(name = "archivo", columnDefinition="LONGBLOB")
 	private byte[] archivo;
 
 
 	@Basic(fetch=LAZY)
 	@Lob
-	@Column(name = "IMAGEN",columnDefinition="LONGBLOB")
+	@Column(name = "imagen",columnDefinition="LONGBLOB")
 	private byte[] imagen;
 
 }

@@ -5,6 +5,7 @@ apt install mariadb-server mariadb-client
 apt install apache2
 apt install openjdk-17-jre openjdk-17-jdk
 
+export MYSQLD_OPTS="--lower-case-table-names=1"
 
 echo "config mysql"
 echo \tDefault options are read from the following files in the given order:
