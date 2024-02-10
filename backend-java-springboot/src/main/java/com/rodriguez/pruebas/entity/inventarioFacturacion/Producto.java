@@ -39,7 +39,7 @@ public class Producto implements Serializable {
 	private Integer id;
 
 
-	@Column( name = "nombre", nullable = false, unique = true, length = 512, updatable = false )
+	@Column( name = "nombre", nullable = false, unique = true, length = 512/*, updatable = false*/ )
 	private String nombre;
 
 

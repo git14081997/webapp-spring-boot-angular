@@ -177,7 +177,7 @@ public class ProductoController {
 
 				objetoDB.setPrecioVenta(precioVenta);
 
-				// objetoDB.setNombre( dto.getNombre() );
+				objetoDB.setNombre( dto.getNombre() );
 
 				objetoDB.setFechaModificado(new Date());
 
@@ -274,8 +274,6 @@ public class ProductoController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "add")
 	public void updateInventario(@RequestBody UpdateInventario dto){
 
-		/* Producto producto = MODEL_MAPPER.map(dto, Producto.class); */
-
 		Integer tmpId = dto.getIdProducto();
 
 		if(tmpId != null) {
@@ -331,8 +329,6 @@ public class ProductoController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "upload")
 	public ResponseEntity<Map<String,String>> readFileExcel(@RequestBody List<Producto> productos)
 	{
-		/* Producto producto = MODEL_MAPPER.map(productoDto, Producto.class); */
-
 
 		Integer registrosEnExcel = productos.size();
 
