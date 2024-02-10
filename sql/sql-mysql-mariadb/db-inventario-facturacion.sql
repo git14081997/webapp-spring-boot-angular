@@ -1,19 +1,8 @@
 
-
-# debe estar = 1
-SHOW VARIABLES where Variable_name like 'lower_case_table_names';
-
-
-show collation;
-select user,host from mysql.user;
-show grants;
-show grants for 'noroot'@'%';
-show grants for 'noroot'@'localhost';
-show grants for 'noroot'@'127.0.0.1';
-
+-- show collation;
+-- character set = 'utf8mb4' collate = 'utf8mb4_bin' 
 
 create database inventario_facturacion character set = 'utf8mb4' collate = 'utf8mb4_bin';
-
 use inventario_facturacion;
 
 create table cliente_abona    (abonos decimal(38,2) character set = 'utf8mb4' collate = 'utf8mb4_bin', cargos decimal(38,2) character set = 'utf8mb4' collate = 'utf8mb4_bin', factura_id integer character set = 'utf8mb4' collate = 'utf8mb4_bin', id integer not null auto_increment character set = 'utf8mb4' collate = 'utf8mb4_bin', saldo decimal(38,2) character set = 'utf8mb4' collate = 'utf8mb4_bin', saldo_anterior decimal(38,2) character set = 'utf8mb4' collate = 'utf8mb4_bin', usuario_id integer character set = 'utf8mb4' collate = 'utf8mb4_bin', fecha datetime(6) character set = 'utf8mb4' collate = 'utf8mb4_bin', detalles varchar(512) character set = 'utf8mb4' collate = 'utf8mb4_bin', primary key (id)) engine=innodb charset=utf8mb4 collate=utf8mb4_bin;
@@ -32,17 +21,4 @@ alter table factura         add constraint fk_factura_usuario          foreign k
 alter table factura_detalle add constraint fk_factura_detalle_factura  foreign key (factura_id)  references factura  (id);
 alter table factura_detalle add constraint fk_factura_detalle_producto foreign key (producto_id) references producto (id);
 alter table inventario      add constraint fk_inventario_producto      foreign key (producto_id) references producto (id);
-
-
-
-
-drop user 'noroot'@'%';
-flush privileges;
-
-create user 'noroot'@'%' identified by 'esUnSecreto';
-grant all privileges on inventario_facturacion.* to 'noroot'@'%';
-flush privileges;
-
-
-
 
