@@ -3,7 +3,7 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.UpdateInventario;
+import com.rodriguez.pruebas.dto.inventarioFacturacion.UpdateInventario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;

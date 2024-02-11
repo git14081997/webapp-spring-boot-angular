@@ -76,12 +76,9 @@ public class FacturaDetalle implements Serializable {
 	@Column(name = "ganancia_del_subtotal_por_producto", scale = 2)
 	private BigDecimal gananciaDelSubtotalPorProducto; // gananciaUnidad * cantidadProductoVendido
 
-
 	@ManyToOne
 	@JoinColumn(name = "producto_id")
 	private Producto producto;
-	// producto.productoId
-
 
 	@Column( name = "nombre_producto")
 	private String nombreProducto;

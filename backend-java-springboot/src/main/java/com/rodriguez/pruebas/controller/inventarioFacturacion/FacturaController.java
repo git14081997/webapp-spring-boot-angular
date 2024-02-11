@@ -2,12 +2,12 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.DetallePedidoDto;
+import com.rodriguez.pruebas.dto.inventarioFacturacion.DetallePedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.FacturaDetalle;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.IngresosEgresos;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Inventario;
-import com.rodriguez.pruebas.entity.inventarioFacturacion.PedidoDto;
+import com.rodriguez.pruebas.dto.inventarioFacturacion.PedidoDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Usuario;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ClienteAbonaRepository;

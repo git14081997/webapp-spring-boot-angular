@@ -1,5 +1,5 @@
 
-package com.rodriguez.pruebas.entity.inventarioFacturacion;
+package com.rodriguez.pruebas.dto.inventarioFacturacion;
 
 import lombok.Data;
 import java.io.Serial;
