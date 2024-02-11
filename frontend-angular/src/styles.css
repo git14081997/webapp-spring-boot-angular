@@ -77,7 +77,7 @@ padding-right: 27px !important;
 table > tbody > tr > td, td  {
 text-wrap: nowrap !important;
 width: max-content !important;
-text-align: left !important;
+text-align: right !important;
 }
 
 .img-center {
