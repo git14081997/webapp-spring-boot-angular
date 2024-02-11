@@ -72,6 +72,9 @@ public class UsuarioService implements IUsuarioService {
 
 
 		BigDecimal saldoActual = new BigDecimal(0);
+
+		saldoActual = saldoActual.add( dto.getPendienteDePago() );
+
 		saldoActual = saldoActual.add(clienteAbona.getCargos());
 		saldoActual = saldoActual.subtract( clienteAbona.getAbonos() );
 		clienteAbona.setSaldo( saldoActual );
