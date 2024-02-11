@@ -383,4 +383,14 @@ export class UsuariosListComponent implements OnInit {
 		});
 	}
 
+	editarNombreUsuario()
+	{
+		this.verLista = 'N';
+		this.verAgregar = 'S';
+		this.verEditable = 'N';
+		this.crearOrActualizar = 'A';
+	}
+
+
+
 }

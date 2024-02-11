@@ -32,29 +32,29 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column( name = "ID", unique = true)
+	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Integer id;
 
-	@Column( name = "NOMBRE_COMPLETO", nullable = true)
+	@Column( name = "nombre_completo", nullable = true, length = 512)
 	private String nombreCompleto;
 
-	@Column( name = "NOMBRE", nullable = false, updatable = false)
+	@Column( name = "nombre", nullable = false, updatable = false)
 	private String nombre;
 
-	@Column( name = "NOMBRE_DOS", nullable = true)
+	@Column( name = "nombre_dos", nullable = true)
 	private String nombreDos;
 
-	@Column( name = "APELLIDO", nullable = true)
+	@Column( name = "apellido", nullable = true)
 	private String apellido;
 
-	@Column( name = "APELLIDO_DOS", nullable = true)
+	@Column( name = "apellido_dos", nullable = true)
 	private String apellidoDos;
 
-	@Column( name = "PENDIENTE_DE_PAGO", scale = 2, nullable = false)
+	@Column( name = "pendiente_de_pago", scale = 2, nullable = false)
 	private BigDecimal pendienteDePago;
 
-	@Column( name = "COMENTARIOS", length = 512, nullable = true )
+	@Column( name = "comentarios", length = 512, nullable = true )
 	private String comentarios;
 
 

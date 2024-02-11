@@ -69,6 +69,8 @@ public class UsuarioController {
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public void updateComentarios(@RequestBody Usuario dto){
 
+		String newFullname = "";
+
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(dto.getId());
 
 		if(usuarioOptional.isPresent()){
@@ -76,36 +78,42 @@ public class UsuarioController {
 			Usuario usuarioDB = usuarioOptional.get();
 
 			String comentarios = dto.getComentarios();
-			if( comentarios != null ){
-				if( comentarios.length() > 1 ){
-					usuarioDB.setComentarios(comentarios);
-				}
+			if( comentarios != null && comentarios.length() > 1 ){
+				usuarioDB.setComentarios(comentarios);
 			}
 
-			/*
+
+			String nombre = dto.getNombre();
+			if( nombre != null ){
+				nombre = nombre.trim();
+				usuarioDB.setNombre(nombre);
+				newFullname = nombre;
+			}
+
+
 			String nombreDos = dto.getNombreDos();
 			if( nombreDos != null ){
-				if( nombreDos.length() > 1 ){
-					usuarioDB.setNombreDos(nombreDos);
-				}
+				nombreDos = nombreDos.trim();
+				usuarioDB.setNombreDos(nombreDos);
+				newFullname += " " + nombreDos;
 			}
 
 			String apellido = dto.getApellido();
 			if( apellido != null ){
-				if( apellido.length() > 1 ){
-					usuarioDB.setApellido(apellido);
-				}
+				apellido = apellido.trim();
+				usuarioDB.setApellido(apellido);
+				newFullname += " " + apellido;
 			}
+
 
 			String apellidoDos = dto.getApellidoDos();
 			if( apellidoDos != null ){
-				if( apellidoDos.length() > 1 ){
-					usuarioDB.setApellidoDos(apellidoDos);
-				}
+				apellidoDos = apellidoDos.trim();
+				usuarioDB.setApellidoDos(apellidoDos);
+				newFullname += " " + apellidoDos;
 			}
 
-			*/
-
+			usuarioDB.setNombreCompleto(newFullname);
 			usuarioRepository.save(usuarioDB);
 		}
 
