@@ -62,8 +62,9 @@ export class FacturaListComponent implements OnInit {
 	
 	ngOnInit(): void {
 
-		// "/api/factura"
-		// "/api/facturadetalle"
+		this.opcionesCantidadPorPagina = cantidadPorPagina;
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
 
 		this.parametroServicio.url = "/api/factura";
 		this.parametroServicio.headers = new HttpHeaders(
