@@ -75,6 +75,11 @@ export class UsuariosListComponent implements OnInit {
 
 	ngOnInit(): void {
 
+		this.opcionesCantidadPorPagina = cantidadPorPagina;
+		this.pagina = 0;
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+	
+
 		this.parametroServicio.url = "/api/usuario";
 		this.parametroServicio.headers = new HttpHeaders({
 			'Content-Type': 'application/json',

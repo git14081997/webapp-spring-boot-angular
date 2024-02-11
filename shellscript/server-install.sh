@@ -4,6 +4,8 @@ CONFIG_MYSQL="/etc/mysql/mysql.conf.d/mysqld.cnf"
 
 SRC_DB="/var/lib/mysql"
 
+timedatectl set-timezone 'America/Guatemala'
+
 apt update
 apt upgrade
 apt install mariadb-server mariadb-client 

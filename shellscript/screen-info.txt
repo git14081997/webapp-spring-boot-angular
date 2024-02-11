@@ -1,0 +1,13 @@
+
+# crear instancia para un proceso
+screen -t unTituloLabel
+
+# minimizar proceso activo
+control + a + control + d
+
+# ver 'screen's minimizados
+screen -ls
+
+# re-ingresar al screen xx
+screen -r unTituloLabel
+

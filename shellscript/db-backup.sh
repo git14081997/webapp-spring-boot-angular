@@ -13,7 +13,7 @@ DESTINO="$HOME/backup-db"
 mkdir -p $DESTINO
 chmod 700 $DESTINO;
 
-mysqldump -h$HOST -P$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt INVENTARIO_FACTURACION > ${DESTINO}/${FECHA}-INVENTARIO_FACTURACION.sql;
-mysqldump -h$HOST -P$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt DBDEV                  > ${DESTINO}/${FECHA}-DBDEV.sql;
+mysqldump -h$HOST -P$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt INVENTARIO_FACTURACION > ${DESTINO}/${FECHA}-inventario_facturacion.sql 2>/dev/null;
+mysqldump -h$HOST -P$PORT -u$USUARIO -p$PASSWORD --events --routines --triggers --default-character-set=utf8 --opt INVENTARIO_FACTURACION > ${DESTINO}/inventario_facturacion.sql 2>/dev/null;
 
 exit 0;

@@ -16,8 +16,7 @@ if( argc > 0 )
 
 
 if( parametroN == NULL ){
-	printf("Agrega un parametro numerico !");
-	printf("\n");
+	printf("Agrega un parametro numerico !\n");
 	return 0;
 } // if
 
