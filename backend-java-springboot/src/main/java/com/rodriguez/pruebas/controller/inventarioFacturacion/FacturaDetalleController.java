@@ -30,6 +30,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 //@CrossOrigin( origins = "http://localhost:4200" )
+//@CrossOrigin(origins = {"http://localhost:7777", "http://someserver:80"})
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("api/facturadetalle")

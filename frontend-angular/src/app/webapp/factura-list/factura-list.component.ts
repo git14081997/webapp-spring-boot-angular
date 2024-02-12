@@ -50,7 +50,7 @@ export class FacturaListComponent implements OnInit {
 	pagina: number = 0; // 0 es la primer pagina
 
 	cantidad: number = this.opcionesCantidadPorPagina[0];
-	paginasDisponibles: number = 0;
+	paginasDisponibles: number = 1;
 
 	paginasDisponiblesArray: any[] = [];
 	total: number = 0;
@@ -66,6 +66,9 @@ export class FacturaListComponent implements OnInit {
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
 
+		this.facturas = [];
+		this.detallesPorFactura = [];
+
 		this.parametroServicio.url = "/api/factura";
 		this.parametroServicio.headers = new HttpHeaders(
 		{
@@ -75,9 +78,6 @@ export class FacturaListComponent implements OnInit {
 		}
 		);
 		this.enlaceActual = this.parametroServicio.url;
-
-		this.pagina = 0;
-		this.cantidad = this.opcionesCantidadPorPagina[0];
 
 		if( this.idCliente == "" ){
 			console.log('este metodo esta fallando 1...');
@@ -163,7 +163,7 @@ export class FacturaListComponent implements OnInit {
 		this.facturaSeleccionada = parametros;
 		this.verLista = 'N';
 		this.verEditable = 'S';
-		this.getDetallePorFactura(parametros.id);
+		this.getDetallePorFactura(this.facturaSeleccionada.id);
 	}
 	
 
@@ -198,7 +198,7 @@ export class FacturaListComponent implements OnInit {
 
 	
 	getDetallePorFactura(facturaId:number) {
-		let enlaceFacturaDetalle = this.parametroServicio.url + "detalle/" + facturaId;
+		let enlaceFacturaDetalle = hostname + this.parametroServicio.url + "detalle/" + facturaId;
 		this.http.get<any>( enlaceFacturaDetalle, this.parametroServicio.headers)
 		.subscribe((RESPONSE:any) => {
 			this.detallesPorFactura = RESPONSE;
@@ -266,6 +266,7 @@ export class FacturaListComponent implements OnInit {
 				this.facturas = this.tmp.content;
 				this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
 				this.formatoTexto();
+				this.tmp = {};
 			});
 		}
 		/* metodos para paginacion */

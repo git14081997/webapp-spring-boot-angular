@@ -33,7 +33,7 @@
           </svg>
         </span>
         <input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar"
-          [(ngModel)]="facturaSeleccionada.buscar" maxlength="20" (change)="buscarEnDb(facturaSeleccionada.buscar)">
+          [(ngModel)]="facturaSeleccionada.buscar" maxlength="1000" (change)="buscarEnDb(facturaSeleccionada.buscar)">
 
         <button class="btn bg-dark text-white btn-lg " (click)="limpiarBusqueda()">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
@@ -94,11 +94,8 @@
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
-  </div>
 
-		<!-- paginacion -->
+        		<!-- paginacion -->
 		<div *ngIf="verLista == 'S'">
 
 			<div class="col-12 my-2">
@@ -133,6 +130,13 @@
 
 		</div>
 		<!-- paginacion -->
+
+      </div>
+
+    </div>
+  </div>
+
+
 
 
 
