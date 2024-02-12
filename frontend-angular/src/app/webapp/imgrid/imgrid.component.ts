@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-imgrid',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './imgrid.component.css'
 })
 export class ImgridComponent {
+
+  @Input() source: string = "";
+
+  @Input() titulo: string = "";
 
 }

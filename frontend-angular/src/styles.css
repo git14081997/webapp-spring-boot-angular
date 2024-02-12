@@ -83,7 +83,7 @@ border: 1px solid black;
 }
 
 .img-center {
-	width: 90% !important;
+	width: 99% !important;
 }
 
 .paginaN {
@@ -256,9 +256,3 @@ display: block !important;
 	background: #000000 !important;
 }
 
-.producto-img {
-	border: 1px solid black !important;
-	border-radius: 27px !important;
-	height: 270px !important;
-	margin: 18px !important;
-}

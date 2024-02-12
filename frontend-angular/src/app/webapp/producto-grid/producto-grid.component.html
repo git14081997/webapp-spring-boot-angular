@@ -1,46 +1,22 @@
 
 <div class="container">
 
+	<div class="row" style="position:sticky  !important;" >
+		<h1 class="text-center">Productos</h1>
+	</div>
+
 	<div class="row">
 
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-		<img src="assets/0.jpg" class="col producto-img" >
-
-
+		@for (productoN of productos; track productoN.id) {
+			<app-imgrid [source]=productoN.src [titulo]="productoN.inf" 
+				class="col m-4 border border-black"
+				style="border-radius: 27px !important;" />
+		}
 
 	</div><!-- row -->
+
+	<div class="row my-5">
+		&nbsp;
+	</div>
 
 </div><!-- container-->
