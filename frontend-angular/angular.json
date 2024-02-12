@@ -89,7 +89,8 @@
 "assets": [
 "src/styles.css",
 "src/favicon.ico",
-"src/assets"
+"src/assets",
+"src/assets/color-modes.js"
 ],
 "styles": [
   "src/styles.css"
