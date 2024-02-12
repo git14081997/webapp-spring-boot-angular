@@ -60,6 +60,9 @@ export class ClienteabonaListComponent implements OnInit {
 
 		this.paramActual = "/" + this.idCliente;
 		this.getPorPagina(this.enlaceActual);
+
+		this.objetoSeleccionado = {};
+
 	}
 
 	

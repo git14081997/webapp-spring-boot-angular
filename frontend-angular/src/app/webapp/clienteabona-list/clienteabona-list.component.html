@@ -1,6 +1,6 @@
 <div class="container">
 
-<div class="row">
+<div class="row" *ngIf="objetoSeleccionado.detalles" >
 	<div class="col-12 my-2">
 		<label for="parametro-detalles" class="form-label">Detalle con ID {{objetoSeleccionado.id }}</label>
 		<textarea class="form-control form-control-lg" id="parametro-detalles" rows="9"
