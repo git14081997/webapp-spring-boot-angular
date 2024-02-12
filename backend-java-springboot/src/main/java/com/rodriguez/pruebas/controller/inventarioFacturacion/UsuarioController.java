@@ -78,7 +78,7 @@ public class UsuarioController {
 			Usuario usuarioDB = usuarioOptional.get();
 
 			String comentarios = dto.getComentarios();
-			if( comentarios != null && comentarios.length() > 1 ){
+			if( comentarios != null ){
 				usuarioDB.setComentarios(comentarios);
 			}
 

@@ -185,9 +185,33 @@
 		</div>
 	</div>
 	<div class="col-12 my-4">
-		<label for="parametro-comentarios-lectura" class="form-label">Comentarios:</label>
-		<textarea class="form-control form-control-lg" id="parametro-comentarios-lectura" rows="9"
-		 [(ngModel)]="objetoSeleccionado.comentarios" placeholder="" [readonly] readonly disabled ></textarea>
+
+		<div *ngIf="verEditarcomentario == 'N'">
+			<label for="parametro-comentarios-lectura" class="form-label">Comentarios ({{objetoSeleccionado.comentarios?.length || 0 }} /511):</label>
+			<textarea class="form-control form-control-lg" id="parametro-comentarios-lectura" rows="9"
+			 [(ngModel)]="objetoSeleccionado.comentarios" placeholder="" [readonly] readonly disabled 
+			 ></textarea>
+		</div>
+
+
+		<!-- verEditarComentario -->
+		<div *ngIf="verEditarcomentario == 'S'">		
+			<div class="col-12 my-2">
+					<label for="parametro-comentarios" class="form-label">Comentarios ({{objetoSeleccionado.comentarios?.length || 0 }} /511):</label>
+					<textarea class="form-control form-control-lg" id="parametro-comentarios" rows="9"
+					 [(ngModel)]="objetoSeleccionado.comentarios" placeholder="" ></textarea>
+			</div>
+		
+			<div class="col-12 my-2">
+				<button class="btn btn-dark btn-lg btn-100" (click)="updateComentario()">
+					Guardar Comentarios
+				</button>
+			</div>
+		</div><!-- verEditarComentario -->
+		
+		 <button class="btn btn-dark btn-lg btn-100" (click)="mostrarEditarComentario()">
+			Editar comentario
+		</button>
 	</div>
 
 
@@ -213,14 +237,6 @@
 			Agregar abono
 		</button>
 	</div>
-
-	<div class="col-12 my-2">
-		<button class="btn btn-dark btn-lg btn-100" (click)="mostrarEditarComentario()">
-			Editar comentario
-		</button>
-	</div>
-
-
 
 </div>
 
@@ -291,6 +307,15 @@
 <app-clienteabona-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaCargosAbonos" />
 
 <app-factura-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaFacturas" />
+
+
+<div class="col-12 my-2">
+	&nbsp;
+</div>
+<div class="col-12 my-2">
+	&nbsp;
+</div>
+
 
 </div><!-- row -->
 </div><!-- container-fluid -->

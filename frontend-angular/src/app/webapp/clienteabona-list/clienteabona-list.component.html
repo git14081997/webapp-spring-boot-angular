@@ -1,4 +1,14 @@
 <div class="container">
+
+<div class="row">
+	<div class="col-12 my-2">
+		<label for="parametro-detalles" class="form-label">Detalle con ID {{objetoSeleccionado.id }}</label>
+		<textarea class="form-control form-control-lg" id="parametro-detalles" rows="9"
+		 [(ngModel)]="objetoSeleccionado.detalles" placeholder="" [readonly] readonly disabled 
+		 ></textarea>
+	</div>
+</div>
+
 <div class="row">
 
 <div class="col-12 my-2">
@@ -17,54 +27,56 @@
 </thead>
 <tbody>
 <tr *ngFor="let objetoN of objetos">
-<td class="text-nowrap">{{ objetoN.id }}</td>
-<td class="text-nowrap">{{ objetoN.saldoAnterior | currency: 'Q. ' }}</td>
-<td class="text-nowrap">{{ objetoN.cargos | currency: 'Q. ' }}</td>
-<td class="text-nowrap">{{ objetoN.abonos | currency: 'Q. ' }}</td>
-<td class="text-nowrap">{{ objetoN.saldo | currency: 'Q. ' }}</td>
-<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
-<td class="text-nowrap">{{ objetoN.detalles }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.id }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.saldoAnterior | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.cargos | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.abonos | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.saldo | currency: 'Q. ' }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
+<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.detalles }}</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-
 
 <!-- paginacion -->
 <div>
 
-<div class="col-12 my-2">
-<div class="container">
-<div class="row">
-<div class="col-12 my-2">
-<label>Cantidad por página</label>
-<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
-<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
-{{ cantidadPorPag }}
-</option>
-</select>
-</div>
-</div>
-</div>
-</div>
-
-<div class="col-12 my-2">
-<div class="container">
-<span>Páginas</span>
-<div class="row d-flex flex-wrap align-items-start align-content-start">
-<div class="col-12 my-2">
-<span *ngFor="let paginaN of paginasDisponiblesArray">
-<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
-{{paginaN.numPagina}}
-</a>
-</span>
-</div>
-</div>
-</div>
-</div>
-
+	<div class="col-12 my-2">
+	<div class="container">
+	<div class="row">
+	<div class="col-12 my-2">
+	<label>Cantidad por página</label>
+	<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+	<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+	{{ cantidadPorPag }}
+	</option>
+	</select>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	<div class="col-12 my-2">
+	<div class="container">
+	<span>Páginas</span>
+	<div class="row d-flex flex-wrap align-items-start align-content-start">
+	<div class="col-12 my-2">
+	<span *ngFor="let paginaN of paginasDisponiblesArray">
+	<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
+	{{paginaN.numPagina}}
+	</a>
+	</span>
+	</div>
+	</div>
+	</div>
+	</div>
+	
 </div><!-- paginacion -->
+
+</div>
+</div>
+
+
 
 </div><!-- row -->
 </div><!-- container-fluid -->

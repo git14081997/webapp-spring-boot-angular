@@ -101,4 +101,9 @@ export class ClienteabonaListComponent implements OnInit {
   }
 	/* metodos para paginacion */
 
+
+	verDetalle(unObjeto:any){
+		this.objetoSeleccionado = unObjeto;
+	}
+
 }

@@ -80,6 +80,41 @@
 						</tr>
 					</tbody>
 				</table>
+						<!-- paginacion -->
+		<div *ngIf="verLista == 'S' || verInventario == 'S'">
+
+			<div class="col-12 my-2 limit-max-2">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 my-2  ">
+							<label>Cantidad</label>
+							<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+								<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+									{{ cantidadPorPag }}
+								</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 my-2">
+				<div class="container-fluid">
+					<span>Páginas</span>
+					<div class="row d-flex flex-wrap align-items-start align-content-start">
+						<div class="col-12 my-2">
+							<span *ngFor="let paginaN of paginasDisponiblesArray">
+								<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
+									{{paginaN.numPagina}}
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- paginacion -->
 			</div>
 		</div><!-- ver-lista -->
 
@@ -250,11 +285,8 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-		</div><!-- registros-inventario-por-producto -->
 
-
-		<!-- paginacion -->
+						<!-- paginacion -->
 		<div *ngIf="verLista == 'S' || verInventario == 'S'">
 
 			<div class="col-12 my-2 limit-max-2">
@@ -289,6 +321,13 @@
 
 		</div>
 		<!-- paginacion -->
+
+
+			</div>
+		</div><!-- registros-inventario-por-producto -->
+
+
+
 
 
 	</div><!-- row -->
