@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-producto-grid',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
   templateUrl: './producto-grid.component.html',
   styleUrl: './producto-grid.component.css'
 })
-export class ProductoGridComponent {
+export class ProductoGridComponent implements OnInit {
+
+  ngOnInit(): void {
+  }
 
 }
