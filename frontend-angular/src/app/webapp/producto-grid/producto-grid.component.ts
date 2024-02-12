@@ -17,17 +17,21 @@ export class ProductoGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.productos = [
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Acme' },
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Bonage' },
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Jingo' },
 
+      { 'src': 'assets/1.jpg', 'inf': 'Tenis' },
       { 'src': 'assets/0.jpg', 'inf': 'Pantalon Acme' },
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Bonage' },
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Jingo' },
+      { 'src': 'assets/2.jpg', 'inf': 'Blusa' },
 
+      { 'src': 'assets/3.jpg', 'inf': 'Poncho' },
       { 'src': 'assets/0.jpg', 'inf': 'Pantalon Acme' },
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Bonage' },
-      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Jingo' },
+      { 'src': 'assets/2.jpg', 'inf': 'Blusa' },
+
+      { 'src': 'assets/1.jpg', 'inf': 'Tenis' },
+      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Acme' },
+      { 'src': 'assets/2.jpg', 'inf': 'Blusa' },
+
+      { 'src': 'assets/1.jpg', 'inf': 'Tenis' },
+      { 'src': 'assets/0.jpg', 'inf': 'Pantalon Acme' },
 
 
     ];

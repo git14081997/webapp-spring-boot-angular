@@ -256,3 +256,11 @@ display: block !important;
 	background: #000000 !important;
 }
 
+.imggrid {
+	border-radius: 27px !important; 
+	padding: 0px !important;
+}
+.imggrid-img {
+	height: 255px;
+	border-radius: 27px !important;
+}
