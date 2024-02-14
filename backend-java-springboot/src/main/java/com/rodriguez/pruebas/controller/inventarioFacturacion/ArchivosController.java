@@ -3,21 +3,26 @@ package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ImagenProducto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
+import com.rodriguez.pruebas.service.inventarioFacturacion.IImagenService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,18 +42,23 @@ import java.util.UUID;
 //@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
-@RequestMapping("api/archivo")
-public class ArchivosController {
+@RequestMapping("api/imagen")
+public class ArchivosController
+{
 
-	private static final Logger log = LoggerFactory.getLogger(ArchivosController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ArchivosController.class);
 
 	@Autowired
-	private ImagenProductoRepository imagenProductoRepository;
+	IImagenService imagenService;
 
 
-	@PostMapping(value = "pic",produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer saveImage(@RequestBody MultipartFile fileimagen){
-		try {
+
+	// http://localhost:8089/api/imagen/{id}
+	@PostMapping( value = "pic", produces = MediaType.APPLICATION_JSON_VALUE )
+	public Long saveImage( @RequestBody MultipartFile fileimagen )
+	{
+		try
+		{
 
 			String nombreArchivo = fileimagen.getOriginalFilename();
 			String extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf("."));
@@ -60,16 +70,22 @@ public class ArchivosController {
 			long sizeImagen = fileimagen.getSize();
 			long maxSize = 1048576 * 2; // 2 Megabytes
 
-			log.info(nombreArchivo);
-			log.info(extensionArchivo);
-			log.info(sizeImagen + "");
-			log.info(nuevoNombreArchivo);
+			LOG.info(nombreArchivo);
+			LOG.info(extensionArchivo);
+			LOG.info(sizeImagen + "");
+			LOG.info(nuevoNombreArchivo);
 
-			if( sizeImagen > maxSize){
-				log.warn("Tamaño de archivo supera: " + maxSize );
+			if( sizeImagen > maxSize)
+			{
+				LOG.warn("Tamaño de archivo supera: " + maxSize );
 			}
-			if(!nombreArchivo.endsWith(".png") && !nombreArchivo.endsWith(".jpg") && !nombreArchivo.endsWith(".jpeg")){
-				log.warn("Solo se permiten imagenes '.jpg', '.jpeg', '.png'");
+			if(
+				!nombreArchivo.endsWith(".png") &&
+				!nombreArchivo.endsWith(".jpg") &&
+				!nombreArchivo.endsWith(".jpeg")
+			)
+			{
+				LOG.warn("Solo se permiten imagenes '.jpg', '.jpeg', '.png'");
 			}
 
 			// crear carpeta
@@ -84,42 +100,68 @@ public class ArchivosController {
 			Files.write(path, bytesImagen);
 
 			// Se guarda copia de imagen en base de datos.
-			ImagenProducto imagenProducto = new ImagenProducto();
-			imagenProducto.setArchivo(bytesImagen);
-			imagenProducto =
-					imagenProductoRepository.save(imagenProducto);
+			return imagenService.guardarImagenEnDb(bytesImagen);
 
-			return imagenProducto.getId();
-		} catch (Exception exception) {
-			log.warn(exception.getMessage());
+		} catch (Exception exception)
+		{
+			LOG.warn(exception.getMessage());
 		}
-		return -1;
+		return -1L;
 	}
 
 
 
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "pic/{id}")
-	public ImagenProducto findById(@PathVariable Integer id){
-		Optional<ImagenProducto> resultado = imagenProductoRepository.findById(id);
-		return resultado.orElse(null);
-	}
 
 
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "pic")
-	public List<ImagenProducto> findById(@RequestBody List<Integer> imagenesid){
 
-		List<ImagenProducto> imagenes = new ArrayList<>();
 
-		for(Integer idN : imagenesid){
-			ImagenProducto imagenProductoN = this.findById(idN);
-			if(imagenProductoN != null) {
-				imagenes.add(imagenProductoN);
-			}
+
+
+	// http://localhost:8089/api/imagen/{id}
+	@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<Long> guardarImagenEnDb(@RequestParam("imagen") MultipartFile archivo){
+
+		try
+		{
+			byte[] bytesDeImagen = archivo.getBytes();
+
+			Long idImagen = imagenService.guardarImagenEnDb(bytesDeImagen);
+
+			return new ResponseEntity<>(idImagen, HttpStatus.CREATED);
+
 		}
+		catch (IOException ioException)
+		{
+			ioException.printStackTrace();
+			LOG.error( ioException.getLocalizedMessage() );
+			LOG.error( ioException.getMessage() );
 
-		return imagenes;
+			return new ResponseEntity<>( -1L , HttpStatus.INTERNAL_SERVER_ERROR );
+
+		} // catch
 	}
 
-}
+
+
+
+
+	// http://localhost:8089/api/imagen/{id}
+	@GetMapping( value = "{id}", produces = MediaType.IMAGE_JPEG_VALUE )
+	public ResponseEntity<byte[]> getImagen( @PathVariable Long id )
+	{
+
+		ImagenProducto imagenProducto = imagenService.getImagenConId( id );
+
+		return ResponseEntity
+			.ok()
+			.contentType( MediaType.IMAGE_JPEG )
+			.body( imagenProducto.getImagen() );
+
+		// <img src="/api/archivo/file/1" alt="Imagen">
+
+	} // getImagen
+
+
+} // class

@@ -30,21 +30,24 @@ import static jakarta.persistence.FetchType.LAZY;
 @Table( name = "imagen_producto", schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class ImagenProducto implements Serializable {
 
+/*
+CREATE TABLE imagen_producto (
+id INT AUTO_INCREMENT PRIMARY KEY,
+imagen LONGBLOB
+);
+*/
+
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column( name = "id", unique = true)
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Integer id;
+	private Long id;
 
-	@Column(name = "archivo", columnDefinition="LONGBLOB")
-	private byte[] archivo;
-
-
-	@Basic(fetch=LAZY)
+	@Basic( fetch = LAZY )
 	@Lob
-	@Column(name = "imagen",columnDefinition="LONGBLOB")
+	@Column( name = "imagen", columnDefinition = "LONGBLOB" )
 	private byte[] imagen;
 
 }

@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
  * @version 0.0.1
  */
 @Repository("imagenProductoRepository")
-public interface ImagenProductoRepository extends JpaRepository<ImagenProducto, Integer> {
+public interface ImagenProductoRepository extends JpaRepository<ImagenProducto, Long> {
 }
