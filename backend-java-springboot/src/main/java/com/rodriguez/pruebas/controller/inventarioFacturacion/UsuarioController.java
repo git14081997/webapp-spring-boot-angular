@@ -30,6 +30,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -169,9 +172,21 @@ public class UsuarioController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
 	public Page<Usuario> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
-		Sort sort = Sort.by(Sort.Direction.DESC,"id");
-		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return usuarioRepository.findAll(pageable);
+
+		// se usa nombre de Java no de db
+		// ordenar por nombreCompleto de la A a la Z
+		Sort sort = Sort.by( Sort.Direction.ASC, "nombreCompleto" );
+		Pageable pageable = PageRequest.of( pagina, cantidad, sort );
+		return usuarioRepository.findAll( pageable );
+
+
+		/*
+		// ordenar por database.table.id
+		Sort sort = Sort.by( Sort.Direction.DESC,"id" );
+		Pageable pageable = PageRequest.of( pagina, cantidad, sort );
+		return usuarioRepository.findAll( pageable );
+		*/
+
 	}
 
 
