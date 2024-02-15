@@ -264,3 +264,13 @@ display: block !important;
 	height: 255px;
 	border-radius: 27px !important;
 }
+
+.tleft {
+	text-align: left !important;
+}
+
+.tright {
+	text-align: right !important;
+}
+
+

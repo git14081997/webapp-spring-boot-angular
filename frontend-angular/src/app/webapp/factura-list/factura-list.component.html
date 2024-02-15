@@ -59,7 +59,7 @@
           <thead>
             <tr>
 
-              <th class="text-nowrap" scope="col">Nó. Factura</th>
+              <th class="text-nowrap" scope="col">Pedido #</th>
               <th class="text-nowrap" scope="col">Cliente</th>
               <th class="text-nowrap" scope="col">Tipo Pedido</th>
               <th class="text-nowrap" scope="col">Ganancia</th>
@@ -74,10 +74,10 @@
           <tbody>
             <tr *ngFor="let objetoN of facturas">
 
-              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.id }}</td>
-              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.nombreCompleto | uppercase }}
+              <td class="text-nowrap tleft" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.id }}</td>
+              <td class="text-nowrap tleft" (click)="actualizarSeleccionado(objetoN)" >{{ objetoN.nombreCompleto | uppercase }}
               </td>
-              <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.tipoPagoDetalle | uppercase
+              <td class="text-nowrap tleft" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.tipoPagoDetalle | uppercase
                 }}</td>
               <td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">{{ objetoN.ganancia | currency: 'Q. ' }}
               </td>

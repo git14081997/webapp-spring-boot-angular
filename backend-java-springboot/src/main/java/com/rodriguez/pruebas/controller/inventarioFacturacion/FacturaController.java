@@ -449,16 +449,16 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	public List<Factura> findByCliente(@PathVariable String nombreusuario){
 
 String sql = """
-SELECT FACTURA.* FROM INVENTARIO_FACTURACION.FACTURA left join INVENTARIO_FACTURACION.USUARIO
-on FACTURA.USUARIO_ID = USUARIO.ID
+SELECT factura.* FROM inventario_facturacion.factura left join inventario_facturacion.usuario
+on factura.usuario_id = usuario.id
 WHERE
- FACTURA.ID = ? OR
- USUARIO.ID = ? OR
- FACTURA.TIPO_PAGO LIKE ? OR
- FACTURA.NOMBRE_COMPLETO LIKE ? OR
- USUARIO.NOMBRE_COMPLETO LIKE ?
-ORDER BY FACTURA.FECHA_EMISION DESC
+ factura.id = ? OR
+ usuario.id = ? OR
+ lower(factura.nombre_completo) LIKE ? OR
+ lower(usuario.nombre_completo) LIKE ?
+ORDER BY factura.FECHA_EMISION DESC
 """;
+		nombreusuario = nombreusuario.toLowerCase();
 
 		String patronDeBusqueda = "%" + nombreusuario + "%";
 
@@ -466,8 +466,8 @@ ORDER BY FACTURA.FECHA_EMISION DESC
 			sql, new BeanPropertyRowMapper<>(Factura.class),
 			nombreusuario,
 			nombreusuario,
-			nombreusuario,
-			patronDeBusqueda, patronDeBusqueda
+			patronDeBusqueda,
+			patronDeBusqueda
 		);
 		return facturasDelCliente;
 	}

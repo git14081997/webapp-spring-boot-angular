@@ -21,25 +21,25 @@ import { buscarToken, cantidadPorPagina } from '../libproyecto';
 })
 export class FacturaListComponent implements OnInit {
 
-	parametroServicio: any = {}
-	http = inject(HttpClient);
+	parametroServicio: any;
+	http;
 
 	service: PruebasService;
-	parametros: any = {};
+	parametros: any;
 
-	facturaSeleccionada: any = {};
-	facturas: any[] = [];
+	facturaSeleccionada: any;
+	facturas: any[];
 
-	verLista: string = 'S';
-	verEditable: string = 'N';
+	verLista: string;
+	verEditable: string;
 
-	crearOrActualizar: string = 'C';
+	crearOrActualizar: string;
 	tmp:any;
 
 	formatoDeFecha = formatoDeFecha;
-	@Input() idCliente: string = "";
+	@Input() idCliente: string;
 
-	detallesPorFactura: any[] = [];
+	detallesPorFactura: any[];
 	getToken = buscarToken;
 
 	/* variables de paginacion */
@@ -56,12 +56,58 @@ export class FacturaListComponent implements OnInit {
 	total: number = 0;
 	/* variables de paginacion */
 
-	constructor() {
+	constructor()
+	{
 		this.service = new PruebasService;
-	}
+
+		this.http = inject(HttpClient);
+		this.parametros = {};
+		
+		this.facturaSeleccionada = {};
+		this.facturaSeleccionada.buscar = "";
+
+		this.facturas = [];
+		this.verLista = 'S';
+		this.verEditable = 'N';
+		this.crearOrActualizar = 'C';
+		this.formatoDeFecha = formatoDeFecha;
+
+		this.idCliente = "";
+		this.detallesPorFactura = [];
+		this.getToken = buscarToken;
+
+		this.parametroServicio = {};
+		this.parametroServicio.url = "/api/factura";
+		this.parametroServicio.headers = new HttpHeaders(
+		{
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+		'Authorization': this.getToken()
+		}
+		);
+
+
+		/* variables de paginacion */
+		this.enlaceActual = this.parametroServicio.url;
+		this.paramActual = "";
+
+		this.opcionesCantidadPorPagina = cantidadPorPagina;
+		this.pagina = 0; // 0 es la primer pagina
+
+		this.cantidad = this.opcionesCantidadPorPagina[0];
+		this.paginasDisponibles = 1;
+
+		this.paginasDisponiblesArray = [];
+		this.total = 0;
+		/* variables de paginacion */
+
+
+	} // constructor 
+	
 	
 	ngOnInit(): void {
 
+		/*
 		this.opcionesCantidadPorPagina = cantidadPorPagina;
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
@@ -80,13 +126,15 @@ export class FacturaListComponent implements OnInit {
 		this.enlaceActual = this.parametroServicio.url;
 
 		if( this.idCliente == "" ){
-			console.log('este metodo esta fallando 1...');
 			this.getPorPagina(this.enlaceActual);
 		}
 		else {
-			console.log('este metodo esta fallando 2...');
 			this.buscarEnDb( this.idCliente );
 		}
+
+		*/
+		this.getPorPagina(this.enlaceActual);
+
 
 	}
 

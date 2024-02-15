@@ -2,5 +2,5 @@
 rm -rf dist
 npm install
 npm run build
-npm start
+# npm start
 exit 0;

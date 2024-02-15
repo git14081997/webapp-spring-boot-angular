@@ -27,7 +27,12 @@
 									<!-- clientes-encontrados -->
 		<div class="col-12 my-2">
 
-			<div class="h3">Cliente: {{ todoElPedido.usuarioNombre || "" }}</div>
+			<div class="h3">
+				Buscar cliente:
+				<div *ngIf="todoElPedido.usuarioNombre">
+					Pedido para {{ todoElPedido.usuarioNombre || "" }}
+				</div>
+			</div>
 
 			<div class="input-group mb-3">
 
@@ -40,7 +45,7 @@
 				</span>
 
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar cliente"
-					[(ngModel)]="parametros.buscarCliente" maxlength="20" (change)="getClientes(parametros.buscarCliente)">
+					[(ngModel)]="parametros.buscarCliente" maxlength="1000" (change)="getClientes(parametros.buscarCliente)">
 
 				<button class="btn btn-lg text-white bg-dark" (click)="limpiarBusquedaClientes()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
@@ -57,20 +62,16 @@
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
-							<th class="text-nowrap" scope="col">ID Cliente</th>
-							<th class="text-nowrap" scope="col">Clientes encontrados</th>
+							<th class="text-nowrap" scope="col">
+								Clientes encontrados
+							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let clienteN of clientesEncontrados; index as ind ">
 
-							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap">
-								{{ clienteN.id }}
-							</td>
-
-							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap">
-								{{ clienteN.nombre }} {{ clienteN.nombreDos || "" }} {{ clienteN.apellido || "" }} {{
-								clienteN.apellidoDos || "" }}
+							<td (click)="setClienteCompra(clienteN, ind )" class="text-nowrap" style="text-align: left !important;">
+								{{ clienteN.id }} - {{ clienteN.nombreCompleto }}
 							</td>
 
 						</tr>
@@ -111,7 +112,7 @@
 				</span>
 
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar producto"
-					[(ngModel)]="parametros.buscar" maxlength="20" (change)="getPaginadoBuscando(parametros.buscar)">
+					[(ngModel)]="parametros.buscar" maxlength="1000" (change)="getPaginadoBuscando(parametros.buscar)">
 
 				<button class="btn bg-dark text-white btn-lg " (click)="limpiarBusqueda()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
@@ -134,17 +135,13 @@
 				<table class="table table-lg table-borderless table-striped" style="border-bottom: 2px solid black !important;">
 					<thead>
 						<tr>
-							<th class="text-nowrap" scope="col">ID</th>
 							<th class="text-nowrap" scope="col">Producto</th>
-							<th class="text-nowrap" scope="col">Existencias</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let objetoN of productosEncontrados; index as ind ">
 
-							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )">{{ objetoN.id }}</td>
-							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )">{{ objetoN.nombre }}</td>
-							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )">{{ objetoN.existencias }}</td>
+							<td class="text-nowrap" (click)="agregarAlPedido(objetoN, ind )" style="text-align: left !important;" >{{ objetoN.existencias }} - {{ objetoN.nombre }}</td>
 
 						</tr>
 					</tbody>
@@ -198,7 +195,10 @@
 
 		<!-- tabla-detalle-pedido -->
 		<div class="col-12 my-4">
-			<div class="h3">Detalle del pedido</div>
+			<div  class="h2" *ngIf="todoElPedido.usuarioNombre">
+				Pedido para: {{ todoElPedido.usuarioNombre || "" }}
+			</div>
+			<div class="h2">Detalle del pedido:</div>
 			<div class="table-responsive">
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
