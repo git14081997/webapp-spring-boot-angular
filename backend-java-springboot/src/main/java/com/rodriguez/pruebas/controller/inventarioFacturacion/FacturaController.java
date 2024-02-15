@@ -354,14 +354,12 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 
 	@Transactional
 	private Inventario buscarUltimoRegistroDelInventarioDelProducto(Integer productoId){
-		String sql = "SELECT * FROM INVENTARIO_FACTURACION.INVENTARIO WHERE PRODUCTO_ID = ? ORDER BY FECHA DESC";
+		String sql = """
+		SELECT * FROM inventario WHERE producto_id = ? ORDER BY fecha DESC limit 1
+		""";
 		List<Inventario> registrosDelInventario = jdbcTemplate.query(
 				sql, new BeanPropertyRowMapper<>(Inventario.class), productoId
 		);
-
-		for( Inventario registroNDelInventarioProductoX : registrosDelInventario ){
-			log.info( registroNDelInventarioProductoX.toString() );
-		}
 
 		return registrosDelInventario.get(0);
 	}
@@ -449,7 +447,7 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	public List<Factura> findByCliente(@PathVariable String nombreusuario){
 
 String sql = """
-SELECT factura.* FROM inventario_facturacion.factura left join inventario_facturacion.usuario
+SELECT factura.* FROM factura left join usuario
 on factura.usuario_id = usuario.id
 WHERE
  factura.id = ? OR

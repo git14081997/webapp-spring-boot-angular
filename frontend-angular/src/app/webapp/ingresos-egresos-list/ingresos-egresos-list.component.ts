@@ -21,26 +21,47 @@ import { buscarToken, moneda } from '../libproyecto';
 })
 export class IngresosEgresosListComponent implements OnInit {
 
-	http = inject(HttpClient);
-	registrosIngresosEgresos: any[] = [];
+	http;
+	registrosIngresosEgresos: any[];
 
-	sumaIngresos:number = 0;
-	sumaEgresos:number = 0;
+	sumaIngresos:number;
+	sumaEgresos:number;
 
-	param: any = {};
-	formatoDeFecha = formatoDeFecha;
+	param: any;
+	formatoDeFecha;
 
-	dosDecimales = dosDecimales;
-	verAgregarGasto:string = 'N';
+	dosDecimales;
+	verAgregarGasto:string;
 	
-	parametroServicio: any = {};
-	getToken = buscarToken;
+	parametroServicio: any;
+	getToken;
 
-	monedaActual = moneda;
-	verHistorico:boolean = true;
+	monedaActual;
+	verHistorico:boolean;
 
-	ngOnInit(): void {
 
+	constructor()
+	{
+		this.http = inject(HttpClient);
+		this.registrosIngresosEgresos = [];
+	
+		this.sumaIngresos = 0;
+		this.sumaEgresos = 0;
+	
+		this.param = {};
+
+		this.formatoDeFecha = formatoDeFecha;
+	
+		this.dosDecimales = dosDecimales;
+		this.verAgregarGasto = 'N';
+		
+
+		this.getToken = buscarToken;
+	
+		this.monedaActual = moneda;
+		this.verHistorico = true;
+
+		this.parametroServicio = {};
 		this.parametroServicio.url = "/api/ie";
 		this.parametroServicio.headers = new HttpHeaders({
 			'Content-Type': 'application/json',
@@ -51,13 +72,19 @@ export class IngresosEgresosListComponent implements OnInit {
 		let fechaActual = new Date();
 		this.param.mes = fechaActual.getMonth() + 1;
 		this.param.anio = fechaActual.getFullYear();
+
+	} // constructor 
+
+
+	ngOnInit(): void {
 		this.consultarIE();
 	}
 
 
-	consultarIE(){
+	consultarIE()
+	{
 		this.http.get<any>(
-			hostname + "/api/ie/" + this.param.anio + "/" + this.param.mes,
+			hostname + this.parametroServicio.url + "/" + this.param.anio + "/" + this.param.mes,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE:any) => {
 			this.registrosIngresosEgresos = RESPONSE;
@@ -78,7 +105,7 @@ export class IngresosEgresosListComponent implements OnInit {
 		};
 
 		this.http.post<any>(
-			hostname + "/api/ie", logEgresoDetalle, this.parametroServicio.headers
+			hostname + this.parametroServicio.url, logEgresoDetalle, this.parametroServicio.headers
 		).subscribe(() => {
 			this.verAgregarGasto = 'N';
 			this.param = {};
@@ -98,5 +125,11 @@ export class IngresosEgresosListComponent implements OnInit {
 		}
 	}
 
+
+	seleccionar(unObjeto:any)
+	{
+		this.param.seleccionado = unObjeto;
+	}
 	
+
 }

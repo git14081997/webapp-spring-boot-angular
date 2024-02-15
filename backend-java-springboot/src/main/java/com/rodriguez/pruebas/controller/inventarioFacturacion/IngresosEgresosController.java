@@ -73,8 +73,8 @@ public class IngresosEgresosController {
 	public List<IngresosEgresos> findAll(@PathVariable Integer year, @PathVariable Integer month){
 
 		String sql = """
-			SELECT INGRESOS_EGRESOS.* FROM INVENTARIO_FACTURACION.INGRESOS_EGRESOS
-			WHERE YEAR(FECHA) = ? AND MONTH(FECHA) = ? ORDER BY ID DESC
+			SELECT ingresos_egresos.* FROM inventario_facturacion.ingresos_egresos
+			WHERE YEAR(fecha) = ? AND MONTH(fecha) = ? ORDER BY id DESC
 		""";
 
 		return jdbcTemplate.query(

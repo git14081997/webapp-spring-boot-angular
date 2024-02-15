@@ -70,6 +70,8 @@ export class UsuariosListComponent implements OnInit {
 
 	constructor() {
 		this.service = new PruebasService;
+		this.objetoSeleccionado = {};
+		this.objetoSeleccionado.buscar = "";
 	}
 
 

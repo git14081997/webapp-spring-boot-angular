@@ -94,6 +94,13 @@
 </div>
 
 
+<div class="col-12 my-4" *ngIf="param.seleccionado" >
+	<label for="parametro-detalles" class="form-label">Detalle con ID :{{ param.seleccionado.id }}  </label>
+	<textarea class="form-control form-control-lg" id="parametro-detalles" rows="9"
+	 [(ngModel)]="param.seleccionado.detalle" placeholder="" disabled readonly  >
+	</textarea>
+</div>
+
 
 <!-- HISTORIAL-POR-ANIO-MES -->
 <div class="col-12 my-4" *ngIf="verHistorico" >
@@ -110,11 +117,11 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let objetoN of registrosIngresosEgresos">
-						<td class="text-nowrap">{{ objetoN.id }}</td>
-						<td class="text-nowrap">{{ objetoN.ingresos | currency: 'Q. ' }}</td>
-						<td class="text-nowrap">{{ objetoN.egresos | currency: 'Q. '  }}</td>
-						<td class="text-nowrap">{{ formatoDeFecha(objetoN.fecha) }}</td>
-						<td class="text-nowrap" style="text-align: left !important;">{{ objetoN.detalle }}</td>
+						<td class="text-nowrap" (click)="seleccionar(objetoN)" >{{ objetoN.id }}</td>
+						<td class="text-nowrap" (click)="seleccionar(objetoN)" >{{ objetoN.ingresos | currency: 'Q. ' }}</td>
+						<td class="text-nowrap" (click)="seleccionar(objetoN)" >{{ objetoN.egresos | currency: 'Q. '  }}</td>
+						<td class="text-nowrap" (click)="seleccionar(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
+						<td class="text-nowrap" (click)="seleccionar(objetoN)"  style="text-align: left !important;">{{ objetoN.detalle }}</td>
 					</tr>
 				</tbody>
 			</table>

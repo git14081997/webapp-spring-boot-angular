@@ -20,7 +20,7 @@
 					</svg>
 				</span>
 				<input type="text" class="form-control form-control-lg" id="parametro-buscar" placeholder="Buscar"
-					[(ngModel)]="objetoSeleccionado.buscar" maxlength="20" (change)="buscarEnDb(objetoSeleccionado.buscar)">
+					[(ngModel)]="objetoSeleccionado.buscar" maxlength="1000" (change)="buscarEnDb(objetoSeleccionado.buscar)">
 
 				<button class="btn bg-dark text-white btn-lg " (click)="limpiarBusqueda()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
@@ -40,19 +40,17 @@
 				<table class="table table-striped table-lg table-borderless">
 					<thead>
 						<tr>
-							<th class="text-nowrap" scope="col">ID</th>
-							<th class="text-nowrap" scope="col">Nombre</th>
+							<th class="text-nowrap tleft" scope="col">Cliente</th>
 							<th class="text-nowrap" scope="col">Pendiente de pago</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let objetoN of objetos">
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">
-								{{ objetoN.id }}
-							</td>
+
 							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" style="text-align: left !important;">
-								{{ objetoN.nombre }} {{ objetoN.nombreDos || "" }} {{ objetoN.apellido || "" }} {{ objetoN.apellidoDos || "" }}
+								{{ objetoN.id }} {{ objetoN.nombreCompleto | uppercase }}
 							</td>
+
 							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">
 								{{ objetoN.pendienteDePago | currency: 'Q. ' }}
 							</td>
@@ -195,7 +193,7 @@
 
 
 		<!-- verEditarComentario -->
-		<div *ngIf="verEditarcomentario == 'S'">		
+		<div *ngIf="verEditarcomentario == 'S'">
 			<div class="col-12 my-2">
 					<label for="parametro-comentarios" class="form-label">Comentarios ({{objetoSeleccionado.comentarios?.length || 0 }} /511):</label>
 					<textarea class="form-control form-control-lg" id="parametro-comentarios" rows="9"

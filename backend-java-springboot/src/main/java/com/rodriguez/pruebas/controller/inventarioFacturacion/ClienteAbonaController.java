@@ -101,8 +101,8 @@ public class ClienteAbonaController {
 
 		String detalleDelAbono = abonoOrRebaja + valorPago
 		+ " de " + clienteResponsable.getNombreCompleto()
-		+ " ; Saldo anterior era: " + pendienteDePagoEnCliente
-		+ " ; Nuevo saldo pendiente de pago: " + nuevoSaldoPendienteEnCliente;
+		+ "\n; Saldo anterior era: " + pendienteDePagoEnCliente
+		+ "\n; Nuevo saldo pendiente de pago: " + nuevoSaldoPendienteEnCliente;
 
 
 		if( info != null ){

@@ -62,7 +62,7 @@ public class FacturaDetalleController {
 	@Transactional
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{facturaid}")
 	public List<FacturaDetalle> find(@PathVariable Integer facturaid) {
-		String sql = "SELECT * FROM INVENTARIO_FACTURACION.FACTURA_DETALLE WHERE FACTURA_ID = ? ORDER BY ID ASC";
+		String sql = "SELECT * FROM factura_detalle WHERE factura_id = ? ORDER BY id ASC";
 		List<FacturaDetalle> detallesPorFactura = jdbcTemplate.query(
 				sql, new BeanPropertyRowMapper<>(FacturaDetalle.class), facturaid
 		);
