@@ -80,41 +80,40 @@
 						</tr>
 					</tbody>
 				</table>
-						<!-- paginacion -->
-		<div *ngIf="verLista == 'S' || verInventario == 'S'">
 
-			<div class="col-12 my-2 limit-max-2">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12 my-2  ">
-							<label>Cantidad</label>
-							<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
-								<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
-									{{ cantidadPorPag }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
+<!-- paginacion -->
+<div *ngIf="verLista == 'S' || verInventario == 'S'">
 
-			<div class="col-12 my-2">
-				<div class="container-fluid">
-					<span>Páginas</span>
-					<div class="row d-flex flex-wrap align-items-start align-content-start">
-						<div class="col-12 my-2">
-							<span *ngFor="let paginaN of paginasDisponiblesArray">
-								<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
-									{{paginaN.numPagina}}
-								</a>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
+	<div class="col-12 my-2">
+	<div class="container">
+	<div class="row">
+	<div class="col-12 my-2">
+	<label>Cantidad por página</label>
+	<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+	<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+	{{ cantidadPorPag }}
+	</option>
+	</select>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	<div class="container my-2">
+	<div class="row">
+	<span>Páginas</span>
+	@for (paginaN of paginasDisponiblesArray; track paginaN.numPagina) {
+		<div class="col m-4 imggrid pnumber" (click)="getPorPaginaNum(paginaN.numPagina)" >{{ paginaN.numPagina }}</div>
+	}
+	</div>
+	
+	
+	</div>
+</div>
+<!-- paginacion -->
+	
 
-		</div>
-		<!-- paginacion -->
+
 			</div>
 		</div><!-- ver-lista -->
 

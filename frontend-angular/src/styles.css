@@ -273,4 +273,10 @@ display: block !important;
 	text-align: right !important;
 }
 
-
+.pnumber {
+	border: 1px solid black !important; 
+	text-align:center !important; 
+	padding: 18px !important; 
+	width: max-content !important; 
+	max-width: 54px !important;
+}

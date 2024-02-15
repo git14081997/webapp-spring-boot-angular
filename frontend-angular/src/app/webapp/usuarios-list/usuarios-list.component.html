@@ -66,39 +66,34 @@
 
 
 
-		<!-- paginacion -->
-		<div *ngIf="verLista == 'S'">
+<!-- paginacion -->
+<div *ngIf="verLista == 'S'">
 
-			<div class="col-12 my-2">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 my-2">
-							<label>Cantidad por página</label>
-							<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
-								<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
-									{{ cantidadPorPag }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
+<div class="col-12 my-2">
+<div class="container">
+<div class="row">
+<div class="col-12 my-2">
+<label>Cantidad por página</label>
+<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+{{ cantidadPorPag }}
+</option>
+</select>
+</div>
+</div>
+</div>
+</div>
 
 <div class="container my-2">
 <div class="row">
 <span>Páginas</span>
-
-
 @for (paginaN of paginasDisponiblesArray; track paginaN.numPagina) {
-	<div class="col m-4 imggrid " (click)="getPorPaginaNum(paginaN.numPagina)" style="border: 1px solid black !important; text-align:center !important; padding: 18px !important; width: max-content !important; max-width: 54px !important; " >{{ paginaN.numPagina }}</div>
+	<div class="col m-4 imggrid pnumber" (click)="getPorPaginaNum(paginaN.numPagina)" >{{ paginaN.numPagina }}</div>
 }
-
 </div>
 
 
+</div>
 </div>
 <!-- paginacion -->
 
