@@ -42,18 +42,25 @@
 						<tr>
 							<th class="text-nowrap tleft" scope="col">Cliente</th>
 							<th class="text-nowrap" scope="col">Pendiente de pago</th>
+							<th class="text-nowrap" scope="col">ID</th>
+
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let objetoN of objetos">
 
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)" style="text-align: left !important;">
-								{{ objetoN.id }} {{ objetoN.nombreCompleto | uppercase }}
+							<td class="text-nowrap tleft" (click)="actualizarSeleccionado(objetoN)">
+								{{ objetoN.nombreCompleto | uppercase }}
 							</td>
 
 							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">
 								{{ objetoN.pendienteDePago | currency: 'Q. ' }}
 							</td>
+
+							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">
+								{{ objetoN.id }}
+							</td>
+
 						</tr>
 					</tbody>
 				</table>

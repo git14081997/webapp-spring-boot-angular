@@ -58,17 +58,17 @@
 				<table class="table table-lg table-borderless table-striped">
 					<thead>
 						<tr>
-							<th class="text-nowrap" scope="col">ID</th>
+							<th class="text-nowrap" scope="col">Hay</th>
 							<th class="text-nowrap" scope="col">Nombre</th>
 							<th class="text-nowrap" scope="col">Costo Unidad</th>
 							<th class="text-nowrap" scope="col">Ganancia Q</th>
 							<th class="text-nowrap" scope="col">Precio Venta Q</th>
-							<th class="text-nowrap" scope="col">Existencias</th>
+							<th class="text-nowrap" scope="col">ID</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let productoN of productos">
-							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.id }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)" style="text-align: left !important;" >{{ productoN.existencias }}</td>
 							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)" style="text-align: left !important;" >{{ productoN.nombre | uppercase }}</td>
 							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.costoUnidad | currency: 'Q. '
 								}}</td>
@@ -76,7 +76,8 @@
 							</td>
 							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.precioVenta | currency: 'Q. '
 								}}</td>
-							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.existencias }}</td>
+							<td class="text-nowrap" (click)="actualizarSeleccionado(productoN)">{{ productoN.id }}</td>
+
 						</tr>
 					</tbody>
 				</table>
