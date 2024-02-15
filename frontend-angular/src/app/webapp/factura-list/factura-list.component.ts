@@ -133,8 +133,13 @@ export class FacturaListComponent implements OnInit {
 		}
 
 		*/
-		this.getPorPagina(this.enlaceActual);
 
+		if( this.idCliente != "" ){
+			this.buscarEnDb( this.idCliente );
+		}
+		else {
+			this.getPorPagina(this.enlaceActual);
+		}
 
 	}
 

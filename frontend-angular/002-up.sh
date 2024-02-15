@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/zsh
 npm start
 exit 0;

@@ -84,23 +84,23 @@
 				</div>
 			</div>
 
-			<div class="col-12 my-2">
-				<div class="container">
-					<span>Páginas</span>
-					<div class="row d-flex flex-wrap align-items-start align-content-start">
-						<div class="col-12 my-2">
-							<span *ngFor="let paginaN of paginasDisponiblesArray">
-								<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
-									{{paginaN.numPagina}}
-								</a>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
 
-		</div>
-		<!-- paginacion -->
+
+
+<div class="container my-2">
+<div class="row">
+<span>Páginas</span>
+
+
+@for (paginaN of paginasDisponiblesArray; track paginaN.numPagina) {
+	<div class="col m-4 imggrid " (click)="getPorPaginaNum(paginaN.numPagina)" style="border: 1px solid black !important; text-align:center !important; padding: 18px !important; width: max-content !important; max-width: 54px !important; " >{{ paginaN.numPagina }}</div>
+}
+
+</div>
+
+
+</div>
+<!-- paginacion -->
 
 
 

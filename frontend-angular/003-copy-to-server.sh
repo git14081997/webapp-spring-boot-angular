@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/bin/zsh
+
+sudo chown -R franklin:staff .
+rm -rf dist
+npm install
+npm run build
 
 MIDIR="/Users/franklin"
-
-echo ""
-echo "actualizar el frontend del servidor local" 
-echo ""
 
 WEBDIR="$MIDIR/all/repos/fullstack/frontend-angular"
 WEBAPP="$MIDIR/all/repos/fullstack/frontend-angular/dist/frontend/browser"
@@ -18,6 +19,7 @@ sudo mkdir -p $WEBSERVER
 cd $WEBAPP
 sudo cp -R . $WEBSERVER
 sudo chmod 755 $WEBSERVER
-brew services restart httpd;
+brew services stop httpd;
+brew services start httpd;
 
 exit 0;
