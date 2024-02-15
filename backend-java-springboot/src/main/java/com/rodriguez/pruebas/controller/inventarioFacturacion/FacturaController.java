@@ -454,7 +454,7 @@ WHERE
  usuario.id = ? OR
  lower(factura.nombre_completo) LIKE ? OR
  lower(usuario.nombre_completo) LIKE ?
-ORDER BY factura.FECHA_EMISION DESC
+ORDER BY factura.fecha_emision DESC
 """;
 		nombreusuario = nombreusuario.toLowerCase();
 

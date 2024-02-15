@@ -73,7 +73,7 @@ public class IngresosEgresosController {
 	public List<IngresosEgresos> findAll(@PathVariable Integer year, @PathVariable Integer month){
 
 		String sql = """
-			SELECT ingresos_egresos.* FROM inventario_facturacion.ingresos_egresos
+			SELECT ingresos_egresos.* FROM ingresos_egresos
 			WHERE YEAR(fecha) = ? AND MONTH(fecha) = ? ORDER BY id DESC
 		""";
 
