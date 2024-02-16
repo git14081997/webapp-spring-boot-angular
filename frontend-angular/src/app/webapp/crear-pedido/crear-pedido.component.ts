@@ -111,7 +111,13 @@ else
 guardarPedido()
 {
 
-	if( this.todoElPedido.usuarioId != undefined || this.todoElPedido.usuarioId != null )
+	if (
+		this.objetosPedido.length > 0 &&
+		this.todoElPedido.tipoPago != undefined &&
+		this.todoElPedido.tipoPago != null &&
+		this.todoElPedido.usuarioId != undefined && 
+		this.todoElPedido.usuarioId != null 
+	)
 	{
 
 		this.todoElPedido.usuarioId = Number(this.todoElPedido.usuarioId );
@@ -132,7 +138,7 @@ guardarPedido()
 
 	else
 	{
-		alert("Selecciona el cliente !");
+		alert("Selecciona el cliente, los productos que comprará y el tipo de pedido !");
 	}
 
 
@@ -237,14 +243,18 @@ setClienteCompra(clienteEncontrado:any, indice: number ){
 }
 
 
-validarNewPrecioVenta(objetoN:any){
-	if( objetoN.precioVenta > objetoN.precioVentaMin ){
+validarNewPrecioVenta(objetoN:any)
+{
+	if( objetoN.precioVenta >= objetoN.costoUnidad )
+	{
 		this.actualizarDetallePedido();
 	}
-	else {
-		objetoN.precioVenta = objetoN.precioVentaMin;
+	else
+	{
+		objetoN.precioVenta = objetoN.costoUnidad;
 	}
 }
+
 
 
 }

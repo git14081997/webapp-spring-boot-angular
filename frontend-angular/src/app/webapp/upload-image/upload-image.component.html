@@ -3,14 +3,37 @@
 	<div class="row">
 
 		<div class="col-12 my-2">
-			<input type="file" accept=".jpg" (change)="onFileChange($event)" class="btn btn-dark btn-lg align-middle btn-100" />
+
+			<form method="post" enctype="multipart/form-data">
+
+				<div class="row">
+					<div class="col-12 my-2">
+						<input type="file" name="archivo" accept="image/*" (change)="onFileSelected($event)" class="btn btn-dark btn-lg align-middle btn-100" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-12 my-2">
+						<button class="btn btn-dark btn-lg align-middle btn-100" (click)="onUpload()">
+							Guardar imagen
+						</button>	
+					</div>
+				</div>
+
+			</form>
+
 		</div><!-- col -->
 
-		<div class="col-12 my-2">
-			<button class="btn btn-dark btn-lg align-middle btn-100" (click)="upImage()">
-				Guardar imagen
-			</button>	
-		</div>
+
+
+		<!-- imagen desde db -->
+		<div class="col-12 my-2" *ngIf="archivoImagen" >
+			<div class="text-center">
+				<img [src]="archivoImagen" alt="imagen" width="90%" />
+			</div>
+		</div><!-- imagen desde db -->
+		
+
 
 	</div><!-- row -->
 </div><!-- container -->

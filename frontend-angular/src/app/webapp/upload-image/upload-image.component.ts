@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { hostname } from '../hostname';
 import { buscarToken } from '../libproyecto';
+import { json } from 'stream/consumers';
 
 
 @Component({
@@ -14,17 +15,24 @@ import { buscarToken } from '../libproyecto';
 })
 export class UploadImageComponent implements OnInit {
 
-	archivoImagen: any;
+	archivoImagen: File;
 	http = inject(HttpClient);
 	getToken;
 	parametroServicio:any = {};
 
+	enlace: string;
 
 	constructor()
 	{
-		this.archivoImagen = {};
+		this.enlace = "";
+
+		this.archivoImagen = new File( [], "");
+
 		this.getToken = buscarToken;
 		this.parametroServicio = {};
+
+		// 'Content-Type': 'multipart/form-data',
+		// 'Content-Type': 'application/json',
 
 		this.parametroServicio.url = "/api/image";
 		this.parametroServicio.headers = new HttpHeaders({
@@ -40,37 +48,31 @@ export class UploadImageComponent implements OnInit {
 	}
 
 
-	upImage()
+	onUpload()
 	{
 		let enlaceTemp: string = hostname + this.parametroServicio.url;
 
+		const formData = new FormData();
+    formData.append('file', this.archivoImagen);
+		
 		this.http.post<any>(
 			enlaceTemp,
-			this.archivoImagen,	
+			formData,
 			this.parametroServicio.headers
-		).subscribe((RESPONSE:any) => {});
+		).subscribe((RESPONSE) => {
+			console.log(RESPONSE);
+		});
 	
 	}
 
 
-	onFileChange(unObjetoN: any)
+
+	onFileSelected(unObjetoN: any)
 	{
-
-		const target: DataTransfer = <DataTransfer>(unObjetoN.target);
-		if (target.files.length !== 1)
-		{
-			throw new Error('Selecciona una imagen !');
-		}
-
-		const reader: FileReader = new FileReader();
-		reader.readAsBinaryString(target.files[0]);
-
-		reader.onload = (e: any) => 
-		{
-		};
-
-
+		this.archivoImagen = unObjetoN.target.files[0];
 	}
+
+
 
 
 } // class 

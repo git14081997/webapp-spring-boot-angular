@@ -53,8 +53,8 @@ public class ArchivosController
 
 
 
-	// http://localhost:8089/api/image/{id}
-	@PostMapping( value = "pic", produces = MediaType.APPLICATION_JSON_VALUE )
+	// http://localhost:8089/api/imagen
+	@PostMapping( value = "0", produces = MediaType.APPLICATION_JSON_VALUE )
 	public Long saveImage( @RequestBody MultipartFile fileimagen )
 	{
 		try
@@ -120,14 +120,20 @@ public class ArchivosController
 
 
 	// http://localhost:8089/api/image
-	@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<Long> guardarImagenEnDb(@RequestParam("imagen") MultipartFile archivo){
+	@PostMapping(
+		//consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+		//consumes = MediaType.IMAGE_JPEG_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	public ResponseEntity<Long> guardarImagenEnDb(@RequestParam( "file" ) MultipartFile multipartFile ){
 
 		try
 		{
-			byte[] bytesDeImagen = archivo.getBytes();
+			byte[] bytesDeImagen = multipartFile.getBytes();
 
 			Long idImagen = imagenService.guardarImagenEnDb(bytesDeImagen);
+
+			// return "redirect:/";
 
 			return new ResponseEntity<>(idImagen, HttpStatus.CREATED);
 
@@ -147,7 +153,7 @@ public class ArchivosController
 
 
 
-	// http://localhost:8089/api/imagen/{id}
+	// http://localhost:8089/api/image/{id}
 	@GetMapping( value = "{id}", produces = MediaType.IMAGE_JPEG_VALUE )
 	public ResponseEntity<byte[]> getImagen( @PathVariable Long id )
 	{
