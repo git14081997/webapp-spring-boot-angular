@@ -10,6 +10,7 @@ import { PagenotfoundComponent } from './basic/pagenotfound/pagenotfound.compone
 import { IngresosEgresosListComponent } from './webapp/ingresos-egresos-list/ingresos-egresos-list.component';
 import { ExcelProductosComponent } from './webapp/excel-productos/excel-productos.component';
 import { ProductoGridComponent } from './webapp/producto-grid/producto-grid.component';
+import { UploadImageComponent } from './webapp/upload-image/upload-image.component';
 
 export const routes: Routes = [
 { path: '', component: InicioComponent, title: 'Inicio',},
@@ -19,7 +20,8 @@ export const routes: Routes = [
 { path: 'productos', component: ProductoListComponent, title: 'Productos',},
 { path: 'mercaderia', component: ProductoGridComponent, title: 'Catalogo de productos',},
 { path: 'registrar-venta', component: CrearPedidoComponent, title: 'Registrar venta',},
-{ path: 'ie', component: IngresosEgresosListComponent, title: 'Registrar venta',},
-{ path: 'upload', component: ExcelProductosComponent, title: 'Registrar venta',},
+{ path: 'ie', component: IngresosEgresosListComponent, title: 'Balance',},
+{ path: 'upload', component: ExcelProductosComponent, title: 'Guardar desde excel',},
+{ path: 'upload-image', component: UploadImageComponent, title: 'Guardar imagen',},
 { path: '**', component: PagenotfoundComponent, title: 'Error 404',},
 ];

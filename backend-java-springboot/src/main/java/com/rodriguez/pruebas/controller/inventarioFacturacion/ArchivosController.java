@@ -42,7 +42,7 @@ import java.util.UUID;
 //@CrossOrigin( origins = "http://localhost:4200" )
 @AllArgsConstructor
 @NoArgsConstructor
-@RequestMapping("api/imagen")
+@RequestMapping("api/image")
 public class ArchivosController
 {
 
@@ -53,7 +53,7 @@ public class ArchivosController
 
 
 
-	// http://localhost:8089/api/imagen/{id}
+	// http://localhost:8089/api/image/{id}
 	@PostMapping( value = "pic", produces = MediaType.APPLICATION_JSON_VALUE )
 	public Long saveImage( @RequestBody MultipartFile fileimagen )
 	{
@@ -119,7 +119,7 @@ public class ArchivosController
 
 
 
-	// http://localhost:8089/api/imagen/{id}
+	// http://localhost:8089/api/image
 	@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE )
 	public ResponseEntity<Long> guardarImagenEnDb(@RequestParam("imagen") MultipartFile archivo){
 
