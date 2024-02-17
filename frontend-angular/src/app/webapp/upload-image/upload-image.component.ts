@@ -39,7 +39,8 @@ export class UploadImageComponent implements OnInit {
 	}
 
 
-	ngOnInit(): void {
+	ngOnInit(): void
+	{
 	}
 
 
@@ -54,12 +55,23 @@ export class UploadImageComponent implements OnInit {
 			enlaceTemp,
 			formData,
 			this.parametroServicio.headers
-		).subscribe((RESPONSE) => {
-			console.log('response', RESPONSE);
+		).subscribe((RESPONSE:any) => {
+			
+			let temporal:any = RESPONSE;
+			
+			if( temporal.error ){
+				alert(temporal.error);
+			}
+
+			if( temporal.id ){
+				alert("imageId = " + temporal.id );
+			}
+
 		});
 	
 	}
 
+	
 
 
 	onFileSelected(unObjetoN: any)

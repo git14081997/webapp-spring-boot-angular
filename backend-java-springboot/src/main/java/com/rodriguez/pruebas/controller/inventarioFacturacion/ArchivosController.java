@@ -2,14 +2,14 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ImagenProducto;
-import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
-import com.rodriguez.pruebas.service.inventarioFacturacion.IImagenService;
+import com.rodriguez.pruebas.service.inventarioFacturacion.IServiceImage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,9 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -49,105 +48,48 @@ public class ArchivosController
 	private static final Logger LOG = LoggerFactory.getLogger(ArchivosController.class);
 
 	@Autowired
-	IImagenService imagenService;
+	IServiceImage imagenService;
 
 
+// http://localhost:8089/api/image
+@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+public ResponseEntity<Map<String,Object>> guardarImagenEnDb(
+	@RequestParam( "file" ) MultipartFile multipartFile
+) {
 
-	// http://localhost:8089/api/imagen
-	@PostMapping( value = "0", produces = MediaType.APPLICATION_JSON_VALUE )
-	public Long saveImage( @RequestBody MultipartFile fileimagen )
+	Map<String, Object> resultado = new HashMap<>();
+	int estadoHttp = 500;
+
+	try
 	{
-		try
-		{
 
-			String nombreArchivo = fileimagen.getOriginalFilename();
-			String extensionArchivo = nombreArchivo.substring(nombreArchivo.lastIndexOf("."));
-
-			String nuevoNombreArchivo = UUID.randomUUID().toString() + "." + extensionArchivo;
-
-			byte[] bytesImagen = fileimagen.getBytes();
-
-			long sizeImagen = fileimagen.getSize();
-			long maxSize = 1048576 * 2; // 2 Megabytes
-
-			LOG.info(nombreArchivo);
-			LOG.info(extensionArchivo);
-			LOG.info(sizeImagen + "");
-			LOG.info(nuevoNombreArchivo);
-
-			if( sizeImagen > maxSize)
-			{
-				LOG.warn("Tamaño de archivo supera: " + maxSize );
-			}
-			if(
-				!nombreArchivo.endsWith(".png") &&
-				!nombreArchivo.endsWith(".jpg") &&
-				!nombreArchivo.endsWith(".jpeg")
-			)
-			{
-				LOG.warn("Solo se permiten imagenes '.jpg', '.jpeg', '.png'");
-			}
-
-			// crear carpeta
-			String recursosApiRest = "src/main/resources/pic";
-			File archivoDeDirectorio = new File(recursosApiRest);
-			if(!archivoDeDirectorio.exists()){
-				archivoDeDirectorio.mkdirs();
-			}
-
-			// se guarda imagen en servidor donde se ejecuta el api
-			Path path = Paths.get(recursosApiRest + "/" + nuevoNombreArchivo );
-			Files.write(path, bytesImagen);
-
-			// Se guarda copia de imagen en base de datos.
-			return imagenService.guardarImagenEnDb(bytesImagen);
-
-		} catch (Exception exception)
-		{
-			LOG.warn(exception.getMessage());
+		if(
+		imagenService.tamanoDeArchivoEsMayorAlMaximoPermitido(multipartFile)
+		){
+			resultado.put("error", "El tamaño del archivo es mayor al máximo permitido !");
+			estadoHttp = HttpStatus.INTERNAL_SERVER_ERROR.value();
+			return new ResponseEntity<>( resultado , HttpStatusCode.valueOf(estadoHttp));
 		}
-		return -1L;
+
+		Long imageId = imagenService.guardarImagenEnDb(multipartFile);
+
+		imagenService.guardarEnSistemaDeArchivos(multipartFile, imageId.toString());
+
+		// return "redirect:/";
+		resultado.put("id", imageId);
+		estadoHttp = HttpStatus.CREATED.value();
+		return new ResponseEntity<>( resultado , HttpStatusCode.valueOf(estadoHttp));
+
 	}
+	catch (IOException ioException)
+	{
+		resultado.put("error", ioException.getMessage());
+		estadoHttp = HttpStatus.INTERNAL_SERVER_ERROR.value();
+		return new ResponseEntity<>( resultado , HttpStatusCode.valueOf(estadoHttp));
+	} // catch
 
 
-
-
-
-
-
-
-
-
-
-	// http://localhost:8089/api/image
-	@PostMapping(
-		//consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-		//consumes = MediaType.IMAGE_JPEG_VALUE,
-		produces = MediaType.APPLICATION_JSON_VALUE
-	)
-	public ResponseEntity<Long> guardarImagenEnDb(@RequestParam( "file" ) MultipartFile multipartFile ){
-
-		try
-		{
-			byte[] bytesDeImagen = multipartFile.getBytes();
-
-			Long idImagen = imagenService.guardarImagenEnDb(bytesDeImagen);
-
-			// return "redirect:/";
-
-			return new ResponseEntity<>(idImagen, HttpStatus.CREATED);
-
-		}
-		catch (IOException ioException)
-		{
-			ioException.printStackTrace();
-			LOG.error( ioException.getLocalizedMessage() );
-			LOG.error( ioException.getMessage() );
-
-			return new ResponseEntity<>( -1L , HttpStatus.INTERNAL_SERVER_ERROR );
-
-		} // catch
-	}
+}
 
 
 
@@ -165,9 +107,13 @@ public class ArchivosController
 			.contentType( MediaType.IMAGE_JPEG )
 			.body( imagenProducto.getImagen() );
 
-		// <img src="/api/archivo/file/1" alt="Imagen">
+		// <img src="/api/image/1" alt="imagen">
 
 	} // getImagen
+
+
+
+
 
 
 } // class
