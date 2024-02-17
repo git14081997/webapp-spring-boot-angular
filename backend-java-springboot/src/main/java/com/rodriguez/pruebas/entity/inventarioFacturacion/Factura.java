@@ -72,4 +72,8 @@ public class Factura implements Serializable {
 	@Column( name = "fecha_devolucion" )
 	private Date fechaDevolucion;
 
+	@Column( name = "fecha_anulado" )
+	private Date fechaAnulado;
+
+
 }

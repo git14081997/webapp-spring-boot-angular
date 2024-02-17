@@ -568,8 +568,87 @@ ORDER BY factura.fecha_emision DESC
 
 
 
+	// cancelar,anular un pedido/factura
+	@Transactional
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "del/{facturaid}")
+	public void anularPedido(@PathVariable Integer facturaid)
+	{
+		// regresar al inventario
+		// . abonar el saldo en cargos y abonos del cliente
+		// . saldoPendiente en Cliente
+		// . pendiente ... en construccion ...
+
+Factura pedidoIncorrectoSeraAnulado = facturaRepository.getReferenceById(facturaid);
+
+if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("C") || pedidoIncorrectoSeraAnulado.getTipoPago().equals("E") )
+{
+
+
+List<FacturaDetalle> detallesFactura = facturaDetalleRepository.findByFactura(pedidoIncorrectoSeraAnulado);
+
+for( FacturaDetalle detalleN : detallesFactura ){
+
+// actualizacion de existencias por anulacion de pedido
+Producto productoNDelPedido = detalleN.getProducto();
+Producto productoDB = productoRepository.getReferenceById(productoNDelPedido.getId());
+Integer hayEnDB = productoDB.getExistencias();
+Integer newExistenciaActual = hayEnDB + detalleN.getCantidadProductoVendido();
+productoDB.setExistencias( newExistenciaActual );
+productoRepository.save(productoDB);
+// actualizacion de existencias por anulacion de pedido
 
 
 
 
-}
+
+// actualizacion de entradas del inventario por producto-1
+Inventario inventarioProductoN = new Inventario();
+inventarioProductoN.setFecha(new Date());
+
+inventarioProductoN.setProducto(productoDB);
+
+Inventario ultimoRegistroDelInventarioDelProducto = buscarUltimoRegistroDelInventarioDelProducto( productoDB.getId() );
+Integer saldoAnterior = ultimoRegistroDelInventarioDelProducto.getExistencia();
+
+inventarioProductoN.setSaldoAnterior(saldoAnterior);
+inventarioProductoN.setEntradas( detalleN.getCantidadProductoVendido() );
+inventarioProductoN.setSalidas(0);
+
+inventarioProductoN.setExistencia(
+	inventarioProductoN.getSaldoAnterior() +
+	inventarioProductoN.getEntradas() -
+	inventarioProductoN.getSalidas()
+);
+
+inventarioRepository.save(inventarioProductoN);
+// actualizacion de entradas del inventario por producto-2
+
+
+} // analizando detalles del pedido
+
+
+
+
+
+BigDecimal cero = new BigDecimal(0);
+
+pedidoIncorrectoSeraAnulado.setTipoPago("A");
+
+pedidoIncorrectoSeraAnulado.setGanancia(cero);
+pedidoIncorrectoSeraAnulado.setIva(cero);
+pedidoIncorrectoSeraAnulado.setTotal(cero);
+pedidoIncorrectoSeraAnulado.setSubtotalSinIva(cero);
+
+pedidoIncorrectoSeraAnulado.setFechaDevolucion(null);
+pedidoIncorrectoSeraAnulado.setFechaAnulado(new Date());
+
+facturaRepository.save(pedidoIncorrectoSeraAnulado);
+} // solo si es pedido/factura al Credito o Efectivo que contiene cualquier error
+
+
+	} // anularPedido
+
+
+
+
+} // class

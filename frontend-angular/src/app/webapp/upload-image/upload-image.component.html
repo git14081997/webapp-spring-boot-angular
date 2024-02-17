@@ -7,32 +7,34 @@
 			<form method="post" enctype="multipart/form-data">
 
 				<div class="row">
+
 					<div class="col-12 my-2">
-						<input type="file" name="archivo" accept="image/*" (change)="onFileSelected($event)" class="btn btn-dark btn-lg align-middle btn-100" />
+						<label for="inputImagen">Seleccionar imagen</label>
+						<input type="file" name="archivo" id="inputImagen"
+							accept="image/*" (change)="onFileSelected($event)" 
+							class="btn btn-dark btn-lg align-middle btn-100" />
 					</div>
-				</div>
-				
-				<div class="row">
+
 					<div class="col-12 my-2">
 						<button class="btn btn-dark btn-lg align-middle btn-100" (click)="onUpload()">
 							Guardar imagen
 						</button>	
 					</div>
+					
 				</div>
 
 			</form>
 
 		</div><!-- col -->
 
-
-
-		<!-- imagen desde db -->
-		<div class="col-12 my-2" *ngIf="archivoImagen" >
+		<!-- previsualizar imagen -->
+		<div class="col-12 my-2">
 			<div class="text-center">
-				<img [src]="archivoImagen" alt="imagen" width="90%" />
+				<img [src]="enlace" alt="imagen" width="90%" class="border border-black" />
 			</div>
-		</div><!-- imagen desde db -->
-		
+		</div><!-- previsualizar imagen -->
+
+
 
 
 	</div><!-- row -->

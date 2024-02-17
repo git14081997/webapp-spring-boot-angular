@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { hostname } from '../hostname';
 import { buscarToken } from '../libproyecto';
-import { json } from 'stream/consumers';
-
 
 @Component({
 	selector: 'app-upload-image',
@@ -17,6 +15,7 @@ export class UploadImageComponent implements OnInit {
 
 	archivoImagen: File;
 	http = inject(HttpClient);
+
 	getToken;
 	parametroServicio:any = {};
 
@@ -25,14 +24,10 @@ export class UploadImageComponent implements OnInit {
 	constructor()
 	{
 		this.enlace = "";
-
-		this.archivoImagen = new File( [], "");
+		this.archivoImagen = new File([], "");
 
 		this.getToken = buscarToken;
 		this.parametroServicio = {};
-
-		// 'Content-Type': 'multipart/form-data',
-		// 'Content-Type': 'application/json',
 
 		this.parametroServicio.url = "/api/image";
 		this.parametroServicio.headers = new HttpHeaders({
@@ -60,7 +55,7 @@ export class UploadImageComponent implements OnInit {
 			formData,
 			this.parametroServicio.headers
 		).subscribe((RESPONSE) => {
-			console.log(RESPONSE);
+			console.log('response', RESPONSE);
 		});
 	
 	}
@@ -70,7 +65,12 @@ export class UploadImageComponent implements OnInit {
 	onFileSelected(unObjetoN: any)
 	{
 		this.archivoImagen = unObjetoN.target.files[0];
+		
+		let urlLocalToImage =  URL.createObjectURL( this.archivoImagen );
+		this.enlace = urlLocalToImage;
+
 	}
+
 
 
 
