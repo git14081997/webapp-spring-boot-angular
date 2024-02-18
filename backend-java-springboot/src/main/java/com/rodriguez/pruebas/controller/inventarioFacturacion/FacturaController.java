@@ -29,6 +29,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -132,7 +133,7 @@ inventarioProductoN.setFecha(new Date());
 
 inventarioProductoN.setProducto(productoDB);
 
-Inventario ultimoRegistroDelInventarioDelProducto = buscarUltimoRegistroDelInventarioDelProducto( productoDB.getId() );
+Inventario ultimoRegistroDelInventarioDelProducto = serviceFactura.buscarUltimoRegistroDelInventarioDelProducto( productoDB.getId() );
 Integer saldoAnterior = ultimoRegistroDelInventarioDelProducto.getExistencia();
 
 inventarioProductoN.setSaldoAnterior(saldoAnterior);
@@ -325,7 +326,7 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 				// traer el ultimo registro por fecha y guardar su saldo como saldoAnterior
 				Integer saldoAnteriorProducto = 0;
 				Inventario ultimoRegistroDelInventario =
-				buscarUltimoRegistroDelInventarioDelProducto(productoN.getId());
+					serviceFactura.buscarUltimoRegistroDelInventarioDelProducto(productoN.getId());
 				saldoAnteriorProducto = ultimoRegistroDelInventario.getExistencia();
 
 				inventario.setSaldoAnterior(saldoAnteriorProducto);
@@ -364,18 +365,7 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 
 
 
-	@Transactional
-	private Inventario buscarUltimoRegistroDelInventarioDelProducto(Integer productoId)
-	{
-		String sql = """
-		SELECT * FROM inventario WHERE producto_id = ? ORDER BY fecha DESC limit 1
-		""";
-		List<Inventario> registrosDelInventario = jdbcTemplate.query(
-				sql, new BeanPropertyRowMapper<>(Inventario.class), productoId
-		);
 
-		return registrosDelInventario.get(0);
-	}
 
 
 
@@ -595,175 +585,20 @@ ORDER BY factura.fecha_emision DESC
 public ResponseEntity<Map<String, Object>> anularPedido( @PathVariable Integer facturaid )
 {
 
+	Map<String, Object> resultado = new HashMap<>();
 
-Map<String, Object> resultado = new HashMap<>();
+	resultado = serviceFactura.anularFactura(facturaid);
 
-BigDecimal cero = new BigDecimal(0);
+	int httpStatus = (int) resultado.get("INF");
 
-
-if( facturaid == null )
-{
-	log.error("facturaid no puede ser null y debe ser un número !");
-	resultado.put( ERROR, "facturaid no puede ser null y debe ser un número !");
-	return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
-}
-
-resultado.put("msg", "Pedido " + facturaid + " anulado." );
-
-Factura pedidoIncorrectoSeraAnulado = facturaRepository.getReferenceById(facturaid);
-
-BigDecimal totalDelPedido = pedidoIncorrectoSeraAnulado.getTotal();
-
-
-
-if(
-	!pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("C") &&
-	!pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("E")
-) {
-	log.error("Solo puedes anular pedidos al credito o en efetivo !");
-	log.error("tipo_pago = " + pedidoIncorrectoSeraAnulado.getTipoPago());
-	resultado.put( ERROR, "Solo puedes anular pedidos al credito o en efetivo !");
-	return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
-}
-
-
-
-
-
-
-List<FacturaDetalle> detallesFactura = facturaDetalleRepository.findByFactura(pedidoIncorrectoSeraAnulado);
-
-for( FacturaDetalle detalleN : detallesFactura )
-{
-
-// actualizacion de existencias por anulacion de pedido
-Producto productoNDelPedido = detalleN.getProducto();
-Producto productoDB = productoRepository.getReferenceById(productoNDelPedido.getId());
-Integer hayEnDB = productoDB.getExistencias();
-Integer newExistenciaActual = hayEnDB + detalleN.getCantidadProductoVendido();
-productoDB.setExistencias( newExistenciaActual );
-productoRepository.save(productoDB);
-// actualizacion de existencias por anulacion de pedido
-
-
-
-
-
-// actualizacion de entradas del inventario por producto-1
-Inventario inventarioProductoN = new Inventario();
-inventarioProductoN.setFecha(new Date());
-
-inventarioProductoN.setProducto(productoDB);
-
-Inventario ultimoRegistroDelInventarioDelProducto = buscarUltimoRegistroDelInventarioDelProducto( productoDB.getId() );
-Integer saldoAnterior = ultimoRegistroDelInventarioDelProducto.getExistencia();
-
-inventarioProductoN.setSaldoAnterior(saldoAnterior);
-inventarioProductoN.setEntradas( detalleN.getCantidadProductoVendido() );
-inventarioProductoN.setSalidas(0);
-
-inventarioProductoN.setExistencia(
-	inventarioProductoN.getSaldoAnterior() +
-	inventarioProductoN.getEntradas() -
-	inventarioProductoN.getSalidas()
-);
-
-inventarioRepository.save(inventarioProductoN);
-// actualizacion de entradas del inventario por producto-2
-
-
-} // analizando detalles del pedido
-
-
-
-
-
-
-// marcando pedido como anulado !
-pedidoIncorrectoSeraAnulado.setTipoPago("A");
-pedidoIncorrectoSeraAnulado.setFechaAnulacion( new Date() );
-facturaRepository.save(pedidoIncorrectoSeraAnulado);
-// marcando pedido como anulado !
-
-
-
-
-
-
-
-
-// actualizar el saldo,
-// reducir saldo pendiente de pago del cliente
-if( pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("C") )
-{
-	log.info("tratando de actualizar saldo pendiente de pago del cliente, en pedido al credito ");
-
-	Usuario usuarioQueHizoElPedido = pedidoIncorrectoSeraAnulado.getCliente();
-
-	Optional<Usuario> usuarioOptional =
-		usuarioRepository.findById(usuarioQueHizoElPedido.getId());
-
-	if( usuarioOptional.isPresent() )
-	{
-		usuarioQueHizoElPedido = usuarioOptional.get();
-
-		BigDecimal saldoPendienteDePago = usuarioQueHizoElPedido.getPendienteDePago();
-
-		BigDecimal nuevoSaldo = saldoPendienteDePago.subtract( totalDelPedido );
-
-		usuarioQueHizoElPedido.setPendienteDePago( nuevoSaldo  );
-	}
-	else
-	{
-		String msgError = """
-		No se encontró el cliente asociado al pedido,
-		\nSe cancela la anulación del pedido !
-		""";
-
-		log.error(msgError);
-
-		log.error("Falla al tratar de obtener info del Cliente vinculado al pedido " + pedidoIncorrectoSeraAnulado.getId() );
-		log.error("no se encuentra cliente con ID = " + usuarioQueHizoElPedido.getId() );
-
-		// throw new RuntimeException(msgError);
-	}
-} // pedido al credito
-
-
-
-
-
-
-
-// si fue unPedido pagado en efectivo, se debe agregar un gasto por el monto total.
-if( pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("E") )
-{
-	log.info("tratando de realizar contraPartida para anular pedido en efectivo");
-
-	IngresosEgresos ie = new IngresosEgresos();
-
-	ie.setFecha(new Date());
-
-	ie.setDetalle(
-		"Se anula pedido número " +
-		pedidoIncorrectoSeraAnulado.getId() +
-		".\nContiene uno o más errores." +
-		".\nFue pedido tipo: " +
-		pedidoIncorrectoSeraAnulado.getTipoPago().toString() + " ."
-	);
-
-	ie.setEgresos(totalDelPedido);
-
-	ie.setIngresos(cero);
-
-	ingresosEgresosRepository.save(ie);
-
-} // pedido en Efectivo
-
-
-return new ResponseEntity<>( resultado, HttpStatus.OK );
+	return new ResponseEntity<>( resultado, HttpStatusCode.valueOf( httpStatus ) );
 
 } // anularPedido
+
+
+
+
+
 
 
 
