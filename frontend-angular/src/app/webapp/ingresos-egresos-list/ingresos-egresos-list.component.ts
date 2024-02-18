@@ -77,7 +77,6 @@ export class IngresosEgresosListComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.consultarIE();
 	}
 
 

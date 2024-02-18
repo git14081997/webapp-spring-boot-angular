@@ -18,8 +18,8 @@
 <tr>
 <th class="text-nowrap" scope="col">ID</th>
 <th class="text-nowrap" scope="col">Saldo Anterior</th>
-<th class="text-nowrap" scope="col">Cargos</th>
-<th class="text-nowrap" scope="col">Abonos</th>
+<th class="text-nowrap" scope="col">+ Cargos +</th>
+<th class="text-nowrap" scope="col">- Abonos -</th>
 <th class="text-nowrap" scope="col">Saldo</th>
 <th class="text-nowrap" scope="col">Fecha</th>
 <th class="text-nowrap" scope="col">Detalles</th>
@@ -33,7 +33,7 @@
 <td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.abonos | currency: 'Q. ' }}</td>
 <td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.saldo | currency: 'Q. ' }}</td>
 <td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ formatoDeFecha(objetoN.fecha) }}</td>
-<td class="text-nowrap" (click)="verDetalle(objetoN)" >{{ objetoN.detalles }}</td>
+<td class="text-nowrap tleft" (click)="verDetalle(objetoN)" >{{ objetoN.detalles }}</td>
 </tr>
 </tbody>
 </table>

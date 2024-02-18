@@ -603,6 +603,7 @@ BigDecimal cero = new BigDecimal(0);
 
 if( facturaid == null )
 {
+	log.error("facturaid no puede ser null y debe ser un número !");
 	resultado.put( ERROR, "facturaid no puede ser null y debe ser un número !");
 	return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
 }
@@ -619,6 +620,8 @@ if(
 	!pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("C") &&
 	!pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("E")
 ) {
+	log.error("Solo puedes anular pedidos al credito o en efetivo !");
+	log.error("tipo_pago = " + pedidoIncorrectoSeraAnulado.getTipoPago());
 	resultado.put( ERROR, "Solo puedes anular pedidos al credito o en efetivo !");
 	return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
 }
@@ -678,9 +681,7 @@ inventarioRepository.save(inventarioProductoN);
 
 // marcando pedido como anulado !
 pedidoIncorrectoSeraAnulado.setTipoPago("A");
-
 pedidoIncorrectoSeraAnulado.setFechaAnulacion( new Date() );
-
 facturaRepository.save(pedidoIncorrectoSeraAnulado);
 // marcando pedido como anulado !
 
@@ -691,11 +692,12 @@ facturaRepository.save(pedidoIncorrectoSeraAnulado);
 
 
 
-
 // actualizar el saldo,
 // reducir saldo pendiente de pago del cliente
-if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("C") )
+if( pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("C") )
 {
+	log.info("tratando de actualizar saldo pendiente de pago del cliente, en pedido al credito ");
+
 	Usuario usuarioQueHizoElPedido = pedidoIncorrectoSeraAnulado.getCliente();
 
 	Optional<Usuario> usuarioOptional =
@@ -714,13 +716,16 @@ if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("C") )
 	else
 	{
 		String msgError = """
-			No se encontró el cliente asociado al pedido,
-			se cancela la anulación del pedido !
+		No se encontró el cliente asociado al pedido,
+		\nSe cancela la anulación del pedido !
 		""";
 
 		log.error(msgError);
 
-		throw new RuntimeException(msgError);
+		log.error("Falla al tratar de obtener info del Cliente vinculado al pedido " + pedidoIncorrectoSeraAnulado.getId() );
+		log.error("no se encuentra cliente con ID = " + usuarioQueHizoElPedido.getId() );
+
+		// throw new RuntimeException(msgError);
 	}
 } // pedido al credito
 
@@ -731,8 +736,10 @@ if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("C") )
 
 
 // si fue unPedido pagado en efectivo, se debe agregar un gasto por el monto total.
-if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("E") )
+if( pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("E") )
 {
+	log.info("tratando de realizar contraPartida para anular pedido en efectivo");
+
 	IngresosEgresos ie = new IngresosEgresos();
 
 	ie.setFecha(new Date());

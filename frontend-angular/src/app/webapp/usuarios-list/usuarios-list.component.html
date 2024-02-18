@@ -227,12 +227,6 @@
 	</div>
 
 	<div class="col-12 my-2">
-		<button class="btn btn-dark btn-lg btn-100" (click)="mostrarFacturas()">
-			Ver Facturas
-		</button>
-	</div>
-
-	<div class="col-12 my-2">
 		<button class="btn btn-dark btn-lg btn-100" (click)="mostrarAgregarAbono()">
 			Agregar abono
 		</button>
@@ -257,11 +251,10 @@
 	</div>
 
 	<div class="col-12 my-2">
-		<div class="form-floating mb-3">
-			<input type="text" class="form-control form-control-lg" id="parametro-info" placeholder=""
-				[(ngModel)]="objetoSeleccionado.info">
-			<label for="parametro-info" class="form-label">Información:</label>
-		</div>
+			<label for="parametro-info" class="form-label">Información: </label>
+			<textarea class="form-control form-control-lg" id="parametro-info" rows="9"
+				[(ngModel)]="objetoSeleccionado.info" placeholder="">
+			</textarea>
 	</div>
 
 	<div class="col-12 my-4">
@@ -305,8 +298,6 @@
 </div>
 
 <app-clienteabona-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaCargosAbonos" />
-
-<app-factura-list [idCliente]="objetoSeleccionado.id" *ngIf="verTablaFacturas" />
 
 
 <div class="col-12 my-2">

@@ -8,7 +8,7 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
-import { buscarToken, cantidadPorPagina } from '../libproyecto';
+import { buscarToken, cantidadPorPagina, deshabilitarBoton } from '../libproyecto';
 
 @Component({
   selector: 'app-factura-list',
@@ -166,6 +166,10 @@ export class FacturaListComponent implements OnInit {
 
 			if(objetoN.tipoPago == 'P'){
 				objetoN.tipoPagoDetalle = "Perdida";
+			}
+
+			if(objetoN.tipoPago == 'A'){
+				objetoN.tipoPagoDetalle = "Anulado";
 			}	
 
 		}
@@ -324,10 +328,14 @@ export class FacturaListComponent implements OnInit {
 		}
 		/* metodos para paginacion */
 
+		deshabilitarBoton = deshabilitarBoton;
 
 		anularPedido()
 		{
 
+			this.deshabilitarBoton('btn-unclick');
+
+			
 			let confirmarAnularPedido = confirm("Deseas anular el pedido " + this.facturaSeleccionada.id );
 
 			let confirmacionDos:boolean = false;

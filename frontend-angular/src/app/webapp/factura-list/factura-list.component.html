@@ -172,7 +172,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let detalleN of detallesPorFactura">
-              <td class="text-nowrap">{{ detalleN.nombreProducto | uppercase }}</td>
+              <td class="text-nowrap tleft">{{ detalleN.nombreProducto | uppercase }}</td>
               <td class="text-nowrap">{{ detalleN.cantidadProductoVendido }}</td>
               <td class="text-nowrap">{{ detalleN.precioVentaPorProducto | currency: 'Q. ' }}</td>
               <td class="text-nowrap">{{ detalleN.subtotalPorProducto | currency: 'Q. ' }}</td>
@@ -186,7 +186,9 @@
     </div>
 
     <div class="col-12 my-2">
-      <button class="btn btn-dark btn-lg align-middle btn-100" (click)="anularPedido()"
+      <button class="btn btn-dark btn-lg align-middle btn-100" id="btn-unclick"
+        *ngIf="facturaSeleccionada.tipoPago == 'C' || facturaSeleccionada.tipoPago == 'E'"
+        (click)="anularPedido()"
         style="background-color: red !important; color: white !important; font-weight: bold !important;">
         Anular pedido
       </button>

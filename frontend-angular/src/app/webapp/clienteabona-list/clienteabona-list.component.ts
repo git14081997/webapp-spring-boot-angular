@@ -96,7 +96,8 @@ export class ClienteabonaListComponent implements OnInit {
 
 	getPorPagina(urlAlRecurso: string) {
     let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad + this.paramActual;
-    this.http.get<any>(urlGetPaginado, this.parametroServicio.headers).subscribe((RESPONSE: any) => {
+    this.http.get<any>(urlGetPaginado, this.parametroServicio.headers)
+		.subscribe((RESPONSE: any) => {
       this.tmp = RESPONSE;
 			this.objetos = this.tmp.content;
 			this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);

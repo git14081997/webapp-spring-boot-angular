@@ -3,7 +3,7 @@ export
 { 
   getMesLetras, formatoDeFecha, dosDecimales,
   buscarToken, cantidadPorPagina, moneda,
-  
+  deshabilitarBoton
 };
 
 const getMesLetras = (mes: number): string => 
@@ -87,7 +87,7 @@ const formatoDeFecha = (campoFecha: any): string =>
     diaTxt = "" + dia;
   }
 
-  return diaTxt + " " + getMesLetras(mes) + " " + fechaString.getFullYear() + " ";
+  return diaTxt + " " + getMesLetras(mes) + " " + fechaString.getFullYear() + " " + fechaString.getHours() + ":" + fechaString.getMinutes() + ":" + fechaString.getSeconds();
 
 }
 
@@ -105,7 +105,18 @@ const buscarToken = (): string =>
   return "Bearer ";
 }
 
+const deshabilitarBoton =  (idBoton:string): void => {
+  let botonAnularPedido = document.getElementById(idBoton);
+  botonAnularPedido?.setAttribute('disabled','');
+}
 
-const cantidadPorPagina:number[] = [10, 50, 100, 150, 200, 250];
+
+const soloLectura =  (idBoton:string): void => {
+  let objetoSeleccionado = document.getElementById(idBoton);
+  objetoSeleccionado?.setAttribute('readonly','');
+}
+
+
+const cantidadPorPagina:number[] = [1, 10, 50, 100, 150, 200, 250];
 
 const moneda = 'Q. ';
