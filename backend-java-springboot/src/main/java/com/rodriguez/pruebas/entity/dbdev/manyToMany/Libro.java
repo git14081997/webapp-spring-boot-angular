@@ -29,7 +29,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "LIBRO", schema = "DBDEV", catalog = "DBDEV")
+@Table( name = "LIBRO")//, schema = "DBDEV", catalog = "DBDEV")
 public class Libro implements Serializable {
 
 	@Serial

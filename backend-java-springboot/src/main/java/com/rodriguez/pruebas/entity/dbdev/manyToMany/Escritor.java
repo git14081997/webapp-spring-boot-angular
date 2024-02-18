@@ -28,7 +28,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "ESCRITOR", schema = "DBDEV", catalog = "DBDEV")
+@Table( name = "ESCRITOR")//, schema = "DBDEV", catalog = "DBDEV")
 public class Escritor implements Serializable {
 
 	@Serial
