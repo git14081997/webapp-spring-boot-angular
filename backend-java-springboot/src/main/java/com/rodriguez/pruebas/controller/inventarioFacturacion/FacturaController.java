@@ -17,6 +17,7 @@ import com.rodriguez.pruebas.repository.inventarioFacturacion.IngresosEgresosRep
 import com.rodriguez.pruebas.repository.inventarioFacturacion.InventarioRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.UsuarioRepository;
+import com.rodriguez.pruebas.service.inventarioFacturacion.IServiceFactura;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +44,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -88,10 +93,16 @@ public class FacturaController {
 	private IngresosEgresosRepository ingresosEgresosRepository;
 
 
+	private final String ERROR = "error";
+
+	@Autowired
+	private IServiceFactura serviceFactura;
+
 
 	@Transactional
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "dev/{facturaid}")
-	public void registrarDevolucion(@PathVariable Integer facturaid){
+	@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "dev/{facturaid}" )
+	public void registrarDevolucion( @PathVariable Integer facturaid )
+	{
 
 		// se registra la devolucion de mercaderia al inventario
 
@@ -161,8 +172,9 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 
 
 	@Transactional
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer save(@RequestBody PedidoDto pedidoDto ){
+	@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE )
+	public Integer save(@RequestBody PedidoDto pedidoDto )
+	{
 
 		/* Factura factura = MODEL_MAPPER.map(facturaDto, Factura.class); */
 
@@ -353,7 +365,8 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 
 
 	@Transactional
-	private Inventario buscarUltimoRegistroDelInventarioDelProducto(Integer productoId){
+	private Inventario buscarUltimoRegistroDelInventarioDelProducto(Integer productoId)
+	{
 		String sql = """
 		SELECT * FROM inventario WHERE producto_id = ? ORDER BY fecha DESC limit 1
 		""";
@@ -371,8 +384,9 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 
 
 	 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
-	public Factura findById(@PathVariable Integer id){
+	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}" )
+	public Factura findById(@PathVariable Integer id)
+	{
 		Optional<Factura> resultado = facturaRepository.findById(id);
 		return resultado.orElse(null);
 	}
@@ -396,12 +410,14 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Factura> resultados encontrados.
 	 */
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
-	public Page<Factura> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad){
+	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}" )
+	public Page<Factura> findAll( @PathVariable Integer pagina, @PathVariable Integer cantidad )
+	{
 		Sort sort = Sort.by(Sort.Direction.DESC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
 		return facturaRepository.findAll(pageable);
 	}
+
 
 
 
@@ -424,13 +440,16 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	 * @return Page<Factura> resultados encontrados.
 	 */
 	 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/{usuarioId}")
+	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}/{usuarioId}" )
 	public Page<Factura> findByCliente(
-	@PathVariable Integer pagina, @PathVariable Integer cantidad, @PathVariable Integer usuarioId){
-		Sort sort = Sort.by(Sort.Direction.DESC,"id");
-		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return facturaRepository.findByCliente(pageable,usuarioId);
+		@PathVariable Integer pagina, @PathVariable Integer cantidad,
+		@PathVariable Integer usuarioId )
+	{
+		Sort sort = Sort.by( Sort.Direction.DESC,"id" );
+		Pageable pageable = PageRequest.of( pagina, cantidad, sort );
+		return facturaRepository.findByCliente( pageable, usuarioId );
 	}
+
 
 
 
@@ -443,8 +462,9 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	 *
 	 * @return List<Factura> resultados encontrados.
 	 */
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "nombre/{nombreusuario}")
-	public List<Factura> findByCliente(@PathVariable String nombreusuario){
+	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "nombre/{nombreusuario}" )
+	public List<Factura> findByCliente( @PathVariable String nombreusuario )
+	{
 
 String sql = """
 SELECT factura.* FROM factura left join usuario
@@ -476,7 +496,8 @@ ORDER BY factura.fecha_emision DESC
 
 
 	@Transactional
-	private BigDecimal getUltimoRegistroSaldoActual(Integer usuarioId){
+	private BigDecimal getUltimoRegistroSaldoActual( Integer usuarioId )
+	{
 
 		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
 		Pageable pageableCargosAbonosCliente = PageRequest.of(0,1,sort);
@@ -568,25 +589,49 @@ ORDER BY factura.fecha_emision DESC
 
 
 
-	// cancelar,anular un pedido/factura
-	@Transactional
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "del/{facturaid}")
-	public void anularPedido(@PathVariable Integer facturaid)
-	{
-		// regresar al inventario
-		// . abonar el saldo en cargos y abonos del cliente
-		// . saldoPendiente en Cliente
-		// . pendiente ... en construccion ...
+// cancelar,anular un pedido/factura
+@Transactional( rollbackFor = RuntimeException.class )
+@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "del/{facturaid}" )
+public ResponseEntity<Map<String, Object>> anularPedido( @PathVariable Integer facturaid )
+{
+
+
+Map<String, Object> resultado = new HashMap<>();
+
+BigDecimal cero = new BigDecimal(0);
+
+
+if( facturaid == null )
+{
+	resultado.put( ERROR, "facturaid no puede ser null y debe ser un número !");
+	return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
+}
+
+resultado.put("msg", "Pedido " + facturaid + " anulado." );
 
 Factura pedidoIncorrectoSeraAnulado = facturaRepository.getReferenceById(facturaid);
 
-if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("C") || pedidoIncorrectoSeraAnulado.getTipoPago().equals("E") )
-{
+BigDecimal totalDelPedido = pedidoIncorrectoSeraAnulado.getTotal();
+
+
+
+if(
+	!pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("C") &&
+	!pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("E")
+) {
+	resultado.put( ERROR, "Solo puedes anular pedidos al credito o en efetivo !");
+	return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
+}
+
+
+
+
 
 
 List<FacturaDetalle> detallesFactura = facturaDetalleRepository.findByFactura(pedidoIncorrectoSeraAnulado);
 
-for( FacturaDetalle detalleN : detallesFactura ){
+for( FacturaDetalle detalleN : detallesFactura )
+{
 
 // actualizacion de existencias por anulacion de pedido
 Producto productoNDelPedido = detalleN.getProducto();
@@ -630,23 +675,88 @@ inventarioRepository.save(inventarioProductoN);
 
 
 
-BigDecimal cero = new BigDecimal(0);
 
+// marcando pedido como anulado !
 pedidoIncorrectoSeraAnulado.setTipoPago("A");
 
-pedidoIncorrectoSeraAnulado.setGanancia(cero);
-pedidoIncorrectoSeraAnulado.setIva(cero);
-pedidoIncorrectoSeraAnulado.setTotal(cero);
-pedidoIncorrectoSeraAnulado.setSubtotalSinIva(cero);
-
-pedidoIncorrectoSeraAnulado.setFechaDevolucion(null);
-pedidoIncorrectoSeraAnulado.setFechaAnulado(new Date());
+pedidoIncorrectoSeraAnulado.setFechaAnulacion( new Date() );
 
 facturaRepository.save(pedidoIncorrectoSeraAnulado);
-} // solo si es pedido/factura al Credito o Efectivo que contiene cualquier error
+// marcando pedido como anulado !
 
 
-	} // anularPedido
+
+
+
+
+
+
+
+// actualizar el saldo,
+// reducir saldo pendiente de pago del cliente
+if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("C") )
+{
+	Usuario usuarioQueHizoElPedido = pedidoIncorrectoSeraAnulado.getCliente();
+
+	Optional<Usuario> usuarioOptional =
+		usuarioRepository.findById(usuarioQueHizoElPedido.getId());
+
+	if( usuarioOptional.isPresent() )
+	{
+		usuarioQueHizoElPedido = usuarioOptional.get();
+
+		BigDecimal saldoPendienteDePago = usuarioQueHizoElPedido.getPendienteDePago();
+
+		BigDecimal nuevoSaldo = saldoPendienteDePago.subtract( totalDelPedido );
+
+		usuarioQueHizoElPedido.setPendienteDePago( nuevoSaldo  );
+	}
+	else
+	{
+		String msgError = """
+			No se encontró el cliente asociado al pedido,
+			se cancela la anulación del pedido !
+		""";
+
+		log.error(msgError);
+
+		throw new RuntimeException(msgError);
+	}
+} // pedido al credito
+
+
+
+
+
+
+
+// si fue unPedido pagado en efectivo, se debe agregar un gasto por el monto total.
+if( pedidoIncorrectoSeraAnulado.getTipoPago().equals("E") )
+{
+	IngresosEgresos ie = new IngresosEgresos();
+
+	ie.setFecha(new Date());
+
+	ie.setDetalle(
+		"Se anula pedido número " +
+		pedidoIncorrectoSeraAnulado.getId() +
+		".\nContiene uno o más errores." +
+		".\nFue pedido tipo: " +
+		pedidoIncorrectoSeraAnulado.getTipoPago().toString() + " ."
+	);
+
+	ie.setEgresos(totalDelPedido);
+
+	ie.setIngresos(cero);
+
+	ingresosEgresosRepository.save(ie);
+
+} // pedido en Efectivo
+
+
+return new ResponseEntity<>( resultado, HttpStatus.OK );
+
+} // anularPedido
 
 
 

@@ -324,4 +324,55 @@ export class FacturaListComponent implements OnInit {
 		}
 		/* metodos para paginacion */
 
+
+		anularPedido()
+		{
+
+			let confirmarAnularPedido = confirm("Deseas anular el pedido " + this.facturaSeleccionada.id );
+
+			let confirmacionDos:boolean = false;
+
+			if( confirmarAnularPedido )
+			{
+				confirmacionDos = confirm("Estas seguro que quieres anular el pedido " + this.facturaSeleccionada.id );
+				if( confirmacionDos ){
+
+					this.http.post<any>(
+						hostname + this.parametroServicio.url + '/del/' + this.facturaSeleccionada.id,
+						this.parametroServicio.headers
+					).subscribe((RESPONSE) => {
+
+						if( RESPONSE.error ){
+							alert( RESPONSE.error );
+						}
+
+						if( RESPONSE.msg )
+						{
+							alert( RESPONSE.msg );
+						}
+
+						window.location.href = "/";
+						window.location.reload();
+
+					});
+
+				} // if 2
+				else {
+					window.location.href = "/";
+					window.location.reload();
+				}
+
+			} // if 1 
+			else {
+				window.location.href = "/";
+				window.location.reload();
+			}
+			
+
+		} // anularPedido
+
+
+
+
+
 }

@@ -56,6 +56,7 @@ ngOnInit(): void {
 
 }
 
+
 limpiarBusqueda(){
 this.parametros.buscar = "";
 this.productosEncontrados = [];

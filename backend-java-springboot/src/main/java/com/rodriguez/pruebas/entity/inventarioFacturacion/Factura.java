@@ -69,11 +69,11 @@ public class Factura implements Serializable {
 	@Column( name = "nombre_completo", nullable = false )
 	private String nombreCompleto;
 
-	@Column( name = "fecha_devolucion" )
+	@Column( name = "fecha_devolucion", nullable = true )
 	private Date fechaDevolucion;
 
-	@Column( name = "fecha_anulado" )
-	private Date fechaAnulado;
+	@Column( name = "fecha_anulacion", nullable = true )
+	private Date fechaAnulacion;
 
 
 }

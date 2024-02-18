@@ -255,6 +255,7 @@
 
 
 			<div class="h3 text-nowrap">
+				{{ todoElPedido.ganancia | currency: 'Q. ' || 0 }} Ganancia del pedido<br />
 				{{ todoElPedido.subtotal | currency: 'Q. ' || 0 }} Subtotal<br />
 				{{ todoElPedido.iva | currency: 'Q. ' || 0 }} IVA<br />
 				{{ todoElPedido.total | currency: 'Q. ' || 0 }} Total
