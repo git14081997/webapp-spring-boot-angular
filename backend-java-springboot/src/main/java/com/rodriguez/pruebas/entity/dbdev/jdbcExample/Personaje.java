@@ -26,7 +26,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "PERSONAJE", schema = "DBDEV", catalog = "DBDEV")
+@Table( name = "PERSONAJE")//, schema = "DBDEV", catalog = "DBDEV")
 public class Personaje implements Serializable {
 
 	@Serial

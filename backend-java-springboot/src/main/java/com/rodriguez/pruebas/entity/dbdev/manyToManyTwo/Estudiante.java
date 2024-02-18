@@ -24,7 +24,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "ESTUDIANTE", schema = "DBDEV", catalog = "DBDEV")
+@Table( name = "ESTUDIANTE")//, schema = "DBDEV", catalog = "DBDEV")
 public class Estudiante implements Serializable {
 
 	@Serial
