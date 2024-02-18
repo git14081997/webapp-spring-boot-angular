@@ -11,5 +11,6 @@ providers: [
     provideHttpClient(withFetch()),
     provideRouter(routes),
     provideClientHydration(),
+    provideAnimations(),
     provideAnimations()
 ]};
