@@ -280,3 +280,6 @@ display: block !important;
 	width: max-content !important; 
 	max-width: 54px !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
