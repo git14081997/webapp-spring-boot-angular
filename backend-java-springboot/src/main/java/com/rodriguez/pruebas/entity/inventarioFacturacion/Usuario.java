@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "usuario", schema = "inventario_facturacion", catalog = "inventario_facturacion") // minusculas o mayusculas
+@Table( name = "usuario")//, schema = "inventario_facturacion", catalog = "inventario_facturacion") // minusculas o mayusculas
 public class Usuario implements Serializable {
 
 	@Serial

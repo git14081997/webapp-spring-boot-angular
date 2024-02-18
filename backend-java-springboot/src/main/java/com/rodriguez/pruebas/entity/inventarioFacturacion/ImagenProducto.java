@@ -1,10 +1,8 @@
 
 package com.rodriguez.pruebas.entity.inventarioFacturacion;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +13,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
-import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * Esta clase es una abstracción de la entidad Categoria,
@@ -28,7 +25,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "imagen_producto", schema = "inventario_facturacion", catalog = "inventario_facturacion")
+@Table( name = "imagen_producto")//, schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class ImagenProducto implements Serializable {
 
 /*

@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "factura_detalle", schema = "inventario_facturacion", catalog = "inventario_facturacion")
+@Table( name = "factura_detalle")//, schema = "inventario_facturacion", catalog = "inventario_facturacion")
 public class FacturaDetalle implements Serializable {
 
 	@Serial
