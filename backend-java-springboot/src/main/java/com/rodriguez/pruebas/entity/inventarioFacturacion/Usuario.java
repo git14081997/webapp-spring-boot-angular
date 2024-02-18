@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
 	@Column( name = "nombre_completo", nullable = true, length = 512)
 	private String nombreCompleto;
 
-	@Column( name = "nombre", nullable = false, updatable = false)
+	@Column( name = "nombre", nullable = false, updatable = true )
 	private String nombre;
 
 	@Column( name = "nombre_dos", nullable = true)

@@ -68,9 +68,13 @@ public class UsuarioController {
 	@Autowired
 	private IUsuarioService usuarioService;
 
+	private final String ERROR = "error";
 
+	@Transactional
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public void updateComentarios(@RequestBody Usuario dto){
+	public ResponseEntity<Map<String,Object>> updateComentarios(@RequestBody Usuario dto){
+
+		Map<String,Object> resultado = new HashMap<>();
 
 		String newFullname = "";
 
@@ -118,6 +122,14 @@ public class UsuarioController {
 
 			usuarioDB.setNombreCompleto(newFullname);
 			usuarioRepository.save(usuarioDB);
+
+			resultado.put( usuarioDB.getId().toString() , "actualizado");
+			return new ResponseEntity<>(resultado, HttpStatus.OK );
+		}
+		else
+		{
+			resultado.put(ERROR, "No se encontro el cliente " + dto.getId() );
+			return new ResponseEntity<>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}

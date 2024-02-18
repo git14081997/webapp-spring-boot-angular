@@ -70,18 +70,15 @@ export class UsuariosListComponent implements OnInit {
 
 	constructor() {
 		this.service = new PruebasService;
+
 		this.objetoSeleccionado = {};
 		this.objetoSeleccionado.buscar = "";
-	}
-
-
-	ngOnInit(): void {
 
 		this.opcionesCantidadPorPagina = cantidadPorPagina;
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
-	
 
+		this.parametroServicio = {};
 		this.parametroServicio.url = "/api/usuario";
 		this.parametroServicio.headers = new HttpHeaders({
 			'Content-Type': 'application/json',
@@ -89,7 +86,10 @@ export class UsuariosListComponent implements OnInit {
 			'Authorization': this.getToken()
 		});
 
+	}
 
+
+	ngOnInit(): void {
 		this.getPorPagina();
 	}
 
@@ -190,13 +190,14 @@ export class UsuariosListComponent implements OnInit {
 
 	actualizar(parametros: any) {
 		this.service.put(this.parametroServicio, parametros).subscribe(() => {
-			this.objetoSeleccionado = {};
-			window.location.reload();
+			window.location.href = "/";
 		});
 	}
 
 
 	actualizarSeleccionado(parametros: any) {
+
+		delete this.objetoSeleccionado;
 		this.objetoSeleccionado = parametros;
 		this.crearOrActualizar = 'A';
 
@@ -244,6 +245,7 @@ export class UsuariosListComponent implements OnInit {
 
 
 	limpiarBusqueda() {
+		this.objetoSeleccionado = {};
 		this.objetoSeleccionado.buscar = "";
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
@@ -362,7 +364,10 @@ export class UsuariosListComponent implements OnInit {
 			this.verTablaFacturas = false;
 
 			this.objetoSeleccionado = {};
+
+			window.location.href = "/";
 			window.location.reload();
+
 		});
 	}
 
@@ -381,6 +386,7 @@ export class UsuariosListComponent implements OnInit {
 
 	updateComentario() {
 		this.service.put(this.parametroServicio, this.objetoSeleccionado).subscribe(() => {
+			window.location.href = "/";
 			window.location.reload();
 		});
 	}

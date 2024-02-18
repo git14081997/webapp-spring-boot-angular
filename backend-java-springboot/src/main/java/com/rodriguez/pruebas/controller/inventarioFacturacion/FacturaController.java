@@ -41,7 +41,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
@@ -172,6 +171,7 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 
 
 	@Transactional
+	//@Transactional(rollbackFor = { SQLException.class })
 	@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE )
 	public Integer save(@RequestBody PedidoDto pedidoDto )
 	{
@@ -590,7 +590,7 @@ ORDER BY factura.fecha_emision DESC
 
 
 // cancelar,anular un pedido/factura
-@Transactional( rollbackFor = RuntimeException.class )
+@Transactional( rollbackFor = {RuntimeException.class} )
 @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "del/{facturaid}" )
 public ResponseEntity<Map<String, Object>> anularPedido( @PathVariable Integer facturaid )
 {
