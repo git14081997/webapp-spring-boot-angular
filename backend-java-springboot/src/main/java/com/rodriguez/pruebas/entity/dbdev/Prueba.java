@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "PRUEBA", schema = "DBDEV", catalog = "DBDEV")
+@Table( name = "PRUEBA")//, schema = "DBDEV", catalog = "DBDEV")
 public class Prueba implements Serializable {
 
 	@Serial

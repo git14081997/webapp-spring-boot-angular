@@ -24,13 +24,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( name = "ARTISTA", schema = "DBDEV", catalog = "DBDEV")
+@Table( name = "ARTISTA")//, schema = "DBDEV", catalog = "DBDEV")
 public class Artista implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 193445286905151910L;
 
-    @Id
+	@Id
 	@Column( name = "ID", unique = true )
 	// opcion1
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
