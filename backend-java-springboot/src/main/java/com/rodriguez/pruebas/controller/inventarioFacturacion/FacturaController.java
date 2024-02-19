@@ -94,6 +94,7 @@ public class FacturaController {
 
 
 	private final String ERROR = "error";
+	private final String INF = "inf";
 
 	@Autowired
 	private IServiceFactura serviceFactura;
@@ -589,7 +590,7 @@ public ResponseEntity<Map<String, Object>> anularPedido( @PathVariable Integer f
 
 	resultado = serviceFactura.anularFactura(facturaid);
 
-	int httpStatus = (int) resultado.get("INF");
+	int httpStatus = (int) resultado.get("inf");
 
 	return new ResponseEntity<>( resultado, HttpStatusCode.valueOf( httpStatus ) );
 
