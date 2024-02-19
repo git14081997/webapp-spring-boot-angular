@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -580,15 +581,23 @@ ORDER BY factura.fecha_emision DESC
 
 
 
-// cancelar,anular un pedido/factura
-@Transactional( rollbackFor = {RuntimeException.class} )
-@PostMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "del/{facturaid}" )
+
+@Transactional(
+	rollbackFor = {
+		RuntimeException.class,
+		Exception.class,
+		IllegalArgumentException.class,
+		NoSuchElementException.class
+	}
+)
+@PostMapping(
+	produces = MediaType.APPLICATION_JSON_VALUE,
+	value = "del/{facturaid}"
+)
 public ResponseEntity<Map<String, Object>> anularPedido( @PathVariable Integer facturaid )
 {
 
-	Map<String, Object> resultado = new HashMap<>();
-
-	resultado = serviceFactura.anularFactura(facturaid);
+	Map<String, Object> resultado = serviceFactura.anularFactura(facturaid);
 
 	int httpStatus = (int) resultado.get("inf");
 
