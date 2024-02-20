@@ -42,8 +42,6 @@
 						<tr>
 							<th class="text-nowrap tleft" scope="col">Cliente</th>
 							<th class="text-nowrap" scope="col">Pendiente de pago</th>
-							<th class="text-nowrap" scope="col">ID</th>
-
 						</tr>
 					</thead>
 					<tbody>
@@ -55,10 +53,6 @@
 
 							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">
 								{{ objetoN.pendienteDePago | currency: 'Q. ' }}
-							</td>
-
-							<td class="text-nowrap" (click)="actualizarSeleccionado(objetoN)">
-								{{ objetoN.id }}
 							</td>
 
 						</tr>

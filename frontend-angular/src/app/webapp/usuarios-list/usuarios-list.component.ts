@@ -90,7 +90,7 @@ export class UsuariosListComponent implements OnInit {
 
 
 	ngOnInit(): void {
-		this.getPorPagina();
+		// this.getPorPagina();
 	}
 
 

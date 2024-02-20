@@ -60,14 +60,9 @@ export class ProductoListComponent implements OnInit {
 
 	constructor() {
 		this.service = new PruebasService;
-	}
-
-	ngOnInit(): void {
-
 		this.opcionesCantidadPorPagina = cantidadPorPagina;
 		this.pagina = 0;
 		this.cantidad = this.opcionesCantidadPorPagina[0];
-
 
 		this.parametroServicio.url = "/api/producto";
 		this.parametroServicio.headers = new HttpHeaders({
@@ -78,8 +73,11 @@ export class ProductoListComponent implements OnInit {
 
 		this.enlaceActual = this.parametroServicio.url;
 
+	}
 
-		this.getPorPagina(this.enlaceActual);
+
+	ngOnInit(): void {
+		// this.getPorPagina(this.enlaceActual);
 	}
 
 

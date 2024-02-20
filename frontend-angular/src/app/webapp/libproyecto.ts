@@ -158,6 +158,6 @@ const soloLectura =  (idBoton:string): void => {
 }
 
 
-const cantidadPorPagina:number[] = [1, 10, 50, 100, 150, 200, 250];
+const cantidadPorPagina:number[] = [10, 50, 100, 150, 200, 250];
 
 const moneda = 'Q. ';
