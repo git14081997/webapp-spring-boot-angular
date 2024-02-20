@@ -89,7 +89,7 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 
 	Map<String, Object> resultado = new HashMap<>();
-	Factura pedidoIncorrectoSeraAnulado = null;
+	Factura pedidoIncorrecto = null;
 
 	boolean pedidoAlCredito = false;
 	boolean pedidoEnEfectivo = false;
@@ -98,7 +98,6 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 	BigDecimal totalDelPedido = null;
 
 	final Date fechaAnulacion = new Date();
-
 
 
 	if( facturaid == null )
@@ -118,18 +117,17 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 		return resultado;
 	}
 
-	pedidoIncorrectoSeraAnulado = optionalFactura.get();
 
+	pedidoIncorrecto = optionalFactura.get();
 
-
-	tipoDePago = pedidoIncorrectoSeraAnulado.getTipoPago();
-
+	tipoDePago = pedidoIncorrecto.getTipoPago();
 
 
 	if( tipoDePago.equalsIgnoreCase("C") )
 	{
 		pedidoAlCredito = true;
 	}
+
 
 	if( tipoDePago.equalsIgnoreCase("E") )
 	{
@@ -144,10 +142,8 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 	}
 
 
-
-
 	Optional<Usuario> optionalUsuario = usuarioRepository.findById(
-		pedidoIncorrectoSeraAnulado.getCliente().getId()
+		pedidoIncorrecto.getCliente().getId()
 	);
 
 	if( optionalUsuario.isEmpty() )
@@ -158,17 +154,16 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 	}
 
 
+	Usuario usuarioDB = optionalUsuario.get();
 
+	totalDelPedido = pedidoIncorrecto.getTotal();
 
-	totalDelPedido = pedidoIncorrectoSeraAnulado.getTotal();
-
-
-
-
-
-
-
-
+	String detallesPorAnulacion =
+	"Se anula pedido " + pedidoIncorrecto.getId() + "." +
+	"\nContiene uno o más errores." +
+	"\nFue pedido con tipoPago: '" +
+	pedidoIncorrecto.getTipoPago() +
+	"'" + "\nFue anulado: " + fechaAnulacion.toString() ;
 
 
 
@@ -178,7 +173,7 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 	// arrojando una excepcion !
 
 	List<FacturaDetalle> detallesPorFactura =
-		facturaDetalleRepository.findByFactura( pedidoIncorrectoSeraAnulado );
+		facturaDetalleRepository.findByFactura( pedidoIncorrecto );
 
 	Producto productoDB_N = null;
 
@@ -204,107 +199,28 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 
 
-
-
-
-	// marcando pedido como anulado !
-	pedidoIncorrectoSeraAnulado.setTipoPago("A");
-	pedidoIncorrectoSeraAnulado.setFechaAnulacion( fechaAnulacion );
-	pedidoIncorrectoSeraAnulado = facturaRepository.save(pedidoIncorrectoSeraAnulado);
-	// marcando pedido como anulado !
-
-
-
-
-
-
-
-
-	// actualizar el saldo,
-	// reducir saldo pendiente de pago del cliente
-	if( pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("C") )
+	if( tipoDePago.equalsIgnoreCase("C") )
 	{
-		BigDecimal nuevoSaldo;
-		BigDecimal saldoPendienteDePago;
-
-		Usuario usuarioQueHizoElPedido = pedidoIncorrectoSeraAnulado.getCliente();
-
-		Optional<Usuario> usuarioOptional =
-			usuarioRepository.findById(usuarioQueHizoElPedido.getId());
-
-		if( usuarioOptional.isEmpty() ) {
-			resultado.put(ERROR, "No existe cliente");
-			resultado.put(INF, HttpStatus.INTERNAL_SERVER_ERROR.value());
-			return resultado;
-		}
-
-
-		Usuario usuarioDB = usuarioOptional.get();
-
-		saldoPendienteDePago = usuarioDB.getPendienteDePago();
-
-		nuevoSaldo = saldoPendienteDePago.subtract( totalDelPedido );
-
-		usuarioDB.setPendienteDePago( nuevoSaldo  );
-
-		usuarioDB = usuarioRepository.save( usuarioDB );
-
-
-
-
-		ClienteAbona clienteAbona = new ClienteAbona();
-
-		clienteAbona.setDetalles(
-			"Se anula pedido " + pedidoIncorrectoSeraAnulado.getId()
-			+ " ya que contiene errores."
+		abonarAlCliente(
+			usuarioDB, totalDelPedido,
+			pedidoIncorrecto,
+			fechaAnulacion, detallesPorAnulacion
 		);
-
-		clienteAbona.setFactura( pedidoIncorrectoSeraAnulado );
-
-		clienteAbona.setCliente( usuarioDB );
-
-		clienteAbona.setFecha( fechaAnulacion );
-
-		clienteAbona.setSaldoAnterior( saldoPendienteDePago );
-
-		clienteAbona.setCargos( cero );
-
-		clienteAbona.setAbonos( totalDelPedido );
-
-		clienteAbona.setSaldo( nuevoSaldo );
-
-		clienteAbona = clienteAbonaRepository.save(clienteAbona);
-
-
-	} // pedido al credito
+	}
 
 
 
-
-
-
-
-	// si fue unPedido pagado en efectivo, se debe agregar un gasto por el monto total.
-	if( pedidoIncorrectoSeraAnulado.getTipoPago().equalsIgnoreCase("E") )
+	if( tipoDePago.equalsIgnoreCase("E") )
 	{
-		IngresosEgresos ie = new IngresosEgresos();
-
-		ie.setFecha( fechaAnulacion );
-
-		ie.setDetalle(
-			"Se anula pedido " + pedidoIncorrectoSeraAnulado.getId() + "." +
-			"\nContiene uno o más errores." +
-			"\nFue pedido con tipoPago: '" + pedidoIncorrectoSeraAnulado.getTipoPago() + "'."
+		registrarEgreso(
+			totalDelPedido,
+			fechaAnulacion,
+			detallesPorAnulacion
 		);
+	}
 
-		ie.setEgresos(totalDelPedido);
 
-		ie.setIngresos(cero);
-
-		ie = ingresosEgresosRepository.save(ie);
-
-	} // pedido en Efectivo
-
+	marcarFacturaComoAnulada( pedidoIncorrecto, fechaAnulacion );
 
 
 	resultado.put("msg", "Pedido " + facturaid + " anulado." );
@@ -350,6 +266,7 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 
 
+
 	@Transactional
 	public void agregarAlInventario( Producto producto, Integer nuevasUnidades )
 	{
@@ -383,8 +300,11 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 
 	@Transactional
-	public void abonarAlCliente( Usuario cliente, BigDecimal clientePaga, Factura factura, Date fechaAnulacion )
-	{
+	public void abonarAlCliente(
+		Usuario cliente, BigDecimal clientePaga,
+		Factura factura, Date fecha,
+		String detalles
+	) {
 		BigDecimal saldoAnterior = cliente.getPendienteDePago();
 
 		BigDecimal nuevoSaldo = saldoAnterior.subtract( clientePaga );
@@ -394,33 +314,33 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 		cliente = usuarioRepository.save( cliente );
 
 		registrarAbono(
-			factura,
-			cliente,
-			fechaAnulacion,
-			saldoAnterior,
-			clientePaga
+			factura, cliente, fecha,
+			saldoAnterior, clientePaga, detalles
 		);
-
 	}
 
 
 
-
+// abono normal cuando pagan
+// vs abono cuando se anula
+// agregar parametro detalles
 	@Transactional
 	public void registrarAbono(
 		Factura factura,
 		Usuario cliente,
 		Date fechaAnulacion,
 		BigDecimal saldoAnterior,
-		BigDecimal clientePaga
+		BigDecimal clientePaga,
+		String detalles
 	)
 	{
 		ClienteAbona cargos_y_abonos = new ClienteAbona();
 
-		cargos_y_abonos.setDetalles(
-			"Se anula pedido " + factura.getId()
-			+ "\nContiene errores."
-		);
+		cargos_y_abonos.setDetalles( detalles );
+
+		String detallesPorAnulacion =
+		"Se anula pedido " + factura.getId()
+		+ "\nContiene errores.";
 
 		cargos_y_abonos.setFactura( factura );
 
@@ -473,6 +393,59 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 		cargos_y_abonos.setSaldo( saldoAnterior.add( totalFactura ) );
 
 		clienteAbonaRepository.save( cargos_y_abonos );
+	}
+
+
+
+	@Transactional
+	public void marcarFacturaComoAnulada(Factura factura, Date fechaAnulacion)
+	{
+		factura.setTipoPago("A");
+		factura.setFechaAnulacion( fechaAnulacion );
+		facturaRepository.save(factura);
+	}
+
+
+
+	@Transactional
+	public void registrarEgreso(BigDecimal egreso, Date fecha, String detalles){
+
+		IngresosEgresos ie = new IngresosEgresos();
+		ie.setFecha( fecha );
+
+		ie.setDetalle( detalles );
+
+		/*
+		ie.setDetalle(
+		"Se anula pedido " + pedidoIncorrectoSeraAnulado.getId() + "." +
+		"\nContiene uno o más errores." +
+		"\nFue pedido con tipoPago: '" + pedidoIncorrectoSeraAnulado.getTipoPago() + "'."
+		);
+		*/
+
+		ie.setEgresos(egreso);
+
+		ie.setIngresos(cero);
+
+		ie = ingresosEgresosRepository.save(ie);
+	}
+
+
+
+	@Transactional
+	public void registrarIngreso(BigDecimal ingreso, Date fecha, String detalles){
+
+		IngresosEgresos ie = new IngresosEgresos();
+
+		ie.setFecha( fecha );
+
+		ie.setDetalle( detalles );
+
+		ie.setEgresos(cero);
+
+		ie.setIngresos(ingreso);
+
+		ie = ingresosEgresosRepository.save(ie);
 	}
 
 

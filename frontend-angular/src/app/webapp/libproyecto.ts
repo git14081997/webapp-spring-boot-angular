@@ -87,7 +87,48 @@ const formatoDeFecha = (campoFecha: any): string =>
     diaTxt = "" + dia;
   }
 
-  return diaTxt + " " + getMesLetras(mes) + " " + fechaString.getFullYear() + " " + fechaString.getHours() + ":" + fechaString.getMinutes() + ":" + fechaString.getSeconds();
+
+
+  let horass = fechaString.getHours();
+  let horasTxt = "";
+  if( horass < 10 ){
+    horasTxt = "0" + horass;
+  }
+  else 
+  {
+    horasTxt = horass + "";
+  }
+
+
+
+
+  let minutoss = fechaString.getMinutes();
+  let minutosTxt = "";
+  if( minutoss < 10 ){
+    minutosTxt = "0" + minutoss;
+  }
+  else 
+  {
+    minutosTxt = "" + minutoss;
+  }
+
+
+
+
+  let segundoss = fechaString.getSeconds();
+  let segundosTxt = "";
+  if( segundoss < 10 ){
+    segundosTxt = "0" + segundoss;
+  }
+  else 
+  {
+    segundosTxt = "" + segundoss;
+  }
+
+
+
+  return diaTxt + " " + getMesLetras(mes) + " " + fechaString.getFullYear() + " " 
+    + horasTxt + ":" + minutosTxt + ":" + segundosTxt;
 
 }
 
