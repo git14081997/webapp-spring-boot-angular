@@ -76,13 +76,15 @@ export class FacturaListComponent implements OnInit {
 		this.detallesPorFactura = [];
 		this.getToken = buscarToken;
 
+		let untoken = this.getToken();
+
 		this.parametroServicio = {};
 		this.parametroServicio.url = "/api/factura";
 		this.parametroServicio.headers = new HttpHeaders(
 		{
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
-		'Authorization': this.getToken()
+		'Authorization': untoken
 		}
 		);
 
@@ -141,7 +143,7 @@ export class FacturaListComponent implements OnInit {
 			// this.getPorPagina(this.enlaceActual);
 		//}
 
-		
+
 
 	}
 
