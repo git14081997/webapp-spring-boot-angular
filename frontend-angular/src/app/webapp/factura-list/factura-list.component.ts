@@ -386,5 +386,34 @@ export class FacturaListComponent implements OnInit {
 
 
 
+	paginaSiguiente()
+	{
+		if(this.pagina < (this.paginasDisponibles - 1 ) )
+		{
+			this.pagina++;
+			this.getPorPagina(this.enlaceActual);
+		}
+		else
+		{
+			this.getPorPagina(this.enlaceActual);
+		}
+	}
+
+
+	paginaAnterior()
+	{
+		if( this.pagina > 0 )
+		{
+			this.pagina--;
+			this.getPorPagina(this.enlaceActual);
+		}
+		else
+		{
+			this.pagina = 0;
+			this.getPorPagina(this.enlaceActual);			
+		}
+	}
+	
+
 
 }
