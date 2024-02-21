@@ -26,7 +26,7 @@ export class ClienteabonaListComponent implements OnInit {
 	http = inject(HttpClient);
 	objetoSeleccionado:any = {};
 	objetos: any[] = [];
-	tmp:any;
+
 	@Input() idCliente: string = "";
 	formatoDeFecha = formatoDeFecha;
 
@@ -34,6 +34,7 @@ export class ClienteabonaListComponent implements OnInit {
 	enlaceActual: string = "";
 	paramActual: string = "";
 	opcionesCantidadPorPagina = cantidadPorPagina;
+
 	pagina: number = 0;
 	cantidad: number = this.opcionesCantidadPorPagina[0];
 	paginasDisponibles: number = 0;
@@ -82,6 +83,7 @@ export class ClienteabonaListComponent implements OnInit {
     this.getPorPagina(this.enlaceActual);
   }
 
+	
   getPorPaginaNum(numPagina: number) {
     if (numPagina >= this.paginasDisponibles) {
       numPagina = this.paginasDisponibles - 1;
@@ -98,16 +100,48 @@ export class ClienteabonaListComponent implements OnInit {
     let urlGetPaginado = hostname + urlAlRecurso + "/" + this.pagina + "/" + this.cantidad + this.paramActual;
     this.http.get<any>(urlGetPaginado, this.parametroServicio.headers)
 		.subscribe((RESPONSE: any) => {
-      this.tmp = RESPONSE;
-			this.objetos = this.tmp.content;
-			this.actualizarContadores(this.tmp.totalPages, this.tmp.totalElements);
+			this.objetos = RESPONSE.content;
+			this.actualizarContadores(RESPONSE.totalPages, RESPONSE.totalElements);
     });
   }
+
+
+	paginaSiguiente()
+	{
+		if(this.pagina < (this.paginasDisponibles - 1 ) )
+		{
+			this.pagina++;
+			this.getPorPagina(this.enlaceActual);
+		}
+		else
+		{
+			this.getPorPagina(this.enlaceActual);
+		}
+	}
+
+
+	paginaAnterior()
+	{
+		if( this.pagina > 0 )
+		{
+			this.pagina--;
+			this.getPorPagina(this.enlaceActual);
+		}
+		else
+		{
+			this.pagina = 0;
+			this.getPorPagina(this.enlaceActual);			
+		}
+	}
+
+
 	/* metodos para paginacion */
 
 
 	verDetalle(unObjeto:any){
 		this.objetoSeleccionado = unObjeto;
 	}
+
+
 
 }

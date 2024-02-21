@@ -281,5 +281,9 @@ display: block !important;
 	max-width: 54px !important;
 }
 
+.btn-circulo {
+	border: 1px solid black !important;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

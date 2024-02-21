@@ -100,6 +100,36 @@ export class UsuariosListComponent implements OnInit {
 	}
 
 
+	
+	paginaSiguiente()
+	{
+		if(this.pagina < (this.paginasDisponibles - 1 ) )
+		{
+			this.pagina++;
+			this.getPorPagina();
+		}
+		else
+		{
+			this.getPorPagina();
+		}
+	}
+
+
+	paginaAnterior()
+	{
+		if( this.pagina > 0 )
+		{
+			this.pagina--;
+			this.getPorPagina();
+		}
+		else
+		{
+			this.pagina = 0;
+			this.getPorPagina();			
+		}
+	}
+	
+
 	getPorPagina() {
 		this.service.getPaginado(this.parametroServicio, this.pagina, this.cantidad
 		).subscribe((RESPONSE: any) => {

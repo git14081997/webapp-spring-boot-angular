@@ -38,40 +38,51 @@
 </tbody>
 </table>
 
-<!-- paginacion -->
-<div>
 
-	<div class="col-12 my-2">
-	<div class="container">
-	<div class="row">
-	<div class="col-12 my-2">
-	<label>Cantidad por página</label>
-	<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
-	<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
-	{{ cantidadPorPag }}
-	</option>
-	</select>
-	</div>
-	</div>
-	</div>
-	</div>
-	
-	<div class="col-12 my-2">
-	<div class="container">
-	<span>Páginas</span>
-	<div class="row d-flex flex-wrap align-items-start align-content-start">
-	<div class="col-12 my-2">
-	<span *ngFor="let paginaN of paginasDisponiblesArray">
-	<a class="paginaN" (click)="getPorPaginaNum(paginaN.numPagina)">
-	{{paginaN.numPagina}}
-	</a>
-	</span>
-	</div>
-	</div>
-	</div>
-	</div>
-	
-</div><!-- paginacion -->
+	<!-- general paginacion -->
+	<div>
+
+		<div class="col-12">
+			<label>Cantidad por página</label>
+			<select class="form-select form-select-lg" (change)="setCantidadPorPag()" [(ngModel)]="cantidad">
+				<option *ngFor="let cantidadPorPag of opcionesCantidadPorPagina">
+					{{ cantidadPorPag }}
+				</option>
+			</select>
+		</div>
+
+		<div class="col-12 my-4 text-center h5" >
+			{{ pagina }} de {{ paginasDisponibles - 1 }}
+		</div>
+
+		<div class="col-12 text-center" style="font-size: 27px !important;" >
+			<span (click)="getPorPaginaNum(0)"
+				class="border border-primary p-2 text-center" 
+				style="border-radius: 18px !important;">
+				<i class="bi bi-chevron-bar-left"></i>
+			</span>
+			&nbsp;
+			<span (click)="paginaAnterior()"
+				class="border border-primary p-2 text-center" 
+				style="border-radius: 18px !important;">
+				<i class="bi bi-chevron-left"></i>
+			</span>
+			&nbsp;
+			<span (click)="paginaSiguiente()"
+			 class="border border-primary p-2 text-center" 
+			 style="border-radius: 18px !important;">
+				<i class="bi bi-chevron-right"></i>
+			</span>
+			&nbsp;
+			<span (click)="getPorPaginaNum(( paginasDisponibles - 1 ))"
+			class="border border-primary p-2 text-center" 
+			style="border-radius: 18px !important;">
+			 <i class="bi bi-chevron-bar-right"></i>
+		 </span>
+		</div>
+
+	</div><!-- general paginacion -->
+
 
 </div>
 </div>
