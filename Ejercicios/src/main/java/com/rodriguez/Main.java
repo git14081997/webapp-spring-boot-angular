@@ -7,7 +7,8 @@ public class Main {
 
 		int maximoLinea = 45;
 
-		App.charCodeTable(maximoLinea);
+		// caracteres ascii
+		// App.charCodeTable(maximoLinea);
 
 
 	} // main

@@ -7,7 +7,10 @@ import { formatoDeFecha } from '../libproyecto';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
-import { buscarToken, cantidadPorPagina } from '../libproyecto';
+import { 
+	buscarToken, cantidadPorPagina,
+	deshabilitarBoton
+} from '../libproyecto';
 
 @Component({
   selector: 'app-clienteabona-list',

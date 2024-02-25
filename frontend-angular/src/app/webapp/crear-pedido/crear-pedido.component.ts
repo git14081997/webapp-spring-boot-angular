@@ -8,7 +8,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { hostname } from '../hostname';
 import { IVA } from '../impuestos';
-import { buscarToken } from '../libproyecto';
+import {
+	buscarToken, deshabilitarBoton
+} from '../libproyecto';
 
 @Component({
 selector: 'app-crear-pedido',
@@ -120,20 +122,20 @@ guardarPedido()
 		this.todoElPedido.usuarioId != null 
 	)
 	{
+		
+		deshabilitarBoton("guardarPedidoBtn");
 
 		this.todoElPedido.usuarioId = Number(this.todoElPedido.usuarioId );
 
 		this.actualizarDetallePedido();
 
 		this.service.post(this.parametroServicio,this.todoElPedido).subscribe((facturaN) => {
-				let facturaId = facturaN.id;
-				facturaId = JSON.stringify(facturaId);
-				localStorage.setItem('id', facturaId );
-				window.location.href = '/facturas';
+				//let facturaId = facturaN.id;
+				//facturaId = JSON.stringify(facturaId);
+				//localStorage.setItem('id', facturaId );
+				window.location.href = '/';
 			}
 		);
-
-
 
 	} // verificacion/validacion de los detalles para el pedido 
 
