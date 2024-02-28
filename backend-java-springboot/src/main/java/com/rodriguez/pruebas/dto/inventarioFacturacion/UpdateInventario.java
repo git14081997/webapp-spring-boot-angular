@@ -12,6 +12,8 @@ public class UpdateInventario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer idProducto;
+
 	private Integer entradasProducto;
 
-}
+} // class 
+

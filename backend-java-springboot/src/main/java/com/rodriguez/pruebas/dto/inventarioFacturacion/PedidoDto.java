@@ -29,4 +29,5 @@ public class PedidoDto implements Serializable {
 
 	private List<DetallePedidoDto> detalle;
 
-}
+} // class 
+

@@ -21,4 +21,5 @@ public class DetallePedidoDto implements Serializable {
 	private BigDecimal costoDelSubtotalPorProducto;
 	private BigDecimal gananciaDelSubtotalPorProducto;
 
-}
+} // class 
+
