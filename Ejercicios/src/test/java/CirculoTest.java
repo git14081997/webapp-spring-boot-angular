@@ -1,3 +1,4 @@
+
 import com.rodriguez.Circulo;
 import com.rodriguez.Figura;
 import org.junit.Assert;
@@ -10,7 +11,8 @@ public class CirculoTest {
 	final double pi = 3.1416;
 
 	@Test
-	public void circuloArea(){
+	public void circuloArea()
+	{
 
 		Figura circulo1 = new Circulo(radio);
 
@@ -21,8 +23,10 @@ public class CirculoTest {
 	} // test case N
 
 
+
 	@Test
-	public void circuloPerimetro(){
+	public void circuloPerimetro()
+	{
 
 		Figura circulo1 = new Circulo(radio);
 

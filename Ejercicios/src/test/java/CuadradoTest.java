@@ -4,10 +4,12 @@ import com.rodriguez.Figura;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CuadradoTest {
+public class CuadradoTest
+{
 
 	@Test
-	public void cuadradoArea(){
+	public void cuadradoArea()
+	{
 
 		final double sizeLado = 10.00;
 
@@ -20,8 +22,10 @@ public class CuadradoTest {
 	} // test case N
 
 
+
 	@Test
-	public void cuadradoPerimetro(){
+	public void cuadradoPerimetro()
+	{
 
 		final double sizeLado = 10.00;
 

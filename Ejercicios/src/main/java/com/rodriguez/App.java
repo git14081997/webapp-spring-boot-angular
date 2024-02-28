@@ -10,7 +10,8 @@ public class App {
 	public static final char DELIMITADOR = '-';
 	public static final int SIZE_LINEA = 45;
 
-	public static void readInputFromCommandLine(){
+	public static void readInputFromCommandLine()
+	{
 		System.out.println("Como te llamas ?");
 
 		Scanner scanner = new Scanner(System.in);
@@ -21,7 +22,8 @@ public class App {
 	}
 
 
-	public String invertirString(String mensaje){
+	public String invertirString(String mensaje)
+	{
 
 		char[] mensajeChar = mensaje.toCharArray();
 
@@ -29,7 +31,8 @@ public class App {
 
 		StringBuilder resultado0 = new StringBuilder();
 
-		for(int i = max; i > -1; i-- ){
+		for(int i = max; i > -1; i-- )
+		{
 			resultado0.append( mensajeChar[i] );
 		}
 
@@ -40,54 +43,66 @@ public class App {
 
 
 
-	public static void showLine( int max, char delimitador ){
-		if(max > 0 && max < 256 ){
+	public static void showLine( int max, char delimitador )
+	{
+		if(max > 0 && max < 256 )
+		{
 			int maxLinea = 0;
-			for( maxLinea = 0; maxLinea < max; maxLinea++ ){
+			for( maxLinea = 0; maxLinea < max; maxLinea++ )
+			{
 				System.out.print( delimitador );
 			}
 			System.out.print("\n");
 		}
 	}
 
-	public static void showLine( int max ){
+
+	public static void showLine( int max )
+	{
 		showLine(max, DELIMITADOR);
 	}
 
 
-	public static void showLine(){
+	public static void showLine()
+	{
 		showLine( SIZE_LINEA, DELIMITADOR);
 	}
 
 
 
-	public static void charCodeTable(int sizeMaxLinea){
+	public static void charCodeTable(int sizeMaxLinea)
+	{
 		charCodeTable(sizeMaxLinea, DELIMITADOR);
 	}
 
 
-	public static void charCodeTable(){
+	public static void charCodeTable()
+	{
 		charCodeTable(SIZE_LINEA, DELIMITADOR);
 	}
 
 
 
 
-	public static void charCodeTable(int sizeMaxLinea, char delimitador){
+	public static void charCodeTable(int sizeMaxLinea, char delimitador)
+	{
 
 		showLine(sizeMaxLinea, delimitador);
 
 		int contadorMaxLinea = 0;  // overflowNone
 
-		for(int i = 32; i < 126; i++ ){
+		for(int i = 32; i < 126; i++ )
+		{
 
 			// overflowNone
 			contadorMaxLinea++;
-			if(contadorMaxLinea == (sizeMaxLinea - 1) ){
+			if(contadorMaxLinea == (sizeMaxLinea - 1) )
+			{
 				System.out.print("\n");
 				contadorMaxLinea = 1;
 			}
-			if( contadorMaxLinea == 1){
+			if( contadorMaxLinea == 1)
+			{
 				System.out.print(" ");
 			}
 
@@ -105,16 +120,20 @@ public class App {
 	}
 
 
-	public static void verArray(int[] array){
+	public static void verArray(int[] array)
+	{
 		int max = array.length;
-		for (int j : array) {
+		for (int j : array)
+		{
 			System.out.print(" " + j);
 		}
 		System.out.print("\n");
 	}
 
 
-	public static void numeroMasRepetido() {
+
+	public static void numeroMasRepetido()
+	{
 		System.out.println();
 		System.out.println("""
 		Dado un array de numeros,
@@ -140,8 +159,10 @@ public class App {
 
 		numerosDiferentes.add( NUMEROS[0] );
 
-		for( int posActual = 0; posActual < (max - 1); posActual++ ){
-			if( NUMEROS[posActual] != NUMEROS[posActual + 1] ){
+		for( int posActual = 0; posActual < (max - 1); posActual++ )
+		{
+			if( NUMEROS[posActual] != NUMEROS[posActual + 1] )
+			{
 				numerosDiferentes.add( NUMEROS[posActual + 1] );
 			}
 		}
@@ -153,10 +174,13 @@ public class App {
 		maxNumDiff = numerosDiferentes.size();
 		detalle = new int[maxNumDiff];
 
-		for( int i = 0; i < maxNumDiff; i++ ){
+		for( int i = 0; i < maxNumDiff; i++ )
+		{
 			vecesRepetido = 0;
-			for(int j = 0; j < max; j++ ){
-				if( numerosDiferentes.get(i) == NUMEROS[j] ){
+			for(int j = 0; j < max; j++ )
+			{
+				if( numerosDiferentes.get(i) == NUMEROS[j] )
+				{
 					vecesRepetido++;
 					detalle[i] = vecesRepetido;
 				}
@@ -168,8 +192,10 @@ public class App {
 		verArray(detalle);
 
 		maxTemp = detalle[0];
-		for (int i = 0; i < maxNumDiff; i++) {
-			if( detalle[i] > maxTemp  ){
+		for (int i = 0; i < maxNumDiff; i++)
+		{
+			if( detalle[i] > maxTemp  )
+			{
 				IndiceMaxRepetido = i;
 			}
 		}
@@ -181,21 +207,26 @@ public class App {
 		System.out.println("Resultado esperado:\n");
 		System.out.println("El número: " + numerosDiferentes.get(IndiceMaxRepetido) );
 
-		if( detalle[IndiceMaxRepetido] == 1 ){
+		if( detalle[IndiceMaxRepetido] == 1 )
+		{
 			System.out.println("Se repite: " + detalle[IndiceMaxRepetido] + " vez");
 		}
-		else if ( detalle[IndiceMaxRepetido] > 1 ){
+		else if ( detalle[IndiceMaxRepetido] > 1 )
+		{
 			System.out.println("Se repite: " + detalle[IndiceMaxRepetido] + " veces");
 		}
 
 		System.out.println("=========");
 		System.out.println("\nDetalle:\n");
-		for (int i = 0; i < maxNumDiff; i++){
+		for (int i = 0; i < maxNumDiff; i++)
+		{
 			System.out.println("El número: " + numerosDiferentes.get(i) );
-			if( detalle[i] == 1 ){
+			if( detalle[i] == 1 )
+			{
 				System.out.println("Se repite: " + detalle[i] + " vez");
 			}
-			else if ( detalle[i] > 1 ){
+			else if ( detalle[i] > 1 )
+			{
 				System.out.println("Se repite: " + detalle[i] + " veces");
 			}
 			System.out.print("\n");
