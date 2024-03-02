@@ -1,0 +1,14 @@
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/bin/Debug/net7.0/dotnet-new-console
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/bin/Debug/net7.0/dotnet-new-console.deps.json
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/bin/Debug/net7.0/dotnet-new-console.runtimeconfig.json
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/bin/Debug/net7.0/dotnet-new-console.dll
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/bin/Debug/net7.0/dotnet-new-console.pdb
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.GeneratedMSBuildEditorConfig.editorconfig
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.AssemblyInfoInputs.cache
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.AssemblyInfo.cs
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.csproj.CoreCompileInputs.cache
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.dll
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/refint/dotnet-new-console.dll
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.pdb
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.genruntimeconfig.cache
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/ref/dotnet-new-console.dll
