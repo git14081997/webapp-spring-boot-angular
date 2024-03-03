@@ -10,12 +10,18 @@ import java.util.List;
 
 @Data
 public class LibroDto implements Serializable {
+
 	@Serial
 	private static final long serialVersionUID = 1L;
+
 	private Integer id;
+
 	private String titulo;
+
 	private List<Escritor> escritorList = new ArrayList<>();
+
 	public LibroDto(String titulo) {
 		this.titulo = titulo;
 	}
+
 }

@@ -1,4 +1,5 @@
 
+// ...........................................................................
 package com.rodriguez.pruebas.controller.dbdev.manyToMany;
 
 import com.rodriguez.pruebas.dto.dbdev.manyToMany.LibroDto;
@@ -25,11 +26,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
- * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
+ * Esta clase contiene los endpoint para
+ * consultar,crear o modificar recursos.
  *
  * @author Franklin Rodriguez
  * @version 0.0.1
@@ -43,7 +44,8 @@ import java.util.Optional;
 @RequestMapping("/api/libro")
 public class LibroController {
 
-	private static final Logger log = LoggerFactory.getLogger(LibroController.class);
+	private static final Logger LOGGER =
+		LoggerFactory.getLogger(LibroController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
@@ -85,7 +87,8 @@ public class LibroController {
 	}
 
 	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 * Retorna un listado ordenado por id
+	 * de manera ascendente de los objetos por pagina.
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.

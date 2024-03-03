@@ -12,17 +12,18 @@ import org.springframework.stereotype.Service;
  * Esta clase contiene la lógica de negocio.
  * Restricciones o controles en base a la necesidad del cliente.
  *
- * @Author Franklin Rodriguez
+ * @author Franklin Rodriguez
  * @version 0.0.1
  */
 @Service("CancionService")
 @AllArgsConstructor
 public class CancionService {
 
-	private static final Logger log = LoggerFactory.getLogger(CancionService.class);
+	private static final Logger log =
+		LoggerFactory.getLogger(CancionService.class);
 
 	@Autowired
-    private CancionRepository cancionRepository;
+	private CancionRepository cancionRepository;
 
 
 }

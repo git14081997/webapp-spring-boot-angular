@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class ArtistaDto implements Serializable {
 
 	@Serial
-	private static final long serialVersionUID = 193445286905151910L;
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 

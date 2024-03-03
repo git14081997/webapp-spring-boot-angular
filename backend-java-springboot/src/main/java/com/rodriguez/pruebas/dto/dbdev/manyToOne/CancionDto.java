@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class CancionDto implements Serializable {
 
 	@Serial
-	private static final long serialVersionUID = -8522389366852882686L;
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 

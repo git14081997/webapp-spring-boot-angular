@@ -1,4 +1,6 @@
 
+using ...
+
 namespace nombreProyecto.Controllers
 {
 	[Route("api/[controller]")]
@@ -6,8 +8,7 @@ namespace nombreProyecto.Controllers
 	public class UsuarioController : ControllerBase
 	{
 
-		private UsuarioService _usuarioService;
-
+		private readonly UsuarioService _usuarioService;
 
 		public UsuarioController(UsuarioService usuarioService)
 		{

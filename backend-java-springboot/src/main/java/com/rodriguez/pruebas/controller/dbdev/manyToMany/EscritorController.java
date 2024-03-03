@@ -1,4 +1,5 @@
 
+// ...........................................................................
 package com.rodriguez.pruebas.controller.dbdev.manyToMany;
 
 import com.rodriguez.pruebas.dto.dbdev.manyToMany.EscritorDto;
@@ -28,7 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 /**
- * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
+ * Esta clase contiene los endpoint para
+ * consultar,crear o modificar recursos.
  *
  * @author Franklin Rodriguez
  * @version 0.0.1
@@ -41,7 +43,8 @@ import java.util.Optional;
 @RequestMapping("/api/escritor")
 public class EscritorController {
 
-	private static final Logger log = LoggerFactory.getLogger(EscritorController.class);
+	private static final Logger LOGGER =
+		LoggerFactory.getLogger(EscritorController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
@@ -58,7 +61,10 @@ public class EscritorController {
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
 	public Integer save(@RequestBody EscritorDto escritorDto ){
-		Escritor escritor = MODEL_MAPPER.map(escritorDto,Escritor.class);
+		Escritor escritor = MODEL_MAPPER.map(
+			escritorDto,
+			Escritor.class
+		);
 		escritor = escritorRepository.save(escritor);
 		return escritor.getId();
 	}
@@ -69,7 +75,8 @@ public class EscritorController {
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		value = "{id}"
 	) public Escritor findById(@PathVariable Integer id){
-		Optional<Escritor> resultado = escritorRepository.findById(id);
+		Optional<Escritor> resultado =
+			escritorRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
@@ -83,7 +90,8 @@ public class EscritorController {
 	}
 
 	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 * Retorna un listado ordenado por id
+	 * de manera ascendente de los objetos por pagina.
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.

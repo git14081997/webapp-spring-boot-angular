@@ -23,7 +23,8 @@ import org.springframework.stereotype.Service;
 public class ArtistaService implements IArtistaService {
 
 
-	private static final Logger log = LoggerFactory.getLogger(ArtistaService.class);
+	private static final Logger log =
+		LoggerFactory.getLogger(ArtistaService.class);
 
 
 	@Autowired
@@ -35,7 +36,9 @@ public class ArtistaService implements IArtistaService {
 
 	@Override
 	public Integer escribirCanciones(String nombre, Artista artista) {
+
 		Cancion newCancion = new Cancion();
+
 		newCancion.setNombre(nombre);
 		newCancion.setArtista(artista);
 
@@ -43,6 +46,5 @@ public class ArtistaService implements IArtistaService {
 
 		return newCancion.getId();
 	}
-
 
 }

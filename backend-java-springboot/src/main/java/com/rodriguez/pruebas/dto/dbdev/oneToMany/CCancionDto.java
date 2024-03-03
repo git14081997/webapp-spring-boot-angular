@@ -7,9 +7,14 @@ import java.io.Serializable;
 
 @Data
 public class CCancionDto implements Serializable {
+
 	@Serial
-	private static final long serialVersionUID = -8522389366852882686L;
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
+
 	private String nombre;
+
 	private Integer fkAartistaId;
+
 }

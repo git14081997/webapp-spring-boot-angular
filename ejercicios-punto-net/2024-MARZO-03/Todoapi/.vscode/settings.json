@@ -1,0 +1,18 @@
+{
+	"editor.detectIndentation": false,
+	"editor.guides.bracketPairs": true,
+	"editor.insertSpaces": false,
+	"editor.autoClosingBrackets": "always",
+	"editor.codeActionsOnSave": {
+
+	},
+	"editor.comments.insertSpace": false,
+	"editor.defaultColorDecorators": true,
+	"editor.dragAndDrop": false,
+	"editor.dropIntoEditor.enabled": false,
+	"editor.fontFamily": "'Ubuntu mono', monospace",
+	"editor.fontSize": 18,
+	"editor.fontWeight": "normal",
+	"editor.minimap.enabled": true,
+	"editor.minimap.maxColumn": 79
+}
