@@ -1,4 +1,5 @@
 
+// ...........................................................................
 package com.rodriguez.pruebas.controller.dbdev.manyToOne;
 
 import com.rodriguez.pruebas.dto.dbdev.manyToOne.ArtistaDto;
@@ -28,7 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 /**
- * Esta clase contiene los endpoint para consultar, crear o modificar recursos.
+ * Esta clase contiene los endpoint
+ * para consultar, crear o modificar recursos.
  *
  * @author Franklin Rodriguez
  * @version 0.0.1
@@ -42,7 +44,8 @@ import java.util.Optional;
 @RequestMapping("api/artista")
 public class ArtistaController {
 
-	private static final Logger log = LoggerFactory.getLogger(ArtistaController.class);
+	private static final Logger LOGGER =
+		LoggerFactory.getLogger(ArtistaController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
@@ -60,23 +63,30 @@ public class ArtistaController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Integer save(@RequestBody ArtistaDto artistaDto )
 	{
-		Artista artista = MODEL_MAPPER.map(artistaDto,Artista.class);
+		Artista artista =
+			MODEL_MAPPER.map(artistaDto,Artista.class);
 		artista = artistaRepository.save(artista);
 		return artista.getId();
 	}
 
 
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	@GetMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{id}"
+	)
 	public Artista findById(@PathVariable Integer id)
 	{
-		Optional<Artista> resultado = artistaRepository.findById(id);
+		Optional<Artista> resultado =
+			artistaRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
 
 	/*
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
 	public List<Artista> findAll()
 	{
 		return artistaService.findAll();
@@ -86,7 +96,8 @@ public class ArtistaController {
 
 
 	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 * Retorna un listado ordenado por id
+	 * de manera ascendente de los objetos por pagina.
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.
@@ -96,7 +107,10 @@ public class ArtistaController {
 	consumes = MediaType.APPLICATION_JSON_VALUE,
 	produces = MediaType.APPLICATION_JSON_VALUE,
 	value = "{pagina}/{cantidad}"
-	) public Page<Artista> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad)
+	) public Page<Artista> findAll(
+		@PathVariable Integer pagina,
+		@PathVariable Integer cantidad
+	)
 	{
 		Sort sort = Sort.by(Sort.Direction.ASC,"id");
 		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
@@ -105,7 +119,10 @@ public class ArtistaController {
 
 
 
-	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	@DeleteMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{id}"
+	)
 	public void delete(@PathVariable Integer id)
 	{
 		artistaRepository.deleteById(id);

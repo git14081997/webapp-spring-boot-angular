@@ -1,4 +1,5 @@
 
+// ...........................................................................
 package com.rodriguez.pruebas.controller.dbdev.manyToOne;
 
 import com.rodriguez.pruebas.dto.dbdev.manyToOne.CancionDto;
@@ -23,13 +24,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Optional;
 
 /**
- * Esta clase contiene los endpoint para consultar,crear o modificar recursos.
+ * Esta clase contiene los endpoint
+ * para consultar,crear o modificar recursos.
  *
  * @author Franklin Rodriguez
  * @version 0.0.1
@@ -43,12 +43,13 @@ import java.util.Optional;
 @RequestMapping("/api/cancion")
 public class CancionController {
 
-	private static final Logger log = LoggerFactory.getLogger(CancionController.class);
+	private static final Logger LOGGER =
+		LoggerFactory.getLogger(CancionController.class);
 
 	private static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	//@Autowired
-    //private CancionService cancionService;
+	//private CancionService cancionService;
 
 	@Autowired
 	private CancionRepository cancionRepository;
@@ -59,7 +60,10 @@ public class CancionController {
 
 
 
-	@PostMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(
+		consumes = MediaType.ALL_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
 	public Integer save(@RequestBody CancionDto cancionDto )
 	{
 		Cancion cancion = MODEL_MAPPER.map(cancionDto,Cancion.class);
@@ -69,16 +73,24 @@ public class CancionController {
 
 
 
-	@GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	@GetMapping(
+		consumes = MediaType.ALL_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{id}"
+	)
 	public Cancion findById(@PathVariable Integer id)
 	{
-		Optional<Cancion> resultado = cancionRepository.findById(id);
+		Optional<Cancion> resultado =
+			cancionRepository.findById(id);
 		return resultado.orElse(null);
 	}
 
 
 	/*
-	@GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(
+		consumes = MediaType.ALL_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
 	public List<Cancion> findAll()
 	{
 	        return cancionService.findAll();
@@ -87,7 +99,11 @@ public class CancionController {
 
 
 
-	@DeleteMapping(	consumes = MediaType.ALL_VALUE,	produces = MediaType.APPLICATION_JSON_VALUE, value = "{id}")
+	@DeleteMapping(
+		consumes = MediaType.ALL_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{id}"
+	)
 	public void delete(@PathVariable Integer id)
 	{
 		cancionRepository.deleteById(id);
@@ -96,18 +112,26 @@ public class CancionController {
 
 
 	/**
-	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 * Retorna un listado ordenado por id de manera ascendente
+	 * de los objetos por pagina.
 	 *
 	 * @param pagina consultada.
 	 * @param cantidad maxima por pagina.
 	 * @return Page<Cancion> resultados encontrados.
 	 */
-	@GetMapping( consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value = "{pagina}/{cantidad}")
-	public Page<Cancion> findAll(@PathVariable Integer pagina, @PathVariable Integer cantidad)
+	@GetMapping(
+		consumes = MediaType.ALL_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{pagina}/{cantidad}"
+	)
+	public Page<Cancion> findAll(
+		@PathVariable Integer pagina,
+		@PathVariable Integer cantidad
+	)
 	{
-		Sort sort = Sort.by(Sort.Direction.ASC,"id");
-		Pageable pageable = PageRequest.of(pagina,cantidad,sort);
-		return cancionRepository.findAll(pageable);
+		Sort sort = Sort.by( Sort.Direction.ASC,"id" );
+		Pageable pageable = PageRequest.of( pagina, cantidad, sort);
+		return cancionRepository.findAll( pageable );
 	}
 
 
