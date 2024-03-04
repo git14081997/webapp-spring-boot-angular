@@ -15,18 +15,28 @@ public interface IServiceFactura {
 public Map<String, Object> anularFactura( Integer facturaid );
 
 
-public Inventario buscarUltimoRegistroDelInventarioDelProducto(Integer productoId);
+public Inventario buscarUltimoRegistroDelInventarioDelProducto(
+	Integer productoId
+);
 
 
-public void agregarExistencias( Producto productoDB, int nuevasUnidades );
+public void agregarExistencias(
+	Producto productoDB,
+	int nuevasUnidades
+);
 
 
-public void agregarAlInventario( Producto producto, Integer nuevasUnidades );
+public void agregarAlInventario(
+	Producto producto,
+	Integer nuevasUnidades
+);
 
 
 public void abonarAlCliente(
-	Usuario cliente, BigDecimal clientePaga,
-	Factura factura, Date fecha,
+	Usuario cliente,
+	BigDecimal clientePaga,
+	Factura factura,
+	Date fecha,
 	String detalles
 );
 
@@ -50,10 +60,23 @@ public void registrarCargo(
 );
 
 
-public void marcarFacturaComoAnulada(Factura factura, Date fechaAnulacion);
+public void marcarFacturaComoAnulada(
+	Factura factura,
+	Date fechaAnulacion
+);
 
 
-public void registrarIngreso(BigDecimal egreso, Date fecha, String detalles);
+public void registrarIngreso(
+	BigDecimal egreso,
+	Date fecha,
+	String detalles
+);
+
+
+public Map<String, Object> resumen();
+
+
+
 
 
 }

@@ -514,22 +514,35 @@ ORDER BY factura.fecha_emision DESC
 	private BigDecimal getUltimoRegistroSaldoActual( Integer usuarioId )
 	{
 
-		Sort sort = Sort.by(Sort.Direction.DESC ,"fecha");
-		Pageable pageableCargosAbonosCliente = PageRequest.of(0,1,sort);
+		Sort sort = Sort.by(
+			Sort.Direction.DESC ,
+		"fecha"
+		);
+		Pageable pageableCargosAbonosCliente =
+			PageRequest.of(0,1,sort);
 
-		Optional<Usuario> optionalUsuario = usuarioRepository.findById(usuarioId);
+		Optional<Usuario> optionalUsuario =
+			usuarioRepository.findById(usuarioId);
 
-		if(optionalUsuario.isEmpty()){
-			throw new RuntimeException("Usuario con ID no existe para guardar factura.");
+		if(optionalUsuario.isEmpty())
+		{
+			throw new RuntimeException(
+			"Usuario con ID no existe para guardar factura."
+			);
 		}
 
 		Usuario clienteCompro = optionalUsuario.get();
-		Page<ClienteAbona> cargos_abonos_del_cliente = clienteAbonaRepository.findByCliente(
-				pageableCargosAbonosCliente, clienteCompro
-		);
+		Page<ClienteAbona> cargos_abonos_del_cliente =
+			clienteAbonaRepository.findByCliente(
+				pageableCargosAbonosCliente,
+				clienteCompro
+			);
 
-		List<ClienteAbona> listaDeCargosAbonosCliente = cargos_abonos_del_cliente.getContent();
-		ClienteAbona ultimoRegistroCargosAbonos = listaDeCargosAbonosCliente.get(0);
+		List<ClienteAbona> listaDeCargosAbonosCliente =
+			cargos_abonos_del_cliente.getContent();
+
+		ClienteAbona ultimoRegistroCargosAbonos =
+			listaDeCargosAbonosCliente.get(0);
 
 		return ultimoRegistroCargosAbonos.getSaldo();
 	}
@@ -660,6 +673,27 @@ public ResponseEntity<Map<String, Object>> anularPedido(
 
 
 
+
+
+
+
+	@GetMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "resumen"
+	)
+	public ResponseEntity<Map<String, Object>> resumenDelMes()
+	{
+		Map<String, Object> resultado =
+			serviceFactura.resumen();
+
+		int httpStatus = (int) resultado.get("inf");
+
+		return new ResponseEntity<>(
+			resultado,
+			HttpStatusCode.valueOf( httpStatus )
+		);
+
+	} // anularPedido
 
 
 

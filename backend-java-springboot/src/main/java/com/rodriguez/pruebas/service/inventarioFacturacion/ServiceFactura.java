@@ -450,4 +450,29 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 
 
+	@Override
+	public Map<String, Object> resumen() {
+
+		Map<String, Object> resultado = new HashMap<>();
+
+		resultado.put("", "");
+
+		String sql = """
+		select sum(ganancia), sum(costo_total) from factura where
+		lower(tipo_pago) = 'e' 
+		and fecha_emision between '2024-02-01' and '2024-02-29'
+		""";
+
+		List<Inventario> registrosDelInventario = jdbcTemplate.query(
+		sql, new BeanPropertyRowMapper<>(Inventario.class), productoId
+		);
+
+		// return registrosDelInventario;
+
+
+		return resultado;
+	}
+
+
+
 } // class
