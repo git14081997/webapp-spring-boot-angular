@@ -28,7 +28,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +43,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -454,9 +452,33 @@ facturaRepository.save(pedidoAnuladoPorDevolucion);
 	 *
 	 * @return List<Factura> resultados encontrados.
 	 */
-	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE, value = "nombre/{nombreusuario}" )
-	public List<Factura> findByCliente( @PathVariable String nombreusuario )
+	@GetMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "nombre/{nombreusuario}"
+	)
+	public List<Factura> findByCliente(
+		@PathVariable String nombreusuario
+	)
 	{
+
+		nombreusuario = nombreusuario.toLowerCase();
+
+String sqlFacturasEnVisto = """
+SELECT factura.* FROM factura WHERE
+ lower(factura.tipo_pago) = 'v'
+ORDER BY factura.fecha_emision DESC
+""";
+
+if( nombreusuario.equalsIgnoreCase("vvisto") )
+{
+	List<Factura> facturasDelCliente = jdbcTemplate.query(
+		sqlFacturasEnVisto,
+		new BeanPropertyRowMapper<>(Factura.class)
+	);
+	return facturasDelCliente;
+}
+
+
 
 String sql = """
 SELECT factura.* FROM factura left join usuario
@@ -468,7 +490,8 @@ WHERE
  lower(usuario.nombre_completo) LIKE ?
 ORDER BY factura.fecha_emision DESC
 """;
-		nombreusuario = nombreusuario.toLowerCase();
+
+
 
 		String patronDeBusqueda = "%" + nombreusuario + "%";
 
@@ -521,22 +544,34 @@ ORDER BY factura.fecha_emision DESC
 
 
 	@Transactional
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "yes/{facturaid}")
-	public void confirmacionPedidoEnVisto(@PathVariable Integer facturaid) {
+	@PostMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "yes/{facturaid}"
+	)
+	public void confirmacionPedidoEnVisto(
+		@PathVariable Integer facturaid) {
 
 		BigDecimal cero = new BigDecimal(0);
 
-		Factura facturaConfirmada = facturaRepository.getReferenceById(facturaid);
+		Factura facturaConfirmada =
+			facturaRepository.getReferenceById(facturaid);
 
 		if( facturaConfirmada.getTipoPago().equals("V") ){
 
 
-		List<FacturaDetalle> detallesFacturaConfirmada = facturaDetalleRepository.findByFactura(facturaConfirmada);
+		List<FacturaDetalle> detallesFacturaConfirmada =
+			facturaDetalleRepository.findByFactura(
+			facturaConfirmada
+		);
 
-		Usuario cliente = usuarioRepository.getReferenceById(facturaConfirmada.getCliente().getId());
+		Usuario cliente =
+			usuarioRepository.getReferenceById(
+				facturaConfirmada.getCliente().getId()
+			);
 
 		BigDecimal saldoPendiente = cliente.getPendienteDePago();
-		BigDecimal nuevoSaldoPendiente = saldoPendiente.add( facturaConfirmada.getTotal() );
+		BigDecimal nuevoSaldoPendiente =
+			saldoPendiente.add( facturaConfirmada.getTotal() );
 		cliente.setPendienteDePago( nuevoSaldoPendiente );
 		usuarioRepository.save(cliente);
 
@@ -550,12 +585,22 @@ ORDER BY factura.fecha_emision DESC
 		cargosAbonosCliente.setCliente(cliente);
 		cargosAbonosCliente.setCargos(facturaConfirmada.getTotal());
 
-		BigDecimal saldoAnterior = getUltimoRegistroSaldoActual( facturaConfirmada.getCliente().getId() );
-		BigDecimal nuevoSaldoActual = saldoAnterior.add( facturaConfirmada.getTotal() );
+		BigDecimal saldoAnterior =
+			getUltimoRegistroSaldoActual(
+				facturaConfirmada.getCliente().getId()
+			);
+
+		BigDecimal nuevoSaldoActual =
+			saldoAnterior.add( facturaConfirmada.getTotal()
+		);
 
 		cargosAbonosCliente.setSaldoAnterior(saldoAnterior);
 		cargosAbonosCliente.setSaldo(nuevoSaldoActual);
-		cargosAbonosCliente.setDetalles("PEDIDO # " + facturaConfirmada.getId() );
+
+		cargosAbonosCliente.setDetalles(
+			"PEDIDO # " + facturaConfirmada.getId()
+		);
+
 		cargosAbonosCliente.setFactura(facturaConfirmada);
 		cargosAbonosCliente.setAbonos(cero);
 		clienteAbonaRepository.save(cargosAbonosCliente);
@@ -594,14 +639,20 @@ ORDER BY factura.fecha_emision DESC
 	produces = MediaType.APPLICATION_JSON_VALUE,
 	value = "del/{facturaid}"
 )
-public ResponseEntity<Map<String, Object>> anularPedido( @PathVariable Integer facturaid )
+public ResponseEntity<Map<String, Object>> anularPedido(
+	@PathVariable Integer facturaid
+)
 {
 
-	Map<String, Object> resultado = serviceFactura.anularFactura(facturaid);
+	Map<String, Object> resultado =
+		serviceFactura.anularFactura(facturaid);
 
 	int httpStatus = (int) resultado.get("inf");
 
-	return new ResponseEntity<>( resultado, HttpStatusCode.valueOf( httpStatus ) );
+	return new ResponseEntity<>(
+		resultado,
+		HttpStatusCode.valueOf( httpStatus )
+	);
 
 } // anularPedido
 
