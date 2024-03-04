@@ -12,3 +12,4 @@
 /Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.pdb
 /Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.genruntimeconfig.cache
 /Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/ref/dotnet-new-console.dll
+/Users/franklin/all/repos/fullstack/ejercicios-punto-net/dotnet-new-console/obj/Debug/net7.0/dotnet-new-console.sourcelink.json

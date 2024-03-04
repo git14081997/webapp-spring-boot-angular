@@ -1,4 +1,1 @@
-#!/bin/bash
-dotnet build
-dotnet run
-exit 0;
+/Users/franklin/all/repos/fullstack/shellscript/punto-net/up-webapi-punto-net.sh
