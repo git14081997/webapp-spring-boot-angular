@@ -455,8 +455,9 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 		Map<String, Object> resultado = new HashMap<>();
 
-		resultado.put("", "");
+		resultado.put("info", "en construcción ...");
 
+		/*
 		String sql = """
 		select sum(ganancia), sum(costo_total) from factura where
 		lower(tipo_pago) = 'e' 
@@ -466,6 +467,8 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 		List<Inventario> registrosDelInventario = jdbcTemplate.query(
 		sql, new BeanPropertyRowMapper<>(Inventario.class), productoId
 		);
+
+		 */
 
 		// return registrosDelInventario;
 
