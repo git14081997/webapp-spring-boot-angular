@@ -22,9 +22,17 @@
 	
 	<div class="col-12 my-2">
 			<button class="btn btn-dark btn-lg btn-100" (click)="consultarIE()">
-				Consultar
+				Consultar Ingresos y Egresos
 			</button>
 	</div>
+
+
+	<div class="col-12 my-2">
+		<button class="btn btn-dark btn-lg btn-100" (click)="consultarGanancias()">
+			Ver Ganancias por mes
+		</button>
+	</div>
+
 
 	<div class="col-12 my-2">
 		<button class="btn btn-dark btn-lg btn-100" (click)="verVentanaAgregarGasto()">
@@ -129,6 +137,39 @@
 </div>
 <!-- HISTORIAL-POR-ANIO-MES -->
 
+
+<!-- HISTORIAL-GANANCIA-POR-MES -->
+<div class="col-12 my-4" *ngIf="verHistoricoGanancias" >
+	<div class="table-responsive">
+		<table class="table table-striped table-lg table-borderless">
+			<thead>
+				<tr>
+					<th scope="col" class="text-nowrap">Mes</th>
+					<th scope="col" class="text-nowrap">Ganancias</th>
+					<th scope="col" class="text-nowrap">Costos</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let objetoN of registrosIngresosEgresos">
+
+					<td class="text-nowrap" (click)="seleccionar(objetoN)" >
+						{{ objetoN.mes }}
+					</td>
+
+					<td class="text-nowrap" (click)="seleccionar(objetoN)" >
+						{{ objetoN.ganancia | currency: 'Q. ' }}
+					</td>
+					
+					<td class="text-nowrap" (click)="seleccionar(objetoN)" >
+						{{ objetoN.costoTotal | currency: 'Q. ' }}
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- HISTORIAL-GANANCIA-POR-MES -->
 
 <br/><br/><br/>
 <br/><br/><br/>

@@ -369,11 +369,11 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 
 	@Transactional
 	public void registrarCargo(
-	Factura factura,
-	Usuario cliente,
-	Date fecha,
-	BigDecimal saldoAnterior,
-	BigDecimal totalFactura
+		Factura factura,
+		Usuario cliente,
+		Date fecha,
+		BigDecimal saldoAnterior,
+		BigDecimal totalFactura
 	)
 	{
 		ClienteAbona cargos_y_abonos = new ClienteAbona();
@@ -477,7 +477,7 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 			HttpStatus.INTERNAL_SERVER_ERROR.value()
 		);
 
-String sql = """
+final String sql = """
 select month(fecha_emision) as mes,
 sum(ganancia) as ganancia,
 sum(costo_total) as costo_total from

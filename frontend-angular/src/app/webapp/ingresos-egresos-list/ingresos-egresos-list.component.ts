@@ -9,6 +9,7 @@ import { inject } from '@angular/core';
 import { hostname } from '../hostname';
 import { dosDecimales } from '../libproyecto';
 import { buscarToken, moneda } from '../libproyecto';
+import { info } from 'node:console';
 
 @Component({
 	selector: 'app-ingresos-egresos-list',
@@ -38,7 +39,7 @@ export class IngresosEgresosListComponent implements OnInit {
 
 	monedaActual;
 	verHistorico:boolean;
-
+	verHistoricoGanancias: boolean;
 
 	constructor()
 	{
@@ -60,6 +61,7 @@ export class IngresosEgresosListComponent implements OnInit {
 	
 		this.monedaActual = moneda;
 		this.verHistorico = true;
+		this.verHistoricoGanancias = false;
 
 		this.parametroServicio = {};
 		this.parametroServicio.url = "/api/ie";
@@ -113,14 +115,16 @@ export class IngresosEgresosListComponent implements OnInit {
 	}
 
 
-	verVentanaAgregarGasto(){
+	verVentanaAgregarGasto()
+	{
+		this.verHistorico = false;
+		this.verHistoricoGanancias = false;
+
 		if(this.verAgregarGasto == 'S'){
 			this.verAgregarGasto = 'N';
-			this.verHistorico = !this.verHistorico;
 		}
 		else {
-			this.verAgregarGasto = 'S';
-			this.verHistorico = !this.verHistorico;
+			this.verAgregarGasto = 'N';
 		}
 	}
 
@@ -130,5 +134,19 @@ export class IngresosEgresosListComponent implements OnInit {
 		this.param.seleccionado = unObjeto;
 	}
 	
+
+	consultarGanancias()
+	{
+		this.verHistorico = false;
+		this.verHistoricoGanancias = true;
+		this.verAgregarGasto = 'N';
+
+		this.http.get<any>(
+			hostname + "/api/factura/resumen", this.parametroServicio.headers
+		).subscribe((infoData:any) => {
+			this.registrosIngresosEgresos = infoData.datos;
+		});
+	}
+
 
 }
