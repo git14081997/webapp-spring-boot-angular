@@ -75,5 +75,7 @@ public class Factura implements Serializable {
 	@Column( name = "fecha_anulacion", nullable = true )
 	private Date fechaAnulacion;
 
+	@Column( name = "pagado", scale = 2, nullable = true )
+	private BigDecimal pagado;
 
 }

@@ -5,6 +5,7 @@
 
 package com.rodriguez.pruebas.service.inventarioFacturacion;
 
+import com.rodriguez.pruebas.dto.inventarioFacturacion.ResumenDto;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ClienteAbona;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.Factura;
 import com.rodriguez.pruebas.entity.inventarioFacturacion.FacturaDetalle;
@@ -29,6 +30,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -453,28 +455,47 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 	@Override
 	public Map<String, Object> resumen() {
 
+		// fechaDesde formato
+		// 2024-12-01 yyyy-mm-dd
+
+		// fechaHasta
+		// 2024-12-31
+
+
+		Date dt = new Date();
+		int year = dt.getYear();
+
+		String currentYear = Integer.toString(year);
+
+		String fi = currentYear + "-01-01";
+		String ff = currentYear + "-12-31";
+
 		Map<String, Object> resultado = new HashMap<>();
 
-		resultado.put("info", "en construcción ...");
-
-		/*
-		String sql = """
-		select sum(ganancia), sum(costo_total) from factura where
-		lower(tipo_pago) = 'e' 
-		and fecha_emision between '2024-02-01' and '2024-02-29'
-		""";
-
-		List<Inventario> registrosDelInventario = jdbcTemplate.query(
-		sql, new BeanPropertyRowMapper<>(Inventario.class), productoId
+		resultado.put(
+			"inf",
+			HttpStatus.INTERNAL_SERVER_ERROR.value()
 		);
 
-		 */
+String sql = """
+select month(fecha_emision) as mes,
+sum(ganancia) as ganancia,
+sum(costo_total) as costo_total from
+factura where lower(tipo_pago) = 'e' and
+fecha_emision between '2024-01-01' and '2024-12-31'
+group by mes
+""";
 
-		// return registrosDelInventario;
+List<ResumenDto> registrosDelInventario = jdbcTemplate.query(
+	sql, new BeanPropertyRowMapper<>(ResumenDto.class)
+);
 
+resultado.put("datos", registrosDelInventario);
 
-		return resultado;
-	}
+resultado.put("inf", HttpStatus.OK.value() );
+
+return resultado;
+}
 
 
 

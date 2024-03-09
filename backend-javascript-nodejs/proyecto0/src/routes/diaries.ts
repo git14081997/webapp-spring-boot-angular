@@ -12,4 +12,3 @@ router.post('/', (_req,res) => {
 })
 
 export default router
-

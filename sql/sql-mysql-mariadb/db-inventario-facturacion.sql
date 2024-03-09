@@ -24,3 +24,8 @@ alter table factura_detalle add constraint fk_factura_detalle_factura  foreign k
 alter table factura_detalle add constraint fk_factura_detalle_producto foreign key (producto_id)   references producto  (id);
 alter table inventario      add constraint fk_inventario_producto      foreign key (producto_id)   references producto  (id);
 
+-- se calculara
+-- cuanto ya esta pagado y cuanto falta por pagar
+alter table factura add column pagado decimal(38,2);
+
+

@@ -263,6 +263,7 @@ display: block !important;
 .imggrid-img {
 	height: 255px;
 	border-radius: 27px !important;
+	border: 2px solid black !important;
 }
 
 .tleft {

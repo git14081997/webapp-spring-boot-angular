@@ -1,10 +1,12 @@
 
-import diaryData from './diaries.json'
+import { diaryData } from 'diaries.json';
 
-export const getEntries() = () => diaryData
+export const getEntries() = () =>  { 
+	return diaryData
+}
 
-export const addEntry() = () => null//{
-	///
-//}
+
+export const addEntry() = () => {
+}
 
 

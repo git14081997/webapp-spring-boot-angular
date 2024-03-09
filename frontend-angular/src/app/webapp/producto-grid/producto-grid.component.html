@@ -1,30 +1,24 @@
 
+<img [src]="productos[2].src" alt="unaImagen" 
+	class="imggrid imggrid-img" />
+
+<hr/>
+
 <div class="container">
-
-
 	<div class="row">
-
 		<div class="row">
 			<h1 class="text-center">Productos</h1>
 		</div>
-
 		<br/>
 		<div class="row">
 			@for (productoN of productos; track productoN.id) {
-				<app-imgrid [source]=productoN.src [titulo]="productoN.inf"
+				<app-imgrid [source]=productoN.src 
+					[titulo]="productoN.inf"
 					class="col m-4 imggrid " />
 			}
 		</div>
-
 	</div><!-- row -->
-
-
-
-
-
-
 	<div class="row my-5">
 		&nbsp;
 	</div>
-
 </div><!-- container-->
