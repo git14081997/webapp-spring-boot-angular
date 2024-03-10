@@ -10,4 +10,6 @@ npm install -D typescript
 
 npm install -E express
 
+npm i -D ts-standard
+
 exit 0;
