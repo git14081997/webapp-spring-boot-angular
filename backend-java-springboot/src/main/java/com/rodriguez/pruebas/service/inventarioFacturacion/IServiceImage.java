@@ -2,6 +2,7 @@
 package com.rodriguez.pruebas.service.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ImagenProducto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
@@ -28,6 +29,8 @@ public boolean tamanoDeArchivoEsMayorAlMaximoPermitido( MultipartFile multipartF
 
 public String getFileExtension( MultipartFile multipartFile );
 
+
+public void guardarImagenEnProducto(Integer productoId, Integer imageId);
 
 
 } // interface

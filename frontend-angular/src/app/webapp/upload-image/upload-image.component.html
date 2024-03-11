@@ -9,6 +9,11 @@
 				<div class="row">
 
 					<div class="col-12 my-2">
+						ID Producto: {{ productoId }}
+					</div>
+
+
+					<div class="col-12 my-2">
 						<label for="inputImagen">Seleccionar imagen</label>
 						<input type="file" name="archivo" id="inputImagen"
 							accept="image/*" (change)="onFileSelected($event)" 
@@ -30,7 +35,7 @@
 		<!-- previsualizar imagen -->
 		<div class="col-12 my-2">
 			<div class="text-center">
-				<img [src]="enlace" alt="imagen" width="90%" class="border border-black" />
+				<img [src]="enlace" alt="imagen" width="255px" class="border border-black" />
 			</div>
 		</div><!-- previsualizar imagen -->
 

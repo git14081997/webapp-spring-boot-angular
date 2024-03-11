@@ -97,6 +97,8 @@ export class IngresosEgresosListComponent implements OnInit {
 				this.sumaIngresos += lineaN.ingresos;
 				this.sumaEgresos += lineaN.egresos;
 			}
+			this.sumaIngresos = Math.ceil( this.sumaIngresos );
+			this.sumaEgresos = Math.ceil( this.sumaEgresos );
 		});
 	}
 

@@ -29,8 +29,7 @@ alter table inventario      add constraint fk_inventario_producto      foreign k
 alter table factura add column pagado decimal(38,2);
 
 -- ahora voy a guardar una imagen por producto
-alter table producto add column imagen longblob
-
+alter table producto add column imagen int;
 
 
 

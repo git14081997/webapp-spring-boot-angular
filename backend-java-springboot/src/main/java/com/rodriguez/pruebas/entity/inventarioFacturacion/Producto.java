@@ -76,9 +76,9 @@ public class Producto implements Serializable {
 	private Proveedor proveedor;
 
 
-	@Lob
-	@Column( name = "imagen", columnDefinition = "LONGBLOB" )
-	private byte[] imagen;
+
+	@Column( name = "imagen" )
+	private Integer imagen;
 
 
 	//@CreationTimestamp

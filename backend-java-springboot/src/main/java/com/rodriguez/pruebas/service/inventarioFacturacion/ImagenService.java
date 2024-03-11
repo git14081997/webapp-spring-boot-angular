@@ -2,7 +2,9 @@
 package com.rodriguez.pruebas.service.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ImagenProducto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
 import com.rodriguez.pruebas.repository.inventarioFacturacion.ImagenProductoRepository;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +19,9 @@ public class ImagenService implements IServiceImage {
 
 	@Autowired
 	private ImagenProductoRepository imagenProductoRepository;
+
+	@Autowired
+	private ProductoRepository productoRepository;
 
 
 	public Long guardarImagenEnDb( MultipartFile multipartFile ) throws IOException
@@ -96,6 +101,14 @@ public class ImagenService implements IServiceImage {
 
 
 
+
+public void guardarImagenEnProducto( Integer productoId,  Integer imageId ) {
+
+Producto producto = productoRepository.getReferenceById(productoId);
+producto.setImagen( imageId );
+productoRepository.save(producto);
+
+}
 
 
 

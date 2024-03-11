@@ -2,6 +2,8 @@
 package com.rodriguez.pruebas.controller.inventarioFacturacion;
 
 import com.rodriguez.pruebas.entity.inventarioFacturacion.ImagenProducto;
+import com.rodriguez.pruebas.entity.inventarioFacturacion.Producto;
+import com.rodriguez.pruebas.repository.inventarioFacturacion.ProductoRepository;
 import com.rodriguez.pruebas.service.inventarioFacturacion.IServiceImage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -50,11 +52,16 @@ public class ArchivosController
 	@Autowired
 	IServiceImage imagenService;
 
+	@Autowired
+	private ProductoRepository productoRepository;
+
+
 
 // http://localhost:8089/api/image
 @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public ResponseEntity<Map<String,Object>> guardarImagenEnDb(
-	@RequestParam( "file" ) MultipartFile multipartFile
+	@RequestParam( "file" ) MultipartFile multipartFile,
+	@RequestParam(required = false) int productoid
 ) {
 
 	Map<String, Object> resultado = new HashMap<>();
@@ -75,6 +82,11 @@ public ResponseEntity<Map<String,Object>> guardarImagenEnDb(
 
 		imagenService.guardarEnSistemaDeArchivos(multipartFile, imageId.toString());
 
+
+		// guardar imagen en producto
+		imagenService.guardarImagenEnProducto(productoid, imageId.intValue());
+		// guardar imagen en producto
+
 		// return "redirect:/";
 		resultado.put("id", imageId);
 		estadoHttp = HttpStatus.CREATED.value();
@@ -90,6 +102,7 @@ public ResponseEntity<Map<String,Object>> guardarImagenEnDb(
 
 
 }
+
 
 
 

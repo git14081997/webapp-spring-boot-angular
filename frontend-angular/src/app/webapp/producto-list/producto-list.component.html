@@ -147,7 +147,7 @@
 
 			<div class="col-12 my-4">
 				<div class="text-center">
-					<img [src]="productoSeleccionado.src"
+					<img [src]="enlaceImagen"
 						alt="esUnaImagenDelProducto" 
 						class="imggrid imggrid-img" />
 				</div>
@@ -219,11 +219,14 @@
 	<label for="parametro-imagen" class="form-label">Imagen:</label>
 	</div>
 	</div>
-	<div class="col-12 my-2">
-	<button>Guardar imagen</button>
-	</div>
+
 	</div>
 -->
+	<div class="col-12 my-2">
+		<button class="btn btn-dark btn-lg btn-100" (click)="cambiarImagen()">
+			Cambiar imagen del producto
+		</button>
+	</div>
 
 		</div><!-- editar -->
 

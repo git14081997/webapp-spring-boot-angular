@@ -21,8 +21,12 @@ export class UploadImageComponent implements OnInit {
 
 	enlace: string;
 
+	productoId :number;
+
+
 	constructor()
 	{
+		this.productoId = 0;
 		this.enlace = "";
 		this.archivoImagen = new File([], "");
 
@@ -41,6 +45,7 @@ export class UploadImageComponent implements OnInit {
 
 	ngOnInit(): void
 	{
+		this.productoId = Number( localStorage.getItem('tmp'));
 	}
 
 
@@ -48,8 +53,13 @@ export class UploadImageComponent implements OnInit {
 	{
 		let enlaceTemp: string = hostname + this.parametroServicio.url;
 
+		if( this.productoId != 0 )
+		{
+			enlaceTemp += "?productoid=" + this.productoId;
+		}
+
 		const formData = new FormData();
-    formData.append('file', this.archivoImagen);
+		formData.append('file', this.archivoImagen);
 		
 		this.http.post<any>(
 			enlaceTemp,

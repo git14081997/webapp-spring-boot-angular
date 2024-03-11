@@ -172,6 +172,8 @@ export class ProductoListComponent implements OnInit {
 	}
 
 
+	enlaceImagen:string = "";
+
 	actualizarSeleccionado(parametros: any) {
 		this.productoSeleccionado = parametros;
 		this.crearOrActualizar = 'A';
@@ -180,6 +182,9 @@ export class ProductoListComponent implements OnInit {
 		this.verLista = 'N';
 		this.verAgregar = 'N';
 		this.verInventario = 'N';
+
+		this.enlaceImagen = hostname + "/api/image/" + this.productoSeleccionado.imagen;
+
 	}
 
 
@@ -307,5 +312,13 @@ export class ProductoListComponent implements OnInit {
 			this.getPorPagina(this.enlaceActual);			
 		}
 	}
+
+
+	cambiarImagen()
+	{
+		localStorage.setItem("tmp", this.productoSeleccionado.id)
+		window.location.href = "/upload-image";
+	}
+
 
 }
