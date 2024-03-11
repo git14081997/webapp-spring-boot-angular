@@ -455,21 +455,6 @@ public Map<String, Object> anularFactura( Integer facturaid ) {
 	@Override
 	public Map<String, Object> resumen() {
 
-		// fechaDesde formato
-		// 2024-12-01 yyyy-mm-dd
-
-		// fechaHasta
-		// 2024-12-31
-
-
-		Date dt = new Date();
-		int year = dt.getYear();
-
-		String currentYear = Integer.toString(year);
-
-		String fi = currentYear + "-01-01";
-		String ff = currentYear + "-12-31";
-
 		Map<String, Object> resultado = new HashMap<>();
 
 		resultado.put(

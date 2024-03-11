@@ -9,7 +9,6 @@ import { inject } from '@angular/core';
 import { hostname } from '../hostname';
 import { dosDecimales } from '../libproyecto';
 import { buscarToken, moneda } from '../libproyecto';
-import { info } from 'node:console';
 
 @Component({
 	selector: 'app-ingresos-egresos-list',
@@ -32,7 +31,7 @@ export class IngresosEgresosListComponent implements OnInit {
 	formatoDeFecha;
 
 	dosDecimales;
-	verAgregarGasto:string;
+	verAgregarGasto:boolean;
 	
 	parametroServicio: any;
 	getToken;
@@ -54,7 +53,7 @@ export class IngresosEgresosListComponent implements OnInit {
 		this.formatoDeFecha = formatoDeFecha;
 	
 		this.dosDecimales = dosDecimales;
-		this.verAgregarGasto = 'N';
+		this.verAgregarGasto = false;
 		
 
 		this.getToken = buscarToken;
@@ -84,6 +83,9 @@ export class IngresosEgresosListComponent implements OnInit {
 
 	consultarIE()
 	{
+		this.verHistoricoGanancias = false;
+		this.verHistorico = true;
+
 		this.http.get<any>(
 			hostname + this.parametroServicio.url + "/" + this.param.anio + "/" + this.param.mes,
 			this.parametroServicio.headers
@@ -108,7 +110,7 @@ export class IngresosEgresosListComponent implements OnInit {
 		this.http.post<any>(
 			hostname + this.parametroServicio.url, logEgresoDetalle, this.parametroServicio.headers
 		).subscribe(() => {
-			this.verAgregarGasto = 'N';
+			this.verAgregarGasto = false;
 			this.param = {};
 			window.location.reload();
 		});
@@ -117,15 +119,9 @@ export class IngresosEgresosListComponent implements OnInit {
 
 	verVentanaAgregarGasto()
 	{
+		this.verAgregarGasto = true;
 		this.verHistorico = false;
 		this.verHistoricoGanancias = false;
-
-		if(this.verAgregarGasto == 'S'){
-			this.verAgregarGasto = 'N';
-		}
-		else {
-			this.verAgregarGasto = 'N';
-		}
 	}
 
 
@@ -139,7 +135,7 @@ export class IngresosEgresosListComponent implements OnInit {
 	{
 		this.verHistorico = false;
 		this.verHistoricoGanancias = true;
-		this.verAgregarGasto = 'N';
+		this.verAgregarGasto = false;
 
 		this.http.get<any>(
 			hostname + "/api/factura/resumen", this.parametroServicio.headers

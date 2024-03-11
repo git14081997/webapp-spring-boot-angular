@@ -133,17 +133,16 @@ const formatoDeFecha = (campoFecha: any): string =>
 }
 
 
-const dosDecimales = ( xnumber: number ): number => 
+
+const dosDecimales = ( xnumber :number ) :number => 
 {
-  return Number(xnumber.toFixed(2));
+  return Number(xnumber.toFixed(4));
 }
 
 
 const buscarToken = (): string =>
 {
-  // no funciona localStorage
-  //let tokenSesion: string = localStorage.getItem('token') || "";
-  return "Bearer ";
+  return "Bearer blabla.bla.bla";
 }
 
 const deshabilitarBoton =  (idBoton:string): void => {
