@@ -204,9 +204,15 @@ this.dosDecimales((productoPedido.subtotalPorProducto * IVA) );
 } // FOR
 
 this.todoElPedido.detalle = this.objetosPedido;
+
 this.todoElPedido.subtotal = this.dosDecimales(this.todoElPedido.total );
+this.todoElPedido.subtotal = Math.ceil(this.todoElPedido.subtotal);
+
 this.todoElPedido.iva = this.dosDecimales((this.todoElPedido.total * IVA) );
+this.todoElPedido.iva = Math.ceil( this.todoElPedido.iva );
+
 this.todoElPedido.total = this.dosDecimales((this.todoElPedido.subtotal + this.todoElPedido.iva) );
+this.todoElPedido.total = Math.ceil( this.todoElPedido.total );
 
 } // FI
 

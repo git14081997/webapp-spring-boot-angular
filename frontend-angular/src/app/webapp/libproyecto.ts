@@ -136,7 +136,9 @@ const formatoDeFecha = (campoFecha: any): string =>
 
 const dosDecimales = ( xnumber :number ) :number => 
 {
-  return Number(xnumber.toFixed(4));
+	let numeroX = Number(xnumber.toFixed(2));
+	numeroX = Math.ceil( numeroX );
+	return numeroX;
 }
 
 
