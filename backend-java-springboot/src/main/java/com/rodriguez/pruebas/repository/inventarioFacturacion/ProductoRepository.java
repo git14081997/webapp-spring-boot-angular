@@ -19,4 +19,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
 	Page<Producto> findByNombreContainingIgnoreCaseOrId(Pageable pageable, String nombre, Integer id);
 
+	Page<Producto> findByImagenIsNotNull(Pageable pageable);
+
 }

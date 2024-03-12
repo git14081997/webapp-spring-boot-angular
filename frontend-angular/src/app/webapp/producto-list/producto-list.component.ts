@@ -15,7 +15,6 @@ import { buscarToken, cantidadPorPagina } from '../libproyecto';
   standalone: true,
 	imports: [
 		CommonModule, FormsModule, HttpClientModule,
-		
 	],
   templateUrl: './producto-list.component.html',
   styleUrl: './producto-list.component.css'

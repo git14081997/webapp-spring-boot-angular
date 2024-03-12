@@ -364,5 +364,26 @@ public class ProductoController {
 
 
 
+	/**
+	 * Retorna un listado ordenado por id de manera ascendente de los objetos por pagina.
+	 *
+	 * @param pagina consultada.
+	 * @param cantidad maxima por pagina.
+	 * @return Page<Producto> resultados encontrados.
+	 */
+	@GetMapping(
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		value = "{pagina}/{cantidad}/image"
+	)
+	public Page<Producto> findAllByImage(
+		@PathVariable Integer pagina,
+		@PathVariable Integer cantidad
+	){
+		Sort sort = Sort.by(Sort.Direction.DESC,"id");
+		Pageable pageable = PageRequest.of(pagina, cantidad, sort);
+
+		return productoRepository.findByImagenIsNotNull(pageable);
+	}
+
 
 }
